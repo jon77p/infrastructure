@@ -1,0 +1,51 @@
+version: "3.8"
+
+services:
+  agent:
+    image: portainer/agent:latest
+    environment:
+      AGENT_CLUSTER_ADDR: tasks.agent
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/volumes:/var/lib/docker/volumes
+    networks:
+      - agent-network
+    deploy:
+      mode: global
+      placement:
+        constraints:
+          - node.platform.os == linux
+
+  portainer:
+    image: portainer/portainer-ce:latest
+    env_file: secrets.env
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/volumes:/var/lib/docker/volumes
+      - type: bind
+        source: /mnt/portainer
+        target: /data
+    networks:
+      - agent-network
+      - web
+    deploy:
+      mode: global
+      placement:
+        constraints:
+          - node.role == manager
+      restart_policy:
+        condition: on-failure
+      labels:
+        traefik.enable: "true"
+        traefik.docker.network: web
+        traefik.constraint-label: web
+        traefik.http.routers.portainer.rule: Host(`portainer-cluster.${CF_DOMAIN}`)
+        traefik.http.routers.portainer.entrypoints: https
+        traefik.http.routers.portainer.tls.certresolver: cloudflare
+        traefik.http.services.portainer.loadbalancer.server.port: 9000
+
+networks:
+  agent-network:
+    attachable: true
+  web:
+    external: true

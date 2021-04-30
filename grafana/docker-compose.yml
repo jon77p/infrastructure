@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  grafana:
+    image: grafana/grafana:latest
+    volumes:
+      - /mnt/grafana/etc:/etc/grafana
+      - /mnt/grafana/storage:/var/lib/grafana
+    networks:
+      - web
+    deploy:
+      restart_policy:
+        condition: on-failure
+      labels:
+        traefik.enable: "true"
+        traefik.http.routers.grafana.rule: Host(`grafana-cluster.${CF_DOMAIN}`)
+        traefik.http.routers.grafana.entrypoints: https
+        traefik.http.routers.grafana.tls.certresolver: cloudflare
+        traefik.http.services.grafana.loadbalancer.server.port: 3000
+
+networks:
+  web:
+    external: true

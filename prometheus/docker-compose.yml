@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - /mnt/prometheus:/etc/prometheus
+      - /var/run/docker.sock:/var/run/docker.sock
+    user: root
+    networks:
+      - web
+    deploy:
+      mode: global
+      placement:
+        constraints:
+          - node.role == manager
+      restart_policy:
+        condition: on-failure
+      labels:
+        traefik.enable: "true"
+        traefik.http.routers.prometheus.rule: Host(`prometheus-cluster.${CF_DOMAIN}`)
+        traefik.http.routers.prometheus.entrypoints: https
+        traefik.http.routers.prometheus.tls.certresolver: cloudflare
+        traefik.http.services.prometheus.loadbalancer.server.port: 9090
+
+networks:
+  web:
+    external: true

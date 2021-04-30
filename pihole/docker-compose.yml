@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  pihole:
+    image: pihole/pihole:latest
+    env_file: secrets.env
+    environment:
+      - TZ='America/Los_Angeles'
+      - FTL_CMD=debug
+      - DNSMASQ_LISTENING=all
+      - SERVERIP=0.0.0.0
+      - VIRTUAL_HOST=pihole.cluster.${CF_DOMAIN}
+    volumes:
+      - type: bind
+        source: /mnt/pihole/etc-pihole
+        target: /etc/pihole
+      - type: bind
+        source: /mnt/pihole/etc-dnsmasq.d
+        target: /etc/dnsmasq.d
+    networks:
+      - web
+    dns:
+      - 127.0.0.1
+      - 1.1.1.1
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      labels:
+        traefik.enable: "true"
+        traefik.docker.network: web
+        traefik.http.routers.pihole.rule: Host(`pihole-cluster.${CF_DOMAIN}`)
+        traefik.http.routers.pihole.entrypoints: https
+        traefik.http.routers.pihole.tls.certresolver: cloudflare
+        traefik.http.services.pihole.loadbalancer.server.port: 80
+
+networks:
+  web:
+    external: true
