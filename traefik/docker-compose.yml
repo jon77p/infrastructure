@@ -47,7 +47,7 @@ services:
         condition: on-failure
       labels:
         traefik.enable: "true"
-        traefik.http.routers.reverse-proxy.rule: Host(`dash-cluster.$CF_DOMAIN`) || Host(`cluster.$CF_DOMAIN`) # variable must exist in docker deploy environment
+        traefik.http.routers.reverse-proxy.rule: Host(`dash-cluster.$CF_DOMAIN`) # variable must exist in docker deploy environment
         traefik.http.routers.reverse-proxy.service: api@internal
         traefik.http.routers.reverse-proxy.entrypoints: https
         traefik.http.services.reverse-proxy.loadbalancer.server.port: 8080
