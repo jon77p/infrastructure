@@ -1,0 +1,44 @@
+version: "3.8"
+
+services:
+  taskcafe:
+    image: jon77p/taskcafe:latest
+    depends_on:
+      - taskcafe-postgres
+    env_file: secrets.env
+    environment:
+      TASKCAFE_DATABASE_HOST: taskcafe-postgres
+      TASKCAFE_DATABASE_NAME: taskcafe
+      TASKCAFE_MIGRATE: "true"
+    networks:
+      - taskcafe-internal
+      - web
+    deploy:
+      restart_policy:
+        condition: on-failure
+      labels:
+        traefik.enable: "true"
+        traefik.docker.network: web
+        traefik.http.routers.tasks.rule: Host(`tasks-cluster.${CF_DOMAIN}`)
+        traefik.http.routers.tasks.entrypoints: https
+        traefik.http.routers.tasks.tls.certresolver: cloudflare
+        traefik.http.services.tasks.loadbalancer.server.port: 3333
+
+  taskcafe-postgres:
+    image: postgres:12.3-alpine
+    volumes:
+      - /mnt/taskcafe/postgres:/var/lib/postgresql/data
+    env_file: secrets-postgres.env
+    environment:
+      POSTGRES_DB: taskcafe
+    networks:
+      - taskcafe-internal
+    deploy:
+      restart_policy:
+        condition: on-failure
+
+networks:
+  taskcafe-internal:
+    attachable: true
+  web:
+    external: true
