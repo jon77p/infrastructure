@@ -9,7 +9,7 @@ services:
       - FTL_CMD=debug
       - DNSMASQ_LISTENING=all
       - SERVERIP=0.0.0.0
-      - VIRTUAL_HOST=pihole.cluster.${CF_DOMAIN}
+      - VIRTUAL_HOST=pihole-cluster.${CF_DOMAIN}
     volumes:
       - type: bind
         source: /mnt/pihole/etc-pihole
@@ -29,10 +29,31 @@ services:
       labels:
         traefik.enable: "true"
         traefik.docker.network: web
+
+        # web interface
         traefik.http.routers.pihole.rule: Host(`pihole-cluster.${CF_DOMAIN}`)
         traefik.http.routers.pihole.entrypoints: https
         traefik.http.routers.pihole.tls.certresolver: cloudflare
         traefik.http.services.pihole.loadbalancer.server.port: 80
+
+        # DNS-over-TLS
+        traefik.tcp.routers.dnsovertls.rule: HostSNI(`pihole-cluster.${CF_DOMAIN}`)
+        traefik.tcp.routers.dnsovertls.entrypoints: dnsovertls
+        traefik.tcp.routers.dnsovertls.tls.certresolver: cloudflare
+        traefik.tcp.routers.dnsovertls.service: pihole
+
+        # TCP DNS
+        traefik.tcp.routers.dns.rule: HostSNI(`pihole-cluster.${CF_DOMAIN}`)
+        traefik.tcp.routers.dns.entrypoints: dns
+        traefik.tcp.routers.dns.service: pihole
+
+        # Loadbalancer for all TCP DNS
+        traefik.tcp.services.pihole.loadbalancer.server.port: 53
+
+        # UDP DNS
+        traefik.udp.routers.udpdns.entrypoints: udpdns
+        traefik.udp.routers.udpdns.service: pihole
+        traefik.udp.services.pihole.loadbalancer.server.port: 53
 
 networks:
   web:
