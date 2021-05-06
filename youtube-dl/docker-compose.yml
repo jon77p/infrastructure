@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  youtube-dl:
+    image: nbr23/youtube-dl-server:latest
+    volumes:
+      - /mnt/youtube-dl/data:/youtube-dl
+    networks:
+      - web
+    deploy:
+      restart_policy:
+        condition: on-failure
+      labels:
+        traefik.enable: "true"
+        traefik.http.routers.youtubedl.rule: Host(`yt-cluster.${CF_DOMAIN}`)
+        traefik.http.routers.youtubedl.entrypoints: https
+        traefik.http.routers.youtubedl.tls.certresolver: cloudflare
+        traefik.http.services.youtubedl.loadbalancer.server.port: 8080
+
+networks:
+  web:
+    external: true
