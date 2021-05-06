@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  gaps:
+    image: housewrecker/gaps:arm-latest
+    volumes:
+      - /mnt/gaps:/usr/data
+    networks:
+      - web
+    deploy:
+      restart_policy:
+        condition: on-failure
+      labels:
+        traefik.enable: "true"
+        traefik.http.routers.gaps.rule: Host(`gaps-cluster.${CF_DOMAIN}`)
+        traefik.http.routers.gaps.entrypoints: https
+        traefik.http.routers.gaps.tls.certresolver: cloudflare
+        traefik.http.services.gaps.loadbalancer.server.port: 8484
+
+networks:
+  web:
+    external: true
