@@ -9,6 +9,7 @@ services:
     user: root
     networks:
       - web
+      - monitoring
     deploy:
       mode: global
       placement:
@@ -18,6 +19,7 @@ services:
         condition: on-failure
       labels:
         traefik.enable: "true"
+        traefik.docker.network: web
         traefik.http.routers.prometheus.rule: Host(`prometheus-cluster.${CF_DOMAIN}`)
         traefik.http.routers.prometheus.entrypoints: https
         traefik.http.routers.prometheus.tls.certresolver: cloudflare
@@ -26,3 +28,5 @@ services:
 networks:
   web:
     external: true
+  monitoring:
+    attachable: true

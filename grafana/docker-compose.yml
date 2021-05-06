@@ -8,11 +8,13 @@ services:
       - /mnt/grafana/storage:/var/lib/grafana
     networks:
       - web
+      - monitoring
     deploy:
       restart_policy:
         condition: on-failure
       labels:
         traefik.enable: "true"
+        traefik.docker.network: web
         traefik.http.routers.grafana.rule: Host(`grafana-cluster.${CF_DOMAIN}`)
         traefik.http.routers.grafana.entrypoints: https
         traefik.http.routers.grafana.tls.certresolver: cloudflare
@@ -21,3 +23,5 @@ services:
 networks:
   web:
     external: true
+  monitoring:
+    attachable: true

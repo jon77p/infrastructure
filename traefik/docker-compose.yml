@@ -41,12 +41,14 @@ services:
       - /mnt/traefik/letsencrypt:/letsencrypt
     networks:
       - web
+      - monitoring
     deploy:
       mode: global
       restart_policy:
         condition: on-failure
       labels:
         traefik.enable: "true"
+        traefik.docker.network: web
         traefik.http.routers.reverse-proxy.rule: Host(`dash-cluster.$CF_DOMAIN`) # variable must exist in docker deploy environment
         traefik.http.routers.reverse-proxy.service: api@internal
         traefik.http.routers.reverse-proxy.entrypoints: https
@@ -74,4 +76,6 @@ services:
 networks:
   web:
     external: true
+  monitoring:
+    attachable: true
 

@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  influxdb:
+    image: influxdb:1.8
+    volumes:
+      - /mnt/influxdb:/var/lib/influxdb
+    env_file: secrets.env
+    networks:
+      - monitoring
+    ports:
+      - '8086:8086'
+    deploy:
+      restart_policy:
+        condition: on-failure
+
+networks:
+  monitoring:
+    attachable: true
