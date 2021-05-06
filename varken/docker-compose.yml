@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  varken:
+    image: boerderij/varken:latest
+    volumes:
+      - /mnt/varken:/config
+    environment:
+      - TZ=America/Los_Angeles
+    networks:
+      - monitoring
+    deploy:
+      restart_policy:
+        condition: on-failure
+
+networks:
+  monitoring:
+    attachable: true
