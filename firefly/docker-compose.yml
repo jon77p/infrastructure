@@ -28,6 +28,26 @@ services:
       - /mnt/firefly/db:/var/lib/mysql
     networks:
       - firefly
+  fireflyiii-csv-importer:
+    image: fireflyiii/csv-importer:latest
+    env_file: secrets-csv.env
+    environment:
+      - FIREFLY_III_URL=http://fireflyiii:8080
+    depends_on:
+      - fireflyiii
+    networks:
+      - firefly
+      - web
+    deploy:
+      restart_policy:
+        condition: on-failure
+      labels:
+        traefik.enable: "true"
+        traefik.docker.network: web
+        traefik.http.routers.fireflycsv.rule: Host(`firefly-csv-cluster.$CF_DOMAIN`) # variable must exist in docker deploy environment
+        traefik.http.routers.fireflycsv.entrypoints: https
+        traefik.http.routers.fireflycsv.tls.certresolver: cloudflare
+        traefik.http.services.fireflycsv.loadbalancer.server.port: 8080
 
 networks:
   firefly:
