@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  visualizer:
+    image: alexellis2/visualizer-arm:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - web
+    deploy:
+      mode: global
+      placement:
+        constraints:
+          - node.role == manager
+      restart_policy:
+        condition: on-failure
+      labels:
+        traefik.enable: "true"
+        traefik.http.routers.visualize.rule: Host(`cluster.${CF_DOMAIN}`)
+        traefik.http.routers.visualize.entrypoints: https
+        traefik.http.routers.visualize.tls.certresolver: cloudflare
+        traefik.http.services.visualize.loadbalancer.server.port: 8080
+
+networks:
+  web:
+    external: true
