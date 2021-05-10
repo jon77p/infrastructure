@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  gitea:
+    image: gitea/gitea:latest
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+    volumes:
+      - /mnt/gitea:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - web
+    deploy:
+      restart_policy:
+        condition: on-failure
+      labels:
+        traefik.enable: "true"
+        traefik.http.routers.gitea.rule: Host(`git-cluster.${CF_DOMAIN}`)
+        traefik.http.routers.gitea.entrypoints: https
+        traefik.http.routers.gitea.tls.certresolver: cloudflare
+        traefik.http.services.gitea.loadbalancer.server.port: 3000
+
+networks:
+  web:
+    external: true
