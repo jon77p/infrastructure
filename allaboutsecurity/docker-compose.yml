@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  allaboutsecurity:
+    image: ghost:latest
+    volumes:
+      - /mnt/allaboutsecurity/ghost:/var/lib/ghost/content
+    environment:
+      url: https://allaboutsecurity.xyz
+    networks:
+      - web
+    deploy:
+      restart_policy:
+        condition: on-failure
+      labels:
+        traefik.enable: "true"
+        traefik.http.routers.allaboutsecurity.rule: Host(`allaboutsecurity.xyz`)
+        traefik.http.routers.allaboutsecurity.entrypoints: https
+        traefik.http.routers.allaboutsecurity.tls.certresolver: cloudflare
+        traefik.http.services.allaboutsecurity.loadbalancer.server.port: 2368
+
+networks:
+  web:
+    external: true
