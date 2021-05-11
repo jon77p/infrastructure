@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  homeassistant:
+    image: homeassistant/home-assistant:latest
+    volumes:
+      - /mnt/homeassistant:/config
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - web
+    deploy:
+      restart_policy:
+        condition: any
+      labels:
+        traefik.enable: "true"
+        traefik.http.routers.homeassistant.rule: Host(`home-cluster.${CF_DOMAIN}`)
+        traefik.http.routers.homeassistant.entrypoints: https
+        traefik.http.routers.homeassistant.tls.certresolver: cloudflare
+        traefik.http.services.homeassistant.loadbalancer.server.port: 8123
+
+networks:
+  web:
+    external: true
