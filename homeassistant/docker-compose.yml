@@ -8,11 +8,13 @@ services:
       - /etc/localtime:/etc/localtime:ro
     networks:
       - web
+      - monitoring
     deploy:
       restart_policy:
         condition: any
       labels:
         traefik.enable: "true"
+        traefik.docker.network: web
         traefik.http.routers.homeassistant.rule: Host(`home-cluster.${CF_DOMAIN}`)
         traefik.http.routers.homeassistant.entrypoints: https
         traefik.http.routers.homeassistant.tls.certresolver: cloudflare
@@ -21,3 +23,5 @@ services:
 networks:
   web:
     external: true
+  monitoring:
+    attachable: true
