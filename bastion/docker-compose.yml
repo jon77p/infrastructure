@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  bastion:
+    image: jon77p/bastion:latest
+    hostname: 'bastion'
+    environment:
+      PUBKEY_AUTHENTICATION: "true"
+      GATEWAY_PORTS: "false"
+      PERMIT_TUNNEL: "false"
+      X11_FORWARDING: "false"
+      TCP_FORWARDING: "true"
+      AGENT_FORWARDING: "true"
+    volumes:
+      - /mnt/bastion/authorized_keys:/var/lib/bastion/authorized_keys:ro
+      - /mnt/bastion/data:/usr/etc/ssh:rw
+    networks:
+      - web
+    deploy:
+      mode: global
+      restart_policy:
+        condition: any
+        window: 60s
+      placement:
+        constraints:
+          - node.role == manager
+
+networks:
+  web:
+    external: true
