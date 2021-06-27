@@ -1,0 +1,16 @@
+tunnel: cluster
+loglevel: info
+
+origincert: /etc/cloudflared/cert.pem
+
+ingress:
+  - hostname: access-cluster.jon77p.xyz
+    service: hello-world
+  - hostname: ssh-cluster.jon77p.xyz
+    service: bastion
+    # service: ssh://bastion:22
+  - hostname: git-ssh-cluster.jon77p.xyz
+    service: ssh://gitea:22
+  - service: https://traefik
+    originRequest:
+      noTLSVerify: true
