@@ -3,8 +3,16 @@ version: "3.8"
 services:
   prometheus:
     image: prom/prometheus:latest
+    depends_on:
+      - traefik
+    configs:
+      - source: prometheus
+        target: /etc/prometheus/prometheus.yml
+    secrets:
+      - source: prometheus_homeassistant_token
+        target: /etc/prometheus/homeassistant.creds
     volumes:
-      - /mnt/prometheus:/etc/prometheus
+      # - /mnt/prometheus:/etc/prometheus
       - /var/run/docker.sock:/var/run/docker.sock
     user: root
     networks:
@@ -30,3 +38,11 @@ networks:
     external: true
   monitoring:
     attachable: true
+
+configs:
+  prometheus:
+    file: ./prometheus.yml
+
+secrets:
+  prometheus_homeassistant_token:
+    file: ./secrets/homeassistant.creds
