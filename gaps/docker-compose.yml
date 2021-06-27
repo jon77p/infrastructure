@@ -3,6 +3,8 @@ version: "3.8"
 services:
   gaps:
     image: housewrecker/gaps:arm-latest
+    depends_on:
+      - traefik
     volumes:
       - /mnt/gaps:/usr/data
     networks:

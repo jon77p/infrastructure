@@ -3,6 +3,8 @@ version: "3.8"
 services:
   pihole:
     image: pihole/pihole:latest
+    depends_on:
+      - traefik
     hostname: '{{.Node.Hostname}}'
     env_file: secrets.env
     environment:
