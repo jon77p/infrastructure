@@ -16,6 +16,7 @@ services:
       - --entrypoints.dnsovertls.address=:853
       - --entrypoints.dns.address=:53
       - --entrypoints.udpdns.address=:53/udp
+      - --entrypoints.homekit.address=:21064
       - --certificatesresolvers.cloudflare.acme.dnschallenge=true
       - --certificatesresolvers.cloudflare.acme.dnschallenge.provider=cloudflare
       - --certificatesresolvers.cloudflare.acme.email=${CF_EMAIL}
@@ -49,9 +50,14 @@ services:
       - target: 8082
         published: 8082
         mode: host
+      - target: 21064
+        published: 21064
+        mode: host
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /mnt/traefik/letsencrypt:/letsencrypt
+    secrets:
+      - source: letsencrypt_acme
+        target: /letsencrypt/acme.json
     networks:
       - web
       - monitoring
@@ -92,3 +98,6 @@ networks:
   monitoring:
     attachable: true
 
+secrets:
+  letsencrypt_acme:
+    file: ./secrets/acme.json
