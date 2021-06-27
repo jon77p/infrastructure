@@ -2,6 +2,8 @@ version: "3.8"
 
 services:
   cloudflare-companion:
+    depends_on:
+      - picluster_traefik
     image: tiredofit/traefik-cloudflare-companion
     env_file: secrets.env
     volumes:
