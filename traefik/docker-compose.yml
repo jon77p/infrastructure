@@ -27,6 +27,8 @@ services:
       - --entrypoints.metrics.address=:8082
       - --metrics.prometheus.addServicesLabels=true
       - --metrics.prometheus.addEntryPointsLabels=true
+      # - --tracing=true
+      - --providers.file.directory=/config
     ports:
       - target: 80
         published: 80
@@ -56,6 +58,9 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /mnt/traefik/letsencrypt:/letsencrypt
+    configs:
+      - source: traefik_config
+        target: /config/rules.toml
     networks:
       - web
       - monitoring
@@ -97,3 +102,7 @@ networks:
     external: true
   monitoring:
     attachable: true
+
+configs:
+  traefik_config:
+    file: ./rules.toml

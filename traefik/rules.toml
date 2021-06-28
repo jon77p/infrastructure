@@ -1,0 +1,12 @@
+[http.routers]
+  [http.routers.cockpit]
+    rule = "Host(`cockpit-cluster.jon77p.xyz`)"
+    entrypoints = "https"
+    service = "cockpit"
+    [http.routers.cockpit.tls]
+      certResolver = "cloudflare"
+[http.services]
+  [http.services.cockpit.loadBalancer]
+    [[http.services.cockpit.loadBalancer.servers]]
+      url = "http://pi1:9090"
+      port = 9090
