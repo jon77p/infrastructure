@@ -3,9 +3,14 @@ version: "3.8"
 services:
   gitea:
     image: gitea/gitea:latest
+    depends_on:
+      - traefik
     environment:
       - USER_UID=1000
       - USER_GID=1000
+    secrets:
+      - source: gitea_conf
+        target: /data/gitea/conf/app.ini
     volumes:
       - /mnt/gitea:/data
       - /etc/timezone:/etc/timezone:ro
@@ -25,3 +30,7 @@ services:
 networks:
   web:
     external: true
+
+secrets:
+  gitea_conf:
+    file: ./secrets/app.ini
