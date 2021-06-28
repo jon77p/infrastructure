@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  speedtest:
+    image: henrywhitaker3/speedtest-tracker:dev-arm
+    depends_on:
+      - traefik
+    environment:
+      - OOKLA_EULA_GDPR=true
+    networks:
+      - web
+    deploy:
+      restart_policy:
+        condition: on-failure
+      labels:
+        traefik.enable: "true"
+        traefik.http.routers.speedtest.rule: Host(`speedtest-cluster.${CF_DOMAIN}`)
+        traefik.http.routers.speedtest.entrypoints: https
+        traefik.http.routers.speedtest.tls.certresolver: cloudflare
+        traefik.http.services.speedtest.loadbalancer.server.port: 80
+
+networks:
+  web:
+    external: true
