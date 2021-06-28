@@ -3,6 +3,11 @@ version: "3.8"
 services:
   varken:
     image: boerderij/varken:latest
+    depends_on:
+      - influxdb
+    secrets:
+      - source: varken_ini
+        target: /config/varken.ini
     volumes:
       - /mnt/varken:/config
     environment:
@@ -16,3 +21,7 @@ services:
 networks:
   monitoring:
     attachable: true
+
+secrets:
+  varken_ini:
+    file: ./secrets/varken.ini
