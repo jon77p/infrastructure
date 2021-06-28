@@ -55,9 +55,7 @@ services:
         mode: host
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-    secrets:
-      - source: letsencrypt_acme
-        target: /letsencrypt/acme.json
+      - /mnt/traefik/letsencrypt:/letsencrypt
     networks:
       - web
       - monitoring
@@ -80,6 +78,8 @@ services:
           - node.role == manager
 
   whoami:
+    depends_on:
+      - traefik
     image: traefik/whoami
     env_file: secrets.env
     networks:
@@ -97,7 +97,3 @@ networks:
     external: true
   monitoring:
     attachable: true
-
-secrets:
-  letsencrypt_acme:
-    file: ./secrets/acme.json
