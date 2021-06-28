@@ -10,6 +10,8 @@ services:
     volumes:
       - /mnt/grafana/etc:/etc/grafana
       - /mnt/grafana/storage:/var/lib/grafana
+    environment:
+      GF_INSTALL_PLUGINS: grafana-piechart-panel,grafana-worldmap-panel
     networks:
       - web
       - monitoring
