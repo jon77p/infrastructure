@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  hammond:
+    image: akhilrex/hammond:latest
+    depends_on:
+      - traefik
+    volumes:
+      - /mnt/hammond/config:/config
+      - /mnt/hammond/data:/assets
+    networks:
+      - web
+    deploy:
+      restart_policy:
+        condition: on-failure
+      labels:
+        traefik.enable: "true"
+        traefik.http.routers.hammond.rule: Host(`vehicle-cluster.${CF_DOMAIN}`)
+        traefik.http.routers.hammond.entrypoints: https
+        traefik.http.routers.hammond.tls.certresolver: cloudflare
+        traefik.http.services.hammond.loadbalancer.server.port: 3000
+
+networks:
+  web:
+    external: true
