@@ -49,6 +49,17 @@ services:
         traefik.http.routers.fireflycsv.entrypoints: https
         traefik.http.routers.fireflycsv.tls.certresolver: cloudflare
         traefik.http.services.fireflycsv.loadbalancer.server.port: 8080
+  plaid_connector:
+    image: registry.gitlab.com/georgehahn/firefly-plaid-connector:latest
+    depends_on:
+      - fireflyiii
+    secrets:
+      - source: plaid_config
+        target: /config/config.toml
+    volumes:
+      - /mnt/firefly/plaid/config:/config
+    networks:
+      - firefly
 
 networks:
   firefly:
@@ -56,3 +67,6 @@ networks:
   web:
     external: true
 
+secrets:
+  plaid_config:
+    file: ./secrets/config.toml
