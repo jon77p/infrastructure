@@ -1,0 +1,30 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traefik-dashboard
+  # namespace: traefik
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - match: Host(`dash-k3s.jon77p.xyz`)
+    kind: Rule
+    services:
+      - name: api@internal
+        kind: TraefikService
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: whoami
+  # namespace: traefik
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - match: Host(`whoami-k3s.jon77p.xyz`)
+    kind: Rule
+    services:
+      - name: whoami
+        port: 80

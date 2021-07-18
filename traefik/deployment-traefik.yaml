@@ -1,0 +1,71 @@
+---
+volumes:
+  - mountPath: /config
+    name: traefik-config
+    type: configMap
+additionalArguments:
+  - --log.level=INFO
+  - --api.insecure=true
+  - --entrypoints.web.address=:8000
+  - --entrypoints.websecure.address=:8443
+  - --entrypoints.dnsovertls.address=:853
+  - --entrypoints.dns.address=:53
+  - --entrypoints.udpdns.address=:53/udp
+  - --entrypoints.homekit.address=:21064
+  - --certificatesresolvers.cloudflare.acme.dnschallenge=true
+  - --certificatesresolvers.cloudflare.acme.dnschallenge.provider=cloudflare
+  - --certificatesresolvers.cloudflare.acme.email=jon77p@gmail.com
+  - --certificatesresolvers.cloudflare.acme.storage=/letsencrypt/acme.json
+  - --metrics.prometheus=true
+  - --metrics.prometheus.entrypoint=metrics
+  - --entrypoints.metrics.address=:8082
+  - --metrics.prometheus.addServicesLabels=true
+  - --metrics.prometheus.addEntryPointsLabels=true
+  # - --tracing=true
+  - --providers.file.filename=/config/traefik-config.yaml
+env:
+  - name: CF_EMAIL
+    valueFrom:
+      secretKeyRef:
+        key: email
+        name: cloudflare-credentials
+  - name: CF_DOMAIN
+    valueFrom:
+      secretKeyRef:
+        key: domain
+        name: cloudflare-credentials
+  - name: CF_DNS_API_TOKEN
+    valueFrom:
+      secretKeyRef:
+        key: dns_api_token
+        name: cloudflare-credentials
+  - name: CF_ZONE_ID
+    valueFrom:
+      secretKeyRef:
+        key: zone_id
+        name: cloudflare-credentials
+  - name: PILOT_TOKEN
+    valueFrom:
+      secretKeyRef:
+        key: pilot_token
+        name: traefik-credentials
+ports:
+  web:
+    port: 8000
+    nodePort: 32080
+    expose: true
+    exposedPort: 80
+    protocol: TCP
+    # redirectTo: https
+  websecure:
+    port: 8443
+    nodePort: 32443
+    expose: true
+    exposedPort: 443
+    protocol: TCP
+    tls:
+      enabled: true
+persistence:
+  enabled: true
+  path: /letsencrypt
+  size: 128Mi
