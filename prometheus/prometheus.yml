@@ -4,6 +4,12 @@ global:
   external_labels:
     monitor: 'picluster'
 
+remote_write:
+- url: https://prometheus-blocks-prod-us-central1.grafana.net/api/prom/push
+  basic_auth:
+    username: 163735
+    password_file: /etc/prometheus/grafana.creds
+
 scrape_configs:
 - job_name: 'prometheus'
   scrape_interval: 5s
