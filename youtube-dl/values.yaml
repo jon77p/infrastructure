@@ -1,0 +1,7 @@
+ingress:
+  main:
+    enabled: true
+    hosts:
+      - host: yt-k3s.jon77p.xyz
+        paths:
+          - path: /
