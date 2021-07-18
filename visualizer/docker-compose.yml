@@ -3,6 +3,8 @@ version: "3.8"
 services:
   visualizer:
     image: alexellis2/visualizer-arm:latest
+    depends_on:
+      - traefik
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:

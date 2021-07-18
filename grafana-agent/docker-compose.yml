@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  grafana-agent:
+    image: grafana/agent:latest
+    depends_on:
+      - prometheus
+      - influxdb
+    configs:
+      - source: grafana-agent
+        target: /etc/agent/agent.yaml
+    volumes:
+      - /mnt/grafana/agent:/etc/agent/data
+    networks:
+      - monitoring
+    deploy:
+      restart_policy:
+        condition: on-failure
+
+configs:
+  grafana-agent:
+    file: ./secrets/config.yaml
+
+networks:
+  monitoring:
+    attachable: true

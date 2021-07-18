@@ -6,8 +6,14 @@ services:
     healthcheck:
       disable: true
     command: /usr/local/bin/cloudflared tunnel --no-autoupdate run --force
+    configs:
+      - source: cloudflared
+        target: /etc/cloudflared/config.yml
+    secrets:
+      - source: cloudflared_cert
+        target: /etc/cloudflared/cert.pem
     volumes:
-      - /mnt/cloudflared:/home/cloudflared/.cloudflared
+      - /mnt/cloudflared:/etc/cloudflared
     networks:
       - web
     deploy:
@@ -23,3 +29,10 @@ networks:
   web:
     external: true
 
+configs:
+  cloudflared:
+    file: ./config.yml
+
+secrets:
+  cloudflared_cert:
+    file: ./secrets/cert.pem

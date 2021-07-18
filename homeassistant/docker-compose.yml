@@ -10,6 +10,10 @@ services:
       - web
       - monitoring
     deploy:
+      mode: global
+      placement:
+        constraints:
+          - node.role == manager
       restart_policy:
         condition: any
       labels:
@@ -19,6 +23,14 @@ services:
         traefik.http.routers.homeassistant.entrypoints: https
         traefik.http.routers.homeassistant.tls.certresolver: cloudflare
         traefik.http.services.homeassistant.loadbalancer.server.port: 8123
+
+        traefik.tcp.routers.homekit.entrypoints: homekit
+        traefik.tcp.routers.homekit.service: homeassistant
+        traefik.tcp.services.homeassistant.loadbalancer.server.port: 21064
+
+        # traefik.udp.routers.homekitudp.entrypoints: homekitudp
+        # traefik.udp.routers.homekitudp.service: homeassistant
+        # traefik.udp.services.homeassistant.loadbalancer.server.port: 5353
 
 networks:
   web:

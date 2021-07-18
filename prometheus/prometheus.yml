@@ -1,0 +1,48 @@
+global:
+  scrape_interval: 15s
+
+  external_labels:
+    monitor: 'picluster'
+
+remote_write:
+- url: https://prometheus-blocks-prod-us-central1.grafana.net/api/prom/push
+  basic_auth:
+    username: 163735
+    password_file: /etc/prometheus/grafana.creds
+
+scrape_configs:
+- job_name: 'prometheus'
+  scrape_interval: 5s
+  static_configs:
+    - targets: ['localhost:9090']
+- job_name: 'traefik'
+  static_configs:
+    - targets: ['traefik:8082']
+- job_name: 'docker'
+  dockerswarm_sd_configs:
+    - host: unix:///var/run/docker.sock
+      role: nodes
+  relabel_configs:
+    # Fetch metrics on port 9323.
+    - source_labels: [__meta_dockerswarm_node_address]
+      target_label: __address__
+      replacement: $1:9323
+    # Set hostname as instance label
+    - source_labels: [__meta_dockerswarm_node_hostname]
+      target_label: instance
+- job_name: 'pihole'
+  static_configs:
+    - targets: ['pihole-exporter:9617']
+- job_name: 'unifipoller'
+  scrape_interval: 30s
+  static_configs:
+    - targets: ['unifi-poller:9130']
+- job_name: 'homeassistant'
+  scrape_interval: 60s
+  metrics_path: /api/prometheus
+  authorization:
+    type: "Bearer"
+    credentials_file: /etc/prometheus/homeassistant.creds
+  scheme: http
+  static_configs:
+    - targets: ['homeassistant:8123']

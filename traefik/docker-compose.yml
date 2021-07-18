@@ -16,6 +16,7 @@ services:
       - --entrypoints.dnsovertls.address=:853
       - --entrypoints.dns.address=:53
       - --entrypoints.udpdns.address=:53/udp
+      - --entrypoints.homekit.address=:21064
       - --certificatesresolvers.cloudflare.acme.dnschallenge=true
       - --certificatesresolvers.cloudflare.acme.dnschallenge.provider=cloudflare
       - --certificatesresolvers.cloudflare.acme.email=${CF_EMAIL}
@@ -26,6 +27,8 @@ services:
       - --entrypoints.metrics.address=:8082
       - --metrics.prometheus.addServicesLabels=true
       - --metrics.prometheus.addEntryPointsLabels=true
+      # - --tracing=true
+      - --providers.file.directory=/config
     ports:
       - target: 80
         published: 80
@@ -49,9 +52,15 @@ services:
       - target: 8082
         published: 8082
         mode: host
+      - target: 21064
+        published: 21064
+        mode: host
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /mnt/traefik/letsencrypt:/letsencrypt
+    configs:
+      - source: traefik_config
+        target: /config/rules.toml
     networks:
       - web
       - monitoring
@@ -74,6 +83,8 @@ services:
           - node.role == manager
 
   whoami:
+    depends_on:
+      - traefik
     image: traefik/whoami
     env_file: secrets.env
     networks:
@@ -92,3 +103,6 @@ networks:
   monitoring:
     attachable: true
 
+configs:
+  traefik_config:
+    file: ./rules.toml

@@ -3,6 +3,8 @@ version: "3.8"
 services:
   youtube-dl:
     image: nbr23/youtube-dl-server:latest
+    depends_on:
+      - traefik
     volumes:
       - /mnt/youtube-dl/data:/youtube-dl
     networks:

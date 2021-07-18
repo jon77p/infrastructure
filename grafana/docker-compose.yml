@@ -3,9 +3,15 @@ version: "3.8"
 services:
   grafana:
     image: grafana/grafana:latest
+    depends_on:
+      - traefik
+      - prometheus
+      - influxdb
     volumes:
       - /mnt/grafana/etc:/etc/grafana
       - /mnt/grafana/storage:/var/lib/grafana
+    environment:
+      GF_INSTALL_PLUGINS: grafana-piechart-panel,grafana-worldmap-panel
     networks:
       - web
       - monitoring

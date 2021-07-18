@@ -3,6 +3,8 @@ version: "3.8"
 services:
   vscode:
     image: ghcr.io/linuxserver/code-server
+    depends_on:
+      - traefik
     hostname: 'vscode-{{.Node.Hostname}}'
     volumes:
       - /mnt/vscode/config:/config

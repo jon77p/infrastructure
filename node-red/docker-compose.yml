@@ -3,6 +3,8 @@ version: "3.8"
 services:
   node-red:
     image: nodered/node-red:latest
+    depends_on:
+      - traefik
     environment:
       - TZ=America/Los_Angeles
     volumes:

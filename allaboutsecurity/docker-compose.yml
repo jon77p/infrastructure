@@ -3,6 +3,8 @@ version: "3.8"
 services:
   allaboutsecurity:
     image: ghost:latest
+    depends_on:
+      - traefik
     volumes:
       - /mnt/allaboutsecurity/ghost:/var/lib/ghost/content
     environment:
