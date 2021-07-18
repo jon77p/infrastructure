@@ -2,4 +2,4 @@
 
 helm uninstall youtubedl
 
-# kubectl delete ingressroute.traefik.containo.us/whoami
+kubectl delete ingressroute.traefik.containo.us/youtubedl
