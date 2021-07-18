@@ -5,6 +5,8 @@ services:
     image: henrywhitaker3/speedtest-tracker:dev-arm
     depends_on:
       - traefik
+    volumes:
+      - /mnt/speedtest:/config
     environment:
       - OOKLA_EULA_GDPR=true
     networks:
