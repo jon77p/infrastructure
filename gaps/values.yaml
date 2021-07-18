@@ -1,0 +1,10 @@
+ingress:
+  main:
+    enabled: true
+    hosts:
+      - host: gaps-k3s.jon77p.xyz
+        paths:
+          - path: /
+persistence:
+  config:
+    enabled: true

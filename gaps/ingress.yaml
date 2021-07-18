@@ -1,0 +1,16 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: gaps
+  # namespace: traefik
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - match: Host(`gaps-k3s.jon77p.xyz`)
+    kind: Rule
+    services:
+      - name: gaps
+        kind: Service
+        port: 8080
