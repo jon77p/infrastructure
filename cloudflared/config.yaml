@@ -1,0 +1,22 @@
+---
+apiVersion: v1
+data:
+  default.yaml: |-
+    tunnel: kubernetes
+    loglevel: info
+    credentials-file: /etc/cloudflared/cred.json
+
+    ingress:
+    - hostname: access-k3s.jon77p.xyz
+      service: hello-world
+    - hostname: ssh-k3s.jon77p.xyz
+      service: bastion
+    - hostname: git-ssh-k3s.jon77p.xyz
+      service: ssh://gitea:22
+    - service: https://traefik
+      originRequest:
+        noTLSVerify: true
+kind: ConfigMap
+metadata:
+  name: cloudflared-config
+  # namespace: cloudflared
