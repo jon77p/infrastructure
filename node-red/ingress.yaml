@@ -1,0 +1,16 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: node-red
+  # namespace: traefik
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - match: Host(`nodered-k3s.jon77p.xyz`)
+    kind: Rule
+    services:
+      - name: node-red
+        kind: Service
+        port: 1880
