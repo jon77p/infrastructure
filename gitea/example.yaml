@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: gitea-admin-credentials
+type: Opaque
+stringData:
+  username: <CHANGE-ME>
+  password: <CHANGE-ME>

@@ -1,0 +1,21 @@
+ingress:
+  enabled: true
+  hosts:
+    - host: git-k3s.jon77p.xyz
+      paths:
+        - path: /
+          pathType: Prefix
+persistence:
+  enabled: true
+gitea:
+  admin:
+    existingSecret: gitea-admin-credentials
+    email: jon77p@gmail.com
+  config:
+    server:
+      DOMAIN: git-ssh-k3s.jon77p.xyz
+      SSH_DOMAIN: git-ssh-k3s.jon77p.xyz
+      ROOT_URL: https://git-k3s.jon77p.xyz
+    service:
+      DISABLE_REGISTRATION: true
+      REQUIRE_SIGNIN_VIEW: true
