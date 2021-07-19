@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: allaboutsecurity-credentials
+  # namespace: traefik
+type: Opaque
+stringData:
+  ghost-password: <CHANGE-ME>

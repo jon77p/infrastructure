@@ -1,0 +1,16 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: allaboutsecurity
+  # namespace: traefik
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - match: Host(`allaboutsecurity-k3s.jon77p.xyz`)
+    kind: Rule
+    services:
+      - name: allaboutsecurity-ghost
+        kind: Service
+        port: 80
