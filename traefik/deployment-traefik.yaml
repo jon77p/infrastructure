@@ -1,4 +1,5 @@
----
+serviceAccount:
+  name: "traefik-ingress-controller"
 volumes:
   - mountPath: /config
     name: traefik-config
