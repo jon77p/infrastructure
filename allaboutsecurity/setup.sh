@@ -7,4 +7,4 @@ kubectl apply -f secrets.yaml
 
 helm install allaboutsecurity bitnami/ghost -f values.yaml
 
-kubectl apply -f ingress.yaml
+kubectl create --save-config -f ingress.yaml
