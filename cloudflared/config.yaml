@@ -2,16 +2,17 @@
 apiVersion: v1
 data:
   default.yaml: |-
-    tunnel: kubernetes
+    tunnel: k3s
     loglevel: info
+    origincert: /etc/cloudflared/cert.pem
     credentials-file: /etc/cloudflared/cred.json
 
     ingress:
-    - hostname: access-k3s.jon77p.xyz
+    - hostname: access.thepi.cloud
       service: hello-world
-    - hostname: ssh-k3s.jon77p.xyz
+    - hostname: ssh.thepi.cloud
       service: bastion
-    - hostname: git-ssh-k3s.jon77p.xyz
+    - hostname: git-ssh.thepi.cloud
       service: ssh://gitea:22
     - service: https://traefik
       originRequest:

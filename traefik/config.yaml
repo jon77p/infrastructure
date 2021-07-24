@@ -9,7 +9,7 @@ data:
     http:
       routers:
         cockpit:
-          rule: "Host(`cockpit-k3s.jon77p.xyz`)"
+          rule: "Host(`cockpit.thepi.cloud`)"
           entrypoints: "websecure"
           service: "cockpit"
           tls:

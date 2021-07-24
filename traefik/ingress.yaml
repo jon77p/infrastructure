@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-  - match: Host(`dash-k3s.jon77p.xyz`)
+  - match: Host(`traefik.thepi.cloud`)
     kind: Rule
     services:
       - name: api@internal
@@ -23,7 +23,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-  - match: Host(`whoami-k3s.jon77p.xyz`)
+  - match: Host(`whoami.thepi.cloud`)
     kind: Rule
     services:
       - name: whoami

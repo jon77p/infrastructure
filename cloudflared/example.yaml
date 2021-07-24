@@ -12,3 +12,12 @@ kind: ConfigMap
 metadata:
   name: cloudflared-credentials
   # namespace: cloudflared
+---
+apiVersion: v1
+data:
+  cert.pem: <base64-encoded-cert.pem>
+kind: Secret
+type: Opaque
+metadata:
+  name: cloudflared-origin-cert
+  # namespace: cloudflared

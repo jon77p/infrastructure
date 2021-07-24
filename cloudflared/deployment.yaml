@@ -58,6 +58,10 @@ spec:
           name: cloudflared-credentials
           readOnly: true
           subPath: cred.json
+        - mountPath: /etc/cloudflared/cert.pem
+          name: cloudflared-origin-cert
+          readOnly: true
+          subPath: cert.pem
       volumes:
       - configMap:
           name: cloudflared-config
@@ -65,3 +69,9 @@ spec:
       - configMap:
           name: cloudflared-credentials
         name: cloudflared-credentials
+      - name: cloudflared-origin-cert
+        secret:
+          secretName: cloudflared-origin-cert
+          items:
+          - key: cert.pem
+            path: cert.pem
