@@ -1,3 +1,15 @@
+deployment:
+  initContainers:
+    - name: volume-permissions
+      image: busybox:1.31.1
+      command: ["sh", "-c", "chmod -Rv 770 /data; chown root:65532 -Rv /data"]
+      volumeMounts:
+        - name: data
+          mountPath: /data
+persistence:
+  enabled: true
+  # path: /letsencrypt
+  size: 128Mi
 serviceAccount:
   name: "traefik-ingress-controller"
 volumes:
@@ -16,7 +28,7 @@ additionalArguments:
   - --certificatesresolvers.cloudflare.acme.dnschallenge=true
   - --certificatesresolvers.cloudflare.acme.dnschallenge.provider=cloudflare
   - --certificatesresolvers.cloudflare.acme.email=jon77p@gmail.com
-  - --certificatesresolvers.cloudflare.acme.storage=/letsencrypt/acme.json
+  - --certificatesresolvers.cloudflare.acme.storage=/data/acme.json
   - --metrics.prometheus=true
   - --metrics.prometheus.entrypoint=metrics
   - --entrypoints.metrics.address=:8082
@@ -66,7 +78,3 @@ ports:
     protocol: TCP
     tls:
       enabled: true
-persistence:
-  enabled: true
-  path: /letsencrypt
-  size: 128Mi

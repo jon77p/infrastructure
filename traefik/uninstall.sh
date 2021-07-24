@@ -2,6 +2,7 @@
 
 helm uninstall traefik
 kubectl delete deployment.apps/whoami
+kubectl delete services/whoami
 
 kubectl delete secret/cloudflare-credentials
 kubectl delete secret/traefik-credentials
