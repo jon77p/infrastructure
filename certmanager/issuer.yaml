@@ -20,3 +20,4 @@ spec:
         selector:
           dnsZones:
           - 'thepi.cloud'
+          - 'allaboutsecurity.xyz'
