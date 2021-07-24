@@ -1,6 +1,7 @@
 #!/bin/sh
 
-helm uninstall allaboutsecurity
+helm uninstall allaboutsecurity -n allaboutsecurity
 
-kubectl delete secret/allaboutsecurity-credentials
-kubectl delete ingressroute.traefik.containo.us/allaboutsecurity
+kubectl delete ingress.networking.k8s.io/allaboutsecurity -n allaboutsecurity
+
+kubectl delete namespace/allaboutsecurity

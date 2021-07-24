@@ -1,16 +1,16 @@
-ghostUsername: jon77p
-ghostEmail: jon77p@gmail.com
-existingSecret: allaboutsecurity-credentials
-ghostBlogTitle: All About Security
-ghostHost: allaboutsecurity-k3s.jon77p.xyz
-ghostEnableHttps: false
 ingress:
   enabled: true
-  hostname: allaboutsecurity-k3s.jon77p.xyz
-service:
-  type: ClusterIP
-  port: 80
-  nodePorts:
-    http: 80
-    https: 443
-    
+  hosts:
+    - host: allaboutsecurity.xyz
+      paths:
+        - /
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    cert-manager.io/cluster-issuer: cloudflare-issuer
+  tls:
+    - secretName: allaboutsecurity-tls
+      hosts:
+        - allaboutsecurity.xyz
+  hostname: allaboutsecurity.xyz
+settings:
+  url: https://allaboutsecurity.xyz

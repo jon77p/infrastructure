@@ -1,16 +1,25 @@
 ---
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
   name: allaboutsecurity
-  # namespace: traefik
+  namespace: allaboutsecurity
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    cert-manager.io/cluster-issuer: cloudflare-issuer
 spec:
-  entryPoints:
-    - websecure
-  routes:
-  - match: Host(`allaboutsecurity-k3s.jon77p.xyz`)
-    kind: Rule
-    services:
-      - name: allaboutsecurity-ghost
-        kind: Service
-        port: 80
+  tls:
+    - secretName: allaboutsecurity-tls
+      hosts:
+        - allaboutsecurity.xyz
+  rules:
+    - host: allaboutsecurity.xyz
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: allaboutsecurity
+                port:
+                  number: 80
