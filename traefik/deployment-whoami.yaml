@@ -5,7 +5,7 @@ metadata:
   labels:
     app: whoami
   name: whoami
-  # namespace: traefik
+  namespace: whoami
 spec:
   replicas: 1
   selector:

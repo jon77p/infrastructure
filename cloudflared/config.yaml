@@ -14,10 +14,10 @@ data:
       service: bastion
     - hostname: git-ssh.thepi.cloud
       service: ssh://gitea:22
-    - service: https://traefik
+    - service: https://traefik.kube-system
       originRequest:
         noTLSVerify: true
 kind: ConfigMap
 metadata:
   name: cloudflared-config
-  # namespace: cloudflared
+  namespace: cloudflared

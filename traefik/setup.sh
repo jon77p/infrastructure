@@ -1,14 +1,10 @@
 #!/bin/bash
 
-# Pre-requisite: add the following repo
-# helm repo add traefik https://helm.traefik.io/traefik
+# Pre-requisite: copy traefik-config.yaml to /var/lib/rancher/k3s/server/manifests/traefik-config.yaml on main node
 
-kubectl create --save-config -f definitions.yaml
-kubectl create --save-config -f services.yaml
+kubectl apply -f namespaces.yaml
 
-helm install traefik traefik/traefik -f deployment-traefik.yaml
 kubectl apply -f deployment-whoami.yaml
 
-kubectl apply -f secrets.yaml
-kubectl apply -f config.yaml
-kubectl create --save-config -f ingress.yaml
+kubectl apply -f services.yaml
+kubectl apply -f ingress.yaml

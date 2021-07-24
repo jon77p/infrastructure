@@ -3,7 +3,9 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: traefik
-  # namespace: traefik
+  namespace: kube-system
+  annotations:
+    cert-manager.io/cluster-issuer: cloudflare-issuer
 spec:
   entryPoints:
     - websecure
@@ -14,17 +16,27 @@ spec:
       - name: api@internal
         kind: TraefikService
 ---
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
   name: whoami
-  # namespace: traefik
+  namespace: whoami
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    cert-manager.io/cluster-issuer: cloudflare-issuer
 spec:
-  entryPoints:
-    - websecure
-  routes:
-  - match: Host(`whoami.thepi.cloud`)
-    kind: Rule
-    services:
-      - name: whoami
-        port: 80
+  tls:
+    - secretName: whoami-tls
+      hosts:
+        - whoami.thepi.cloud
+  rules:
+    - host: whoami.thepi.cloud
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: whoami
+                port:
+                  number: 80
