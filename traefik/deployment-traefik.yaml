@@ -9,10 +9,10 @@ additionalArguments:
   - --api.insecure=false
   - --entrypoints.web.address=:8000
   - --entrypoints.websecure.address=:8443
-  - --entrypoints.dnsovertls.address=:853
-  - --entrypoints.dns.address=:53
-  - --entrypoints.udpdns.address=:53/udp
-  - --entrypoints.homekit.address=:21064
+  # - --entrypoints.dnsovertls.address=:853
+  # - --entrypoints.dns.address=:53
+  # - --entrypoints.udpdns.address=:53/udp
+  # - --entrypoints.homekit.address=:21064
   - --certificatesresolvers.cloudflare.acme.dnschallenge=true
   - --certificatesresolvers.cloudflare.acme.dnschallenge.provider=cloudflare
   - --certificatesresolvers.cloudflare.acme.email=jon77p@gmail.com
