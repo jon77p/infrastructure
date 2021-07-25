@@ -15,3 +15,9 @@ spec:
         annotations:
           kubernetes.io/ingress.class: traefik
           cert-manager.io/cluster-issuer: cloudflare-issuer
+    metrics:
+      prometheus:
+        entryPoint: traefik
+    ports:
+      traefik:
+        expose: true
