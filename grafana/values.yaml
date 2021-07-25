@@ -1,0 +1,30 @@
+ingress:
+  enabled: true
+  hosts:
+    - grafana.thepi.cloud
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    cert-manager.io/cluster-issuer: cloudflare-issuer
+  tls:
+    - secretName: grafana-tls
+      hosts:
+        - grafana.thepi.cloud
+persistence:
+  enabled: true
+admin:
+  existingSecret: grafana-admin
+  userKey: admin-user
+  passwordKey: admin-password
+plugins:
+  - grafana-piechart-panel
+  - grafana-worldmap-panel
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+    - name: Prometheus
+      type: prometheus
+      url: http://prometheus-server.prometheus
+      access: proxy
+      isDefault: true
+namespaceOverride: grafana
