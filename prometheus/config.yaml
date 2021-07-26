@@ -276,6 +276,9 @@ data:
     - job_name: 'traefik'
       static_configs:
         - targets: ['traefik.kube-system:9000']
+    - job_name: 'grafana'
+      static_configs:
+        - targets: ['grafana.grafana']
     - job_name: 'unifipoller'
       scrape_interval: 30s
       static_configs:
