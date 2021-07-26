@@ -1,0 +1,20 @@
+admin:
+  existingSecret: loki-admin
+  userKey: admin-user
+  passwordKey: admin-password
+namespaceOverride: loki
+ingress:
+  enabled: true
+  hosts:
+    - host: loki.thepi.cloud
+      paths:
+        - /
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    cert-manager.io/cluster-issuer: cloudflare-issuer
+  tls:
+    - secretName: loki-tls
+      hosts:
+        - loki.thepi.cloud
+
