@@ -32,4 +32,8 @@ datasources:
       type: loki
       url: http://loki.loki:3100
       access: proxy
+    - name: InfluxDB
+      type: influxdb
+      url: http://influxdb.influxdb:8086
+      access: proxy
 namespaceOverride: grafana
