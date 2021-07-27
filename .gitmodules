@@ -1,0 +1,3 @@
+[submodule "code-server/code-server"]
+	path = code-server/code-server
+	url = https://github.com/cdr/code-server
