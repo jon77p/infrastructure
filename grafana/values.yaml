@@ -28,4 +28,8 @@ datasources:
       url: http://prometheus-server.prometheus
       access: proxy
       isDefault: true
+    - name: Loki
+      type: loki
+      url: http://loki.loki:3100
+      access: proxy
 namespaceOverride: grafana
