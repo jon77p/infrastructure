@@ -1,0 +1,82 @@
+---
+apiVersion: v1
+data:
+  varken.ini: |-
+    [global]
+    sonarr_server_ids = 1
+    radarr_server_ids = 1
+    lidarr_server_ids = 1
+    tautulli_server_ids = 1
+    ombi_server_ids = 1
+    sickchill_server_ids = false
+    unifi_server_ids = false
+    maxmind_license_key = <CHANGE-ME>
+
+    [influxdb]
+    url = influxdb.influxdb
+    port = 8086
+    ssl = false
+    verify_ssl = false
+    username = <CHANGE-ME>
+    password = <CHANGE-ME>
+
+    [tautulli-1]
+    url = <CHANGE-ME>
+    fallback_ip = 1.1.1.1
+    apikey = <CHANGE-ME>
+    ssl = true
+    verify_ssl = false
+    get_activity = true
+    get_activity_run_seconds = 30
+    get_stats = true
+    get_stats_run_seconds = 3600
+
+    [sonarr-1]
+    url = <CHANGE-ME>
+    apikey = <CHANGE-ME>
+    ssl = true
+    verify_ssl = false
+    missing_days = 7
+    missing_days_run_seconds = 300
+    future_days = 1
+    future_days_run_seconds = 300
+    queue = true
+    queue_run_seconds = 300
+
+    [radarr-1]
+    url = <CHANGE-ME>
+    apikey = <CHANGE-ME>
+    ssl = true
+    verify_ssl = false
+    queue = true
+    queue_run_seconds = 300
+    get_missing = true
+    get_missing_run_seconds = 300
+
+    [lidarr-1]
+    url = <CHANGE-ME>
+    apikey = <CHANGE-ME>
+    ssl = true
+    verify_ssl = false
+    missing_days = 30
+    missing_days_run_seconds = 300
+    future_days = 30
+    future_days_run_seconds = 300
+    queue = true
+    queue_run_seconds = 300
+
+    [ombi-1]
+    url = <CHANGE-ME>
+    apikey = <CHANGE-ME>
+    ssl = true
+    verify_ssl = false
+    get_request_type_counts = true
+    request_type_run_seconds = 300
+    get_request_total_counts = true
+    request_total_run_seconds = 300
+    get_issue_status_counts = true
+    issue_status_run_seconds = 300
+kind: ConfigMap
+metadata:
+  name: varken-config
+  namespace: varken
