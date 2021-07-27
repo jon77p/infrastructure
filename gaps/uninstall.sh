@@ -1,5 +1,3 @@
 #!/bin/sh
 
-helm uninstall gaps
-
-kubectl delete ingressroute.traefik.containo.us/gaps
+helm uninstall gaps -n gaps

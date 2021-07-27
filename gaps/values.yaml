@@ -1,10 +1,24 @@
+image:
+  tag: arm-latest
 ingress:
   main:
     enabled: true
+    annotations:
+      kubernetes.io/ingress.class: traefik
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      cert-manager.io/cluster-issuer: cloudflare-issuer
     hosts:
-      - host: gaps-k3s.jon77p.xyz
+      - host: gaps.thepi.cloud
         paths:
           - path: /
+    tls:
+      - secretName: gaps-tls
+        hosts:
+          - gaps.thepi.cloud
 persistence:
   config:
     enabled: true
+# securityContext:
+  # runAsUser: 0
+  # runAsNonRoot: false
+  # runAsGroup: 0
