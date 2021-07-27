@@ -1,5 +1,5 @@
 #!/bin/sh
 
-helm uninstall node-red
+helm uninstall node-red -n node-red
 
-kubectl delete ingressroute.traefik.containo.us/node-red
+kubectl delete namespaces/node-red

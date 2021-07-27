@@ -1,10 +1,18 @@
 ingress:
   main:
     enabled: true
+    annotations:
+      kubernetes.io/ingress.class: traefik
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      cert-manager.io/cluster-issuer: cloudflare-issuer
     hosts:
-      - host: nodered-k3s.jon77p.xyz
+      - host: nodered.thepi.cloud
         paths:
           - path: /
+    tls:
+      - secretName: nodered-tls
+        hosts:
+          - nodered.thepi.cloud
 persistence:
   config:
     enabled: true
@@ -12,3 +20,8 @@ persistence:
     enabled: true
     accessMode: ReadWriteOnce
     size: 1Gi
+securityContext:
+  runAsUser: 0
+  runAsNonRoot: false
+  runAsGroup: 0
+  # fsGroup: 0
