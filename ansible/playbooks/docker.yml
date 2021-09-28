@@ -1,0 +1,25 @@
+---
+
+- hosts: firefly
+  roles:
+    - docker
+  vars:
+    servicelist:
+      - agent
+      - portainer
+      - traefik
+      - fireflyiii
+      - fireflyiii-csv-importer
+      - fireflyiiidb
+      - plaid_connector
+
+- hosts: stash
+  roles:
+    - docker
+  vars:
+    servicelist:
+      - agent
+      - portainer
+      - traefik
+      - stash
+

@@ -1,0 +1,4 @@
+- name: Install wireguard
+  apt:
+    name: wireguard
+    state: latest

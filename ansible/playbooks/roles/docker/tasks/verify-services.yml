@@ -1,0 +1,5 @@
+- name: Verify Docker Swarm Services | {{ service_name }}
+  community.docker.docker_swarm_service_info:
+    name: "{{ ansible_ssh_host }}_{{ service_name }}"
+  register: result
+  failed_when: not result.exists

@@ -1,0 +1,17 @@
+---
+
+- hosts: innernet_server
+  tasks:
+    - name: Include necessary variables
+      include_vars: roles/innernet/vars/main.yml
+
+    - name: Include add-peer task
+      include_tasks: roles/innernet/tasks/add_peer.yml
+
+- hosts: {{ peer_name }}
+  tasks:
+    - name: Include necessary variables
+      include_vars: roles/innernet/vars/main.yml
+
+    - name: Include install_invite task
+      include_tasks: roles/innernet/tasks/install_invite.yml

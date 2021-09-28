@@ -1,0 +1,8 @@
+- name: Docker | ensure SDK is installed
+  import_tasks: install-docker-sdk.yml
+
+- name: Docker | verify services
+  include_tasks: verify-services.yml
+  loop: "{{ servicelist }}"
+  loop_control:
+    loop_var: service_name

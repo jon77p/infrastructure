@@ -1,0 +1,16 @@
+- name: Check if innernet is installed
+  stat:
+    path: /usr/bin/innernet
+  register: innernet_check
+
+- name: Download innernet .deb
+  get_url:
+    url: https://github.com/tonarino/innernet/releases/download/v1.5.0/innernet_1.5.0_amd64.deb
+    dest: /tmp/innernet_1.5.0_amd64.deb
+  when: not innernet_check.stat.exists
+
+- name: Install innernet
+  apt:
+    deb: /tmp/innernet_1.5.0_amd64.deb
+  when: not innernet_check.stat.exists
+
