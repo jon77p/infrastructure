@@ -11,7 +11,7 @@ data:
 kind: ConfigMap
 metadata:
   name: cloudflared-credentials
-  # namespace: cloudflared
+  namespace: cloudflared
 ---
 apiVersion: v1
 data:
@@ -20,4 +20,4 @@ kind: Secret
 type: Opaque
 metadata:
   name: cloudflared-origin-cert
-  # namespace: cloudflared
+  namespace: cloudflared
