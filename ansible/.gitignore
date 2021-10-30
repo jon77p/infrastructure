@@ -1,6 +1,2 @@
 files/*
 playbooks/roles/common/vars/main.yml
-.terraform
-.terraform.lock.hcl
-*.tfstate
-*.tfstate.backup
