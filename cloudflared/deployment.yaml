@@ -35,7 +35,8 @@ spec:
         - --metrics
         - 0.0.0.0:9090
         - run
-        image: visibilityspots/cloudflared:latest
+        # image: visibilityspots/cloudflared:latest
+        image: ghcr.io/jon77p/cloudflared:latest
         imagePullPolicy: Always
         name: cloudflared
         # healthcheck:
