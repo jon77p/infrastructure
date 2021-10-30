@@ -1,6 +1,5 @@
 #!/bin/sh
 
-helm uninstall gitea
+helm uninstall gitea -n gitea
 
-kubectl delete ingressroute.traefik.containo.us/gitea-http
-kubectl delete secret/gitea-admin-credentials
+kubectl delete secret/gitea-admin-credentials -n gitea

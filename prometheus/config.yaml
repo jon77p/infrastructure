@@ -279,6 +279,9 @@ data:
     - job_name: 'grafana'
       static_configs:
         - targets: ['grafana.grafana']
+    - job_name: 'gitea'
+      static_configs:
+        - targets: ['gitea.gitea:3030']
     - job_name: 'unifipoller'
       scrape_interval: 30s
       static_configs:

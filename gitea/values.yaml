@@ -1,21 +1,63 @@
+image:
+  tag: latest
+securityContext:
+  runAsUser: 0
+  runAsNonRoot: false
+  runAsGroup: 0
 ingress:
   enabled: true
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    cert-manager.io/cluster-issuer: cloudflare-issuer
   hosts:
-    - host: git-k3s.jon77p.xyz
+    - host: git.thepi.cloud
       paths:
         - path: /
           pathType: Prefix
+  tls:
+    - secretName: git-tls
+      hosts:
+        - git.thepi.cloud
 persistence:
   enabled: true
 gitea:
   admin:
     existingSecret: gitea-admin-credentials
     email: jon77p@gmail.com
+  metrics:
+    enabled: true
   config:
     server:
-      DOMAIN: git-ssh-k3s.jon77p.xyz
-      SSH_DOMAIN: git-ssh-k3s.jon77p.xyz
-      ROOT_URL: https://git-k3s.jon77p.xyz
+      DOMAIN: git-ssh.thepi.cloud
+      SSH_DOMAIN: git-ssh.thepi.cloud
+      ROOT_URL: https://git.thepi.cloud
     service:
       DISABLE_REGISTRATION: true
       REQUIRE_SIGNIN_VIEW: true
+    # database:
+      # DB_TYPE: mysql
+      # HOST: mysql.gitea:3306
+      # NAME: gitea
+      # USER: root
+      # PASSWD: gitea
+      # SCHEMA: gitea
+  # database:
+    # builtIn:
+      # postgresql:
+        # enabled: false
+postgresql:
+  persistence:
+    enabled: true
+  image:
+    repository: postgres
+    tag: latest
+  securityContext:
+    runAsUser: 0
+    runAsNonRoot: false
+    runAsGroup: 0
+memcached:
+  image:
+    repository: memcached
+    tag: latest
+  arguments: []
