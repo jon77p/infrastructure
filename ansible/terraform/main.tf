@@ -1,0 +1,64 @@
+terraform {
+  required_providers {
+    oci = {
+      source = "hashicorp/oci"
+    }
+    cloudflare = {
+      source = "cloudflare/cloudflare"
+    }
+  }
+}
+
+module "oci0" {
+  source = "./oci"
+  providers = {
+    oci = oci.oci0
+  }
+
+  profile                  = var.oci[0].alias
+  tenancy_id               = var.oci[0].tenancy_ocid
+  region                   = var.region
+  domain                   = var.domain
+  cf_zone_id               = var.cf_zone_id
+  terraform_ssh_public_key = var.terraform_ssh_public_key
+  setup_script             = var.setup_script
+  cidrs                    = var.cidrs
+  instances                = var.instances[0].instances
+  additional_ingress       = local.additional_ingress.oci0
+}
+
+module "oci1" {
+  source = "./oci"
+  providers = {
+    oci = oci.oci1
+  }
+
+  profile                  = var.oci[1].alias
+  tenancy_id               = var.oci[1].tenancy_ocid
+  region                   = var.region
+  domain                   = var.domain
+  cf_zone_id               = var.cf_zone_id
+  terraform_ssh_public_key = var.terraform_ssh_public_key
+  setup_script             = var.setup_script
+  cidrs                    = var.cidrs
+  instances                = var.instances[1].instances
+  additional_ingress       = local.additional_ingress.oci1
+}
+
+module "oci2" {
+  source = "./oci"
+  providers = {
+    oci = oci.oci2
+  }
+
+  profile                  = var.oci[2].alias
+  tenancy_id               = var.oci[2].tenancy_ocid
+  region                   = var.region
+  domain                   = var.domain
+  cf_zone_id               = var.cf_zone_id
+  terraform_ssh_public_key = var.terraform_ssh_public_key
+  setup_script             = var.setup_script
+  cidrs                    = var.cidrs
+  instances                = var.instances[2].instances
+  additional_ingress       = local.additional_ingress.oci2
+}
