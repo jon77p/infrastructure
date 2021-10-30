@@ -23,3 +23,10 @@
       - traefik
       - stash
 
+- hosts: timemachine
+  roles:
+    - docker
+  vars:
+    servicelist:
+      - timemachine
+
