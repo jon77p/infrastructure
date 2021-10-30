@@ -1,0 +1,66 @@
+version: "3.8"
+
+services:
+  yourspotifyapp:
+    image: yooooomi/your_spotify_server
+    links:
+      - yourspotifymongo
+    depends_on:
+      - yourspotifymongo
+    env_file: secrets.env
+    environment:
+      - API_ENDPOINT=https://yourspotifyapp:8080
+      - CLIENT_ENDPOINT=http://yourspotifyweb:3000
+      - MONGO_ENDPOINT=mongodb://yourspotifymongo:27017/your_spotify
+      # - CORS=http://yourspotifyweb:3000
+      - CORS=all
+    networks:
+      - yourspotify
+      - web
+    deploy:
+      restart_policy:
+        condition: on-failure
+      labels:
+        traefik.enable: "true"
+        traefik.docker.network: web
+        traefik.http.routers.yourspotifyapi.rule: Path(`trends-spotify-cluster.${CF_DOMAIN}/api`)
+        traefik.http.routers.yourspotifyapi.entrypoints: https
+        traefik.http.routers.yourspotifyapi.tls.certresolver: cloudflare
+        traefik.http.services.yourspotifyapi.loadbalancer.server.port: 8080
+
+  yourspotifymongo:
+    image: mongo:latest
+    volumes:
+      - /mnt/yourspotify/mongo:/data/db
+    networks:
+      - yourspotify
+    deploy:
+      restart_policy:
+        condition: on-failure
+
+  yourspotifyweb:
+    image: yooooomi/your_spotify_client
+    environment:
+      - API_ENDPOINT=https://trends-spotify-cluster.${CF_DOMAIN}/api
+    depends_on:
+      - yourspotifyapp
+      - traefik
+    networks:
+      - yourspotify
+      - web
+    deploy:
+      restart_policy:
+        condition: on-failure
+      labels:
+        traefik.enable: "true"
+        traefik.docker.network: web
+        traefik.http.routers.yourspotify.rule: Host(`trends-spotify-cluster.${CF_DOMAIN}`)
+        traefik.http.routers.yourspotify.entrypoints: https
+        traefik.http.routers.yourspotify.tls.certresolver: cloudflare
+        traefik.http.services.yourspotify.loadbalancer.server.port: 3000
+
+networks:
+  yourspotify:
+    attachable: true
+  web:
+    external: true
