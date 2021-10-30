@@ -25,6 +25,8 @@ all:
               ansible_host: firefly
             stash:
               ansible_host: stash
+            timemachine:
+              ansible_host: timemachine
         innernet:
           hosts:
             innernet_server:
