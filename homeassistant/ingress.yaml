@@ -1,0 +1,25 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: homeassistant
+  namespace: homeassistant
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    cert-manager.io/cluster-issuer: cloudflare-issuer
+spec:
+  tls:
+    - secretName: homeassistant-tls
+      hosts:
+        - home.thepi.cloud
+  rules:
+    - host: home.thepi.cloud
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: homeassistant
+                port:
+                  number: 8123
