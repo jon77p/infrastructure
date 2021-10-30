@@ -1,0 +1,16 @@
+- name: Create mountpoint directory at {{ mount_dir }}
+  become: true
+  file:
+    path: "{{ mount_dir }}"
+    state: directory
+
+- name: Create rclone systemd service file
+  template:
+    src: templates/rclone.service.j2
+    dest: /lib/systemd/system/rclone.service
+
+- name: Start rclone service
+  systemd:
+    name: rclone
+    state: started
+    enabled: yes

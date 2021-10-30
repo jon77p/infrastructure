@@ -1,0 +1,5 @@
+---
+rclone_remote: "<CHANGE-ME>"
+timemachine_user: "<CHANGE-ME>"
+timemachine_pass: "<CHANGE-ME>"
+timemachine_sharename: "<CHANGE-ME>"

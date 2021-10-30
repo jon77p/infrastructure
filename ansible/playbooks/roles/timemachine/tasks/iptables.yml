@@ -1,0 +1,23 @@
+- name: Insert rule for SMB access
+  iptables:
+    action: insert
+    chain: INPUT
+    rule_num: 6
+    ctstate: NEW
+    destination_port: "{{ timemachine_port }}"
+    protocol: tcp
+    state: present
+    jump: ACCEPT
+    comment: "Accept new connections to TCP/{{ timemachine_port }}"
+  become: true
+
+- name: Install iptables-persistent
+  become: true
+  apt:
+    name: iptables-persistent
+    state: latest
+
+- name: Save iptables rules
+  become: true
+  shell: iptables-save > /etc/iptables/rules.v4
+
