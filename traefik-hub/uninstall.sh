@@ -1,3 +1,5 @@
 #!/bin/sh
 
-helm uninstall hub-agent -n hub-agent
+helm uninstall hub -n hub-agent
+
+kubectl delete namespace/hub-agent
