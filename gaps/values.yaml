@@ -18,7 +18,3 @@ ingress:
 persistence:
   config:
     enabled: true
-# securityContext:
-  # runAsUser: 0
-  # runAsNonRoot: false
-  # runAsGroup: 0
