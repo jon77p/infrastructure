@@ -47,7 +47,6 @@ variable "cf_tunnels" {
     object({
       id       = string
       name     = string
-      hostname = string
     })
   )
 }
