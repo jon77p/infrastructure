@@ -2,8 +2,11 @@
 sudo apt update -y && sudo apt upgrade -y
 
 # Install and setup Cloudflare Tunnel
-wget https://bin.equinox.io/c/VdrWdbjqyF/cloudflared-stable-linux-amd64.deb
-sudo dpkg -i cloudflared-stable-linux-amd64.deb
+echo 'deb http://pkg.cloudflare.com/ focal main' | sudo tee /etc/apt/sources.list.d/cloudflare-main.list
+curl -C - https://pkg.cloudflare.com/pubkey.gpg | sudo apt-key add -
+sudo apt-get update -y
+sudo apt install -y cloudflared
+
 # A local user directory is first created before we can install the tunnel as a system service 
 mkdir ~/.cloudflared
 touch ~/.cloudflared/cert.json
