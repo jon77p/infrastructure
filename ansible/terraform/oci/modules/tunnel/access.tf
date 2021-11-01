@@ -19,5 +19,6 @@ resource "cloudflare_access_policy" "ssh_policy" {
 
   include {
     email = [var.cf_email]
+    group = [var.cf_admin_group_id]
   }
 }

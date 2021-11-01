@@ -88,3 +88,8 @@ variable "cf_allowed_idp_ids" {
   type        = list(string)
   default     = []
 }
+
+variable "cf_admin_group_id" {
+  description = "Id of administrator cloudflare group"
+  type        = string
+}
