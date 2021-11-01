@@ -1,8 +1,9 @@
 resource "cloudflare_access_application" "ssh_app" {
   for_each         = toset(var.instances)
   zone_id          = var.cf_zone_id
-  name             = "Access protection for ssh-${each.key}.${var.domain}"
+  name             = "ssh-${each.key}.${var.domain}"
   domain           = "ssh-${each.key}.${var.domain}"
+  type             = "ssh"
   session_duration = "1h"
 }
 
