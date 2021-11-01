@@ -8,12 +8,12 @@ sudo apt-get update -y
 sudo apt install -y cloudflared
 
 # A local user directory is first created before we can install the tunnel as a system service 
-cd
-mkdir .cloudflared
-touch .cloudflared/cert.json
-touch .cloudflared/config.yml
+cd /root
+sudo mkdir /root/.cloudflared
+sudo touch /root/.cloudflared/cert.json
+sudo touch /root/.cloudflared/config.yml
 # Another herefile is used to dynamically populate the JSON credentials file 
-cat > .cloudflared/cert.json << "EOF"
+sudo cat > /root/.cloudflared/cert.json << "EOF"
 {
     "AccountTag"   : "${cf_account}",
     "TunnelID"     : "${cf_tunnel_id}",
@@ -22,7 +22,7 @@ cat > .cloudflared/cert.json << "EOF"
 }
 EOF
 # Same concept with the Ingress Rules the tunnel will use 
-cat > .cloudflared/config.yml << "EOF"
+sudo cat > /root/.cloudflared/config.yml << "EOF"
 tunnel: ${cf_tunnel_id}
 credentials-file: /etc/cloudflared/cert.json
 logfile: /var/log/cloudflared.log
@@ -41,7 +41,7 @@ EOF
 # Now we install the tunnel as a systemd service 
 sudo cloudflared service install
 # The credentials file does not get copied over so we'll do that manually 
-sudo cp -via .cloudflared/cert.json /etc/cloudflared/
+sudo cp -via /root/.cloudflared/cert.json /etc/cloudflared/
 
 # Enable and start the tunnel
 sudo systemctl enable --now cloudflared
