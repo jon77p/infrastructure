@@ -26,6 +26,12 @@ variable "domain" {
   type        = string
 }
 
+variable "cf_account_id" {
+  description = "The Cloudflare UUID for the Account the Zone lives in."
+  type        = string
+  sensitive   = true
+}
+
 variable "cf_zone_id" {
   description = "Cloudflare zone id"
   type        = string

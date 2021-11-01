@@ -20,6 +20,17 @@ module "base" {
   additional_ingress = var.additional_ingress
 }
 
+module "tunnel" {
+  source = "./modules/tunnel"
+
+  profile       = var.profile
+  domain        = var.domain
+  instances     = var.instances
+  cf_zone_id    = var.cf_zone_id
+  cf_email      = var.cf_email
+  cf_account_id = var.cf_account_id
+}
+
 module "compute" {
   source = "./modules/compute"
 

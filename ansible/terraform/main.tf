@@ -19,7 +19,9 @@ module "oci0" {
   tenancy_id               = var.oci[0].tenancy_ocid
   region                   = var.region
   domain                   = var.domain
+  cf_account_id            = var.cf_account_id
   cf_zone_id               = var.cf_zone_id
+  cf_email                 = var.cf_email
   terraform_ssh_public_key = var.terraform_ssh_public_key
   setup_script             = var.setup_script
   cidrs                    = var.cidrs
@@ -37,7 +39,9 @@ module "oci1" {
   tenancy_id               = var.oci[1].tenancy_ocid
   region                   = var.region
   domain                   = var.domain
+  cf_account_id            = var.cf_account_id
   cf_zone_id               = var.cf_zone_id
+  cf_email                 = var.cf_email
   terraform_ssh_public_key = var.terraform_ssh_public_key
   setup_script             = var.setup_script
   cidrs                    = var.cidrs
@@ -55,7 +59,9 @@ module "oci2" {
   tenancy_id               = var.oci[2].tenancy_ocid
   region                   = var.region
   domain                   = var.domain
+  cf_account_id            = var.cf_account_id
   cf_zone_id               = var.cf_zone_id
+  cf_email                 = var.cf_email
   terraform_ssh_public_key = var.terraform_ssh_public_key
   setup_script             = var.setup_script
   cidrs                    = var.cidrs

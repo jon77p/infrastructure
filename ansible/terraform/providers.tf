@@ -26,6 +26,7 @@ provider "oci" {
 }
 
 provider "cloudflare" {
-  email     = var.cf_email
-  api_token = var.cf_api_token
+  email      = var.cf_email
+  api_token  = var.cf_api_token
+  account_id = var.cf_account_id
 }
