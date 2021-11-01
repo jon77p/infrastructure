@@ -5,6 +5,7 @@ resource "cloudflare_access_application" "ssh_app" {
   domain           = "ssh-${each.key}.${var.domain}"
   type             = "ssh"
   session_duration = "1h"
+  auto_redirect_to_identity = true
 }
 
 resource "cloudflare_access_policy" "ssh_policy" {
