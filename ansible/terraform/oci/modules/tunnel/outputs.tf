@@ -1,5 +1,5 @@
 output "tunnels" {
-  value       = cloudflare_argo_tunnel.tunnel
+  value       = values(cloudflare_argo_tunnel.tunnel[*])
   description = "List of cloudflare_argo_tunnel resources"
 }
 

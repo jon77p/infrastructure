@@ -35,8 +35,8 @@ resource "oci_core_instance" "ubuntu_instance" {
     user_data = base64encode(templatefile(var.setup_script_path,
       {
         cf_account       = var.cf_account_id,
-        cf_domain        = "${each.key}.${var.domain}",
-        cf_tunnel_id     = var.cf_tunnels[each.key].id,
+        cf_domain        = var.cf_tunnels[index(var.instances, each.key)].hostname,
+        cf_tunnel_id     = var.cf_tunnels[index(var.instances, each.key)].id,
         cf_tunnel_name   = var.cf_tunnels[each.key].name,
         cf_tunnel_secret = var.cf_tunnel_secret
     }))

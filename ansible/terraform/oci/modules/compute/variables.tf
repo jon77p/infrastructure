@@ -43,11 +43,13 @@ variable "cf_account_id" {
 
 variable "cf_tunnels" {
   description = "List of cloudflare_argo_tunnel resources"
-  type = list(object({
-    id   = string
-    name = string
-  }))
-  default = []
+  type = list(
+    object({
+      id       = string
+      name     = string
+      hostname = string
+    })
+  )
 }
 
 variable "cf_tunnel_secret" {
