@@ -1,8 +1,3 @@
-variable "profile" {
-  description = "config file profile name"
-  type        = string
-}
-
 variable "domain" {
   description = "base resource domain name"
   type        = string

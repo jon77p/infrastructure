@@ -12,7 +12,7 @@ resource "cloudflare_argo_tunnel" "tunnel" {
 resource "cloudflare_record" "tunnel_app" {
   for_each = toset(var.instances)
   zone_id  = var.cf_zone_id
-  name     = "tunnel.${each.key}"
+  name     = "tunnel-${each.key}"
   value    = "${cloudflare_argo_tunnel.tunnel[each.key].id}.cfargotunnel.com"
   type     = "CNAME"
   proxied  = true
@@ -21,8 +21,8 @@ resource "cloudflare_record" "tunnel_app" {
 resource "cloudflare_record" "ssh_app" {
   for_each = toset(var.instances)
   zone_id  = var.cf_zone_id
-  name     = "ssh.${each.key}"
-  value    = format("tunnel.%s.%s.%s", each.key, var.profile, var.domain)
+  name     = "ssh-${each.key}"
+  value    = "tunnel-${each.key}.${var.domain}"
   type     = "CNAME"
   proxied  = true
 }

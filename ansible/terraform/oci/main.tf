@@ -23,7 +23,6 @@ module "base" {
 module "tunnel" {
   source = "./modules/tunnel"
 
-  profile       = var.profile
   domain        = var.domain
   instances     = var.instances
   cf_zone_id    = var.cf_zone_id
@@ -44,7 +43,7 @@ module "compute" {
 resource "cloudflare_record" "instance_record" {
   for_each = toset(var.instances)
   zone_id  = var.cf_zone_id
-  name     = format("%s.%s.%s", each.key, var.profile, var.domain)
+  name     = "${each.key}.${var.profile}.${var.domain}"
   value    = module.compute.instance-public-ip[each.key]
   type     = "A"
   proxied  = false
