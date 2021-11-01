@@ -78,3 +78,9 @@ variable "additional_ingress" {
     }))
   }))
 }
+
+variable "cf_allowed_idp_ids" {
+  description = "list of allowed Cloudflare IDP ids"
+  type        = list(string)
+  default     = []
+}

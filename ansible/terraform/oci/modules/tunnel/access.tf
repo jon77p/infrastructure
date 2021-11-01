@@ -1,12 +1,12 @@
 resource "cloudflare_access_application" "ssh_app" {
-  for_each         = toset(var.instances)
-  zone_id          = var.cf_zone_id
-  name             = "ssh-${each.key}.${var.domain}"
-  domain           = "ssh-${each.key}.${var.domain}"
-  type             = "ssh"
-  session_duration = "1h"
+  for_each                  = toset(var.instances)
+  zone_id                   = var.cf_zone_id
+  name                      = "ssh-${each.key}.${var.domain}"
+  domain                    = "ssh-${each.key}.${var.domain}"
+  type                      = "ssh"
+  session_duration          = "1h"
   auto_redirect_to_identity = true
-  allowed_idps = ["Azure AD"]
+  allowed_idps              = var.cf_allowed_idp_ids
 }
 
 resource "cloudflare_access_policy" "ssh_policy" {
