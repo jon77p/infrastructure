@@ -51,9 +51,10 @@ variable "terraform_ssh_public_key" {
   sensitive   = true
 }
 
-variable "setup_script" {
-  description = "contents of script used for cloud-init when creating a compute instance"
+variable "setup_script_path" {
+  description = "Relative path to location of setup script"
   type        = string
+  default     = "./oci/modules/compute/setup.tpl"
 }
 
 variable "instances" {

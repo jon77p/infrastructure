@@ -35,9 +35,14 @@ module "compute" {
 
   compartment_id           = module.base.compartment-id
   terraform_ssh_public_key = var.terraform_ssh_public_key
-  setup_script             = var.setup_script
+  setup_script_path        = var.setup_script_path
   instances                = var.instances
   subnet_id                = module.base.public-subnet-id
+
+  domain           = var.domain
+  cf_account_id    = var.cf_account_id
+  cf_tunnels       = module.tunnel.tunnels
+  cf_tunnel_secret = module.tunnel.tunnel_secret
 }
 
 resource "cloudflare_record" "instance_record" {

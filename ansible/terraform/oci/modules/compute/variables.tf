@@ -25,7 +25,32 @@ variable "subnet_id" {
   type        = string
 }
 
-variable "setup_script" {
-  description = "contents of script used for cloud-init when creating a compute instance"
+variable "setup_script_path" {
+  description = "Relative path to location of setup script"
+  type        = string
+}
+
+variable "domain" {
+  description = "base resource domain name"
+  type        = string
+}
+
+variable "cf_account_id" {
+  description = "The Cloudflare UUID for the Account the Zone lives in."
+  type        = string
+  sensitive   = true
+}
+
+variable "cf_tunnels" {
+  description = "List of cloudflare_argo_tunnel resources"
+  type = list(object({
+    id   = string
+    name = string
+  }))
+  default = []
+}
+
+variable "cf_tunnel_secret" {
+  description = "Base64 secret value for tunnel"
   type        = string
 }

@@ -23,7 +23,7 @@ module "oci0" {
   cf_zone_id               = var.cf_zone_id
   cf_email                 = var.cf_email
   terraform_ssh_public_key = var.terraform_ssh_public_key
-  setup_script             = var.setup_script
+  setup_script_path        = var.setup_script_path
   cidrs                    = var.cidrs
   instances                = var.instances[0].instances
   additional_ingress       = local.additional_ingress.oci0
@@ -43,7 +43,7 @@ module "oci1" {
   cf_zone_id               = var.cf_zone_id
   cf_email                 = var.cf_email
   terraform_ssh_public_key = var.terraform_ssh_public_key
-  setup_script             = var.setup_script
+  setup_script_path        = var.setup_script_path
   cidrs                    = var.cidrs
   instances                = var.instances[1].instances
   additional_ingress       = local.additional_ingress.oci1
@@ -63,7 +63,7 @@ module "oci2" {
   cf_zone_id               = var.cf_zone_id
   cf_email                 = var.cf_email
   terraform_ssh_public_key = var.terraform_ssh_public_key
-  setup_script             = var.setup_script
+  setup_script_path        = var.setup_script_path
   cidrs                    = var.cidrs
   instances                = var.instances[2].instances
   additional_ingress       = local.additional_ingress.oci2
