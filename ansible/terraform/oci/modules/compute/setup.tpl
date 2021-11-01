@@ -1,7 +1,5 @@
 #!/bin/sh
 sudo apt update -y && sudo apt upgrade -y
-# apt install -y openssh-server
-# systemctl enable --now ssh
 
 # Install and setup Cloudflare Tunnel
 wget https://bin.equinox.io/c/VdrWdbjqyF/cloudflared-stable-linux-amd64.deb

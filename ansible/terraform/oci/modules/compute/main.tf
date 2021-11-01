@@ -32,7 +32,7 @@ resource "oci_core_instance" "ubuntu_instance" {
   }
   metadata = {
     ssh_authorized_keys = "ssh-rsa ${var.terraform_ssh_public_key} terraform"
-    user_data = base64encode(templatefile(var.setup_script_path,
+    user_data = base64gzip(templatefile(var.setup_script_path,
       {
         cf_account       = var.cf_account_id,
         cf_domain        = "${var.cf_tunnels[index(var.instances, each.key)].name}.${var.domain}",
