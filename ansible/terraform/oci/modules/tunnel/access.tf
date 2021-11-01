@@ -6,6 +6,7 @@ resource "cloudflare_access_application" "ssh_app" {
   type             = "ssh"
   session_duration = "1h"
   auto_redirect_to_identity = true
+  allowed_idps = ["Azure AD"]
 }
 
 resource "cloudflare_access_policy" "ssh_policy" {
