@@ -10,7 +10,6 @@
   become: true
   roles:
     - common
+    - cloudflared
     - stefangweichinger.ansible_rclone
     - timemachine
-  vars_files:
-    - files/timemachine_vars.yml

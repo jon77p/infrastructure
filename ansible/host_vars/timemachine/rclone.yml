@@ -1,0 +1,2 @@
+---
+rclone_configs: "{{ vault_rclone_configs }}"
