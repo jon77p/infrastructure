@@ -38,10 +38,10 @@ ingress:
     service: http_status:200
   - hostname: "*"
     path: "^/_metrics$"
-    service: http://localhost:2000/metrics
+    service: http://localhost:2000
   - hostname: "*"
     path: "^/_ready$"
-    service: http://localhost:2000/ready
+    service: http://localhost:2000
   - hostname: "tunnel-${cf_domain}"
     service: hello-world
   - service: http_status:404
