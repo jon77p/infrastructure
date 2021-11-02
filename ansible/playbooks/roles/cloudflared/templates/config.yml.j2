@@ -1,0 +1,23 @@
+tunnel: {{ tunnel_id }}
+credentials-file: /etc/cloudflared/cert.json
+warp-routing:
+  enabled: true
+logfile: /var/log/cloudflared.log
+loglevel: info
+metrics: localhost:2000
+
+ingress:
+  - hostname: ssh-{{ fqdn }}
+    service: ssh://localhost:22
+  - hostname: "*"
+    path: "^/_healthcheck$"
+    service: http_status:200
+  - hostname: "*"
+    path: "^/metrics$"
+    service: http://localhost:2000
+  - hostname: "*"
+    path: "^/ready$"
+    service: http://localhost:2000
+  - hostname: "tunnel-{{ fqdn }}"
+    service: hello-world
+  - service: http_status:404
