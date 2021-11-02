@@ -37,10 +37,10 @@ ingress:
     path: "^/_healthcheck$"
     service: http_status:200
   - hostname: "*"
-    path: "^/_metrics$"
+    path: "^/metrics$"
     service: http://localhost:2000
   - hostname: "*"
-    path: "^/_ready$"
+    path: "^/ready$"
     service: http://localhost:2000
   - hostname: "tunnel-${cf_domain}"
     service: hello-world
