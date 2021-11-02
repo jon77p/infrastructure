@@ -36,6 +36,12 @@ ingress:
   - hostname: "*"
     path: "^/_healthcheck$"
     service: http_status:200
+  - hostname: "*"
+    path: "^/_metrics$"
+    service: http://localhost:2000/metrics
+  - hostname: "*"
+    path: "^/_ready$"
+    service: http://localhost:2000/ready
   - hostname: "tunnel-${cf_domain}"
     service: hello-world
   - service: http_status:404
