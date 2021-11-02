@@ -25,6 +25,8 @@ EOF
 sudo cat > /root/.cloudflared/config.yml << "EOF"
 tunnel: ${cf_tunnel_id}
 credentials-file: /etc/cloudflared/cert.json
+warp-routing:
+  enabled:true
 logfile: /var/log/cloudflared.log
 loglevel: info
 
