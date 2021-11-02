@@ -1,0 +1,25 @@
+---
+apiVersion: v1
+data:
+  default.yaml: |-
+    tunnel: k3s
+    loglevel: debug
+    # origincert: /etc/cloudflared/cert.pem
+    credentials-file: /etc/cloudflared/cred.json
+    warp-routing:
+      enabled: true
+    ingress:
+    - hostname: access.thepi.cloud
+      service: hello_world
+    - hostname: ssh.thepi.cloud
+      service: bastion
+    - service: http_status:404
+    # - hostname: git-ssh.thepi.cloud
+      # service: ssh://gitea:22
+    # - service: https://traefik.kube-system
+      # originRequest:
+        # noTLSVerify: true
+kind: ConfigMap
+metadata:
+  name: cloudflared-config
+  namespace: cloudflared
