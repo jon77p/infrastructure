@@ -29,6 +29,7 @@ warp-routing:
   enabled: true
 logfile: /var/log/cloudflared.log
 loglevel: info
+metrics: localhost:2000
 
 ingress:
   - hostname: ssh-${cf_domain}
