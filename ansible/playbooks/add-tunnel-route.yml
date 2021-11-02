@@ -4,6 +4,5 @@
     - name: "target_name"
       prompt: Enter a hostname to update cloudflared configuration
       private: false
-
   roles:
     - cloudflared

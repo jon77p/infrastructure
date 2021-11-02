@@ -2,6 +2,9 @@
   shell: head -n 1 /etc/cloudflared/config.yml | awk '{print $2}'
   register: tunnel_output
 
+- debug:
+    var: additional_ingress
+
 - name: Create updated cloudflared config file
   become: true
   vars:

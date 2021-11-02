@@ -1,0 +1,4 @@
+---
+additional_ingress:
+  - hostname: "testing"
+    service: "hello-world"

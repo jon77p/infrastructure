@@ -1,3 +1,4 @@
+#jinja2: lstrip_blocks: "True", trim_blocks: "True"
 tunnel: {{ tunnel_id }}
 credentials-file: /etc/cloudflared/cert.json
 warp-routing:
@@ -20,4 +21,11 @@ ingress:
     service: http://localhost:2000
   - hostname: "tunnel-{{ fqdn }}"
     service: hello-world
+  {% for item in additional_ingress %}
+  - hostname: {{ item.hostname }}-{{ fqdn }}
+    {% if item.path is defined %}
+    path: {{ item.path }}
+    {% endif %}
+    service: {{ item.service }}
+  {% endfor %}
   - service: http_status:404
