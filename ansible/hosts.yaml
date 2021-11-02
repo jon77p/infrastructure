@@ -1,4 +1,6 @@
 all:
+  vars:
+    ansible_become_pass: "{{ user_password }}"
   children:
     cluster:
       children:
