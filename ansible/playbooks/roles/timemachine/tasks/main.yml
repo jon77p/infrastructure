@@ -7,8 +7,5 @@
 - name: Timemachine | deploy docker
   import_tasks: docker-deploy.yml
 
-- name: Timemachine | allow via iptables
-  import_tasks: iptables.yml
-
 # - name: Timemachine | add OCI ingress rule
   # import_tasks: oci.yml

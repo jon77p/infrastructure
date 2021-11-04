@@ -1,0 +1,24 @@
+- name: iptables update rules
+  become: true
+  iptables:
+    action: "{{ item.action }}"
+    chain: "{{ item.chain }}"
+    rule_num: "{{ item.rule_num }}"
+    ctstate: "{{ item.ctstate }}"
+    destination_port: "{{ item.destination_port }}"
+    protocol: "{{ item.protocol }}"
+    state: "{{ item.state }}"
+    jump: "{{ item.jump }}"
+    comment: "{{ item.comment }}"
+  loop: "{{ iptables_rules }}"
+
+- name: Install iptables-persistent
+  become: true
+  apt:
+    name: iptables-persistent
+    state: latest
+
+- name: Save iptables rules
+  become: true
+  shell: iptables-save > /etc/iptables/rules.v4
+

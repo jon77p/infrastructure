@@ -1,0 +1,4 @@
+---
+cf_email: "{{ vault_cf_email }}"
+cf_api_token: "{{ vault_cf_api_token }}"
+cloudflare_dns_records: "{{ hostvars[ansible_hostname].cloudflare_dns_records | default([]) }}"

@@ -2,7 +2,6 @@
 user: "root"
 service_description: "Mount rclone in to subdirectory of /mnt"
 mount_dir: "/mnt/{{ rclone_remote }}"
-timemachine_port: 445
 timemachine_compose: 
   timemachine:
     environment:

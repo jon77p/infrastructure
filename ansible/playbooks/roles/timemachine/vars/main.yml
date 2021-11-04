@@ -1,0 +1,6 @@
+---
+rclone_remote: "{{ hostvars[ansible_hostname].rclone_remote }}"
+timemachine_port: "{{ hostvars[ansible_hostname].timemachine_port }}"
+timemachine_user: "{{ hostvars[ansible_hostname].timemachine_user }}"
+timemachine_pass: "{{ hostvars[ansible_hostname].timemachine_pass }}"
+timemachine_sharename: "{{ hostvars[ansible_hostname].timemachine_sharename }}"
