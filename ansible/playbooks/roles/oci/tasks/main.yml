@@ -1,0 +1,58 @@
+- name: "Get tenancy OCID"
+  shell: cat ~/.oci/config | grep "{{ oci_profile }}" -A 5 | grep tenancy | awk '{ print $3 }'
+  register: tenancy
+
+- debug:
+    var: tenancy
+
+- name: "Get 'terraform' compartment OCID"
+  oracle.oci.oci_identity_compartment_facts:
+    config_profile_name: "{{ oci_profile }}"
+    parent_compartment_id: "{{ tenancy.stdout }}"
+    name: "terraform"
+  register: compartment
+
+- debug:
+    var: compartment
+
+- name: "Get instance with hostname {{ oci_hostname }}"
+  oracle.oci.oci_compute_instance_facts:
+    config_profile_name: "{{ oci_profile }}"
+    compartment_id: "{{ compartment.compartments[0].id }}"
+    display_name: "{{ oci_hostname }}"
+  register: instance
+
+- debug:
+    var: instance
+
+- name: "Get vnic attachment for instance"
+  oracle.oci.oci_compute_vnic_attachment_facts:
+    config_profile_name: "{{ oci_profile }}"
+    compartment_id: "{{ compartment.compartments[0].id }}"
+    instance_id: "{{ instance.instances[0].id }}"
+  register: vnic_attachment
+
+- debug:
+    var: vnic_attachment
+
+- name: "Get subnet for vnic attachment"
+  oracle.oci.oci_network_subnet_facts:
+    config_profile_name: "{{ oci_profile }}"
+    compartment_id: "{{ compartment.compartments[0].id }}"
+    subnet_id: "{{ vnic_attachment.vnic_attachments[0].subnet_id }}"
+  register: subnet
+
+- debug:
+    var: subnet
+
+- name: "Add security rules to security lists"
+  oracle.oci.oci_network_security_list:
+    config_profile_name: "{{ oci_profile }}"
+    compartment_id: "{{ compartment.compartments[0].id }}"
+    security_list_id: "{{ item }}"
+    state: present
+    vcn_id: "{{ subnet.subnets[0].vcn_id }}"
+    egress_security_rules: "{{ security_rules.egress_security_rules }}"
+    ingress_security_rules: "{{ security_rules.ingress_security_rules }}"
+    purge_security_rules: false
+  loop: "{{ subnet.subnets[0].security_list_ids }}"

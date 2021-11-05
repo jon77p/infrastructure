@@ -1,11 +1,4 @@
 ---
-# todo: setup oci so that ingress rule can be added for timemachine service
-# - hosts: localhost
-  # collections:
-    # - oracle.oci
-  # vars:
-    # config_profile: "oci1"
-
 - hosts: timemachine
   become: true
   roles:
@@ -15,4 +8,9 @@
     - stefangweichinger.ansible_rclone
     - timemachine
     - iptables
-    # - oci
+
+- hosts: localhost
+  vars:
+    oci_hostname: "timemachine"
+  roles:
+    - oci
