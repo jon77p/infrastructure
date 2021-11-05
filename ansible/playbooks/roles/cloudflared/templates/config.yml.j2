@@ -22,7 +22,7 @@ ingress:
   - hostname: "tunnel-{{ fqdn }}"
     service: hello-world
   {% for item in additional_ingress %}
-  - hostname: {{ item.hostname }}-{{ fqdn }}
+  - hostname: {{ item.hostname }}
     {% if item.path is defined %}
     path: {{ item.path }}
     {% endif %}

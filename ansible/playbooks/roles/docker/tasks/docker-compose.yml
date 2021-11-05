@@ -1,3 +1,10 @@
+- name: Ensure all volume mounts exist
+  become: true
+  when: "docker_volume_dir != None"
+  file:
+    path: "{{ docker_volume_dir }}"
+    state: directory
+
 - name: Take down {{ compose_project_name }} project
   community.docker.docker_compose:
     project_name: "{{ compose_project_name }}"

@@ -1,0 +1,4 @@
+---
+additional_ingress:
+  - hostname: "gaps.{{ domain }}"
+    service: "http://localhost:{{ gaps_port }}"

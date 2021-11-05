@@ -1,0 +1,8 @@
+---
+- hosts: gaps
+  become: true
+  roles:
+    - common
+    - cloudflared
+    - cloudflare
+    - docker

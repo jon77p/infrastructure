@@ -29,6 +29,8 @@ all:
               ansible_host: stash
             timemachine:
               ansible_host: timemachine
+            gaps:
+              ansible_host: gaps
         innernet:
           hosts:
             innernet_server:
