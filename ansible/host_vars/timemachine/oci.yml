@@ -10,3 +10,24 @@ oci_security_rules:
         destination_port_range:
           max: "{{ timemachine_port }}"
           min: "{{ timemachine_port }}"
+    - description: "allow timemachine UDP/137 inbound"
+      source: "0.0.0.0/0"
+      protocol: "17" # UDP
+      udp_options:
+        destination_port_range:
+          max: "137"
+          min: "137"
+    - description: "allow timemachine UDP/138 inbound"
+      source: "0.0.0.0/0"
+      protocol: "17" # UDP
+      udp_options:
+        destination_port_range:
+          max: "138"
+          min: "138"
+    - description: "allow timemachine TCP/139 inbound"
+      source: "0.0.0.0/0"
+      protocol: "6" # TCP
+      tcp_options:
+        destination_port_range:
+          max: "139"
+          min: "139"
