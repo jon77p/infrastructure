@@ -1,5 +1,6 @@
 ---
 compose_project_name: "timemachine"
+docker_volume_dir: "{{ rclone_mount_dir }}"
 compose_definition: 
   version: '3'
   services:
