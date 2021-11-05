@@ -1,4 +1,4 @@
 ---
 additional_ingress:
-  - hostname: "gaps.{{ domain }}"
-    service: "http://localhost:{{ gaps_port }}"
+  - hostname: "{{ compose_project_name }}.{{ domain }}"
+    service: "http://localhost:{{ compose_project_port }}"

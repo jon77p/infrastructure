@@ -1,6 +1,6 @@
 ---
-gaps_port: "8484"
 compose_project_name: "gaps"
+compose_project_port: "8484"
 docker_volume_dir: "/mnt/{{ compose_project_name }}"
 compose_definition: 
   version: '3'
@@ -10,7 +10,7 @@ compose_definition:
       volumes:
         - "{{ docker_volume_dir }}:/usr/data"
       ports:
-        - "{{ gaps_port }}:8484"
+        - "{{ compose_project_port }}:8484"
       restart: "always"
 compose_service_names:
   - "gaps"
