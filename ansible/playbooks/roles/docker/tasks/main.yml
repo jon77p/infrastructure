@@ -1,7 +1,11 @@
 - name: Docker | ensure SDK is installed
   import_tasks: install-docker-sdk.yml
 
-- name: Docker | verify services
+- name: Docker | Reload docker-compose project
+  when: "compose_project_name != None and compose_definition != None"
+  import_tasks: docker-compose.yml
+
+- name: Docker | verify swarm services
   include_tasks: verify-services.yml
   loop: "{{ servicelist }}"
   loop_control:

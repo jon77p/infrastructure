@@ -1,0 +1,4 @@
+---
+user: "root"
+service_description: "Mount rclone in to subdirectory of /mnt"
+rclone_mount_dir: "/mnt/{{ rclone_remote }}"

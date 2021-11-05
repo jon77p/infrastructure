@@ -6,7 +6,9 @@
     - cloudflared
     - cloudflare
     - stefangweichinger.ansible_rclone
+    - rclone
     - timemachine
+    - docker
     - iptables
 
 - hosts: localhost

@@ -1,0 +1,19 @@
+- name: Take down {{ compose_project_name }} project
+  community.docker.docker_compose:
+    project_name: "{{ compose_project_name }}"
+    definition: "{{ compose_definition }}"
+    state: absent
+
+- name: Deploy docker-compose for {{ compose_project_name }} project
+  community.docker.docker_compose:
+    project_name: "{{ compose_project_name }}"
+    definition: "{{ compose_definition }}"
+  register: output
+
+- debug:
+    var: output
+
+- ansible.builtin.assert:
+    that:
+      - "output.services.{{ compose_project_name }}.{{ compose_project_name }}_{{ item }}_1.state.running"
+  loop: "{{ compose_service_names }}"

@@ -1,7 +1,7 @@
-- name: Create mountpoint directory at {{ mount_dir }}
+- name: Create mountpoint directory at {{ rclone_mount_dir }}
   become: true
   file:
-    path: "{{ mount_dir }}"
+    path: "{{ rclone_mount_dir }}"
     state: directory
 
 - name: Create rclone systemd service file
