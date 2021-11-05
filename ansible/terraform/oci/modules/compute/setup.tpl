@@ -1,6 +1,4 @@
 #!/bin/sh
-sudo apt update -y && sudo apt upgrade -y
-
 # Install and setup Cloudflare Tunnel
 echo 'deb http://pkg.cloudflare.com/ focal main' | sudo tee /etc/apt/sources.list.d/cloudflare-main.list
 curl -C - https://pkg.cloudflare.com/pubkey.gpg | sudo apt-key add -
