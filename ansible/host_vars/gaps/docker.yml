@@ -12,5 +12,10 @@ compose_definition:
       ports:
         - "{{ compose_project_port }}:8484"
       restart: "always"
+      healthcheck:
+        test: [ "CMD", "curl", "https://hc-ping.com/{{ healthcheck_uuid }}" ]
+        timeout: 45s
+        interval: 10s
+        retries: 5
 compose_service_names:
   - "gaps"

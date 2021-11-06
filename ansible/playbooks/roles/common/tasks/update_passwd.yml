@@ -1,3 +1,6 @@
 - name: Set user password
-  shell: usermod -p $(echo '{{ user_password }}' | openssl passwd -1 -stdin) {{ ansible_ssh_user }}
-  become: yes
+  become: true
+  user:
+    name: "{{ ansible_ssh_user }}"
+    password: "{{ user_password }}"
+    update_password: "always"

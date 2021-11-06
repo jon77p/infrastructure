@@ -14,5 +14,10 @@ compose_definition:
       ports:
         - "{{ compose_project_port }}:8080"
       restart: "always"
+      healthcheck:
+        test: [ "CMD", "wget", "https://hc-ping.com/{{ healthcheck_uuid }}", "-O", "/dev/null" ]
+        timeout: 45s
+        interval: 10s
+        retries: 5
 compose_service_names:
   - "youtubedl"
