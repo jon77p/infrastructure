@@ -1,0 +1,11 @@
+---
+- hosts: youtubedl
+  become: true
+  roles:
+    - common
+    - cloudflared
+    - cloudflare
+    - stefangweichinger.ansible_rclone
+    - rclone
+    - youtubedl
+    - docker

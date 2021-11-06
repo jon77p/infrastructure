@@ -1,0 +1,2 @@
+---
+docker_volume_dir: "{{ hostvars[ansible_hostname].docker_volume_dir | default(None) }}"

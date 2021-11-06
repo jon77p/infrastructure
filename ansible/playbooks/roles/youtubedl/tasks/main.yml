@@ -1,0 +1,13 @@
+- name: Create configuration directory
+  become: true
+  when: "docker_volume_dir != None"
+  file:
+    path: "{{ docker_volume_dir }}"
+    state: directory
+
+- name: Create config file
+  become: true
+  when: "docker_volume_dir != None"
+  template:
+    src: ../templates/config.yml.j2
+    dest: "{{ docker_volume_dir }}/config.yml"

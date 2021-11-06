@@ -31,6 +31,8 @@ all:
               ansible_host: timemachine
             gaps:
               ansible_host: gaps
+            youtubedl:
+              ansible_host: youtubedl
         innernet:
           hosts:
             innernet_server:
