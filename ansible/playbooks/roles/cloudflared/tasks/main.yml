@@ -12,6 +12,21 @@
     fqdn: "{{ ansible_hostname }}.{{ domain }}"
   template:
     src: ../templates/config.yml.j2
+    dest: /tmp/cloudflared-config.yml
+
+- name: Diff updated config with current cloudflared config
+  become: true
+  shell: diff /tmp/cloudflared-config.yml /etc/cloudflared/config.yml
+  register: diff_result
+
+- name: Create updated cloudflared config file
+  become: true
+  when: "diff_result.rc != 0"
+  vars:
+    tunnel_id: "{{ tunnel_output.stdout }}"
+    fqdn: "{{ ansible_hostname }}.{{ domain }}"
+  template:
+    src: ../templates/config.yml.j2
     dest: /etc/cloudflared/config.yml
 
 - name: Validate ingress rules
@@ -24,4 +39,14 @@
   systemd:
     name: cloudflared
     state: restarted
-  when: validation_check.rc == 0
+    no_block: true
+  when: "diff_result.rc != 0 and validation_check.rc == 0"
+
+- name: Reset connection
+  meta: reset_connection
+  when: "diff_result.rc != 0 and validation_check.rc == 0"
+
+- name: Wait for the cloudflared service to reload
+  when: "diff_result.rc != 0 and validation_check.rc == 0"
+  wait_for_connection:
+    delay: 10

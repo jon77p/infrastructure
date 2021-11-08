@@ -1,3 +1,6 @@
+# Infrastructure
+![infrastructure status](https://healthchecks.jon77p.xyz/badge/4df537c4-045a-4113-9a3e-e03622/1a97Y3uV-2/infrastructure.svg)
+
 ## Getting Started: [Minimal Setup]
 1. `docker swarm init` on manager node
 2. `docker swarm join` with correct join token on all other nodes

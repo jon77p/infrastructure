@@ -9,6 +9,8 @@
   community.docker.docker_compose:
     project_name: "{{ compose_project_name }}"
     definition: "{{ compose_definition }}"
+    remove_orphans: true
+    remove_images: "all"
     state: absent
 
 - name: Deploy docker-compose for {{ compose_project_name }} project
@@ -22,5 +24,5 @@
 
 - ansible.builtin.assert:
     that:
-      - "output.services.{{ compose_project_name }}.{{ compose_project_name }}_{{ item }}_1.state.running"
-  loop: "{{ compose_service_names }}"
+      - "output.services.{{ compose_project_name }}.{{ compose_project_name }}_{{ item.key }}_1.state.running"
+  loop: "{{ compose_definition.services | dict2items }}"

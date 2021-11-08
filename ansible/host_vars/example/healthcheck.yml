@@ -4,7 +4,7 @@ healthcheck_uuid: "{{ vault_healthcheck_uuid }}"
 # docker-compose healthcheck snippet
 #
 # healthcheck:
-#   test: [ "CMD", "curl", "https://hc-ping.com/{{ healthcheck_uuid }}" ]
+#   test: [ "CMD", "curl", "https://healthchecks.{{ domain }}/ping/{{ healthcheck_uuid }}" ]
 #   timeout: 45s
 #   interval: 10s
 #   retries: 5
