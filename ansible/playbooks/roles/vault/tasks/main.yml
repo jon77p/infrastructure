@@ -1,7 +1,8 @@
-- name: Create configuration directories
+- name: Create mount directories
   become: true
   file:
     path: "{{ item }}"
+    recurse: true
     state: directory
   loop: "{{ docker_volume_dirs }}"
 
@@ -9,5 +10,5 @@
   become: true
   when: "docker_volume_dirs != []"
   template:
-    src: ../templates/config.yml.j2
-    dest: "{{ docker_volume_dirs[0] }}/config.yml"
+    src: ../templates/config.hcl.j2
+    dest: "{{ docker_volume_dirs[1] }}/config.hcl"

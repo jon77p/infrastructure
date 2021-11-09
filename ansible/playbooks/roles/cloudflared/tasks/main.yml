@@ -17,6 +17,7 @@
 - name: Diff updated config with current cloudflared config
   become: true
   shell: diff /tmp/cloudflared-config.yml /etc/cloudflared/config.yml
+  ignore_errors: yes
   register: diff_result
 
 - name: Create updated cloudflared config file
@@ -44,7 +45,6 @@
 
 - name: Reset connection
   meta: reset_connection
-  when: "diff_result.rc != 0 and validation_check.rc == 0"
 
 - name: Wait for the cloudflared service to reload
   when: "diff_result.rc != 0 and validation_check.rc == 0"

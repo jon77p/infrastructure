@@ -1,14 +1,15 @@
 ---
 compose_project_name: "healthchecks"
 compose_project_port: "8000"
-docker_volume_dir: "/mnt/{{ compose_project_name }}"
+docker_volume_dirs:
+  - "/mnt/{{ compose_project_name }}"
 compose_definition: 
   version: '3'
   services:
     healthchecks:
       image: linuxserver/healthchecks:latest
       volumes:
-        - "{{ docker_volume_dir }}:/config"
+        - "{{ docker_volume_dirs[0] }}:/config"
       ports:
         - "{{ compose_project_port }}:8000"
       environment:

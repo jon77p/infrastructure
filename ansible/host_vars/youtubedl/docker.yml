@@ -1,15 +1,16 @@
 ---
 compose_project_name: "youtubedl"
 compose_project_port: "8080"
-docker_volume_dir: "/mnt/{{ compose_project_name }}"
+docker_volume_dirs:
+  - "/mnt/{{ compose_project_name }}"
 compose_definition: 
   version: '3'
   services:
     youtubedl:
       image: nbr23/youtube-dl-server:latest
       volumes:
-        - "{{ docker_volume_dir }}:/youtube-dl"
-        - "{{ docker_volume_dir }}/config.yml:/app_config/config.yml:ro"
+        - "{{ docker_volume_dirs[0] }}:/youtube-dl"
+        - "{{ docker_volume_dirs[0] }}/config.yml:/app_config/config.yml:ro"
         - "{{ rclone_mount_dir }}:/outputs"
       ports:
         - "{{ compose_project_port }}:8080"

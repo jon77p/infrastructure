@@ -1,6 +1,7 @@
 ---
 compose_project_name: "timemachine"
-docker_volume_dir: "{{ rclone_mount_dir }}"
+docker_volume_dirs:
+  - "{{ rclone_mount_dir }}"
 compose_definition: 
   version: '3'
   services:
@@ -29,7 +30,7 @@ compose_definition:
         WORKGROUP: "WORKGROUP"
       image: mbentley/timemachine:smb
       volumes:
-        - "{{ rclone_mount_dir }}:/opt/timemachine"
+        - "{{ docker_volume_dirs[0] }}:/opt/timemachine"
       ports:
         - "{{ timemachine_port }}:445"
         - "137:137/udp"
