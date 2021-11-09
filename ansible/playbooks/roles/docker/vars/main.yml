@@ -1,6 +1,6 @@
 ---
-compose_project_name: "{{ hostvars[ansible_hostname].compose_project_name | default(None) }}"
-docker_volume_dir: "{{ hostvars[ansible_hostname].docker_volume_dir | default(None) }}"
-compose_definition: "{{ hostvars[ansible_hostname].compose_definition | default(None) }}"
-compose_service_names: "{{ hostvars[ansible_hostname].compose_service_names | default([]) }}"
-servicelist: "{{ hostvars[ansible_hostname].servicelist | default([]) }}"
+compose_project_name: "{{ hostvars[inventory_hostname].compose_project_name | default(None) }}"
+docker_volume_dir: "{{ hostvars[inventory_hostname].docker_volume_dir | default(None) }}"
+compose_definition: "{{ hostvars[inventory_hostname].compose_definition | default(None) }}"
+compose_service_names: "{{ hostvars[inventory_hostname].compose_service_names | default([]) }}"
+servicelist: "{{ hostvars[inventory_hostname].servicelist | default([]) }}"

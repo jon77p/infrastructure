@@ -1,3 +1,3 @@
 ---
-oci_profile: "{{ hostvars[oci_hostname].oci_profile }}"
-security_rules: "{{ hostvars[oci_hostname].oci_security_rules | default({'egress_security_rules': [], 'ingress_security_rules': []})}}"
+oci_profile: "{{ hostvars[hostname].oci_profile }}"
+security_rules: "{{ hostvars[hostname].oci_security_rules | default({'egress_security_rules': [], 'ingress_security_rules': []})}}"

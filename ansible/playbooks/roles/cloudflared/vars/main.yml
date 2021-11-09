@@ -1,2 +1,2 @@
 ---
-additional_ingress: "{{ hostvars[ansible_hostname].additional_ingress | default([]) }}"
+additional_ingress: "{{ hostvars[inventory_hostname].additional_ingress | default([]) }}"

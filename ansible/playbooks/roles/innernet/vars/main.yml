@@ -1,7 +1,7 @@
 ---
 innernet_network: jonprentice
 innernet_network_cidr: 10.42.0.0/16
-innernet_server_port: 51820
+innernet_server_port: "{{ hostvars[inventory_hostname].innernet_server_port }}"
 
 cluster_network_name: cluster
 cluster_network_cidr: 10.42.128.0/24

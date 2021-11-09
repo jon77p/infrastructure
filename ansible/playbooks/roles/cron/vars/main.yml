@@ -1,0 +1,2 @@
+---
+cronjobs: "{{ hostvars[inventory_hostname].cronjobs | default([]) }}"

@@ -1,0 +1,19 @@
+---
+# - hosts: innernet_server
+  # become: true
+  # tags:
+    # - innernet
+  # roles:
+    # - common
+    # - cloudflared
+    # - cloudflare
+    # - cron
+    # - innernet
+    # - iptables
+
+- hosts: localhost
+  vars:
+    oci_hostname: "innernet-server"
+    hostname: "innernet_server"
+  roles:
+    - oci

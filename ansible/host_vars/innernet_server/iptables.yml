@@ -1,0 +1,11 @@
+---
+iptables_rules:
+  - action: insert
+    chain: INPUT
+    rule_num: 6
+    ctstate: NEW
+    destination_port: "{{ innernet_server_port }}"
+    protocol: tcp
+    state: present
+    jump: ACCEPT
+    comment: "Accept new connections to TCP/{{ innernet_server_port }}"

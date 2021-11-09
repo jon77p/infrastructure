@@ -1,2 +1,2 @@
 ---
-iptables_rules: "{{ hostvars[ansible_hostname].iptables_rules | default([]) }}"
+iptables_rules: "{{ hostvars[inventory_hostname].iptables_rules | default([]) }}"
