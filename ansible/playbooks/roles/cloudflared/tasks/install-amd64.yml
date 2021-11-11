@@ -1,0 +1,18 @@
+- name: Add Cloudflare package URL to sources list
+  become: true
+  shell: echo 'deb http://pkg.cloudflare.com/ buster main' | sudo tee /etc/apt/sources.list.d/cloudflare-main.list
+
+- name: Add Cloudflare GPG key
+  become: true
+  shell: curl -C - https://pkg.cloudflare.com/pubkey.gpg | sudo apt-key add -
+
+- name: Update apt cache
+  become: true
+  apt:
+    update_cache: yes
+
+- name: Install cloudflared
+  become: true
+  apt:
+    name: "cloudflared"
+    state: latest

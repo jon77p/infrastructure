@@ -1,3 +1,26 @@
+- include_vars: "vault_main.yml"
+
+- name: Check if cloudflared is installed
+  become: true
+  command: dpkg-query -W cloudflared
+  register: cloudflared_install_check
+  failed_when: cloudflared_install_check.rc > 1
+  changed_when: cloudflared_install_check.rc == 1
+
+- name: Install cloudflared
+  when: cloudflared_install_check.rc == 1
+  include_tasks: install.yml
+
+- name: Check if cloudflared has initial setup
+  become: true
+  stat:
+    path: /etc/cloudflared/config.yml
+  register: cloudflared_setup_check
+
+- name: Setup cloudflared
+  when: not cloudflared_setup_check.stat.exists
+  include_tasks: setup.yml
+
 - name: Get required cloudflared values
   shell: head -n 1 /etc/cloudflared/config.yml | awk '{print $2}'
   register: tunnel_output
@@ -8,7 +31,7 @@
 - name: Create updated cloudflared config file
   become: true
   vars:
-    tunnel_id: "{{ tunnel_output.stdout }}"
+    cf_tunnel_id: "{{ tunnel_output.stdout }}"
     fqdn: "{{ ansible_hostname }}.{{ domain }}"
   template:
     src: ../templates/config.yml.j2

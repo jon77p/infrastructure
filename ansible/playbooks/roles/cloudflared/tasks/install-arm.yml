@@ -1,0 +1,13 @@
+- name: Download cloudflared .deb
+  get_url:
+    url: https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm.deb
+    dest: /tmp/cloudflared_arm.deb
+
+- name: Add arm architecture to dpkg
+  become: true
+  shell: dpkg --add-architecture arm
+
+- name: Install cloudflared
+  become: true
+  apt:
+    deb: /tmp/cloudflared_arm.deb

@@ -1,0 +1,9 @@
+- name: install cloudflared ARM
+  become: true
+  import_tasks: install-arm.yml
+  when: ansible_architecture == "armv7l" 
+
+- name: install cloudflared x86_64
+  become: true
+  import_tasks: install-amd64.yml
+  when: ansible_architecture == "x86_64"

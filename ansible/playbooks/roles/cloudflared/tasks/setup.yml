@@ -1,0 +1,35 @@
+- name: Create /root/.cloudflared directory
+  become: true
+  file:
+    path: /root/.cloudflared
+    state: directory
+
+- name: Create JSON credentials file
+  become: true
+  template:
+    src: ../templates/cert.json.j2
+    dest: /root/.cloudflared/cert.json
+
+- name: Create initial config file
+  become: true
+  vars:
+    fqdn: "{{ ansible_hostname }}.{{ domain }}"
+    additional_ingress: []
+  template:
+    src: ../templates/config.yml.j2
+    dest: /root/.cloudflared/config.yml
+
+- name: Install the cloudflared service
+  become: true
+  shell: cloudflared service install
+
+- name: Copy the credentials file manually
+  become: true
+  shell: cp -via /root/.cloudflared/cert.json /etc/cloudflared/
+
+- name: Enable and start the tunnel
+  become: true
+  systemd:
+    name: cloudflared
+    state: started
+    enabled: yes
