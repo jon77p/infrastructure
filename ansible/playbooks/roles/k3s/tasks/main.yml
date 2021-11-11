@@ -1,0 +1,7 @@
+- name: K3S | Setup manager
+  when: "'manager' in group_names"
+  include_tasks: manager.yml
+
+- name: K3S | Setup node
+  when: "'nodes' in group_names"
+  include_tasks: node.yml
