@@ -31,6 +31,8 @@ all:
               ansible_host: timemachine
             healthchecks:
               ansible_host: healthchecks
+            vault:
+              ansible_host: vault
             gaps:
               ansible_host: gaps
             youtubedl:
