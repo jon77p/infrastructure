@@ -3,6 +3,10 @@
 - debug:
     var: cloudflare_dns_records
 
+- name: Create initial tunnel records
+  when: "'oci' not in group_names"
+  include_tasks: setup.yml
+
 - name: Create additional records to point to tunnel
   community.general.cloudflare_dns:
     account_email: "{{ cf_email }}"
