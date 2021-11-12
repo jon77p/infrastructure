@@ -1,8 +1,17 @@
 ---
-- hosts: gaps
-  become: true
+### docker deployment
+# - hosts: gaps
+  # become: true
+  # roles:
+    # - common
+    # - cloudflared
+    # - cloudflare
+    # - docker
+
+- hosts: localhost
+  vars:
+    servicename: "gaps"
+  gather_facts: false
+  connection: local
   roles:
-    - common
-    - cloudflared
-    - cloudflare
-    - docker
+    - k8s

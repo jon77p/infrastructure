@@ -4,8 +4,5 @@
     servicename: "traefik"
   gather_facts: false
   connection: local
-  tasks:
-    - debug:
-        var: hostvars[servicename]
   roles:
     - k8s

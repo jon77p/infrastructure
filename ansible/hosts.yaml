@@ -17,6 +17,7 @@ all:
               hosts:
                 certmanager:
                 traefik:
+                gaps:
             manager:
               hosts:
                 pi1:
@@ -37,8 +38,6 @@ all:
               ansible_host: healthchecks
             vault:
               ansible_host: vault
-            gaps:
-              ansible_host: gaps
             youtubedl:
               ansible_host: youtubedl
         innernet:
