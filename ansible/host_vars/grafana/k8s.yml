@@ -1,0 +1,4 @@
+---
+service_name: "grafana"
+namespaces:
+  - "{{ service_name }}"

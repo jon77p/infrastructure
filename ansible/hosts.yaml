@@ -17,6 +17,7 @@ all:
               hosts:
                 certmanager:
                 traefik:
+                grafana:
                 gaps:
             manager:
               hosts:

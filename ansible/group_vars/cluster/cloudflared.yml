@@ -6,5 +6,11 @@ additional_ingress:
       noTLSVerify: true
   - hostname: "whoami.{{ domain }}"
     service: "https://pi1"
+  - hostname: "gaps.{{ domain }}"
+    service: "https://pi1"
+    originRequest:
+      noTLSVerify: true
+  - hostname: "grafana.{{ domain }}"
+    service: "https://pi1"
     originRequest:
       noTLSVerify: true

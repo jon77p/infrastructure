@@ -1,0 +1,41 @@
+---
+values:
+  ingress:
+    enabled: true
+    hosts:
+      - "{{ service_name }}.{{ domain }}"
+    annotations:
+      kubernetes.io/ingress.class: traefik
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      cert-manager.io/cluster-issuer: cloudflare-issuer
+    tls:
+      - secretName: "{{ service_name }}-tls"
+        hosts:
+          - "{{ service_name }}.{{ domain }}"
+  persistence:
+    enabled: true
+  admin:
+    existingSecret: "{{ service_name }}-admin"
+    userKey: admin-user
+    passwordKey: admin-password
+  plugins:
+    - grafana-piechart-panel
+    - grafana-worldmap-panel
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+      - name: Prometheus
+        type: prometheus
+        url: http://prometheus-server.prometheus
+        access: proxy
+        isDefault: true
+      - name: Loki
+        type: loki
+        url: http://loki.loki:3100
+        access: proxy
+      - name: InfluxDB
+        type: influxdb
+        url: http://influxdb.influxdb:8086
+        access: proxy
+  namespaceOverride: "{{ service_name }}"
