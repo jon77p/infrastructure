@@ -1,0 +1,8 @@
+---
+namespaces: "{{ hostvars[servicename].namespaces | default([]) }}"
+deployments: "{{ hostvars[servicename].deployments | default([]) }}"
+services: "{{ hostvars[servicename].services | default([]) }}"
+ingress: "{{ hostvars[servicename].ingress | default([]) }}"
+secrets: "{{ hostvars[servicename].secrets | default([]) }}"
+additional_resources: "{{ hostvars[servicename].additional_resources | default([]) }}"
+

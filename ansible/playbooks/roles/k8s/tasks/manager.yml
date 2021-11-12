@@ -9,6 +9,12 @@
   become: true
   shell: curl -sfL https://get.k3s.io | sh -
 
+- name: Add Traefik Pilot and ingress config
+  become: true
+  template:
+    src: ../templates/traefik-config.yaml.j2
+    dest: /var/lib/rancher/k3s/server/manifests/traefik-config.yaml
+
 - name: Retrieve node token
   become: true
   shell: cat /var/lib/rancher/k3s/server/node-token

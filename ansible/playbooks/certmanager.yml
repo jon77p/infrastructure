@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  vars:
+    servicename: "certmanager"
+  gather_facts: false
+  connection: local
+  roles:
+    - k8s

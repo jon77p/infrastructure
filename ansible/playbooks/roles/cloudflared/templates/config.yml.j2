@@ -27,5 +27,9 @@ ingress:
     path: {{ item.path }}
     {% endif %}
     service: {{ item.service }}
+    {% if item.originRequest is defined %}
+    originRequest:
+      noTLSVerify: {{ item.originRequest.noTLSVerify }}
+    {% endif %}
   {% endfor %}
   - service: http_status:404

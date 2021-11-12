@@ -1,0 +1,19 @@
+- include_vars: "helm.yml"
+
+- name: Add helm chart repo
+  when: "helm.repo is defined"
+  kubernetes.core.helm_repository:
+    name: "{{ helm.repo.name }}"
+    repo_url: "{{ helm.repo.url }}"
+
+- debug:
+    var: helm.chart_values
+
+- name: Deploy helm chart
+  kubernetes.core.helm:
+    update_repo_cache: true
+    name: "{{ helm.name }}"
+    chart_ref: "{{ helm.chart }}"
+    release_namespace: "{{ helm.namespace }}"
+    create_namespace: true
+    values: "{{ helm.chart_values }}"

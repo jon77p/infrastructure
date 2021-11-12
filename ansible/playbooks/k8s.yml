@@ -6,7 +6,7 @@
     - cloudflared
     - cloudflare
     - cron
-    - k3s
+    - k8s
 
 - hosts: nodes
   roles:
@@ -14,4 +14,4 @@
     - cloudflared
     - cloudflare
     - cron
-    - k3s
+    - k8s

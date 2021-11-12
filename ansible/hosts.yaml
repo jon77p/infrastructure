@@ -4,7 +4,7 @@ all:
   children:
     cluster:
       children:
-        k3s:
+        k8s:
           hosts:
             pi1:
               ansible_host: pi1
@@ -13,6 +13,10 @@ all:
           vars:
             ansible_ssh_user: pi
           children:
+            deployments:
+              hosts:
+                certmanager:
+                traefik:
             manager:
               hosts:
                 pi1:

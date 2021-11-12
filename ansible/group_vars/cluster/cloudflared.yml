@@ -1,0 +1,10 @@
+---
+additional_ingress:
+  - hostname: "traefik.{{ domain }}"
+    service: "https://pi1"
+    originRequest:
+      noTLSVerify: true
+  - hostname: "whoami.{{ domain }}"
+    service: "https://pi1"
+    originRequest:
+      noTLSVerify: true
