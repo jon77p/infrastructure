@@ -1,0 +1,9 @@
+---
+helm:
+  name: "{{ service_name }}"
+  repo:
+    name: "groundhog2k"
+    url: "https://groundhog2k.github.io/helm-charts/"
+  chart: "groundhog2k/ghost"
+  namespace: "{{ service_name }}"
+  chart_values: "{{ values }}"

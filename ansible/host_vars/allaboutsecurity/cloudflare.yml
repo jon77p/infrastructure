@@ -1,0 +1,8 @@
+---
+cloudflare_dns_records:
+  - zone: "{{ domain }}"
+    record: "{{ domain }}"
+    type: CNAME
+    value: "tunnel-{{ ansible_host }}.thepi.cloud"
+    proxied: true
+    state: present

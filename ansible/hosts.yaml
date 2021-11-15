@@ -23,6 +23,7 @@ all:
                 prometheus:
                 unifipoller:
                 gaps:
+                allaboutsecurity:
             manager:
               hosts:
                 pi1:
