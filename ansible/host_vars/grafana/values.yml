@@ -28,6 +28,7 @@ values:
     smtp:
       enabled: true
       host: "smtp.gmail.com:587"
+      port: "587"
       skip_verify: false
       from_address: "grafana@{{ domain }}"
   plugins:
