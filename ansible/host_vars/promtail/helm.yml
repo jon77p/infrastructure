@@ -1,0 +1,9 @@
+---
+helm:
+  name: "{{ service_name }}"
+  repo:
+    name: "grafana"
+    url: "https://grafana.github.io/helm-charts"
+  chart: "grafana/promtail"
+  namespace: "{{ service_name }}"
+  chart_values: "{{ values }}"

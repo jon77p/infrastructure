@@ -15,3 +15,11 @@
   connection: local
   roles:
     - k8s
+
+- hosts: manager
+  roles:
+    - cloudflared
+
+- hosts: nodes
+  roles:
+    - cloudflared

@@ -18,6 +18,10 @@ all:
                 certmanager:
                 traefik:
                 grafana:
+                loki:
+                promtail:
+                prometheus:
+                unifipoller:
                 gaps:
             manager:
               hosts:

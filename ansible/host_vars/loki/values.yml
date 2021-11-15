@@ -1,0 +1,22 @@
+---
+values:
+  admin:
+    existingSecret: "{{ service_name }}-admin"
+    userKey: admin-user
+    passwordKey: admin-password
+  namespaceOverride: "{{ service_name }}"
+  ingress:
+    enabled: true
+    hosts:
+      - host: "{{ service_name }}.{{ domain }}"
+        paths:
+          - /
+    annotations:
+      kubernetes.io/ingress.class: traefik
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      cert-manager.io/cluster-issuer: cloudflare-issuer
+    tls:
+      - secretName: "{{ service_name }}-tls"
+        hosts:
+          - "{{ service_name }}.{{ domain }}"
+
