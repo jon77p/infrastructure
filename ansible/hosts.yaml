@@ -27,6 +27,9 @@ all:
                 allaboutsecurity:
                 codeserver:
                 nodered:
+                influxdb:
+                varken:
+                traefikhub:
             manager:
               hosts:
                 pi1:

@@ -1,0 +1,9 @@
+---
+helm:
+  name: "{{ service_name }}"
+  repo:
+    name: "influxdata"
+    url: "https://helm.influxdata.com/"
+  chart: "influxdata/influxdb"
+  namespace: "{{ service_name }}"
+  chart_values: "{{ values }}"

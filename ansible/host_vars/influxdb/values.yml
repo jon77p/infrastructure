@@ -1,0 +1,19 @@
+---
+values:
+  image:
+    tag: 1.8.0
+  setDefaultUser:
+    user:
+    existingSecret: "{{ service_name }}-admin"
+  namespaceOverride: "{{ service_name }}"
+  ingress:
+    enabled: true
+    tls: true
+    secretName: "{{ service_name }}-tls"
+    hostname: "{{ service_name }}.{{ domain }}"
+    annotations:
+      kubernetes.io/ingress.class: traefik
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      cert-manager.io/cluster-issuer: cloudflare-issuer
+    path: /
+
