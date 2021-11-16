@@ -1,0 +1,9 @@
+---
+helm:
+  name: "{{ service_name }}"
+  repo:
+    name: "mojo2600"
+    url: "https://mojo2600.github.io/pihole-kubernetes/"
+  chart: "mojo2600/pihole"
+  namespace: "{{ service_name }}"
+  chart_values: "{{ values }}"
