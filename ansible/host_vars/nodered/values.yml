@@ -1,0 +1,28 @@
+---
+values:
+  ingress:
+    main:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: traefik
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        cert-manager.io/cluster-issuer: cloudflare-issuer
+      hosts:
+        - host: "nodered.{{ domain }}"
+          paths:
+            - path: /
+      tls:
+        - secretName: "{{ service_name }}-tls"
+          hosts:
+            - "nodered.{{ domain }}"
+  persistence:
+    config:
+      enabled: true
+    data:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 1Gi
+  securityContext:
+    runAsUser: 0
+    runAsNonRoot: false
+    runAsGroup: 0

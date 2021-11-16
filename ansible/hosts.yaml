@@ -25,6 +25,8 @@ all:
                 gaps:
                 pihole:
                 allaboutsecurity:
+                codeserver:
+                nodered:
             manager:
               hosts:
                 pi1:

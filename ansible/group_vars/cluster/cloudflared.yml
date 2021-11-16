@@ -34,5 +34,13 @@ additional_ingress:
     service: "https://pi1"
     originRequest:
       noTLSVerify: true
+  - hostname: "code.{{ domain }}"
+    service: "https://pi1"
+    originRequest:
+      noTLSVerify: true
+  - hostname: "nodered.{{ domain }}"
+    service: "https://pi1"
+    originRequest:
+      noTLSVerify: true
   - hostname: "home.{{ domain }}"
     service: "http://homeassistant:8123"
