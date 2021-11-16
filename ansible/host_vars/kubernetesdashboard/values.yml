@@ -1,0 +1,19 @@
+---
+values:
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: traefik
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      cert-manager.io/cluster-issuer: cloudflare-issuer
+    hosts:
+      - "k3s.{{ domain }}"
+    tls:
+      - secretName: "{{ service_name }}-tls"
+        hosts:
+          - "k3s.{{ domain }}"
+  protocolHttp: true
+  extraArgs:
+    - --enable-insecure-login
+  service:
+    externalPort: 80

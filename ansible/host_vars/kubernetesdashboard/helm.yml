@@ -1,0 +1,9 @@
+---
+helm:
+  name: "{{ service_name }}"
+  repo:
+    name: "kubernetes-dashboard"
+    url: "https://kubernetes.github.io/dashboard/"
+  chart: "kubernetes-dashboard/kubernetes-dashboard"
+  namespace: "{{ service_name }}"
+  chart_values: "{{ values }}"

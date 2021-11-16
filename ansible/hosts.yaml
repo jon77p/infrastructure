@@ -30,6 +30,8 @@ all:
                 influxdb:
                 varken:
                 traefikhub:
+                piholeexporter:
+                kubernetesdashboard:
             manager:
               hosts:
                 pi1:
