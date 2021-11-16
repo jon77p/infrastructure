@@ -1,0 +1,9 @@
+---
+helm:
+  name: "{{ service_name }}"
+  repo:
+    name: "hub"
+    url: "https://helm.traefik.io/hub"
+  chart: "hub/hub"
+  namespace: "{{ service_name }}-agent"
+  chart_values: "{{ values }}"
