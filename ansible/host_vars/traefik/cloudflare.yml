@@ -1,6 +1,12 @@
 ---
 cloudflare_dns_records:
   - zone: "{{ domain }}"
+    record: "traefik.{{ domain }}"
+    type: CNAME
+    value: "tunnel.{{ domain }}"
+    proxied: true
+    state: present
+  - zone: "{{ domain }}"
     record: "{{ service_name }}.{{ domain }}"
     type: CNAME
     value: "tunnel.{{ domain }}"

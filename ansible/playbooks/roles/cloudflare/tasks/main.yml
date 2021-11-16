@@ -4,7 +4,7 @@
     var: cloudflare_dns_records
 
 - name: Create initial tunnel records
-  when: "'oci' not in group_names"
+  when: "'oci' not in group_names and servicename is not defined"
   include_tasks: setup.yml
 
 - name: Create additional records to point to tunnel
