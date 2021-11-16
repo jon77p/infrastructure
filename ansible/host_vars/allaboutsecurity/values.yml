@@ -14,6 +14,5 @@ values:
       - secretName: "{{ service_name }}-tls"
         hosts:
           - "{{ domain }}"
-    hostname: "{{ domain }}"
   settings:
     url: "https://{{ domain }}"
