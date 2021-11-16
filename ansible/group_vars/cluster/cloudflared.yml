@@ -26,7 +26,13 @@ additional_ingress:
     service: "https://pi1"
     originRequest:
       noTLSVerify: true
+  - hostname: "pihole.{{ domain }}"
+    service: "https://pi1"
+    originRequest:
+      noTLSVerify: true
   - hostname: "allaboutsecurity.xyz"
     service: "https://pi1"
     originRequest:
       noTLSVerify: true
+  - hostname: "home.{{ domain }}"
+    service: "http://homeassistant:8123"
