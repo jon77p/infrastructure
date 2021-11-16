@@ -1,10 +1,6 @@
 - include_vars: "service.yml"
 - include_vars: "helm.yml"
 
-- name: Setup helm deployment
-  when: "helm != None and helm != ''"
-  include_tasks: helm.yml
-
 - name: "Create the {{ item }} namespace"
   loop: "{{ namespaces }}"
   kubernetes.core.k8s:
@@ -18,6 +14,10 @@
   kubernetes.core.k8s:
     state: present
     definition: "{{ item }}"
+
+- name: Setup helm deployment
+  when: "helm != None and helm != ''"
+  include_tasks: helm.yml
 
 - name: "Create the {{ item.metadata.name }} deployment"
   loop: "{{ deployments }}"
