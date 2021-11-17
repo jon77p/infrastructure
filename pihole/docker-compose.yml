@@ -63,7 +63,7 @@ services:
         traefik.udp.services.pihole.loadbalancer.server.port: 53
 
   pihole-exporter:
-    image: ekofr/pihole-exporter:0.0.10
+    image: ekofr/pihole-exporter:v0.0.11
     ports:
       - "9617:9617"
     env_file: secrets.env
