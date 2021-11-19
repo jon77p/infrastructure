@@ -7,9 +7,16 @@
   when: not k3s_check.stat.exists
   shell: curl -sfL https://get.k3s.io | sh -
 
+- name: Get absolute path for repository
+  delegate_to: localhost
+  become: false
+  run_once: true
+  command: "git rev-parse --show-toplevel"
+  register: repo_abs_path
+
 - name: Add Traefik Pilot and ingress config
   template:
-    src: ../templates/traefik-config.yaml.j2
+    src: "{{ repo_abs_path.stdout }}/templates/traefik-config.yaml.j2"
     dest: /var/lib/rancher/k3s/server/manifests/traefik-config.yaml
 
 - name: Retrieve node token
