@@ -1,2 +1,3 @@
 **/secrets*.env
 secrets*
+Brewfile.lock.json
