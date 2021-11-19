@@ -16,7 +16,7 @@
 
 - name: Add Traefik Pilot and ingress config
   template:
-    src: "{{ repo_abs_path.stdout }}/templates/traefik-config.yaml.j2"
+    src: "{{ repo_abs_path.stdout }}/ansible/templates/traefik-config.yaml.j2"
     dest: /var/lib/rancher/k3s/server/manifests/traefik-config.yaml
 
 - name: Retrieve node token
