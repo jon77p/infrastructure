@@ -291,6 +291,30 @@ additional_resources:
           scheme: http
           static_configs:
             - targets: ['homeassistant:8123']
+        - job_name: 'pihole'
+          static_configs:
+            - targets: ['pihole-exporter.pihole.svc.cluster.local:9617']
+        - job_name: 'cloudflared'
+          scheme: https
+          static_configs:
+            - targets:
+              - "tunnel.{{ domain }}"
+              - "tunnel-pi1.{{ domain }}"
+              - "tunnel-pi2.{{ domain }}"
+              - "traefik.{{ domain }}"
+              - "whoami.{{ domain }}"
+              - "gaps.{{ domain }}"
+              - "grafana.{{ domain }}"
+              - "loki.{{ domain }}"
+              - "prometheus.{{ domain }}"
+              - "pihole.{{ domain }}"
+              - "allaboutsecurity.xyz"
+              - "code.{{ domain }}"
+              - "nodered.{{ domain }}"
+              - "influxdb.{{ domain }}"
+              - "k3s.{{ domain }}"
+              - "live.{{ domain }}"
+              - "home.{{ domain }}"
         alerting:
           alertmanagers:
           - kubernetes_sd_configs:
