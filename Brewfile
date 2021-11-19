@@ -2,7 +2,7 @@
 brew "terraform"
 brew "ansible"
 brew "direnv"
-brew "fluxcd/tap/flux
+brew "fluxcd/tap/flux"
 brew "gnupg"
 brew "sops"
 brew "pinentry"
