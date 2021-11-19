@@ -1,6 +1,7 @@
 ---
 
 - hosts: manager
+  become: true
   roles:
     - common
     - cloudflared
@@ -9,6 +10,7 @@
     - k8s
 
 - hosts: nodes
+  become: true
   roles:
     - common
     - cloudflared
