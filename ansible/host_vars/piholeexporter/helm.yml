@@ -1,0 +1,11 @@
+---
+helm:
+  name: "{{ service_name }}"
+  git:
+    repo: "https://github.com/SiM22/pihole-exporter-helm-chart"
+    dest: "/tmp/pihole_exporter_repo"
+    remove: True
+    chart_path: "."
+  namespace: "pihole"
+  create_namespace: false
+  chart_values: "{{ values }}"
