@@ -32,6 +32,8 @@ all:
                 traefikhub:
                 piholeexporter:
                 kubernetesdashboard:
+                spekt8:
+                descheduler:
             manager:
               hosts:
                 pi1:
