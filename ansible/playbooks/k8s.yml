@@ -17,3 +17,14 @@
     - cloudflare
     - cron
     - k8s
+
+- hosts: localhost
+  gather_facts: false
+  connection: local
+  tasks:
+    - name: "Create the flux-system namespace"
+      kubernetes.core.k8s:
+        state: present
+        name: "flux-system"
+        api_version: v1
+        kind: Namespace
