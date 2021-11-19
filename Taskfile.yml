@@ -1,0 +1,19 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  PROJECT_DIR:
+    sh: "git rev-parse --show-toplevel"
+  CLUSTER_DIR: "{{.PROJECT_DIR}}/cluster"
+  ANSIBLE_DIR: "{{.PROJECT_DIR}}/ansible"
+
+ENV:
+  KUBECONFIG: "{{.ANSIBLE_DIR}}/kubeconfig"
+
+includes:
+  ansible: "{{.PROJECT_DIR}}/.taskfiles/ansible.yml"
+  flux: "{{.PROJECT_DIR}}/.taskfiles/flux.yml"
+  format: "{{.PROJECT_DIR}}/.taskfiles/format.yml"
+  lint: "{{.PROJECT_DIR}}/.taskfiles/lint.yml"
+  pre-commit: "{{.PROJECT_DIR}}/.taskfiles/pre-commit.yml"
