@@ -1,0 +1,26 @@
+- name: Check if docker is installed
+  command: dpkg-query -W docker
+  register: docker_check_deb
+  failed_when: docker_check_deb.rc > 1
+  changed_when: docker_check_deb.rc == 1
+
+- name: Ensure docker is installed
+  become: true
+  shell: curl -fsSL https://get.docker.com | bash
+  when: docker_check_deb.rc == 1
+
+- name: Ensure pip is installed
+  become: true
+  apt:
+    name: python3-pip
+    state: present
+
+- name: Install Docker SDK
+  pip:
+    name: docker
+    state: present
+
+- name: Install docker-compose
+  pip:
+    name: docker-compose
+    state: present

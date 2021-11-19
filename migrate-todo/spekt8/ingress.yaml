@@ -1,0 +1,25 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: spekt8
+  namespace: spekt8
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    cert-manager.io/cluster-issuer: cloudflare-issuer
+spec:
+  tls:
+    - secretName: spekt8-tls
+      hosts:
+        - spekt8.thepi.cloud
+  rules:
+    - host: spekt8.thepi.cloud
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: spekt8
+                port:
+                  number: 3000

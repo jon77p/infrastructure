@@ -1,0 +1,74 @@
+{
+  "cloudflare": {
+    "url": null,
+    "icon": "icons/cloudflare.png"
+  },
+  "cloudflareCloud": {
+    "url": null,
+    "icon": "icons/cloudflare-cloud.png"
+  },
+  "cockpit": {
+    "url": "https://cockpit-project.org/images/favicon.png",
+    "icon": "icons/cockpit.png"
+  },
+  "vscode": {
+    "url": "https://code.visualstudio.com/apple-touch-icon.png",
+    "icon": "icons/vscode.png"
+  },
+  "firefly": {
+    "url": "https://www.firefly-iii.org/assets/logo/color.png",
+    "icon": "icons/firefly.png"
+  },
+  "gaps": {
+    "url": "https://raw.githubusercontent.com/JasonHHouse/gaps/master/images/gaps.png",
+    "icon": "icons/gaps.png"
+  },
+  "ghost": {
+    "url": "https://avatars.githubusercontent.com/u/2178663?s=200&v=4.png",
+    "icon": "icons/ghost.png"
+  },
+  "homeassistant": {
+    "url": "https://www.home-assistant.io/images/favicon-192x192.png",
+    "icon": "icons/homeassistant.png"
+  },
+  "netbox": {
+    "url": "https://avatars.githubusercontent.com/u/44905828?s=200&v=4.png",
+    "icon": "icons/netbox.png"
+  },
+  "nodered": {
+    "url": "https://raw.githubusercontent.com/node-red/node-red.github.io/master/node-red-icon.png",
+    "icon": "icons/nodered.png"
+  },
+  "pihole": {
+    "url": "https://avatars.githubusercontent.com/u/16827203?s=200&v=4.png",
+    "icon": "icons/pihole.png"
+  },
+  "portainer": {
+    "url": "https://avatars.githubusercontent.com/u/22225832?s=200&v=4.png",
+    "icon": "icons/portainer.png"
+  },
+  "speedtest": {
+    "url": "https://raw.githubusercontent.com/henrywhitaker3/Speedtest-Tracker/master/public/icons/fav/apple-icon-180x180.png",
+    "icon": "icons/speedtest.png"
+  },
+  "spotify": {
+    "url": "https://avatars.githubusercontent.com/u/251374?s=200&v=4.png",
+    "icon": "icons/spotify.png"
+  },
+  "ssh": {
+    "url": "https://static.thenounproject.com/png/1736259-200.png",
+    "icon": "icons/ssh.png"
+  },
+  "taskcafe": {
+    "url": "https://raw.githubusercontent.com/JordanKnott/taskcafe/master/.github/taskcafe.svg",
+    "icon": "icons/taskcafe.svg"
+  },
+  "visualizer": {
+    "url": "https://raw.githubusercontent.com/dockersamples/docker-swarm-visualizer/d34a3c722957906af267db8f7d93e9e238ca4188/src/icons/svg/Docker.svg",
+    "icon": "icons/visualizer.svg"
+  },
+  "youtube": {
+    "url": "https://avatars.githubusercontent.com/u/4052902?s=200&v=4.png",
+    "icon": "icons/youtube.png"
+  }
+}

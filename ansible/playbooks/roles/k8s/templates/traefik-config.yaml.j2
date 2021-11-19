@@ -1,0 +1,22 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChartConfig
+metadata:
+  name: traefik
+  namespace: kube-system
+spec:
+  valuesContent: |-
+    pilot:
+      enabled: true
+      token: "{{ pilot_token }}"
+      dashboard: true
+    ingressRoute:
+      dashboard:
+        enabled: true
+        annotations:
+          kubernetes.io/ingress.class: traefik
+          cert-manager.io/cluster-issuer: cloudflare-issuer
+    metrics:
+      prometheus: {}
+    ports:
+      traefik:
+        expose: true

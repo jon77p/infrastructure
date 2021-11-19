@@ -1,0 +1,39 @@
+---
+timemachine_port: 445
+iptables_rules:
+  - action: insert
+    chain: INPUT
+    rule_num: 6
+    ctstate: NEW
+    destination_port: "{{ timemachine_port }}"
+    protocol: tcp
+    state: present
+    jump: ACCEPT
+    comment: "Accept new connections to TCP/{{ timemachine_port }}"
+  - action: insert
+    chain: INPUT
+    rule_num: 7
+    ctstate: NEW
+    destination_port: "137"
+    protocol: udp
+    state: present
+    jump: ACCEPT
+    comment: "Accept new connections to UDP/137"
+  - action: insert
+    chain: INPUT
+    rule_num: 8
+    ctstate: NEW
+    destination_port: "138"
+    protocol: udp
+    state: present
+    jump: ACCEPT
+    comment: "Accept new connections to UDP/138"
+  - action: insert
+    chain: INPUT
+    rule_num: 9
+    ctstate: NEW
+    destination_port: "139"
+    protocol: tcp
+    state: present
+    jump: ACCEPT
+    comment: "Accept new connections to TCP/139"

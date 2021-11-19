@@ -1,0 +1,27 @@
+---
+additional_resources:
+  - apiVersion: rbac.authorization.k8s.io/v1
+    kind: ClusterRole
+    metadata:
+      name: cluster-readonly
+    rules:
+      - apiGroups: ["*"]
+        resources: ["*"]
+        verbs: ["get", "list", "watch"]
+  - apiVersion: v1
+    kind: ServiceAccount
+    metadata:
+      name: fabric8-rbac
+      namespace: "{{ service_name }}"
+  - apiVersion: rbac.authorization.k8s.io/v1beta1
+    kind: ClusterRoleBinding
+    metadata:
+      name: fabric8-rbac
+    subjects:
+      - kind: ServiceAccount
+        name: fabric8-rbac
+        namespace: "{{ service_name }}"
+    roleRef:
+      kind: ClusterRole
+      name: cluster-readonly
+      apiGroup: rbac.authorization.k8s.io

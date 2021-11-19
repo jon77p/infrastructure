@@ -1,0 +1,15 @@
+[Unit]
+Description={{ service_description }}
+Documentation=
+After=network.target
+
+[Service]
+Type=simple
+User={{ user }}
+ExecStart=/usr/local/bin/rclone mount {{ rclone_remote }}: {{ rclone_mount_dir }} \
+  --allow-other --allow-non-empty
+ExecStop=/bin/fusermount -uzq {{ rclone_mount_dir }}
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,64 @@
+all:
+  vars:
+    ansible_become_pass: "{{ user_password }}"
+  children:
+    cluster:
+      children:
+        k8s:
+          hosts:
+            pi1:
+              ansible_host: pi1
+            pi2:
+              ansible_host: pi2
+          vars:
+            ansible_ssh_user: pi
+          children:
+            deployments:
+              hosts:
+                certmanager:
+                traefik:
+                grafana:
+                loki:
+                promtail:
+                prometheus:
+                unifipoller:
+                gaps:
+                pihole:
+                allaboutsecurity:
+                codeserver:
+                nodered:
+                influxdb:
+                varken:
+                traefikhub:
+                piholeexporter:
+                kubernetesdashboard:
+                spekt8:
+                descheduler:
+            manager:
+              hosts:
+                pi1:
+            nodes:
+              hosts:
+                pi2:
+    oci:
+      children:
+        services:
+          hosts:
+            firefly:
+              ansible_host: firefly
+            stash:
+              ansible_host: stash
+            timemachine:
+              ansible_host: timemachine
+            healthchecks:
+              ansible_host: healthchecks
+            vault:
+              ansible_host: vault
+            youtubedl:
+              ansible_host: youtubedl
+        innernet:
+          hosts:
+            innernet_server:
+              ansible_host: innernet-server
+      vars:
+        ansible_ssh_user: ubuntu

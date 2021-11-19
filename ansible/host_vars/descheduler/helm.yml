@@ -1,0 +1,10 @@
+---
+helm:
+  name: "descheduler"
+  repo:
+    name: "descheduler"
+    url: "https://kubernetes-sigs.github.io/descheduler/"
+  chart: "descheduler/descheduler"
+  namespace: "kube-system"
+  create_namespace: false
+  chart_values: "{{ values }}"

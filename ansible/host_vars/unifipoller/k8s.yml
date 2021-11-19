@@ -1,0 +1,4 @@
+---
+service_name: "unifi-poller"
+namespaces:
+  - "{{ service_name }}"

@@ -1,0 +1,35 @@
+#jinja2: lstrip_blocks: "True", trim_blocks: "True"
+tunnel: {{ cf_tunnel_id }}
+credentials-file: /etc/cloudflared/cert.json
+warp-routing:
+  enabled: true
+logfile: /var/log/cloudflared.log
+loglevel: info
+metrics: localhost:2000
+
+ingress:
+  - hostname: ssh-{{ fqdn }}
+    service: ssh://localhost:22
+  - hostname: "*"
+    path: "^/_healthcheck$"
+    service: http_status:200
+  - hostname: "*"
+    path: "^/metrics$"
+    service: http://localhost:2000
+  - hostname: "*"
+    path: "^/ready$"
+    service: http://localhost:2000
+  - hostname: "tunnel-{{ fqdn }}"
+    service: hello-world
+  {% for item in additional_ingress %}
+  - hostname: {{ item.hostname }}
+    {% if item.path is defined %}
+    path: {{ item.path }}
+    {% endif %}
+    service: {{ item.service }}
+    {% if item.originRequest is defined %}
+    originRequest:
+      noTLSVerify: {{ item.originRequest.noTLSVerify }}
+    {% endif %}
+  {% endfor %}
+  - service: http_status:404

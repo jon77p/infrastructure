@@ -1,0 +1,5 @@
+---
+service_name: "allaboutsecurity"
+domain: "allaboutsecurity.xyz"
+namespaces:
+  - "{{ service_name }}"

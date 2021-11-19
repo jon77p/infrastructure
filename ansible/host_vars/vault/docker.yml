@@ -1,0 +1,26 @@
+---
+compose_project_name: "vault"
+compose_project_ports:
+  - "8200"
+docker_volume_dirs:
+  - "/mnt/{{ compose_project_name }}"
+  - "/mnt/{{ compose_project_name }}/config"
+  - "/mnt/{{ compose_project_name }}/file"
+compose_definition: 
+  version: '3'
+  services:
+    vault:
+      image: vault:latest
+      volumes:
+        - "{{ docker_volume_dirs[0] }}:/vault"
+      ports:
+        - "{{ compose_project_ports[0] }}:8200"
+      cap_add:
+        - "IPC_LOCK"
+      restart: "always"
+      command: ["vault", "server", "-config", "/vault/config/config.hcl"]
+      healthcheck:
+        test: [ "CMD", "wget", "https://healthchecks.{{ domain }}/ping/{{ healthcheck_uuid }}", "-O", "/dev/null" ]
+        timeout: 45s
+        interval: 10s
+        retries: 5

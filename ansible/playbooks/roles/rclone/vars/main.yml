@@ -1,0 +1,3 @@
+---
+rclone_remote: "{{ hostvars[inventory_hostname].rclone_remote }}"
+rclone_mount_dir: "{{ hostvars[inventory_hostname].rclone_mount_dir }}"

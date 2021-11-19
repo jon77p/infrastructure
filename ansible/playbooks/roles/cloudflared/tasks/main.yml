@@ -1,0 +1,75 @@
+- include_vars: "vault_main.yml"
+
+- name: Check if cloudflared is installed
+  become: true
+  command: dpkg-query -W cloudflared
+  register: cloudflared_install_check
+  failed_when: cloudflared_install_check.rc > 1
+  changed_when: cloudflared_install_check.rc == 1
+
+- name: Install cloudflared
+  when: cloudflared_install_check.rc == 1
+  include_tasks: install.yml
+
+- name: Check if cloudflared has initial setup
+  become: true
+  stat:
+    path: /etc/cloudflared/config.yml
+  register: cloudflared_setup_check
+
+- name: Setup cloudflared
+  when: not cloudflared_setup_check.stat.exists
+  include_tasks: setup.yml
+
+- name: Get required cloudflared values
+  shell: head -n 1 /etc/cloudflared/config.yml | awk '{print $2}'
+  register: tunnel_output
+
+- debug:
+    var: additional_ingress
+
+- name: Create updated cloudflared config file
+  become: true
+  vars:
+    cf_tunnel_id: "{{ tunnel_output.stdout }}"
+    fqdn: "{{ ansible_hostname }}.{{ domain }}"
+  template:
+    src: ../templates/config.yml.j2
+    dest: /tmp/cloudflared-config.yml
+
+- name: Diff updated config with current cloudflared config
+  become: true
+  shell: diff /tmp/cloudflared-config.yml /etc/cloudflared/config.yml
+  ignore_errors: yes
+  register: diff_result
+
+- name: Create updated cloudflared config file
+  become: true
+  when: "diff_result.rc != 0"
+  vars:
+    tunnel_id: "{{ tunnel_output.stdout }}"
+    fqdn: "{{ ansible_hostname }}.{{ domain }}"
+  template:
+    src: ../templates/config.yml.j2
+    dest: /etc/cloudflared/config.yml
+
+- name: Validate ingress rules
+  become: true
+  shell: cloudflared --config /etc/cloudflared/config.yml --no-autoupdate tunnel ingress validate
+  register: validation_check
+
+- name: Restart cloudflared service
+  become: true
+  systemd:
+    name: cloudflared
+    state: restarted
+    no_block: true
+  when: "diff_result.rc != 0 and validation_check.rc == 0"
+
+- name: Reset connection
+  meta: reset_connection
+
+- name: Wait for the cloudflared service to reload
+  when: "diff_result.rc != 0 and validation_check.rc == 0"
+  wait_for_connection:
+    delay: 10

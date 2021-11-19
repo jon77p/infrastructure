@@ -1,0 +1,10 @@
+---
+
+- hosts: all
+  roles:
+    - common
+- hosts: all
+  tags:
+    - cluster
+  roles:
+    - innernet

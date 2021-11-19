@@ -1,0 +1,17 @@
+---
+
+- hosts: manager
+  roles:
+    - common
+    - cloudflared
+    - cloudflare
+    - cron
+    - k8s
+
+- hosts: nodes
+  roles:
+    - common
+    - cloudflared
+    - cloudflare
+    - cron
+    - k8s

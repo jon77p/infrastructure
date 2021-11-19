@@ -1,0 +1,44 @@
+---
+compose_project_name: "timemachine"
+docker_volume_dirs:
+  - "{{ rclone_mount_dir }}"
+compose_definition: 
+  version: '3'
+  services:
+    timemachine:
+      environment:
+        ADVERTISED_HOSTNAME: "timemachine-{{ oci_profile }}.{{ domain }}"
+        CUSTOM_SMB_CONF: "false"
+        CUSTOM_USER: "false"
+        DEBUG_LEVEL: "1"
+        MIMIC_MODEL: "TimeCapsule8,119"
+        EXTERNAL_CONF: ""
+        HIDE_SHARES: "no"
+        TM_USERNAME: "{{ timemachine_user }}"
+        TM_GROUPNAME: "timemachine"
+        TM_UID: "1000"
+        TM_GID: "1000"
+        PASSWORD: "{{ timemachine_pass }}"
+        SET_PERMISSIONS: "false"
+        SHARE_NAME: "{{ timemachine_sharename }}"
+        SMB_INHERIT_PERMISSIONS: "no"
+        SMB_NFS_ACES: "yes"
+        SMB_METADATA: "stream"
+        SMB_PORT: "445"
+        SMB_VFS_OBJECTS: "acl_xattr fruit streams_xattr"
+        VOLUME_SIZE_LIMIT: "0"
+        WORKGROUP: "WORKGROUP"
+      image: mbentley/timemachine:smb
+      volumes:
+        - "{{ docker_volume_dirs[0] }}:/opt/timemachine"
+      ports:
+        - "{{ timemachine_port }}:445"
+        - "137:137/udp"
+        - "138:138/udp"
+        - "139:139"
+      restart: "always"
+      healthcheck:
+        test: [ "CMD", "wget", "https://healthchecks.{{ domain }}/ping/{{ healthcheck_uuid }}", "-O", "/dev/null" ]
+        timeout: 45s
+        interval: 10s
+        retries: 5

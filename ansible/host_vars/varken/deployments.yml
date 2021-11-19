@@ -1,0 +1,38 @@
+---
+deployments:
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      labels:
+        app: "{{ service_name }}"
+      name: "{{ service_name }}"
+      namespace: "{{ service_name }}"
+    spec:
+      replicas: 1
+      revisionHistoryLimit: 1
+      selector:
+        matchLabels:
+          app: "{{ service_name }}"
+      strategy:
+        rollingUpdate:
+          maxSurge: 1
+          maxUnavailable: 0
+        type: RollingUpdate
+      template:
+        metadata:
+          labels:
+            app: "{{ service_name }}"
+        spec:
+          containers:
+          - name: "{{ service_name }}"
+            image: boerderij/varken:latest
+            imagePullPolicy: Always
+            volumeMounts:
+            - mountPath: /config/varken.ini
+              name: "{{ service_name }}-config"
+              readOnly: true
+              subPath: varken.ini
+          volumes:
+          - configMap:
+              name: "{{ service_name }}-config"
+            name: "{{ service_name }}-config"

@@ -1,0 +1,2 @@
+---
+iptables_rules: "{{ hostvars[inventory_hostname].iptables_rules | default([]) }}"

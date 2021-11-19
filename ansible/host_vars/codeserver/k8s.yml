@@ -1,0 +1,4 @@
+---
+service_name: "code-server"
+namespaces:
+  - "{{ service_name }}"

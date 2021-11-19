@@ -1,0 +1,22 @@
+---
+values:
+  image:
+    tag: "raspbian-latest"
+  ingress:
+    main:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: traefik
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        cert-manager.io/cluster-issuer: cloudflare-issuer
+      hosts:
+        - host: "{{ service_name }}.{{ domain }}"
+          paths:
+            - path: /
+      tls:
+        - secretName: "{{ service_name }}-tls"
+          hosts:
+            - "{{ service_name }}.{{ domain }}"
+  persistence:
+    config:
+      enabled: true

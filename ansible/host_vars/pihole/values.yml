@@ -1,0 +1,23 @@
+---
+values:
+  ingress:
+    enabled: true
+    hosts:
+      - "{{ service_name }}.{{ domain }}"
+    annotations:
+      kubernetes.io/ingress.class: traefik
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      cert-manager.io/cluster-issuer: cloudflare-issuer
+    tls:
+      - secretName: "{{ service_name }}-tls"
+        hosts:
+          - "{{ service_name }}.{{ domain }}"
+  persistentVolumeClaim:
+    enabled: true
+  serviceDns:
+    type: LoadBalancer
+    annotations:
+      metallb.universe.tf/allow-shared-ip: pihole-svc
+  admin:
+    existingSecret: "{{ service_name }}-admin"
+    passwordKey: "admin-password"

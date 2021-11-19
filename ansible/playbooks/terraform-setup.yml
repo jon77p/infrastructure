@@ -1,0 +1,13 @@
+- name: Terraform test playbook
+  hosts: 127.0.0.1
+  connection: local
+  tasks:
+  - name: Setup terraform base infrastructure
+    local_action: ansible.builtin.command terraform -chdir=../terraform apply --auto-approve
+
+  - name: Get terraform outputs
+    local_action: ansible.builtin.command terraform -chdir=../terraform output -json
+    register: result
+
+  - debug:
+      var: result.stdout

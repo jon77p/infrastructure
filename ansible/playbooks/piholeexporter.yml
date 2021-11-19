@@ -1,0 +1,16 @@
+---
+- hosts: localhost
+  vars:
+    servicename: "piholeexporter"
+  gather_facts: false
+  connection: local
+  roles:
+    - k8s
+
+- hosts: manager
+  roles:
+    - cloudflared
+
+- hosts: nodes
+  roles:
+    - cloudflared

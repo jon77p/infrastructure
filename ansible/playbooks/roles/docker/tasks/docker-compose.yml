@@ -1,0 +1,28 @@
+- name: Ensure all volume mounts exist
+  become: true
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop: "{{ docker_volume_dirs }}"
+
+- name: Take down {{ compose_project_name }} project
+  community.docker.docker_compose:
+    project_name: "{{ compose_project_name }}"
+    definition: "{{ compose_definition }}"
+    remove_orphans: true
+    remove_images: "all"
+    state: absent
+
+- name: Deploy docker-compose for {{ compose_project_name }} project
+  community.docker.docker_compose:
+    project_name: "{{ compose_project_name }}"
+    definition: "{{ compose_definition }}"
+  register: output
+
+- debug:
+    var: output
+
+- ansible.builtin.assert:
+    that:
+      - "output.services.{{ compose_project_name }}.{{ compose_project_name }}_{{ item.key }}_1.state.running"
+  loop: "{{ compose_definition.services | dict2items }}"

@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  owntone:
+    image: ghcr.io/linuxserver/daapd
+    hostname: "owntone"
+    volumes:
+      - /mnt/owntone/config:/config
+      - /mnt/owntone/music:/music
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Los_Angeles
+    networks:
+      - host
+    # deploy:
+      # mode: global
+      # restart_policy:
+        # condition: any
+        # window: 60s
+      # placement:
+        # constraints:
+          # - node.role == manager
+      # labels:
+        # traefik.enable: "true"
+        # traefik.http.routers.owntone.rule: Host(`owntone-cluster.${CF_DOMAIN}`)
+        # traefik.http.routers.owntone.entrypoints: https
+        # traefik.http.routers.owntone.tls.certresolver: cloudflare
+        # traefik.http.services.owntone.loadbalancer.server.port: 3689
+
+networks:
+  host:
+    name: host
+    external: true

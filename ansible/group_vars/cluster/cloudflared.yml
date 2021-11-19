@@ -1,0 +1,58 @@
+---
+additional_ingress:
+  - hostname: "tunnel.{{ domain }}"
+    service: "hello-world"
+  - hostname: "traefik.{{ domain }}"
+    service: "https://pi1"
+    originRequest:
+      noTLSVerify: true
+  - hostname: "whoami.{{ domain }}"
+    service: "https://pi1"
+    originRequest:
+      noTLSVerify: true
+  - hostname: "gaps.{{ domain }}"
+    service: "https://pi1"
+    originRequest:
+      noTLSVerify: true
+  - hostname: "grafana.{{ domain }}"
+    service: "https://pi1"
+    originRequest:
+      noTLSVerify: true
+  - hostname: "loki.{{ domain }}"
+    service: "https://pi1"
+    originRequest:
+      noTLSVerify: true
+  - hostname: "prometheus.{{ domain }}"
+    service: "https://pi1"
+    originRequest:
+      noTLSVerify: true
+  - hostname: "pihole.{{ domain }}"
+    service: "https://pi1"
+    originRequest:
+      noTLSVerify: true
+  - hostname: "allaboutsecurity.xyz"
+    service: "https://pi1"
+    originRequest:
+      noTLSVerify: true
+  - hostname: "code.{{ domain }}"
+    service: "https://pi1"
+    originRequest:
+      noTLSVerify: true
+  - hostname: "nodered.{{ domain }}"
+    service: "https://pi1"
+    originRequest:
+      noTLSVerify: true
+  - hostname: "influxdb.{{ domain }}"
+    service: "https://pi1"
+    originRequest:
+      noTLSVerify: true
+  - hostname: "k3s.{{ domain }}"
+    service: "https://pi1"
+    originRequest:
+      noTLSVerify: true
+  - hostname: "live.{{ domain }}"
+    service: "https://pi1"
+    originRequest:
+      noTLSVerify: true
+  - hostname: "home.{{ domain }}"
+    service: "http://homeassistant.localdomain:8123"

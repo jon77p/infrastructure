@@ -1,0 +1,18 @@
+---
+- hosts: timemachine
+  become: true
+  roles:
+    - common
+    - cloudflared
+    - cloudflare
+    - stefangweichinger.ansible_rclone
+    - rclone
+    - docker
+    - iptables
+
+- hosts: localhost
+  vars:
+    oci_hostname: "timemachine"
+    hostname: "{{ oci_hostname }}"
+  roles:
+    - oci

@@ -1,0 +1,44 @@
+- name: Check if k3s is installed
+  become: true
+  stat:
+    path: /usr/local/bin/k3s
+  register: k3s_check
+
+- name: Install k3s
+  when: not k3s_check.stat.exists
+  become: true
+  shell: curl -sfL https://get.k3s.io | sh -
+
+- name: Add Traefik Pilot and ingress config
+  become: true
+  template:
+    src: ../templates/traefik-config.yaml.j2
+    dest: /var/lib/rancher/k3s/server/manifests/traefik-config.yaml
+
+- name: Retrieve node token
+  become: true
+  shell: cat /var/lib/rancher/k3s/server/node-token
+  register: nodetoken
+
+- name: Store node token in dummy host
+  add_host:
+    name: "K3S_TOKEN_HOLDER"
+    token: "{{ nodetoken.stdout }}"
+    manager: "{{ ansible_hostname }}"
+
+- debug:
+    var: hostvars['K3S_TOKEN_HOLDER']['token']
+
+- name: Fetch client-ca.crt
+  become: true
+  fetch:
+    src: /var/lib/rancher/k3s/server/tls/client-admin.crt
+    dest: ../secrets/
+    flat: yes
+
+- name: Fetch client-ca.key
+  become: true
+  fetch:
+    src: /var/lib/rancher/k3s/server/tls/client-admin.key
+    dest: ../secrets/
+    flat: yes
