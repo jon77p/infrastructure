@@ -8,3 +8,6 @@
 4. `docker stack deploy -c cloudflared/docker-compose.yml picluster`
 5. `docker stack deploy -c traefik/docker-compose.yml picluster`
 6. `docker stack deploy -c cloudflare-companion/docker-compose.yml picluster`
+
+#### Credits
+Portions cloned from [k8s-at-home/template-cluster-k3s](https://github.com/k8s-at-home/template-cluster-k3s)
