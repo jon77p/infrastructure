@@ -1,22 +1,18 @@
 - name: Check if k3s is installed
-  become: true
   stat:
     path: /usr/local/bin/k3s
   register: k3s_check
 
 - name: Install k3s
   when: not k3s_check.stat.exists
-  become: true
   shell: curl -sfL https://get.k3s.io | sh -
 
 - name: Add Traefik Pilot and ingress config
-  become: true
   template:
     src: ../templates/traefik-config.yaml.j2
     dest: /var/lib/rancher/k3s/server/manifests/traefik-config.yaml
 
 - name: Retrieve node token
-  become: true
   shell: cat /var/lib/rancher/k3s/server/node-token
   register: nodetoken
 
@@ -29,16 +25,18 @@
 - debug:
     var: hostvars['K3S_TOKEN_HOLDER']['token']
 
-- name: Fetch client-ca.crt
-  become: true
+- name: Fetch kubeconfig from manager
+  run_once: true
   fetch:
-    src: /var/lib/rancher/k3s/server/tls/client-admin.crt
-    dest: ../secrets/
-    flat: yes
+    src: "/etc/rancher/k3s/k3s.yaml"
+    dest: "{{ repo_abs_path.stdout }}/ansible/kubeconfig"
+    flat: true
 
-- name: Fetch client-ca.key
-  become: true
-  fetch:
-    src: /var/lib/rancher/k3s/server/tls/client-admin.key
-    dest: ../secrets/
-    flat: yes
+- name: Update kubeconfig to use manager hostname
+  delegate_to: localhost
+  become: false
+  run_once: true
+  replace:
+    path: "{{ repo_abs_path.stdout }}/ansible/kubeconfig"
+    regexp: "https://127.0.0.1:6443"
+    replace: "https://{{ ansible_hostname }}:6443"
