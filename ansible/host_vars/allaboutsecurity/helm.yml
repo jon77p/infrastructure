@@ -6,4 +6,5 @@ helm:
     url: "https://groundhog2k.github.io/helm-charts/"
   chart: "groundhog2k/ghost"
   namespace: "{{ service_name }}"
+  create_namespace: true
   chart_values: "{{ values }}"

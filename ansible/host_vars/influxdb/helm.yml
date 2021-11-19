@@ -6,4 +6,5 @@ helm:
     url: "https://helm.influxdata.com/"
   chart: "influxdata/influxdb"
   namespace: "{{ service_name }}"
+  create_namespace: true
   chart_values: "{{ values }}"

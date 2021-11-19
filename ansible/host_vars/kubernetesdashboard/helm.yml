@@ -6,4 +6,5 @@ helm:
     url: "https://kubernetes.github.io/dashboard/"
   chart: "kubernetes-dashboard/kubernetes-dashboard"
   namespace: "{{ service_name }}"
+  create_namespace: true
   chart_values: "{{ values }}"

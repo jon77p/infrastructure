@@ -6,4 +6,5 @@ helm:
     url: "https://helm.traefik.io/hub"
   chart: "hub/hub"
   namespace: "{{ service_name }}-agent"
+  create_namespace: true
   chart_values: "{{ values }}"

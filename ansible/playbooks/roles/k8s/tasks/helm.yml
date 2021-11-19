@@ -22,7 +22,7 @@
     name: "{{ helm.name }}"
     chart_ref: "{{ helm.chart }}"
     release_namespace: "{{ helm.namespace }}"
-    create_namespace: true
+    create_namespace: "{{ helm.create_namespace }}"
     values: "{{ helm.chart_values }}"
 
 - name: Deploy helm chart from local git path

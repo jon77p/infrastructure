@@ -6,4 +6,5 @@ helm:
     url: "https://k8s-at-home.com/charts/"
   chart: "k8s-at-home/unifi-poller"
   namespace: "{{ service_name }}"
+  create_namespace: true
   chart_values: "{{ values }}"

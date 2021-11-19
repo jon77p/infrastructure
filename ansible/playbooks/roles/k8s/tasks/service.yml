@@ -41,6 +41,7 @@
   loop: "{{ additional_resources }}"
   kubernetes.core.k8s:
     state: present
+    force: true
     definition: "{{ item }}"
 
 - name: "Create any additional records"

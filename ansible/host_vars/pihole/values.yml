@@ -14,10 +14,6 @@ values:
           - "{{ service_name }}.{{ domain }}"
   persistentVolumeClaim:
     enabled: true
-  # serviceWeb:
-    # type: LoadBalancer
-    # annotations:
-      # metallb.universe.tf/allow-shared-ip: pihole-svc
   serviceDns:
     type: LoadBalancer
     annotations:
