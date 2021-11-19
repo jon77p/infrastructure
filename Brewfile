@@ -1,0 +1,15 @@
+# Brewfile
+brew "terraform"
+brew "ansible"
+brew "direnv"
+brew "fluxcd/tap/flux
+brew "gnupg"
+brew "sops"
+brew "pinentry"
+brew "jq"
+brew "kubectl"
+brew "go-task/tap/go-task"
+brew "helm"
+brew "kustomize"
+brew "pre-commit"
+brew "prettier"
