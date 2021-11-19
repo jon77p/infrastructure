@@ -12,8 +12,8 @@ ENV:
   KUBECONFIG: "{{.ANSIBLE_DIR}}/kubeconfig"
 
 includes:
-  ansible: "{{.PROJECT_DIR}}/.taskfiles/ansible.yml"
-  flux: "{{.PROJECT_DIR}}/.taskfiles/flux.yml"
-  format: "{{.PROJECT_DIR}}/.taskfiles/format.yml"
-  lint: "{{.PROJECT_DIR}}/.taskfiles/lint.yml"
-  pre-commit: "{{.PROJECT_DIR}}/.taskfiles/pre-commit.yml"
+  ansible: ".taskfiles/ansible.yml"
+  flux: ".taskfiles/flux.yml"
+  format: ".taskfiles/format.yml"
+  lint: ".taskfiles/lint.yml"
+  pre-commit: ".taskfiles/pre-commit.yml"
