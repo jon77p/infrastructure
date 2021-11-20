@@ -11,42 +11,42 @@ tasks:
 
   deps:
     desc: Upgrade Ansible galaxy deps
-    dir: "{{.ANSIBLE_DIR}}"
+    dir: "ansible"
     cmds:
       - "ansible-galaxy install -r requirements.yml --force"
 
   list:
     desc: List all the hosts
-    dir: "{{.ANSIBLE_DIR}}"
+    dir: "ansible"
     cmds:
       - "ansible all --list-hosts"
 
   playbook:k3s-install:
     desc: Install Kubernetes on the nodes
-    dir: "{{.ANSIBLE_DIR}}"
+    dir: "ansible"
     cmds:
-      - "ansible-playbook {{.ANSIBLE_PLAYBOOK_DIR}}/k3s.yml"
+      - "ansible-playbook {{.ANSIBLE_PLAYBOOK_DIR}}/k8s.yml"
 
   adhoc:ping:
     desc: Ping all the hosts
-    dir: "{{.ANSIBLE_DIR}}"
+    dir: "ansible"
     cmds:
       - "ansible all --one-line -m 'ping'"
 
   adhoc:uptime:
     desc: Uptime of all the hosts
-    dir: "{{.ANSIBLE_DIR}}"
+    dir: "ansible"
     cmds:
       - "ansible all --one-line -a 'uptime'"
 
   adhoc:reboot:
     desc: Reboot all the cluster nodes
-    dir: "{{.ANSIBLE_DIR}}"
+    dir: "ansible"
     cmds:
       - "ansible cluster -a '/usr/bin/systemctl reboot' --become"
 
   adhoc:poweroff:
     desc: Shutdown all the cluster nodes
-    dir: "{{.ANSIBLE_DIR}}"
+    dir: "ansible"
     cmds:
       - "ansible cluster -a '/usr/bin/systemctl poweroff' --become"
