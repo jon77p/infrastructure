@@ -1,5 +1,9 @@
 ---
 additional_ingress:
+  - hostname: "ssh-pi1.{{ domain }}"
+    service: "ssh://pi1"
+  - hostname: "ssh-pi2.{{ domain }}"
+    service: "ssh://pi2"
   - hostname: "tunnel.{{ domain }}"
     service: "hello-world"
   - hostname: "traefik.{{ domain }}"
