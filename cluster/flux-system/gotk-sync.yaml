@@ -8,7 +8,7 @@ metadata:
 spec:
   interval: 1m0s
   ref:
-    branch: feature/flux-sops-setup-part-2
+    branch: main
   secretRef:
     name: flux-system
   url: ssh://git@github.com/jon77p/infrastructure
