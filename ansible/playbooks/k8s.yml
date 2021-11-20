@@ -45,3 +45,8 @@
             namespace: "flux-system"
           data:
             sops.asc: "{{ gpg.stdout | b64encode }}"
+    - name: "Get absolute path for repository"
+      command: "git rev-parse --show-toplevel"
+      register: repo_abs_path
+    - name: "Install Flux"
+      command: "kubectl apply --kustomize={{ repo_abs_path.stdout }}/cluster/flux-system --force"
