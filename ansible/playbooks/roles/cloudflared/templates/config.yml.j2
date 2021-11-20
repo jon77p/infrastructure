@@ -9,7 +9,7 @@ metrics: localhost:2000
 
 ingress:
   - hostname: ssh-{{ fqdn }}
-    service: ssh://localhost:22
+    service: ssh://{{ ansible_hostname }}:22
   - hostname: "*"
     path: "^/_healthcheck$"
     service: http_status:200
