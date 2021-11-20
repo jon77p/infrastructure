@@ -45,8 +45,8 @@ variable "cf_tunnels" {
   description = "List of cloudflare_argo_tunnel resources"
   type = list(
     object({
-      id       = string
-      name     = string
+      id   = string
+      name = string
     })
   )
 }

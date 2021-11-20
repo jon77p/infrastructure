@@ -38,7 +38,8 @@ resource "oci_core_instance" "ubuntu_instance" {
         cf_domain        = "${var.cf_tunnels[index(var.instances, each.key)].name}.${var.domain}",
         cf_tunnel_id     = var.cf_tunnels[index(var.instances, each.key)].id,
         cf_tunnel_name   = var.cf_tunnels[index(var.instances, each.key)].name,
-        cf_tunnel_secret = var.cf_tunnel_secret
+        cf_tunnel_secret = var.cf_tunnel_secret,
+        hostname         = each.key
     }))
   }
   preserve_boot_volume = false
