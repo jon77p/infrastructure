@@ -13,27 +13,6 @@ all:
           vars:
             ansible_ssh_user: pi
           children:
-            deployments:
-              hosts:
-                certmanager:
-                traefik:
-                grafana:
-                loki:
-                promtail:
-                prometheus:
-                unifipoller:
-                gaps:
-                pihole:
-                allaboutsecurity:
-                codeserver:
-                nodered:
-                influxdb:
-                varken:
-                traefikhub:
-                piholeexporter:
-                kubernetesdashboard:
-                spekt8:
-                descheduler:
             manager:
               hosts:
                 pi1:
@@ -62,3 +41,24 @@ all:
               ansible_host: innernet-server
       vars:
         ansible_ssh_user: ubuntu
+    deployments:
+      hosts:
+        certmanager:
+        traefik:
+        grafana:
+        loki:
+        promtail:
+        prometheus:
+        unifipoller:
+        gaps:
+        pihole:
+        allaboutsecurity:
+        codeserver:
+        nodered:
+        influxdb:
+        varken:
+        traefikhub:
+        piholeexporter:
+        kubernetesdashboard:
+        spekt8:
+        descheduler:
