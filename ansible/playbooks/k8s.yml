@@ -17,3 +17,36 @@
     - cloudflare
     - cron
     - k8s
+
+- hosts: localhost
+  gather_facts: false
+  connection: local
+  vars:
+    BOOTSTRAP_FLUX_KEY_FP: "$BOOTSTRAP_FLUX_KEY_FP"
+  tasks:
+    - name: "Create the flux-system namespace"
+      kubernetes.core.k8s:
+        state: present
+        name: "flux-system"
+        api_version: v1
+        kind: Namespace
+    - name: "Get Flux GPG Secret Key"
+      command: "gpg --export-secret-keys --armor {{ BOOTSTRAP_FLUX_KEY_FP }}"
+      register: gpg
+    - name: "Add Flux GPG Key for decrypting SOPS secrets"
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: v1
+          kind: Secret
+          type: generic
+          metadata:
+            name: "sops-gpg"
+            namespace: "flux-system"
+          data:
+            sops.asc: "{{ gpg.stdout | b64encode }}"
+    - name: "Get absolute path for repository"
+      command: "git rev-parse --show-toplevel"
+      register: repo_abs_path
+    - name: "Install Flux"
+      command: "kubectl apply --kustomize={{ repo_abs_path.stdout }}/cluster/flux-system --force"
