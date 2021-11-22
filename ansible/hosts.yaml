@@ -1,3 +1,4 @@
+---
 all:
   vars:
     ansible_become_pass: "{{ user_password }}"
@@ -31,10 +32,10 @@ all:
               ansible_host: timemachine
             healthchecks:
               ansible_host: healthchecks
+            nextcloud:
+              ansible_host: nextcloud
             vault:
               ansible_host: vault
-            youtubedl:
-              ansible_host: youtubedl
         innernet:
           hosts:
             innernet_server:

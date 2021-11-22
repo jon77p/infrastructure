@@ -1,0 +1,4 @@
+---
+additional_ingress:
+  - hostname: "drive.thepi.cloud"
+    service: "http://localhost:{{ compose_project_port }}"

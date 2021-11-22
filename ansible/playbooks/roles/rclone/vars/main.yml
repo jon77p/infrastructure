@@ -1,3 +1,5 @@
 ---
 rclone_remote: "{{ hostvars[inventory_hostname].rclone_remote }}"
 rclone_mount_dir: "{{ hostvars[inventory_hostname].rclone_mount_dir }}"
+rclone_mount_uid: "{{ hostvars[inventory_hostname].rclone_mount_uid | default('0') }}"
+rclone_mount_gid: "{{ hostvars[inventory_hostname].rclone_mount_gid | default('0') }}"

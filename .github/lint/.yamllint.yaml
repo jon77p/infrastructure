@@ -1,6 +1,8 @@
+---
 ignore: |
   *.sops.*
   gotk-components.yaml
+  vault*.yml
 extends: default
 rules:
   truthy:
