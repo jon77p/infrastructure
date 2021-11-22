@@ -3,6 +3,9 @@
   file:
     path: "{{ rclone_mount_dir }}"
     state: directory
+    owner: "{{ rclone_mount_user }}"
+    group: "{{ rclone_mount_group }}"
+    mode: "{{ rclone_mount_mode }}"
 
 - name: Create rclone systemd service file
   template:
@@ -14,3 +17,4 @@
     name: rclone
     state: started
     enabled: yes
+    daemon_reload: yes

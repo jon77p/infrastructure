@@ -22,11 +22,13 @@ compose_definition:
     nextcloud:
       image: nextcloud:latest
       volumes:
-        - "{{ docker_volume_dirs[0] }}:/var/www/html"
-        - "{{ docker_volume_dirs[1] }}:/var/www/html/data"
+        - "{{ docker_volume_dirs[0] }}:/config"
+        - "{{ docker_volume_dirs[1] }}:/data"
       ports:
         - "{{ compose_project_port }}:80"
       environment:
+        PUID: "{{ rclone_mount_uid }}"
+        PGID: "{{ rclone_mount_gid }}"
         MYSQL_HOST: "db"
         MYSQL_DATABASE: "nextcloud"
         MYSQL_USER: "{{ mysql_user }}"

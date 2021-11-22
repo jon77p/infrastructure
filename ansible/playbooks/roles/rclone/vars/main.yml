@@ -1,5 +1,8 @@
 ---
 rclone_remote: "{{ hostvars[inventory_hostname].rclone_remote }}"
 rclone_mount_dir: "{{ hostvars[inventory_hostname].rclone_mount_dir }}"
+rclone_mount_user: "{{ hostvars[inventory_hostname].rclone_mount_user | default('root') }}"
+rclone_mount_group: "{{ hostvars[inventory_hostname].rclone_mount_group | default('root') }}"
 rclone_mount_uid: "{{ hostvars[inventory_hostname].rclone_mount_uid | default('0') }}"
 rclone_mount_gid: "{{ hostvars[inventory_hostname].rclone_mount_gid | default('0') }}"
+rclone_mount_mode: "{{ hostvars[inventory_hostname].rclone_mount_mode | default('755') }}"
