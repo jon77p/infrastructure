@@ -22,8 +22,8 @@ compose_definition:
     nextcloud:
       image: nextcloud:latest
       volumes:
-        - "{{ docker_volume_dirs[0] }}:/config"
-        - "{{ docker_volume_dirs[1] }}:/data"
+        - "{{ docker_volume_dirs[0] }}:/var/www/html"
+        - "{{ docker_volume_dirs[1] }}:/var/www/html/data"
       ports:
         - "{{ compose_project_port }}:80"
       environment:
