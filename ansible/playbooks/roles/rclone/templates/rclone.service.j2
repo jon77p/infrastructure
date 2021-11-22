@@ -7,7 +7,8 @@ After=network.target
 Type=simple
 User={{ user }}
 ExecStart=/usr/local/bin/rclone mount {{ rclone_remote }}: {{ rclone_mount_dir }} \
-  --allow-other --allow-non-empty --uid {{ rclone_mount_uid }} --gid {{ rclone_mount_gid }}
+  --allow-other --allow-root --allow-non-empty \
+  --uid {{ rclone_mount_uid }} --gid {{ rclone_mount_gid }} --dir-perms {{ rclone_mount_mode }}
 ExecStop=/bin/fusermount -uzq {{ rclone_mount_dir }}
 Restart=on-failure
 
