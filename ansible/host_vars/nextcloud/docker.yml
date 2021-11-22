@@ -1,0 +1,53 @@
+---
+compose_project_name: "nextcloud"
+compose_project_port: "8080"
+docker_volume_dirs:
+  - "/mnt/{{ compose_project_name }}/html"
+  - "{{ rclone_mount_dir }}"
+  - "/mnt/{{ compose_project_name }}/db"
+compose_definition:
+  version: '3'
+  services:
+    db:
+      image: mariadb:latest
+      restart: always
+      command: --transaction-isolation=READ-COMMITTED --log-bin --binlog-format=ROW --innodb-file-per-table=1 --skip-innodb-read-only-compressed
+      volumes:
+        - "{{ docker_volume_dirs[2] }}:/var/lib/mysql"
+      environment:
+        MYSQL_ROOT_PASSWORD: "{{ mysql_root_password }}"
+        MYSQL_PASSWORD: "{{ mysql_password }}"
+        MYSQL_DATABASE: "nextcloud"
+        MYSQL_USER: "{{ mysql_user }}"
+    nextcloud:
+      image: nextcloud:latest
+      volumes:
+        - "{{ docker_volume_dirs[0] }}:/var/www/html"
+        - "{{ docker_volume_dirs[1] }}:/var/www/html/data"
+      ports:
+        - "{{ compose_project_port }}:80"
+      environment:
+        PUID: "{{ rclone_mount_uid }}"
+        PGID: "{{ rclone_mount_gid }}"
+        MYSQL_HOST: "db"
+        MYSQL_DATABASE: "nextcloud"
+        MYSQL_USER: "{{ mysql_user }}"
+        MYSQL_PASSWORD: "{{ mysql_password }}"
+        MAIL_FROM_ADDRESS: "nextcloud"
+        MAIL_DOMAIN: "{{ cloudflare_dns_records[0].record }}"
+        SMTP_HOST: "{{ smtp_host }}"
+        SMTP_PORT: "{{ smtp_port }}"
+        SMTP_NAME: "{{ smtp_user }}"
+        SMTP_PASSWORD: "{{ smtp_password }}"
+        SMTP_SECURE: "{{ smtp_secure }}"
+        NEXTCLOUD_ADMIN_USER: "{{ admin_user }}"
+        NEXTCLOUD_ADMIN_PASSWORD: "{{ admin_password }}"
+        NEXTCLOUD_TRUSTED_DOMAINS: "{{ cloudflare_dns_records[0].record }}"
+        OVERWRITEPROTOCOL: "https"
+        OVERWRITEHOST: "{{ cloudflare_dns_records[0].record }}"
+      restart: "always"
+      healthcheck:
+        test: ["CMD", "curl", "https://hc-ping.com/{{ healthcheck_uuid }}"]
+        timeout: 45s
+        interval: 10s
+        retries: 5

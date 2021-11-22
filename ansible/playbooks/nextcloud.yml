@@ -1,0 +1,10 @@
+---
+- hosts: nextcloud
+  become: true
+  roles:
+    - common
+    - cloudflared
+    - cloudflare
+    - stefangweichinger.ansible_rclone
+    - rclone
+    - docker

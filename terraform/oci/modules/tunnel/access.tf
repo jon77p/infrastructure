@@ -4,7 +4,7 @@ resource "cloudflare_access_application" "ssh_app" {
   name                      = "ssh-${each.key}.${var.domain}"
   domain                    = "ssh-${each.key}.${var.domain}"
   type                      = "ssh"
-  session_duration          = "1h"
+  session_duration          = "24h"
   auto_redirect_to_identity = true
   allowed_idps              = var.cf_allowed_idp_ids
 }
@@ -18,7 +18,6 @@ resource "cloudflare_access_policy" "ssh_policy" {
   decision       = "allow"
 
   include {
-    email = [var.cf_email]
     group = [var.cf_admin_group_id]
   }
 }

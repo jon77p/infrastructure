@@ -1,0 +1,11 @@
+---
+smtp_host: "{{ vault_smtp_host }}"
+smtp_port: "{{ vault_smtp_port }}"
+smtp_user: "{{ vault_smtp_user }}"
+smtp_password: "{{ vault_smtp_password }}"
+smtp_secure: "{{ vault_smtp_secure }}"
+admin_user: "{{ vault_admin_user }}"
+admin_password: "{{ vault_admin_password }}"
+mysql_root_password: "{{ vault_mysql_root_password }}"
+mysql_user: "{{ vault_mysql_user }}"
+mysql_password: "{{ vault_mysql_password }}"
