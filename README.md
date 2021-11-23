@@ -9,5 +9,9 @@
 5. `docker stack deploy -c traefik/docker-compose.yml picluster`
 6. `docker stack deploy -c cloudflare-companion/docker-compose.yml picluster`
 
+## Locally Applying kustomizations
+1. Export environment variables to current shell
+2. Run `envsubst < <(kubectl kustomize *path-to-kustomization-dir*) | kubectl apply -f -`
+
 #### Credits
 Portions cloned from [k8s-at-home/template-cluster-k3s](https://github.com/k8s-at-home/template-cluster-k3s)
