@@ -5,3 +5,4 @@ resources:
   - descheduler.yaml
   - traefik.yaml
   - jetstack.yaml
+  - k8s-at-home.yaml
