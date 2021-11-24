@@ -9,3 +9,4 @@ resources:
   - groundhog2k.yaml
   - traefik-hub.yaml
   - grafana.yaml
+  - prometheus.yaml
