@@ -8,4 +8,4 @@ spec:
   plugin:
     traefik-real-ip:
       excludednets:
-        - "1.1.1.1/24"
+        - "10.42.0.1/24"
