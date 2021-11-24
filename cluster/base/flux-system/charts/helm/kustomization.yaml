@@ -7,3 +7,4 @@ resources:
   - jetstack.yaml
   - k8s-at-home.yaml
   - groundhog2k.yaml
+  - traefik-hub.yaml
