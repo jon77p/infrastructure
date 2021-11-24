@@ -6,6 +6,8 @@ metadata:
   namespace: kube-system
 spec:
   valuesContent: |-
+    image:
+      tag: 2.4.9
     pilot:
       enabled: true
       token: "${SECRET_PILOT_TOKEN}"
@@ -18,14 +20,13 @@ spec:
           cert-manager.io/cluster-issuer: letsencrypt-production
     experimental:
       plugins:
-          traefik-real-ip:
+        enabled: true
+        traefik-real-ip:
           modulename: github.com/soulbalz/traefik-real-ip
           version: v1.0.3
-    metrics:
-      prometheus:
-        entrypoint: metrics
-    prometheus:
-      enabled: true
+    additionalArguments:
+      - "--metrics.prometheus=true"
+      - "--accesslog=true"
     ports:
       traefik:
         expose: true
