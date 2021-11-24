@@ -1,6 +1,6 @@
 ---
 apiVersion: cert-manager.io/v1
-kind: ClusterIssuer
+kind: Issuer
 metadata:
   name: letsencrypt-staging
 spec:
@@ -13,9 +13,7 @@ spec:
       - dns01:
           cloudflare:
             email: "${SECRET_CLOUDFLARE_EMAIL}"
-            apiKeySecretRef:
-              name: cloudflare-api-key
-              key: api-key
-        selector:
-          dnsZones:
-            - ${SECRET_DOMAIN}
+            apiTokenSecretRef:
+              name: cloudflare-api-secret
+              key: api-token
+        selector: {}
