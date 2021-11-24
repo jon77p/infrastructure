@@ -10,3 +10,4 @@ resources:
   - traefik-hub.yaml
   - grafana.yaml
   - prometheus.yaml
+  - influxdb.yaml
