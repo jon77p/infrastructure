@@ -18,15 +18,11 @@ spec:
         annotations:
           kubernetes.io/ingress.class: traefik
           cert-manager.io/cluster-issuer: letsencrypt-production
-    experimental:
-      plugins:
-        enabled: true
-        traefik-real-ip:
-          modulename: github.com/soulbalz/traefik-real-ip
-          version: v1.0.3
     additionalArguments:
       - "--metrics.prometheus=true"
       - "--accesslog=true"
+      - "--experimental.plugins.traefik-real-ip.modulename=github.com/soulbalz/traefik-real-ip"
+      - "--experimental.plugins.traefik-real-ip.version=v1.0.3"
     ports:
       traefik:
         expose: true
