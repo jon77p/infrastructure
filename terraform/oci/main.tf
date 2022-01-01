@@ -48,10 +48,10 @@ module "compute" {
 }
 
 resource "cloudflare_record" "instance_record" {
-  for_each = toset(var.instances)
+  for_each = var.instances
   zone_id  = var.cf_zone_id
-  name     = "${each.key}.${var.profile}.${var.domain}"
-  value    = module.compute.instance-public-ip[each.key]
+  name     = "${each.value.name}.${var.profile}.${var.domain}"
+  value    = module.compute.instance-public-ip[each.value.name]
   type     = "A"
   proxied  = false
 }

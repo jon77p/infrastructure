@@ -11,15 +11,15 @@ data "oci_identity_availability_domains" "ads" {
 }
 
 resource "oci_core_instance" "ubuntu_instance" {
-  for_each     = toset(var.instances)
-  display_name = each.key
+  for_each     = var.instances
+  display_name = each.value.name
 
   # Required
   availability_domain = data.oci_identity_availability_domains.ads.availability_domains[0].name
   compartment_id      = var.compartment_id
-  shape               = "VM.Standard.E2.1.Micro"
+  shape               = each.value.shape
   source_details {
-    source_id   = var.image_id
+    source_id   = each.value.image_id
     source_type = "image"
   }
 
@@ -35,9 +35,9 @@ resource "oci_core_instance" "ubuntu_instance" {
     user_data = base64gzip(templatefile(var.setup_script_path,
       {
         cf_account       = var.cf_account_id,
-        cf_domain        = "${var.cf_tunnels[index(var.instances, each.key)].name}.${var.domain}",
-        cf_tunnel_id     = var.cf_tunnels[index(var.instances, each.key)].id,
-        cf_tunnel_name   = var.cf_tunnels[index(var.instances, each.key)].name,
+        cf_domain        = "${var.cf_tunnels[each.key].name}.${var.domain}",
+        cf_tunnel_id     = var.cf_tunnels[each.key].id,
+        cf_tunnel_name   = var.cf_tunnels[each.key].name,
         cf_tunnel_secret = var.cf_tunnel_secret,
         hostname         = each.key
     }))

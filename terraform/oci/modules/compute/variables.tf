@@ -10,14 +10,13 @@ variable "terraform_ssh_public_key" {
 }
 
 variable "instances" {
-  description = "list of instances (max 2)"
-  type        = list(string)
-}
-
-variable "image_id" {
-  description = "OCID for source image"
-  type        = string
-  default     = "ocid1.image.oc1.us-sanjose-1.aaaaaaaadq3dxjoqeckwgas733dxmrfsdconukiq357m6sjhb2xyhfpi4ica"
+  description = "map of instances"
+  type = map(object({
+    name     = string
+    image_id = string
+    shape    = string
+  }))
+  default = {}
 }
 
 variable "subnet_id" {
@@ -43,7 +42,7 @@ variable "cf_account_id" {
 
 variable "cf_tunnels" {
   description = "List of cloudflare_argo_tunnel resources"
-  type = list(
+  type = map(
     object({
       id   = string
       name = string

@@ -58,9 +58,13 @@ variable "setup_script_path" {
 }
 
 variable "instances" {
-  description = "list containing instance names for all configured OCI providers"
+  description = "list containing instance information for all configured OCI providers"
   type = list(object({
-    instances = list(string)
+    instances = map(object({
+      name     = string
+      image_id = string
+      shape    = string
+    }))
   }))
   default = []
 }
