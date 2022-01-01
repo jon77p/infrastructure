@@ -58,6 +58,7 @@ EOF
 sudo cloudflared service install
 # The credentials file does not get copied over so we'll do that manually
 sudo cp -via /root/.cloudflared/cert.json /etc/cloudflared/
+sudo cp -via /root/.cloudflared/config.yml /etc/cloudflared/
 
 # Enable and start the tunnel
 sudo systemctl enable --now cloudflared
