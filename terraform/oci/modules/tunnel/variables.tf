@@ -18,9 +18,13 @@ variable "cf_email" {
 }
 
 variable "instances" {
-  description = "list of 2 compute instance names"
-  type        = list(string)
-  default     = []
+  description = "map of instances"
+  type = map(object({
+    name     = string
+    image_id = string
+    shape    = string
+  }))
+  default = {}
 }
 
 variable "cf_allowed_idp_ids" {

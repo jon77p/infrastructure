@@ -1,8 +1,8 @@
 resource "cloudflare_access_application" "ssh_app" {
-  for_each                  = toset(var.instances)
+  for_each                  = var.instances
   zone_id                   = var.cf_zone_id
-  name                      = "ssh-${each.key}.${var.domain}"
-  domain                    = "ssh-${each.key}.${var.domain}"
+  name                      = "ssh-${each.value.name}.${var.domain}"
+  domain                    = "ssh-${each.value.name}.${var.domain}"
   type                      = "ssh"
   session_duration          = "24h"
   auto_redirect_to_identity = true
@@ -10,10 +10,10 @@ resource "cloudflare_access_application" "ssh_app" {
 }
 
 resource "cloudflare_access_policy" "ssh_policy" {
-  for_each       = toset(var.instances)
-  application_id = cloudflare_access_application.ssh_app[each.key].id
+  for_each       = var.instances
+  application_id = cloudflare_access_application.ssh_app[each.value.name].id
   zone_id        = var.cf_zone_id
-  name           = "Policy for ssh-${each.key}.${var.domain}"
+  name           = "Policy for ssh-${each.value.name}.${var.domain}"
   precedence     = "1"
   decision       = "allow"
 
