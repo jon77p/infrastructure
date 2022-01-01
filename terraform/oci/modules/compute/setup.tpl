@@ -4,9 +4,8 @@ ARCH="$(uname -m)"
 
 if [ $ARCH = "aarch64" ]; then
   # Install and setup Cloudflare Tunnel for ARM
-  curl https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64.deb -o /tmp/init-cloudflared_arm64.deb
-  sudo apt-get update -y
-  sudo apt install /tmp/init-cloudflared_arm64.deb
+  curl https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64.deb -L -o /tmp/init-cloudflared_arm64.deb
+  sudo apt install -y /tmp/init-cloudflared_arm64.deb
 else
   # Install and setup Cloudflare Tunnel from repo
   echo 'deb http://pkg.cloudflare.com/ focal main' | sudo tee /etc/apt/sources.list.d/cloudflare-main.list
