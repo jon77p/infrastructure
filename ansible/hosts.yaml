@@ -38,8 +38,8 @@ all:
               ansible_host: vault
         innernet:
           hosts:
-            innernet_server:
-              ansible_host: innernet-server
+            # innernet_server:
+              # ansible_host: innernet-server
       vars:
         ansible_ssh_user: ubuntu
     deployments:
