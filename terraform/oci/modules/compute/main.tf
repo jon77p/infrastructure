@@ -2,6 +2,7 @@ terraform {
   required_providers {
     oci = {
       source = "hashicorp/oci"
+      version = "4.57.0"
     }
   }
 }
@@ -18,6 +19,11 @@ resource "oci_core_instance" "ubuntu_instance" {
   availability_domain = data.oci_identity_availability_domains.ads.availability_domains[0].name
   compartment_id      = var.compartment_id
   shape               = each.value.shape
+  shape_config {
+    memory_in_gbs = each.value.memory
+    ocpus = each.value.ocpus
+  }
+
   source_details {
     source_id   = each.value.image_id
     source_type = "image"
