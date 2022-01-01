@@ -1,9 +1,19 @@
 #!/bin/sh
-# Install and setup Cloudflare Tunnel
-echo 'deb http://pkg.cloudflare.com/ focal main' | sudo tee /etc/apt/sources.list.d/cloudflare-main.list
-curl -C - https://pkg.cloudflare.com/pubkey.gpg | sudo apt-key add -
-sudo apt-get update -y
-sudo apt install -y cloudflared
+
+ARCH="$(uname -m)"
+
+if [ $ARCH = "aarch64" ]; then
+  # Install and setup Cloudflare Tunnel for ARM
+  curl https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64.deb -o /tmp/init-cloudflared_arm64.deb
+  sudo apt-get update -y
+  sudo apt install /tmp/init-cloudflared_arm64.deb
+else
+  # Install and setup Cloudflare Tunnel from repo
+  echo 'deb http://pkg.cloudflare.com/ focal main' | sudo tee /etc/apt/sources.list.d/cloudflare-main.list
+  curl -C - https://pkg.cloudflare.com/pubkey.gpg | sudo apt-key add -
+  sudo apt-get update -y
+  sudo apt install -y cloudflared
+fi
 
 # A local user directory is first created before we can install the tunnel as a system service
 cd /root
