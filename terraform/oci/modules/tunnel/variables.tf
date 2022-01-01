@@ -23,6 +23,8 @@ variable "instances" {
     name     = string
     image_id = string
     shape    = string
+    memory   = number
+    ocpus    = number
   }))
   default = {}
 }

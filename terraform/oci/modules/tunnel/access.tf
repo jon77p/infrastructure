@@ -7,7 +7,7 @@ resource "cloudflare_access_application" "ssh_app" {
   session_duration          = "24h"
   auto_redirect_to_identity = true
   allowed_idps              = var.cf_allowed_idp_ids
-  app_launcher_visible      = false
+  # app_launcher_visible      = false
 }
 
 resource "cloudflare_access_policy" "ssh_policy" {
