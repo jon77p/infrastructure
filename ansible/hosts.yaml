@@ -5,7 +5,7 @@ all:
   children:
     cluster:
       children:
-        k8s:
+        localcluster:
           hosts:
             pi1:
               ansible_host: pi1
@@ -42,10 +42,20 @@ all:
               ansible_host: kube1
             kube2:
               ansible_host: kube2
+            innernet_server:
+              ansible_host: innernet-server
         innernet:
           hosts:
-            # innernet_server:
-              # ansible_host: innernet-server
+            innernet_server:
+        ocicluster:
+          children:
+            ocimanager:
+              hosts:
+                kube0:
+            ocinodes:
+              hosts:
+                kube1:
+                kube2:
       vars:
         ansible_ssh_user: ubuntu
     deployments:
