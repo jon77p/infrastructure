@@ -11,9 +11,9 @@
     - innernet
     - iptables
 
-# - hosts: localhost
-  # vars:
-    # oci_hostname: "innernet-server"
-    # hostname: "innernet_server"
-  # roles:
-    # - oci
+- hosts: localhost
+  vars:
+    oci_hostname: "innernet-server"
+    hostname: "innernet_server"
+  roles:
+    - oci

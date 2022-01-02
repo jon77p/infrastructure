@@ -1,5 +1,5 @@
 ---
-oci_profile: "oci1"
+oci_profile: "oci2"
 oci_security_rules:
   egress_security_rules: []
   ingress_security_rules:
@@ -7,6 +7,13 @@ oci_security_rules:
       source: "0.0.0.0/0"
       protocol: "6" # TCP
       tcp_options:
+        destination_port_range:
+          max: "{{ innernet_server_port }}"
+          min: "{{ innernet_server_port }}"
+    - description: "allow innernet-server UDP/{{ innernet_server_port }} inbound"
+      source: "0.0.0.0/0"
+      protocol: "17" # UDP
+      udp_options:
         destination_port_range:
           max: "{{ innernet_server_port }}"
           min: "{{ innernet_server_port }}"
