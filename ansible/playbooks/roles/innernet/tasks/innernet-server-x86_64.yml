@@ -1,0 +1,16 @@
+- name: Check if innernet-server is installed
+  command: dpkg-query -W innernet-server
+  register: innernet_server_check_deb
+  failed_when: innernet_server_check_deb.rc > 1
+  changed_when: innernet_server_check_deb.rc == 1
+
+- name: Download innernet-server .deb
+  get_url:
+    url: https://github.com/tonarino/innernet/releases/download/v1.5.0/innernet-server_1.5.0_amd64.deb
+    dest: /tmp/innernet-server_1.5.0_amd64.deb
+  when: innernet_server_check_deb.rc == 1
+
+- name: Install innernet-server
+  apt:
+    deb: /tmp/innernet-server_1.5.0_amd64.deb
+  when: innernet_server_check_deb.rc == 1

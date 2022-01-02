@@ -1,0 +1,22 @@
+- name: Check if innernet-server is installed
+  stat:
+    path: /usr/sbin/innernet-server
+  register: innernet_server_check
+
+- name: Install cargo dependency
+  apt:
+    name: cargo
+    state: latest
+
+- name: Install libsqlite3-dev dependency
+  apt:
+    name: libsqlite3-dev
+    state: latest
+
+- name: Install innernet-server
+  shell: cargo install --git https://github.com/tonarino/innernet --tag v1.5.2 server
+  when: not innernet_server_check.stat.exists
+
+- name: Link cargo binary into PATH
+  shell: ln -s /root/.cargo/bin/innernet-server /usr/sbin/
+  when: not innernet_server_check.stat.exists
