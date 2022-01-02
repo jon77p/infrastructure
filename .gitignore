@@ -3,3 +3,4 @@ secrets*
 Brewfile.lock.json
 .config.env
 .decrypted~*.yaml
+venv
