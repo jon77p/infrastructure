@@ -1,2 +1,11 @@
 ---
 innernet_server_port: 51820
+innernet_network: jonprentice
+innernet_network_cidr: 10.42.0.0/16
+innernet_network_groups:
+  - name: services
+    cidr: 10.42.1.0/24
+    parent: "{{ innernet_network }}"
+  - name: cluster
+    cidr: 10.42.128.0/24
+    parent: "{{ innernet_network }}"

@@ -14,6 +14,7 @@
     daemon_reload: yes
     enabled: yes
 
-- name: Add cluster CIDR
-  shell: innernet-server add-cidr --name {{ cluster_network_name }} --cidr {{ cluster_network_cidr }} --parent {{ cluster_network_parent }} --yes {{ innernet_network }}
-  when: not innernet_server_check_network.stat.exists
+- name: Create CIDRs
+  loop: "{{ innernet_network_groups }}"
+  shell: innernet-server add-cidr --name {{ item.name }} --cidr {{ item.cidr }} --parent {{ item.parent }} --yes {{ innernet_network }}
+  ignore_errors: yes
