@@ -11,7 +11,7 @@ data "oci_identity_availability_domains" "ads" {
   compartment_id = var.compartment_id
 }
 
-data "oci_core_boot_volumes" "boot_volumes" {
+data "oci_core_boot_volumes" "all_boot_volumes" {
   availability_domain = data.oci_identity_availability_domains.ads.availability_domains[0].name
   compartment_id      = var.compartment_id
 }
@@ -31,8 +31,9 @@ resource "oci_core_instance" "ubuntu_instance" {
 
 
   source_details {
-    source_id   = length([for idx, vol in data.oci_core_boot_volumes.boot_volumes : vol if split(" ", vol.display_name)[0] == each.value.name]) == 1 ? [for idx, vol in data.oci_core_boot_volumes.boot_volumes : vol if split(" ", vol.display_name)[0] == each.value.name][0].id : each.value.image_id
-    source_type = length([for vol in data.oci_core_boot_volumes.boot_volumes[*].display_name : vol if split(" ", vol)[0] == each.value.name]) == 1 ? "bootVolume" : "image"
+    # source_id   = length([for idx, vol in data.oci_core_boot_volumes.all_boot_volumes.boot_volumes : vol if split(" ", vol.display_name)[0] == each.value.name]) == 1 ? [for idx, vol in data.oci_core_boot_volumes.all_boot_volumes.boot_volumes : vol if split(" ", vol.display_name)[0] == each.value.name][0].id : each.value.image_id
+    source_id = each.value.image_id
+    source_type = length([for vol in data.oci_core_boot_volumes.all_boot_volumes.boot_volumes[*].display_name : vol if split(" ", vol)[0] == each.value.name]) == 1 ? "bootVolume" : "image"
   }
 
   # Optional
