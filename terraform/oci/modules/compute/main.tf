@@ -16,16 +16,6 @@ data "oci_core_boot_volumes" "boot_volumes" {
   compartment_id      = var.compartment_id
 }
 
-#resource "oci_core_boot_volume" "instance_boot_volume" {
-#  for_each = var.instances
-#  compartment_id      = var.compartment_id
-#  source_details {
-#    source_id = ""
-#    source_type = "bootVolume"
-#  }
-#  availability_domain = data.oci_identity_availability_domains.ads.availability_domains[0].name
-#}
-
 resource "oci_core_instance" "ubuntu_instance" {
   for_each     = var.instances
   display_name = each.value.name
@@ -41,14 +31,9 @@ resource "oci_core_instance" "ubuntu_instance" {
 
 
   source_details {
-    source_id   = each.value.image_id
-    source_type = "image"
+    source_id   = length([for vol in data.oci_core_boot_volumes.boot_volumes[*] : vol if split(" ", vol.display_name)[0] == each.value.name]) == 1 ? [for vol in data.oci_core_boot_volumes.boot_volumes[*] : vol if split(" ", vol.display_name)[0] == each.value.name][0].id : each.value.image_id
+    source_type = length([for vol in data.oci_core_boot_volumes.boot_volumes[*] : vol if split(" ", vol.display_name)[0] == each.value.name]) == 1 ? "bootVolume" : "image"
   }
-
-  #source_details {
-  #  source_id   = resource.oci_core_boot_volume.instance_boot_volume[each.value.name].id
-  #  source_type = "bootVolume"
-  #}
 
   # Optional
   create_vnic_details {
