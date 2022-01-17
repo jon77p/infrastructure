@@ -11,6 +11,11 @@ data "oci_identity_availability_domains" "ads" {
   compartment_id = var.compartment_id
 }
 
+data "oci_core_boot_volumes" "boot_volumes" {
+  availability_domain = data.oci_identity_availability_domains.ads.availability_domains[0].name
+  compartment_id      = var.compartment_id
+}
+
 #resource "oci_core_boot_volume" "instance_boot_volume" {
 #  for_each = var.instances
 #  compartment_id      = var.compartment_id
