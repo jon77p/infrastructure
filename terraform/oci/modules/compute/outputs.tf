@@ -4,7 +4,7 @@ output "name-of-first-availability-domain" {
 }
 
 output "boot-volumes" {
-  value = data.oci_core_boot_volumes.boot_volumes
+  value = data.oci_core_boot_volumes.all_boot_volumes
 }
 
 # Outputs for compute instance
