@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     oci = {
-      source = "hashicorp/oci"
+      source  = "hashicorp/oci"
       version = "4.57.0"
     }
   }
@@ -10,6 +10,16 @@ terraform {
 data "oci_identity_availability_domains" "ads" {
   compartment_id = var.compartment_id
 }
+
+#resource "oci_core_boot_volume" "instance_boot_volume" {
+#  for_each = var.instances
+#  compartment_id      = var.compartment_id
+#  source_details {
+#    source_id = ""
+#    source_type = "bootVolume"
+#  }
+#  availability_domain = data.oci_identity_availability_domains.ads.availability_domains[0].name
+#}
 
 resource "oci_core_instance" "ubuntu_instance" {
   for_each     = var.instances
@@ -21,13 +31,19 @@ resource "oci_core_instance" "ubuntu_instance" {
   shape               = each.value.shape
   shape_config {
     memory_in_gbs = each.value.memory
-    ocpus = each.value.ocpus
+    ocpus         = each.value.ocpus
   }
+
 
   source_details {
     source_id   = each.value.image_id
     source_type = "image"
   }
+
+  #source_details {
+  #  source_id   = resource.oci_core_boot_volume.instance_boot_volume[each.value.name].id
+  #  source_type = "bootVolume"
+  #}
 
   # Optional
   create_vnic_details {
@@ -48,5 +64,5 @@ resource "oci_core_instance" "ubuntu_instance" {
         hostname         = each.key
     }))
   }
-  preserve_boot_volume = false
+  preserve_boot_volume = true
 }
