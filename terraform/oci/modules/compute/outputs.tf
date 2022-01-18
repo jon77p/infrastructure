@@ -3,6 +3,10 @@ output "name-of-first-availability-domain" {
   value = data.oci_identity_availability_domains.ads.availability_domains[0].name
 }
 
+output "boot-volumes" {
+  value = data.oci_core_boot_volumes.all_boot_volumes
+}
+
 # Outputs for compute instance
 
 output "instance-public-ip" {
@@ -40,4 +44,8 @@ output "instance-memory-in-GBs" {
 
 output "time-created" {
   value = zipmap(values(oci_core_instance.ubuntu_instance)[*].display_name, values(oci_core_instance.ubuntu_instance)[*].time_created)
+}
+
+output "instance-boot-volume" {
+  value = values(oci_core_instance.ubuntu_instance)[*].boot_volume_id
 }

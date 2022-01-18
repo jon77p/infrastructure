@@ -162,3 +162,21 @@ output "oci2-instance-OCID" {
 output "oci2-instance-public-ip" {
   value = module.oci2.instance-public-ip
 }
+output "oci0-boot-volumes" {
+  value = module.oci0.boot-volumes
+}
+output "oci0-instance-boot-volume" {
+  value = module.oci0.instance-boot-volume
+}
+output "oci1-boot-volumes" {
+  value = module.oci1.boot-volumes
+}
+output "oci1-instance-boot-volume" {
+  value = module.oci1.instance-boot-volume
+}
+output "oci2-boot-volumes" {
+  value = module.oci2.boot-volumes
+}
+output "oci2-instance-boot-volume" {
+  value = module.oci2.instance-boot-volume
+}

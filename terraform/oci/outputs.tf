@@ -58,3 +58,11 @@ output "instance-OCID" {
 output "instance-public-ip" {
   value = module.compute.instance-public-ip
 }
+
+# Outputs for boot volumes
+output "boot-volumes" {
+  value = module.compute.boot-volumes
+}
+output "instance-boot-volume" {
+  value = module.compute.instance-boot-volume
+}
