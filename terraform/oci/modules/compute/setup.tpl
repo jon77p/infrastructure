@@ -71,3 +71,5 @@ fi
 
 # Overwrite ssh host keys with backup
 sudo cp /.sshd/ssh_host_* /etc/ssh/
+# Restart sshd to force server to use new host keys
+sudo systemctl restart sshd
