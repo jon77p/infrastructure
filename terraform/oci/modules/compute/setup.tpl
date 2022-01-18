@@ -64,10 +64,10 @@ sudo cp /root/.cloudflared/config.yml /etc/cloudflared/config.yml
 sudo systemctl enable --now cloudflared
 
 # Make a backup of all ssh host keys to disk if not exists
-if [ ! -d /root/.sshd ]; then
-  sudo mkdir /root/.sshd
-  sudo cp /etc/ssh/ssh_host_* /root/.sshd/
+if [ ! -d /.sshd ]; then
+  sudo mkdir /.sshd
+  sudo cp /etc/ssh/ssh_host_* /.sshd/
 fi
 
 # Overwrite ssh host keys with backup
-sudo cp /root/.sshd/ssh_host_* /etc/ssh/
+sudo cp /.sshd/ssh_host_* /etc/ssh/
