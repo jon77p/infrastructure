@@ -62,3 +62,12 @@ sudo cp /root/.cloudflared/config.yml /etc/cloudflared/config.yml
 
 # Enable and start the tunnel
 sudo systemctl enable --now cloudflared
+
+# Make a backup of all ssh host keys to disk if not exists
+if [ ! -d /root/.sshd ]; then
+  sudo mkdir /root/.sshd
+  sudo cp /etc/ssh/ssh_host_* /root/.sshd/
+fi
+
+# Overwrite ssh host keys with backup
+sudo cp /root/.sshd/ssh_host_* /etc/ssh/
