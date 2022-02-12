@@ -1,3 +1,4 @@
+---
 - name: Ansible Architecture
   debug:
     var: ansible_architecture
