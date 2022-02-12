@@ -1,7 +1,16 @@
+- name: Ansible Architecture
+  debug:
+    var: ansible_architecture
+
 - name: install cloudflared ARM
   become: true
   import_tasks: install-arm.yml
-  when: ansible_architecture == "armv7l" 
+  when: ansible_architecture == "armv7l"
+
+- name: install cloudflared ARM64
+  become: true
+  import_tasks: install-arm64.yml
+  when: ansible_architecture == "aarch64"
 
 - name: install cloudflared x86_64
   become: true

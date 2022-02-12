@@ -1,0 +1,9 @@
+- name: Download cloudflared .deb
+  get_url:
+    url: https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64.deb
+    dest: /tmp/cloudflared_arm64.deb
+
+- name: Install cloudflared
+  become: true
+  apt:
+    deb: /tmp/cloudflared_arm64.deb
