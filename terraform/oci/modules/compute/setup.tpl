@@ -57,8 +57,19 @@ EOF
 # Now we install the tunnel as a systemd service
 sudo cloudflared service install
 # The credentials file does not get copied over so we'll do that manually
-sudo cp -via /root/.cloudflared/cert.json /etc/cloudflared/
-sudo cp -via /root/.cloudflared/config.yml /etc/cloudflared/
+sudo cp /root/.cloudflared/cert.json /etc/cloudflared/cert.json
+sudo cp /root/.cloudflared/config.yml /etc/cloudflared/config.yml
 
 # Enable and start the tunnel
 sudo systemctl enable --now cloudflared
+
+# Make a backup of all ssh host keys to disk if not exists
+if [ ! -d /.sshd ]; then
+  sudo mkdir /.sshd
+  sudo cp /etc/ssh/ssh_host_* /.sshd/
+fi
+
+# Overwrite ssh host keys with backup
+sudo cp /.sshd/ssh_host_* /etc/ssh/
+# Restart sshd to force server to use new host keys
+sudo systemctl restart sshd
