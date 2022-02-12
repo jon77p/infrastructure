@@ -25,7 +25,11 @@
 
 - name: Copy the credentials file manually
   become: true
-  shell: cp -via /root/.cloudflared/cert.json /etc/cloudflared/
+  shell: cp -va /root/.cloudflared/cert.json /etc/cloudflared/
+
+- name: Copy the config file manually
+  become: true
+  shell: cp -va /root/.cloudflared/config.yml /etc/cloudflared/
 
 - name: Enable and start the tunnel
   become: true
