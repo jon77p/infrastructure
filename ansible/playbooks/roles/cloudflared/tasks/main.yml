@@ -22,8 +22,12 @@
   include_tasks: setup.yml
 
 - name: Get required cloudflared values
-  shell: head -n 1 /etc/cloudflared/config.yml | awk '{print $2}'
+  become: true
+  shell: cat /root/.cloudflared/config.yml | head -n 1 | awk '{print $2}'
   register: tunnel_output
+
+- debug:
+    var: tunnel_output
 
 - debug:
     var: additional_ingress
