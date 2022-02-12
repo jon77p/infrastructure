@@ -1,0 +1,26 @@
+---
+cloudflare_dns_records:
+  - zone: "{{ domain }}"
+    record: "firefly.{{ domain }}"
+    type: CNAME
+    value: "tunnel-{{ ansible_host }}.{{ domain }}"
+    proxied: true
+    state: present
+  - zone: "{{ domain }}"
+    record: "firefly-csv.{{ domain }}"
+    type: CNAME
+    value: "tunnel-{{ ansible_host }}.{{ domain }}"
+    proxied: true
+    state: present
+  - zone: "{{ domain }}"
+    record: "traefik-firefly.{{ domain }}"
+    type: CNAME
+    value: "tunnel-{{ ansible_host }}.{{ domain }}"
+    proxied: true
+    state: present
+  - zone: "{{ domain }}"
+    record: "portainer-firefly.{{ domain }}"
+    type: CNAME
+    value: "tunnel-{{ ansible_host }}.{{ domain }}"
+    proxied: true
+    state: present

@@ -1,0 +1,18 @@
+---
+additional_ingress:
+  - hostname: "firefly.{{ domain }}"
+    service: "https://localhost"
+    originRequest:
+      noTLSVerify: true
+  - hostname: "firefly-csv.{{ domain }}"
+    service: "https://localhost"
+    originRequest:
+      noTLSVerify: true
+  - hostname: "traefik-firefly.{{ domain }}"
+    service: "https://localhost"
+    originRequest:
+      noTLSVerify: true
+  - hostname: "portainer-firefly.{{ domain }}"
+    service: "https://localhost"
+    originRequest:
+      noTLSVerify: true

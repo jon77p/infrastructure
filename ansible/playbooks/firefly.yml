@@ -1,0 +1,7 @@
+---
+- hosts: firefly
+  become: true
+  roles:
+    - common
+    - cloudflared
+    - cloudflare
