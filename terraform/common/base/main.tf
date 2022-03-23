@@ -7,7 +7,7 @@ resource "oci_identity_compartment" "terraform" {
 
 module "vcn" {
   source                  = "oracle-terraform-modules/vcn/oci"
-  version                 = "3.2.0"
+  version                 = "3.3.0"
   compartment_id          = oci_identity_compartment.terraform.id
   region                  = var.region
   vcn_name                = "terraform"
