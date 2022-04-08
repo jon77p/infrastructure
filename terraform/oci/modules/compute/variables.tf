@@ -56,3 +56,14 @@ variable "cf_tunnel_secret" {
   description = "Base64 secret value for tunnel"
   type        = string
 }
+
+variable "cf_ssh_certificates" {
+  description = "List of cloudflare_access_ca_certificate resources"
+  type = map(
+    object({
+      id         = string
+      aud        = string
+      public_key = string
+    })
+  )
+}

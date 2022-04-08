@@ -8,3 +8,8 @@ output "tunnel_secret" {
   description = "Base64 secret value for tunnel"
   sensitive   = true
 }
+
+output "ssh_certificates" {
+  value       = cloudflare_access_ca_certificate.ssh_certificate
+  description = "List of cloudflare_access_ca_certificate resources"
+}

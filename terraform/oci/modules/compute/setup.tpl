@@ -14,7 +14,7 @@ else
   sudo apt install -y cloudflared
 fi
 
-# A local user directory is first created before we can install the tunnel as a system service
+# A root directory is first created before we can install the tunnel as a system service
 cd /root
 sudo mkdir /root/.cloudflared
 sudo touch /root/.cloudflared/cert.json
@@ -72,4 +72,18 @@ fi
 # Overwrite ssh host keys with backup
 sudo cp /.sshd/ssh_host_* /etc/ssh/
 # Restart sshd to force server to use new host keys
+sudo systemctl restart sshd
+
+# Short-lived Certificates Setup
+
+# Create user matching primary user SSO identity
+sudo useradd --gid admin --groups sudo --create-home --shell /bin/bash admin
+
+# Save public key into SSH configuration directory
+echo "${cf_ssh_certificate}" | sudo tee -a /etc/ssh/ca.pub > /dev/null
+
+# Modify SSHD config to accept PubkeyAuthentication and add /etc/ssh/ca.pub to TrustedUserCAKeys
+sudo sed -i 's/[#]\w*PubkeyAuthentication yes/PubkeyAuthentication yes\nTrustedUserCAKeys \/etc\/ssh\/ca.pub/' /etc/ssh/sshd_config
+
+# Restart sshd to force server to have modified SSHD configuration
 sudo systemctl restart sshd

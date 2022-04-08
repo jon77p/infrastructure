@@ -42,10 +42,11 @@ module "compute" {
   instances                = var.instances
   subnet_id                = module.base.public-subnet-id
 
-  domain           = var.domain
-  cf_account_id    = var.cf_account_id
-  cf_tunnels       = module.tunnel.tunnels
-  cf_tunnel_secret = module.tunnel.tunnel_secret
+  domain              = var.domain
+  cf_account_id       = var.cf_account_id
+  cf_tunnels          = module.tunnel.tunnels
+  cf_tunnel_secret    = module.tunnel.tunnel_secret
+  cf_ssh_certificates = module.tunnel.ssh_certificates
 }
 
 resource "cloudflare_record" "instance_record" {
