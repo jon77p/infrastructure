@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    oci = {
+      source  = "oracle/oci"
+      version = "4.69.0"
+    }
+  }
+}
+
 resource "oci_identity_compartment" "terraform" {
   # Required
   compartment_id = var.tenancy_id
