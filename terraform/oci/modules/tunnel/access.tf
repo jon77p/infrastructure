@@ -22,3 +22,9 @@ resource "cloudflare_access_policy" "ssh_policy" {
     group = [var.cf_admin_group_id]
   }
 }
+
+resource "cloudflare_access_ca_certificate" "ssh_certificate" {
+  for_each       = var.instances
+  application_id = cloudflare_access_application.ssh_app[each.value.name].id
+  zone_id        = var.cf_zone_id
+}
