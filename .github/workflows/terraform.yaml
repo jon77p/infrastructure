@@ -3,8 +3,8 @@ name: Terraform
 
 on: # yamllint disable-line rule:truthy
   pull_request:
-    #paths:
-    #- 'terraform/**'
+    paths:
+      - 'terraform/**'
 jobs:
   terraform:
     name: 'Terraform'
