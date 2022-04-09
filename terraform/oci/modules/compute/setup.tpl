@@ -77,7 +77,8 @@ sudo systemctl restart sshd
 # Short-lived Certificates Setup
 
 # Create user matching primary user SSO identity
-sudo useradd --gid admin --groups sudo --create-home --shell /bin/bash admin
+sudo useradd --gid "${cf_ssh_username}" --groups sudo --create-home --shell /bin/bash "${cf_ssh_username}"
+echo "${cf_ssh_username}:${cf_ssh_password}" | sudo chpasswd
 
 # Save public key into SSH configuration directory
 echo "${cf_ssh_certificate}" | sudo tee -a /etc/ssh/ca.pub > /dev/null

@@ -57,6 +57,17 @@ variable "cf_tunnel_secret" {
   type        = string
 }
 
+variable "cf_ssh_username" {
+  description = "Username for sshing with Cloudflare short-lived certificates"
+  type        = string
+}
+
+variable "cf_ssh_password" {
+  description = "Password for user for sshing with Cloudflare short-lived certificates"
+  sensitive   = true
+  type        = string
+}
+
 variable "cf_ssh_certificates" {
   description = "List of cloudflare_access_ca_certificate resources"
   type = map(

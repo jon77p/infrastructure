@@ -25,6 +25,8 @@ module "oci0" {
   cf_email                 = var.cf_email
   cf_allowed_idp_ids       = var.cf_allowed_idp_ids
   cf_admin_group_id        = var.cf_admin_group_id
+  cf_ssh_username          = var.cf_ssh_username
+  cf_ssh_password          = var.cf_ssh_password
   terraform_ssh_public_key = var.terraform_ssh_public_key
   setup_script_path        = var.setup_script_path
   cidrs                    = var.cidrs
@@ -47,6 +49,8 @@ module "oci1" {
   cf_email                 = var.cf_email
   cf_allowed_idp_ids       = var.cf_allowed_idp_ids
   cf_admin_group_id        = var.cf_admin_group_id
+  cf_ssh_username          = var.cf_ssh_username
+  cf_ssh_password          = var.cf_ssh_password
   terraform_ssh_public_key = var.terraform_ssh_public_key
   setup_script_path        = var.setup_script_path
   cidrs                    = var.cidrs
@@ -69,6 +73,8 @@ module "oci2" {
   cf_email                 = var.cf_email
   cf_allowed_idp_ids       = var.cf_allowed_idp_ids
   cf_admin_group_id        = var.cf_admin_group_id
+  cf_ssh_username          = var.cf_ssh_username
+  cf_ssh_password          = var.cf_ssh_password
   terraform_ssh_public_key = var.terraform_ssh_public_key
   setup_script_path        = var.setup_script_path
   cidrs                    = var.cidrs
