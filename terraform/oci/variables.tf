@@ -95,3 +95,14 @@ variable "cf_admin_group_id" {
   description = "Id of administrator cloudflare group"
   type        = string
 }
+
+variable "cf_ssh_username" {
+  description = "Username for sshing with Cloudflare short-lived certificates"
+  type        = string
+}
+
+variable "cf_ssh_password" {
+  description = "Password for user for sshing with Cloudflare short-lived certificates"
+  sensitive   = true
+  type        = string
+}

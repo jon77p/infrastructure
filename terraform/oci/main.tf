@@ -46,6 +46,8 @@ module "compute" {
   cf_account_id       = var.cf_account_id
   cf_tunnels          = module.tunnel.tunnels
   cf_tunnel_secret    = module.tunnel.tunnel_secret
+  cf_ssh_username     = var.cf_ssh_username
+  cf_ssh_password     = var.cf_ssh_password
   cf_ssh_certificates = module.tunnel.ssh_certificates
 }
 

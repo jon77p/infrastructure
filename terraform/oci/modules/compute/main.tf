@@ -58,6 +58,8 @@ resource "oci_core_instance" "ubuntu_instance" {
         cf_tunnel_id       = var.cf_tunnels[each.key].id,
         cf_tunnel_name     = var.cf_tunnels[each.key].name,
         cf_ssh_certificate = var.cf_ssh_certificates[each.key].public_key,
+        cf_ssh_username    = var.cf_ssh_username,
+        cf_ssh_password    = var.cf_ssh_password,
         cf_tunnel_secret   = var.cf_tunnel_secret,
         hostname           = each.key
     }))
