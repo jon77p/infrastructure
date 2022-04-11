@@ -34,10 +34,10 @@ jobs:
         id: plan
         run: terraform plan -no-color
         continue-on-error: true
-
       - name: Update Pull Request
         uses: actions/github-script@v6.0.0
         if: github.event_name == 'pull_request'
+        continue-on-error: true
         env:
           PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
         with:
