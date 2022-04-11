@@ -1,8 +1,8 @@
 terraform {
   required_providers {
     oci = {
-      source  = "hashicorp/oci"
-      version = "4.68.0"
+      source  = "oracle/oci"
+      version = "4.69.0"
     }
   }
 }
@@ -53,12 +53,15 @@ resource "oci_core_instance" "ubuntu_instance" {
     ssh_authorized_keys = "ssh-rsa ${var.terraform_ssh_public_key} terraform"
     user_data = base64gzip(templatefile(var.setup_script_path,
       {
-        cf_account       = var.cf_account_id,
-        cf_domain        = "${var.cf_tunnels[each.key].name}.${var.domain}",
-        cf_tunnel_id     = var.cf_tunnels[each.key].id,
-        cf_tunnel_name   = var.cf_tunnels[each.key].name,
-        cf_tunnel_secret = var.cf_tunnel_secret,
-        hostname         = each.key
+        cf_account         = var.cf_account_id,
+        cf_domain          = "${var.cf_tunnels[each.key].name}.${var.domain}",
+        cf_tunnel_id       = var.cf_tunnels[each.key].id,
+        cf_tunnel_name     = var.cf_tunnels[each.key].name,
+        cf_ssh_certificate = var.cf_ssh_certificates[each.key].public_key,
+        cf_ssh_username    = var.cf_ssh_username,
+        cf_ssh_password    = var.cf_ssh_password,
+        cf_tunnel_secret   = var.cf_tunnel_secret,
+        hostname           = each.key
     }))
   }
   preserve_boot_volume = true

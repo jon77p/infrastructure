@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    oci = {
+      source  = "oracle/oci"
+      version = "4.69.0"
+    }
+  }
+}
+
 resource "oci_identity_compartment" "terraform" {
   # Required
   compartment_id = var.tenancy_id
@@ -7,7 +16,7 @@ resource "oci_identity_compartment" "terraform" {
 
 module "vcn" {
   source                  = "oracle-terraform-modules/vcn/oci"
-  version                 = "3.3.0"
+  version                 = "3.4.0"
   compartment_id          = oci_identity_compartment.terraform.id
   region                  = var.region
   vcn_name                = "terraform"
