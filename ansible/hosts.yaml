@@ -34,6 +34,8 @@ all:
               ansible_host: healthchecks
             nextcloud:
               ansible_host: nextcloud
+            grafana:
+              ansible_host: grafana
             vault:
               ansible_host: vault
         innernet:
