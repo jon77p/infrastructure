@@ -28,8 +28,8 @@ all:
               ansible_host: firefly
             stash:
               ansible_host: stash
-            timemachine:
-              ansible_host: timemachine
+            # timemachine:
+              # ansible_host: timemachine
             healthchecks:
               ansible_host: healthchecks
             nextcloud:
