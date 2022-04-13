@@ -28,8 +28,8 @@ all:
               ansible_host: firefly
             stash:
               ansible_host: stash
-            timemachine:
-              ansible_host: timemachine
+            # timemachine:
+            # ansible_host: timemachine
             healthchecks:
               ansible_host: healthchecks
             nextcloud:
@@ -39,7 +39,7 @@ all:
         innernet:
           hosts:
             # innernet_server:
-              # ansible_host: innernet-server
+            # ansible_host: innernet-server
       vars:
         ansible_ssh_user: ubuntu
     deployments:
