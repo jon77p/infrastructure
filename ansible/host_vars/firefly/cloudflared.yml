@@ -12,7 +12,3 @@ additional_ingress:
     service: "https://localhost"
     originRequest:
       noTLSVerify: true
-  - hostname: "portainer-firefly.{{ domain }}"
-    service: "https://localhost"
-    originRequest:
-      noTLSVerify: true

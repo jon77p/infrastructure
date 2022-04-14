@@ -18,9 +18,3 @@ cloudflare_dns_records:
     value: "tunnel-{{ ansible_host }}.{{ domain }}"
     proxied: true
     state: present
-  - zone: "{{ domain }}"
-    record: "portainer-firefly.{{ domain }}"
-    type: CNAME
-    value: "tunnel-{{ ansible_host }}.{{ domain }}"
-    proxied: true
-    state: present
