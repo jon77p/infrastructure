@@ -41,34 +41,31 @@
     src: ../templates/config.yml.j2
     dest: /tmp/cloudflared-config.yml
 
+- name: Validate updated config ingress rules
+  become: true
+  shell: cloudflared --config /tmp/cloudflared-config.yml --no-autoupdate tunnel ingress validate
+  register: validation_check
+
 - name: Diff updated config with current cloudflared config
   become: true
   shell: diff /tmp/cloudflared-config.yml /etc/cloudflared/config.yml
   ignore_errors: yes
+  when: "validation_check.rc == 0"
   register: diff_result
 
-- name: Create updated cloudflared config file
+- name: Copy updated cloudflared config file to /etc/cloudflared
   become: true
-  when: "diff_result.rc != 0"
-  vars:
-    tunnel_id: "{{ tunnel_output.stdout }}"
-    fqdn: "{{ ansible_hostname }}.{{ domain }}"
-  template:
-    src: ../templates/config.yml.j2
-    dest: /etc/cloudflared/config.yml
-
-- name: Validate ingress rules
-  become: true
-  shell: cloudflared --config /etc/cloudflared/config.yml --no-autoupdate tunnel ingress validate
-  register: validation_check
+  when: "validation_check.rc == 0 and diff_result.rc != 0"
+  shell:
+    cmd: cp /tmp/cloudflared-config.yml /etc/cloudflared/config.yml
 
 - name: Restart cloudflared service
   become: true
   systemd:
     name: cloudflared
     state: restarted
-    no_block: true
-  when: "diff_result.rc != 0 and validation_check.rc == 0"
+    no_block: yes
+  when: "validation_check.rc == 0 and diff_result.rc != 0"
 
 - name: Reset connection
   meta: reset_connection
