@@ -20,7 +20,6 @@ resource "cloudflare_access_policy" "ssh_service_token_policy" {
 
   include {
     service_token = [var.cf_admin_service_token_id]
-    group         = [var.cf_admin_group_id]
   }
 }
 
