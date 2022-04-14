@@ -96,7 +96,12 @@ variable "cf_allowed_idp_ids" {
 }
 
 variable "cf_admin_group_id" {
-  description = "Id of administrator cloudflare group"
+  description = "Id of administrator Cloudflare group"
+  type        = string
+}
+
+variable "cf_admin_service_token_id" {
+  description = "Id of administrator Cloudflare service token"
   type        = string
 }
 
