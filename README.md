@@ -1,5 +1,5 @@
 # Infrastructure
-![Infrastructure Status](https://healthchecks.thepi.cloud/badge/ea83ba11-2a34-4b48-8e67-3b457c/sFJL1wvU-2/infrastructure.svg) ![OCI Status](https://healthchecks.thepi.cloud/badge/ea83ba11-2a34-4b48-8e67-3b457c/WntrLNBY-2/oci.svg) ![Local Status](https://healthchecks.thepi.cloud/badge/ea83ba11-2a34-4b48-8e67-3b457c/3iKjcFGj-2/local.svg)
+![Infrastructure Status](https://healthchecks.thepi.cloud/badge/e465366a-14f0-4ef1-b81a-6abc40/dqiPLs8L-2/Infrastructure.svg) ![OCI Status](https://healthchecks.thepi.cloud/badge/e465366a-14f0-4ef1-b81a-6abc40/Pr9vresC-2/OCI.svg) ![Services Status](https://healthchecks.thepi.cloud/badge/e465366a-14f0-4ef1-b81a-6abc40/M9e2xSEP-2/Services.svg) ![Local Status](https://healthchecks.thepi.cloud/badge/e465366a-14f0-4ef1-b81a-6abc40/3iKjcFGj-2/Local.svg)
 
 ## Getting Started: [Minimal Setup]
 1. `docker swarm init` on manager node
