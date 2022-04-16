@@ -1,0 +1,88 @@
+---
+compose_project_name: "firefly"
+docker_volume_dirs:
+  - "/mnt/firefly/upload"
+  - "/mnt/firefly/db"
+compose_network_names:
+  - name: "firefly"
+    attachable: yes
+    internal: yes
+  - name: "web"
+    attachable: yes
+    internal: no
+compose_definition:
+  version: '3.8'
+  services:
+    firefly:
+      image: fireflyiii/core:latest
+      volumes:
+        - "{{ docker_volume_dirs[0] }}:/var/www/html/storage/upload"
+      environment:
+        SITE_OWNER: "{{ firefly_site_owner }}"
+        APP_KEY: "{{ firefly_app_key }}"
+        TRUSTED_PROXIES: "{{ firefly_trusted_proxies }}"
+        DB_CONNECTION: "mysql"
+        DB_HOST: "fireflydb"
+        DB_PORT: "{{ firefly_db_port }}"
+        DB_DATABASE: "{{ firefly_db_name }}"
+        DB_USERNAME: "{{ firefly_db_username }}"
+        DB_PASSWORD: "{{ firefly_db_password }}"
+        COOKIE_DOMAIN: "{{ domain }}"
+        MAIL_MAILER: "log"
+        MAIL_HOST: "{{ firefly_mail_host }}"
+        MAIL_PORT: "{{ firefly_mail_port }}"
+        MAIL_FROM: "{{ firefly_mail_from }}"
+        MAIL_USERNAME: "{{ firefly_mail_username }}"
+        MAIL_PASSWORD: "{{ firefly_mail_password }}"
+        MAIL_ENCRYPTION: "{{ firefly_mail_encryption }}"
+        SEND_REGISTRATION_MAIL: "false"
+        APP_NAME: "FireflyIII"
+        APP_URL: "http://localhost"
+      depends_on:
+        - "fireflydb"
+      networks:
+        - "firefly"
+        - "web"
+      ports:
+        - "{{ firefly_port }}:8080"
+      restart: "always"
+      healthcheck:
+        test: ["CMD", "curl", "https://healthchecks.{{ domain }}/ping/{{ healthcheck_uuid }}"]
+        timeout: 45s
+        interval: 10s
+        retries: 5
+    fireflydb:
+      image: mariadb:latest
+      environment:
+        MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+        MYSQL_USER: "{{ firefly_db_username }}"
+        MYSQL_PASSWORD: "{{ firefly_db_password }}"
+        MYSQL_DATABASE: "{{ firefly_db_name }}"
+      volumes:
+        - "{{ docker_volume_dirs[1] }}:/var/lib/mysql"
+      networks:
+        - "firefly"
+    firefly-data-importer:
+      image: fireflyiii/data-importer:latest
+      environment:
+        FIREFLY_III_CLIENT_ID: "{{ firefly_fidi_client_id }}"
+        FIREFLY_III_URL: "http://firefly:8080"
+        VANITY_URL: "https://firefly.{{ domain }}"
+      depends_on:
+        - "firefly"
+      networks:
+        - "firefly"
+        - "web"
+      ports:
+        - "{{ firefly_fidi_port }}:8080"
+      restart: "always"
+      healthcheck:
+        test: ["CMD", "curl", "https://healthchecks.{{ domain }}/ping/{{ firefly_fidi_healthcheck_uuid }}"]
+        timeout: 45s
+        interval: 10s
+        retries: 5
+  networks:
+    firefly:
+      attachable: "true"
+    web:
+      external: "true"
