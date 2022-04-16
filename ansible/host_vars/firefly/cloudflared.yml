@@ -2,5 +2,9 @@
 additional_ingress:
   - hostname: "firefly.{{ domain }}"
     service: "http://localhost:{{ firefly_port }}"
+    originRequest:
+      httpHostHeader: "firefly.{{ domain }}"
   - hostname: "firefly-importer.{{ domain }}"
     service: "http://localhost:{{ firefly_fidi_port }}"
+    originRequest:
+      httpHostHeader: "firefly-importer.{{ domain }}"
