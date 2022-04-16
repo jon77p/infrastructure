@@ -65,7 +65,7 @@ compose_definition:
     firefly-data-importer:
       image: fireflyiii/data-importer:latest
       environment:
-        FIREFLY_III_CLIENT_ID: "{{ firefly_fidi_client_id }}"
+        FIREFLY_III_ACCESS_TOKEN: "{{ firefly_fidi_access_token }}"
         FIREFLY_III_URL: "http://firefly:8080"
         VANITY_URL: "https://firefly.{{ domain }}"
       depends_on:
