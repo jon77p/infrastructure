@@ -1,14 +1,6 @@
 ---
 additional_ingress:
   - hostname: "firefly.{{ domain }}"
-    service: "https://localhost"
-    originRequest:
-      noTLSVerify: true
-  - hostname: "firefly-csv.{{ domain }}"
-    service: "https://localhost"
-    originRequest:
-      noTLSVerify: true
-  - hostname: "traefik-firefly.{{ domain }}"
-    service: "https://localhost"
-    originRequest:
-      noTLSVerify: true
+    service: "http://localhost:{{ firefly_port }}"
+  - hostname: "firefly-importer.{{ domain }}"
+    service: "http://localhost:{{ firefly_fidi_port }}"

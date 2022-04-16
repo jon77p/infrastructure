@@ -7,13 +7,7 @@ cloudflare_dns_records:
     proxied: true
     state: present
   - zone: "{{ domain }}"
-    record: "firefly-csv.{{ domain }}"
-    type: CNAME
-    value: "tunnel-{{ ansible_host }}.{{ domain }}"
-    proxied: true
-    state: present
-  - zone: "{{ domain }}"
-    record: "traefik-firefly.{{ domain }}"
+    record: "firefly-importer.{{ domain }}"
     type: CNAME
     value: "tunnel-{{ ansible_host }}.{{ domain }}"
     proxied: true
