@@ -1,2 +1,4 @@
 ---
 healthcheck_uuid: "{{ vault_healthcheck_uuid }}"
+op_connect_api_healthcheck_uuid: "{{ vault_op_connect_api_healthcheck_uuid }}"
+op_connect_sync_healthcheck_uuid: "{{ vault_op_connect_sync_healthcheck_uuid }}"
