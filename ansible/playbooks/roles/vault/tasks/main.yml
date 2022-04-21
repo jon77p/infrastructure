@@ -1,3 +1,4 @@
+---
 - name: Create mount directories
   become: true
   file:
@@ -12,3 +13,10 @@
   template:
     src: ../templates/config.hcl.j2
     dest: "{{ docker_volume_dirs[1] }}/config.hcl"
+
+- name: Create 1Password Connect Credentials file
+  become: true
+  when: "op_connect_credentials != ''"
+  template:
+    src: ../templates/1password-credentials.json.j2
+    dest: "{{ docker_volume_dirs[3] }}/1password-credentials.json"
