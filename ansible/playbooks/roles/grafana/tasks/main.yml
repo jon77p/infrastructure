@@ -1,3 +1,4 @@
+---
 - name: Create mount directories
   become: true
   file:
