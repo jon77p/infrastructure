@@ -10,12 +10,25 @@ resource "cloudflare_access_application" "ssh_app" {
   app_launcher_visible      = false
 }
 
+resource "cloudflare_access_policy" "ssh_service_token_policy" {
+  for_each       = var.instances
+  application_id = cloudflare_access_application.ssh_app[each.value.name].id
+  zone_id        = var.cf_zone_id
+  name           = "Service Token Auth Policy for ssh-${each.value.name}.${var.domain}"
+  precedence     = 1
+  decision       = "non_identity"
+
+  include {
+    service_token = [var.cf_admin_service_token_id]
+  }
+}
+
 resource "cloudflare_access_policy" "ssh_policy" {
   for_each       = var.instances
   application_id = cloudflare_access_application.ssh_app[each.value.name].id
   zone_id        = var.cf_zone_id
   name           = "Policy for ssh-${each.value.name}.${var.domain}"
-  precedence     = 1
+  precedence     = 2
   decision       = "allow"
 
   include {
