@@ -1,0 +1,16 @@
+- name: Create mount directories
+  become: true
+  file:
+    path: "{{ item }}"
+    recurse: true
+    owner: "{{ docker_user_id }}"
+    group: "{{ docker_group_id }}"
+    state: directory
+  loop: "{{ docker_volume_dirs }}"
+
+- name: Create config file
+  become: true
+  when: "docker_volume_dirs != []"
+  template:
+    src: ../templates/grafana.ini.j2
+    dest: "{{ docker_volume_dirs[0] }}/grafana.ini"

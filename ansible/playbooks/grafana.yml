@@ -1,16 +1,9 @@
 ---
-- hosts: localhost
-  vars:
-    servicename: "grafana"
-  gather_facts: false
-  connection: local
+- hosts: grafana
+  become: true
   roles:
-    - k8s
-
-- hosts: manager
-  roles:
+    - common
     - cloudflared
-
-- hosts: nodes
-  roles:
-    - cloudflared
+    - cloudflare
+    - grafana
+    - docker

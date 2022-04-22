@@ -1,0 +1,89 @@
+---
+grafana_plugins: "grafana-piechart-panel,grafana-worldmap-panel,grafana-clock-panel"
+grafana_admin_user: "{{ vault_secret_admin_user }}"
+grafana_admin_password: "{{ vault_secret_admin_password }}"
+grafana_smtp_host: "smtp.gmail.com:587"
+grafana_smtp_port: "587"
+grafana_smtp_user: "{{ vault_secret_smtp_user }}"
+grafana_smtp_password: "{{ vault_secret_smtp_password }}"
+grafana_smtp_from: "{{ compose_project_name }}@{{ domain }}"
+provisioning_dashboardproviders:
+  apiVersion: 1
+  providers:
+    - name: 'default'
+      orgId: 1
+      folder: ''
+      type: file
+      disableDeletion: false
+      editable: true
+      options:
+        path: /var/lib/grafana/dashboards/default
+    - name: 'unifi'
+      orgId: 1
+      folder: 'Unifi'
+      type: file
+      disableDeletion: false
+      editable: true
+      options:
+        path: /var/lib/grafana/dashboards/unifi
+    - name: 'media'
+      orgId: 1
+      folder: 'Media'
+      type: file
+      disableDeletion: false
+      editable: true
+      options:
+        path: /var/lib/grafana/dashboards/media
+provisioning_dashboards:
+  dashboards:
+    default:
+      prometheus:
+        gnetId: 2
+        revision: 2
+        datasource: Prometheus
+      traefik:
+        gnetId: 4475
+        revision: 5
+        datasource: Prometheus
+      logs:
+        gnetId: 15141
+        revision: 1
+        datasource: Loki
+      pihole:
+        gnetId: 10176
+        revision: 2
+        datasource: Prometheus
+    unifi:
+      client-insights:
+        gnetId: 11315
+        revision: 8
+        datasource: Prometheus
+      uap-insights:
+        gnetId: 11314
+        revision: 9
+        datasource: Prometheus
+      network-sites:
+        gnetId: 11311
+        revision: 4
+        datasource: Prometheus
+      usw-insights:
+        gnetId: 11312
+        revision: 8
+        datasource: Prometheus
+      usg-insights:
+        gnetId: 11313
+        revision: 8
+        datasource: Prometheus
+      client-dpi:
+        gnetId: 11310
+        revision: 4
+        datasource: Prometheus
+    media:
+      varken-official:
+        gnetId: 9585
+        revision: 5
+        datasource: Varken
+      varken-unofficial:
+        gnetId: 9558
+        revision: 15
+        datasource: Varken

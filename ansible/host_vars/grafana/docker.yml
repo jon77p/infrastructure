@@ -1,0 +1,47 @@
+---
+compose_project_name: "grafana"
+compose_project_ports:
+  - "3000"
+docker_user_id: "472"
+docker_group_id: "0"
+docker_volume_dirs:
+  - "/mnt/{{ compose_project_name }}/config"
+  - "/mnt/{{ compose_project_name }}/data"
+  - "/mnt/{{ compose_project_name }}/plugins"
+  - "/mnt/{{ compose_project_name }}/provisioning"
+  - "/mnt/{{ compose_project_name }}/provisioning/datasources"
+  - "/mnt/{{ compose_project_name }}/provisioning/plugins"
+  - "/mnt/{{ compose_project_name }}/provisioning/notifiers"
+  - "/mnt/{{ compose_project_name }}/provisioning/dashboards"
+compose_definition:
+  version: '3'
+  services:
+    grafana:
+      image: grafana/grafana-oss:latest
+      volumes:
+        - "{{ docker_volume_dirs[0] }}/grafana.ini:/etc/grafana/grafana.ini"
+        - "{{ docker_volume_dirs[1] }}:/var/lib/grafana"
+        - "{{ docker_volume_dirs[2] }}:/var/lib/grafana/plugins"
+        - "{{ docker_volume_dirs[3] }}:/etc/grafana/provisioning"
+      ports:
+        - "{{ compose_project_ports[0] }}:3000"
+      environment:
+        GF_INSTALL_PLUGINS: "{{ grafana_plugins }}"
+        GF_DEFAULT_INSTANCE_NAME: "{{ compose_project_name }}"
+        GF_SECURITY_ADMIN_USER: "{{ grafana_admin_user }}"
+        GF_SECURITY_ADMIN_PASSWORD: "{{ grafana_admin_password }}"
+        GF_SMTP_ENABLED: "true"
+        GF_SMTP_HOST: "{{ grafana_smtp_host }}"
+        GF_SMTP_PORT: "{{ grafana_smtp_port }}"
+        GF_SMTP_USER: "{{ grafana_smtp_user }}"
+        GF_SMTP_PASSWORD: "{{ grafana_smtp_password }}"
+        GF_SMTP_SKIP_VERIFY: "false"
+        GF_SMTP_FROM_ADDRESS: "{{ grafana_smtp_from }}"
+        GF_USERS_VERIFY_EMAIL_ENABLED: "true"
+        GF_EMAILS_WELCOME_EMAIL_ON_SIGNUP: "true"
+      restart: "always"
+      healthcheck:
+        test: ["CMD", "wget", "https://healthchecks.{{ domain }}/ping/{{ healthcheck_uuid }}", "-O", "/dev/null"]
+        timeout: 45s
+        interval: 10s
+        retries: 5
