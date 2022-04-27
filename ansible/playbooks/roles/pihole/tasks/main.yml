@@ -1,0 +1,42 @@
+---
+- name: Disable stub resolver
+  become: true
+  replace:
+    path: /etc/systemd/resolved.conf
+    regexp: '#?DNSStubListener=yes'
+    replace: 'DNSStubListener=no'
+  register: stubdisable
+
+- name: Update /etc/resolv.conf symlink
+  become: true
+  file:
+    src: /run/systemd/resolve/resolv.conf
+    dest: /etc/resolv.conf
+    state: link
+  register: resolvsymlink
+
+- name: Restart systemd-resolved
+  become: true
+  systemd:
+    name: systemd-resolved
+    state: restarted
+  when: stubdisable.changed or resolvsymlink.changed
+
+- name: Update netplan to use 127.0.0.1 nameserver
+  become: true
+  blockinfile:
+    path: /etc/netplan/50-cloud-init.yaml
+    insertafter: '(\s*)set-name: (\S+)'
+    marker: "            # {mark} ANSIBLE MANAGED BLOCK"
+    block: "            dhcp4-overrides:\n                use-dns: false\n            nameservers:\n                addresses: [127.0.0.1]\n"
+  register: netplan
+
+- name: Apply new netplan
+  become: true
+  shell: netplan try
+  async: 5
+  poll: 1
+  when: netplan.changed
+
+- name: Reset connection
+  meta: reset_connection
