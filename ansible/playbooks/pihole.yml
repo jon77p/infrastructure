@@ -1,16 +1,9 @@
 ---
-- hosts: localhost
-  vars:
-    servicename: "pihole"
-  gather_facts: false
-  connection: local
+- hosts: pihole
+  become: true
   roles:
-    - k8s
-
-- hosts: manager
-  roles:
+    - common
     - cloudflared
-
-- hosts: nodes
-  roles:
-    - cloudflared
+    - cloudflare
+    - pihole
+    - docker
