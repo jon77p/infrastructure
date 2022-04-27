@@ -34,6 +34,8 @@ all:
               ansible_host: healthchecks
             nextcloud:
               ansible_host: nextcloud
+            pihole:
+              ansible_host: pihole
             vault:
               ansible_host: vault
         innernet:
