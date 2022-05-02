@@ -24,3 +24,11 @@
   pip:
     name: docker-compose
     state: present
+
+- name: Ensure ansible user is in docker group
+  become: true
+  user:
+    name: "{{ ansible_ssh_user }}"
+    append: true
+    groups:
+      - "docker"
