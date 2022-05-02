@@ -1,4 +1,10 @@
 ---
+- hosts: localhost,grafana
+  vars:
+    hostname: "grafana"
+  roles:
+    - healthcheck
+
 - hosts: grafana
   become: true
   roles:
