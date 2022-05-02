@@ -1,14 +1,6 @@
 - name: Docker | ensure SDK is installed
   import_tasks: install-docker-sdk.yml
 
-- name: Ensure ansible user is in docker group
-  become: true
-  user:
-    name: "{{ ansible_ssh_user }}"
-    append: true
-    groups:
-      - "docker"
-
 - name: Docker | Reload docker-compose project
   when: "compose_project_name != None and compose_definition != None"
   import_tasks: docker-compose.yml
