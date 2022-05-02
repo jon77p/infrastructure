@@ -1,0 +1,13 @@
+---
+- name: Find item
+  environment:
+    OP_CONNECT_HOST: "{{ hostvars['localhost'].op_connect_host }}"
+    OP_CONNECT_TOKEN: "{{ hostvars['localhost'].op_connect_token }}"
+  onepassword.connect.field_info:
+    item: "{{ hostname }}"
+    field: healthcheck
+    vault: "{{ hostvars['localhost'].op_connect_vault_id }}"
+  register: healthcheck
+
+- debug:
+    msg: "{{ healthcheck.field.value }}"
