@@ -2,3 +2,5 @@
 additional_ingress:
   - hostname: "{{ compose_project_name }}.{{ domain }}"
     service: "http://localhost:{{ compose_project_ports[0] }}"
+  - hostname: "opconnect.{{ domain }}"
+    service: "http://localhost:{{ op_connect_ports[0] }}"
