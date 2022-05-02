@@ -1,4 +1,10 @@
 ---
+- hosts: localhost,firefly
+  vars:
+    hostname: "firefly"
+  roles:
+    - healthcheck
+
 - hosts: firefly
   become: true
   roles:
