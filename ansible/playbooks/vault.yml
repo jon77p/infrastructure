@@ -1,4 +1,10 @@
 ---
+- hosts: localhost,vault
+  vars:
+    hostname: "vault"
+  roles:
+    - healthcheck
+
 - hosts: vault
   become: true
   roles:
