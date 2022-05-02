@@ -1,4 +1,10 @@
 ---
+- hosts: localhost,pihole
+  vars:
+    hostname: "pihole"
+  roles:
+    - healthcheck
+
 - hosts: pihole
   become: true
   roles:
