@@ -77,7 +77,7 @@ compose_definition:
         - "{{ firefly_fidi_port }}:8080"
       restart: "always"
       healthcheck:
-        test: ["CMD", "curl", "https://healthchecks.{{ domain }}/ping/{{ firefly_fidi_healthcheck_uuid }}"]
+        test: ["CMD", "curl", "https://healthchecks.{{ domain }}/ping/{{ healthcheck_uuids['firefly-importer'] }}"]
         timeout: 45s
         interval: 10s
         retries: 5

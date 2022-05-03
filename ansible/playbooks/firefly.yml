@@ -3,6 +3,7 @@
   vars:
     hostnames:
       - "firefly"
+      - "firefly-importer"
   roles:
     - healthcheck
 
