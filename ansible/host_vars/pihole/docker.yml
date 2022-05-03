@@ -32,7 +32,7 @@ compose_definition:
         DNSMASQ_LISTENING: "all"
       restart: "always"
       healthcheck:
-        test: ["CMD", "curl", "https://healthchecks.{{ domain }}/ping/{{ healthcheck_uuid }}"]
+        test: ["CMD", "curl", "https://healthchecks.{{ domain }}/ping/{{ healthcheck_uuids[inventory_hostname] }}"]
         timeout: 45s
         interval: 10s
         retries: 5

@@ -1,7 +1,8 @@
 ---
 - hosts: localhost,pihole
   vars:
-    hostname: "pihole"
+    hostnames:
+      - "pihole"
   roles:
     - healthcheck
 
