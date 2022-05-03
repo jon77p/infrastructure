@@ -41,7 +41,7 @@ compose_definition:
         GF_EMAILS_WELCOME_EMAIL_ON_SIGNUP: "true"
       restart: "always"
       healthcheck:
-        test: ["CMD", "wget", "https://healthchecks.{{ domain }}/ping/{{ healthcheck_uuid }}", "-O", "/dev/null"]
+        test: ["CMD", "wget", "https://healthchecks.{{ domain }}/ping/{{ healthcheck_uuids[inventory_hostname] }}", "-O", "/dev/null"]
         timeout: 45s
         interval: 10s
         retries: 5
