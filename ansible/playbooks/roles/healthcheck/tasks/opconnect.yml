@@ -11,3 +11,9 @@
 
 - debug:
     msg: "{{ healthcheck.field.value }}"
+
+- name: "Update hostname healthcheck"
+  set_fact:
+    healthcheck_uuids: "{{ healthcheck_uuids | combine(new_healthcheck) }}"
+  vars:
+    new_healthcheck: '{ "{{ hostname }}": "{{ healthcheck.field.value }}" }'
