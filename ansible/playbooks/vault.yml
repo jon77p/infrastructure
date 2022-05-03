@@ -1,15 +1,16 @@
 ---
 - hosts: localhost,vault
   vars:
-    hostname: "vault"
+    hostnames:
+      - "vault"
   roles:
     - healthcheck
 
 - hosts: vault
   become: true
   roles:
-    - common
-    - cloudflared
-    - cloudflare
-    - vault
+    # - common
+    # - cloudflared
+    # - cloudflare
+    # - vault
     - docker
