@@ -1,14 +1,12 @@
 ---
 - name: Get Healthcheck from 1Password-Connect
   when: "inventory_hostname == 'localhost'"
-  import_tasks: opconnect.yml
+  vars:
+    hostname: "{{ item }}"
+  include_tasks: opconnect.yml
+  with_items: "{{ hostnames }}"
 
 - name: "Update hostname healthcheck"
   set_fact:
-    healthcheck_uuid: "{{ healthcheck.field.value }}"
-  when: "inventory_hostname == 'localhost'"
-
-- name: "Update hostname healthcheck"
-  set_fact:
-    healthcheck_uuid: "{{ hostvars['localhost'].healthcheck_uuid }}"
+    healthcheck_uuids: "{{ hostvars['localhost'].healthcheck_uuids }}"
   when: inventory_hostname != 'localhost'
