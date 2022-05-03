@@ -1,4 +1,11 @@
 ---
+- hosts: localhost,nextcloud
+  vars:
+    hostnames:
+      - "nextcloud"
+  roles:
+    - healthcheck
+
 - hosts: nextcloud
   become: true
   roles:
