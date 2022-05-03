@@ -1,7 +1,8 @@
 ---
 - hosts: localhost,firefly
   vars:
-    hostname: "firefly"
+    hostnames:
+      - "firefly"
   roles:
     - healthcheck
 
