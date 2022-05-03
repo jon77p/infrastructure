@@ -28,7 +28,7 @@ compose_definition:
       restart: "always"
       command: ["vault", "server", "-config", "/vault/config/config.hcl"]
       healthcheck:
-        test: ["CMD", "wget", "https://healthchecks.{{ domain }}/ping/{{ healthcheck_uuid }}", "-O", "/dev/null"]
+        test: ["CMD", "wget", "https://healthchecks.{{ domain }}/ping/{{ healthcheck_uuids[inventory_hostname] }}", "-O", "/dev/null"]
         timeout: 45s
         interval: 10s
         retries: 5

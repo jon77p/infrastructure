@@ -1,7 +1,8 @@
 ---
 - hosts: localhost,vault
   vars:
-    hostname: "vault"
+    hostnames:
+      - "vault"
   roles:
     - healthcheck
 
