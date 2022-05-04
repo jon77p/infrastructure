@@ -1,0 +1,3 @@
+---
+project_port: "{{ hostvars[inventory_hostname].project_port }}"
+codeserver_password: "{{ hostvars[inventory_hostname].codeserver_password }}"
