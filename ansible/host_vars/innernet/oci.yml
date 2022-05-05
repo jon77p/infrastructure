@@ -3,7 +3,7 @@ oci_profile: "oci1"
 oci_security_rules:
   egress_security_rules: []
   ingress_security_rules:
-    - description: "allow innernet-server TCP/{{ innernet_server_port }} inbound"
+    - description: "allow {{ inventory_hostname }} TCP/{{ innernet_server_port }} inbound"
       source: "0.0.0.0/0"
       protocol: "6" # TCP
       tcp_options:

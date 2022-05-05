@@ -40,8 +40,8 @@ all:
               ansible_host: codeserver
         innernet:
           hosts:
-            # innernet_server:
-            # ansible_host: innernet-server
+            innernet:
+              ansible_host: innernet
       vars:
         ansible_ssh_user: ubuntu
     deployments:
