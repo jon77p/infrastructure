@@ -1,11 +1,13 @@
 ---
 - hosts: localhost,firefly
   vars:
-    hostnames:
+    opconnect_item_names:
       - "firefly"
       - "firefly-importer"
+    opconnect_field_names:
+      - "healthcheck"
   roles:
-    - healthcheck
+    - 1password
 
 - hosts: firefly
   become: true

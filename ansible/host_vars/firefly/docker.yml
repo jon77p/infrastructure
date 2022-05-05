@@ -47,7 +47,7 @@ compose_definition:
         - "{{ firefly_port }}:8080"
       restart: "always"
       healthcheck:
-        test: ["CMD", "curl", "https://healthchecks.{{ domain }}/ping/{{ healthcheck_uuids[inventory_hostname] }}"]
+        test: ["CMD", "curl", "https://healthchecks.{{ domain }}/ping/{{ opconnect_results[inventory_hostname].healthcheck }}"]
         timeout: 45s
         interval: 10s
         retries: 5
@@ -77,7 +77,7 @@ compose_definition:
         - "{{ firefly_fidi_port }}:8080"
       restart: "always"
       healthcheck:
-        test: ["CMD", "curl", "https://healthchecks.{{ domain }}/ping/{{ healthcheck_uuids['firefly-importer'] }}"]
+        test: ["CMD", "curl", "https://healthchecks.{{ domain }}/ping/{{ opconnect_results['firefly-importer'].healthcheck }}"]
         timeout: 45s
         interval: 10s
         retries: 5
