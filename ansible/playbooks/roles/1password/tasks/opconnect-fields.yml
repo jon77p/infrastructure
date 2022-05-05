@@ -1,0 +1,17 @@
+---
+- name: Find item
+  environment:
+    OP_CONNECT_HOST: "{{ hostvars['localhost'].op_connect_host }}"
+    OP_CONNECT_TOKEN: "{{ hostvars['localhost'].op_connect_token }}"
+  onepassword.connect.field_info:
+    item: "{{ opconnect_item_name }}"
+    field: "{{ opconnect_field_name }}"
+    vault: "{{ hostvars['localhost'].op_connect_vault_id }}"
+  register: opconnect_output
+
+- name: "Update output dict"
+  set_fact:
+    opconnect_item_results: "{{ hostvars['localhost'].opconnect_item_results | combine(new_item_result) }}"
+  vars:
+    new_field_result: "{ \"{{ opconnect_field_name }}\": \"{{ opconnect_output.field.value }}\" }"
+    new_item_result: "{ \"{{ opconnect_item_name }}\": {{ hostvars['localhost'].opconnect_item_results[opconnect_item_name] | combine(new_field_result) }} }"
