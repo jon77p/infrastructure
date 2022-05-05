@@ -1,10 +1,12 @@
 ---
 - hosts: localhost,grafana
   vars:
-    hostnames:
+    opconnect_item_names:
       - "grafana"
+    opconnect_field_names:
+      - "healthcheck"
   roles:
-    - healthcheck
+    - 1password
 
 - hosts: grafana
   become: true
