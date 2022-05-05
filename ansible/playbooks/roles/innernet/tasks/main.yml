@@ -5,14 +5,14 @@
 - name: Innernet | install innernet-server
   become: true
   import_tasks: innernet-server.yml
-  when: ansible_ssh_host == 'innernet-server'
+  when: inventory_hostname == 'innernet'
 
 - name: Innernet | install innernet armv7l
   become: true
   import_tasks: innernet-client-armv7l.yml
-  when: ansible_ssh_host != 'innernet-server' and ansible_architecture == "armv7l" 
+  when: inventory_hostname != 'innernet' and ansible_architecture == "armv7l"
 
 - name: Innernet | install innernet x86_64
   become: true
   import_tasks: innernet-client-x86_64.yml
-  when: ansible_ssh_host != 'innernet-server' and ansible_architecture == "x86_64"
+  when: inventory_hostname != 'innernet' and ansible_architecture == "x86_64"
