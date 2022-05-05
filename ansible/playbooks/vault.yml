@@ -1,10 +1,12 @@
 ---
 - hosts: localhost,vault
   vars:
-    hostnames:
+    opconnect_item_names:
       - "vault"
+    opconnect_field_names:
+      - "healthcheck"
   roles:
-    - healthcheck
+    - 1password
 
 - hosts: vault
   become: true
