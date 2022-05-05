@@ -1,10 +1,12 @@
 ---
 - hosts: localhost,nextcloud
   vars:
-    hostnames:
+    opconnect_item_names:
       - "nextcloud"
+    opconnect_field_names:
+      - "healthcheck"
   roles:
-    - healthcheck
+    - 1password
 
 - hosts: nextcloud
   become: true

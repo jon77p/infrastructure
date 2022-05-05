@@ -47,7 +47,7 @@ compose_definition:
         OVERWRITEHOST: "{{ cloudflare_dns_records[0].record }}"
       restart: "always"
       healthcheck:
-        test: ["CMD", "curl", "https://healthchecks.{{ domain }}/ping/{{ healthcheck_uuids[inventory_hostname] }}"]
+        test: ["CMD", "curl", "https://healthchecks.{{ domain }}/ping/{{ opconnect_results[inventory_hostname].healthcheck }}"]
         timeout: 45s
         interval: 10s
         retries: 5

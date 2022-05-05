@@ -1,10 +1,13 @@
 ---
 - hosts: localhost,codeserver
   vars:
-    hostnames:
+    opconnect_item_names:
       - "codeserver"
+    opconnect_field_names:
+      - "healthcheck"
+      - "password"
   roles:
-    - healthcheck
+    - 1password
 
 - hosts: codeserver
   become: true

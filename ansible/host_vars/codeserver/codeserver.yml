@@ -1,4 +1,4 @@
 ---
 project_name: "code"
 project_port: 8080
-codeserver_password: "{{ vault_codeserver_password }}"
+codeserver_password: "{{ opconnect_results[inventory_hostname].password }}"
