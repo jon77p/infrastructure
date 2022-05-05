@@ -1,16 +1,19 @@
 ---
-- hosts: localhost
+- hosts: localhost,codeserver
   vars:
-    servicename: "codeserver"
-  gather_facts: false
-  connection: local
+    opconnect_item_names:
+      - "codeserver"
+    opconnect_field_names:
+      - "healthcheck"
+      - "password"
   roles:
-    - k8s
+    - 1password
 
-- hosts: manager
+- hosts: codeserver
+  become: true
   roles:
+    - common
     - cloudflared
-
-- hosts: nodes
-  roles:
-    - cloudflared
+    - cloudflare
+    - cron
+    - codeserver

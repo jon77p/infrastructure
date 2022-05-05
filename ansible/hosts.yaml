@@ -38,6 +38,8 @@ all:
               ansible_host: grafana
             vault:
               ansible_host: vault
+            codeserver:
+              ansible_host: codeserver
         innernet:
           hosts:
             # innernet_server:
@@ -56,7 +58,6 @@ all:
         gaps:
         pihole:
         allaboutsecurity:
-        codeserver:
         nodered:
         influxdb:
         varken:

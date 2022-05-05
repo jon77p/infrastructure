@@ -1,0 +1,12 @@
+---
+- name: "Create output items dict"
+  set_fact:
+    opconnect_item_results: "{{ hostvars['localhost'].opconnect_item_results | combine(new_result) }}"
+  vars:
+    new_result: '{ "{{ opconnect_item_name }}": {} }'
+
+- name: "Get values from 1Password Connect"
+  include_tasks: "opconnect-fields.yml"
+  loop: "{{ opconnect_field_names }}"
+  loop_control:
+    loop_var: "opconnect_field_name"
