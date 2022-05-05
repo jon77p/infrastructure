@@ -1,2 +1,0 @@
----
-healthcheck_uuid: "{{ vault_healthcheck_uuid }}"

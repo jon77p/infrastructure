@@ -38,8 +38,6 @@ all:
               ansible_host: vault
             codeserver:
               ansible_host: codeserver
-        innernet:
-          hosts:
             innernet:
               ansible_host: innernet
       vars:

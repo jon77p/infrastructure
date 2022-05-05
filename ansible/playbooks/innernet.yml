@@ -1,0 +1,28 @@
+---
+- hosts: localhost,innernet
+  vars:
+    opconnect_item_names:
+      - "innernet"
+    opconnect_field_names:
+      - "healthcheck"
+  roles:
+    - 1password
+
+- hosts: innernet
+  become: true
+  tags:
+    - innernet
+  roles:
+    - common
+    - cloudflared
+    - cloudflare
+    - cron
+    # - innernet
+    # - iptables
+
+# - hosts: localhost
+  # vars:
+    # oci_hostname: "innernet"
+    # hostname: "innernet"
+  # roles:
+    # - oci
