@@ -1,5 +1,5 @@
 ---
-pihole_admin_password: "{{ vault_secret_admin_password }}"
+pihole_admin_password: "{{ opconnect_results[inventory_hostname].password }}"
 pihole_admin_email: "{{ vault_secret_admin_email }}"
 pihole_dns: "{{ vault_secret_pihole_dns }}"
 pihole_dnssec: "true"

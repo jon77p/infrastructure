@@ -1,10 +1,13 @@
 ---
 - hosts: localhost,pihole
   vars:
-    hostnames:
+    opconnect_item_names:
       - "pihole"
+    opconnect_field_names:
+      - "healthcheck"
+      - "password"
   roles:
-    - healthcheck
+    - 1password
 
 - hosts: pihole
   become: true
