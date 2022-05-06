@@ -2,3 +2,10 @@
 innernet_server_port: 51820
 innernet_network: "jonprentice"
 innernet_network_cidr: "10.42.0.0/16"
+additional_networks:
+  - network_name: services
+    network_cidr: 10.42.128.0/24
+    network_parent: "{{ innernet_network }}"
+peers:
+  - name: nextcloud
+    cidr: services

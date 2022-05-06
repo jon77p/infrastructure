@@ -15,9 +15,11 @@
   when: not innernet_check.stat.exists
 
 - name: Install cargo
+  become: true
   shell: curl https://sh.rustup.rs -sSf | sh
   when: not innernet_check.stat.exists
 
 - name: Install innernet
+  become: true
   shell: cargo install --git https://github.com/tonarino/innernet --tag v1.5.0 client
   when: not innernet_check.stat.exists

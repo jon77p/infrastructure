@@ -1,4 +1,5 @@
 - name: Check if innernet-server is installed
+  become: true
   command: dpkg-query -W innernet-server
   register: innernet_server_check_deb
   failed_when: innernet_server_check_deb.rc > 1
@@ -11,25 +12,33 @@
   when: innernet_server_check_deb.rc == 1
 
 - name: Install innernet-server
+  become: true
   apt:
     deb: /tmp/innernet-server_1.5.0_amd64.deb
   when: innernet_server_check_deb.rc == 1
 
 - name: Check if innernet network is created
+  become: true
   stat:
     path: /etc/innernet-server/{{ innernet_network }}.conf
   register: innernet_server_check_network
 
 - name: Create new network
+  become: true
   shell: innernet-server new --network-name {{ innernet_network }} --network-cidr {{ innernet_network_cidr }} --auto-external-endpoint --listen-port {{ innernet_server_port }}
   when: not innernet_server_check_network.stat.exists
 
+- name: Add additional CIDRs
+  become: true
+  shell: innernet-server add-cidr --name {{ item.network_name }} --cidr {{ item.network_cidr }} --parent {{ item.network_parent }} --yes {{ innernet_network }}
+  register: result
+  changed_when: result.rc == 0
+  ignore_errors: true # no easy way to check if CIDR already exists
+  loop: "{{ additional_networks }}"
+
 - name: Enable new network
+  become: true
   systemd:
     name: innernet-server@{{ innernet_network }}
-    state: started
+    state: restarted
     enabled: yes
-
-- name: Add cluster CIDR
-  shell: innernet-server add-cidr --name {{ cluster_network_name }} --cidr {{ cluster_network_cidr }} --parent {{ cluster_network_parent }} --yes {{ innernet_network }}
-  when: not innernet_server_check_network.stat.exists

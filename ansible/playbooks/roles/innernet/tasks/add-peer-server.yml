@@ -1,0 +1,31 @@
+- name: Innernet | Create /etc/innernet/peers directory
+  become: true
+  file:
+    path: /etc/innernet/peers
+    state: directory
+
+- name: Innernet | Check if invite has been created for peer
+  become: true
+  stat:
+    path: /etc/innernet/peers/invite-{{ peer.name }}-{{ peer.cidr }}.toml
+  register: innernet_invite_peer_check
+
+- name: Innernet | add peer
+  become: true
+  shell: innernet-server add-peer --name {{ peer.name }} --auto-ip --cidr {{ peer.cidr }} --admin false --save-config /etc/innernet/peers/invite-{{ peer.name }}-{{ peer.cidr }}.toml --yes {{ innernet_network }}
+  when: not innernet_invite_peer_check.stat.exists
+
+- name: Innernet | Fetch invite for peer from innernet-server
+  become: true
+  fetch:
+    src: /etc/innernet/peers/invite-{{ peer.name }}-{{ peer.cidr }}.toml
+    dest: ../secrets/invite-{{ peer.name }}-{{ peer.cidr }}.toml
+    flat: yes
+  when: not innernet_invite_peer_check.stat.exists
+
+- name: Innernet | Restart innernet-server
+  become: true
+  systemd:
+    name: innernet-server@{{ innernet_network }}
+    state: restarted
+  when: not innernet_invite_peer_check.stat.exists

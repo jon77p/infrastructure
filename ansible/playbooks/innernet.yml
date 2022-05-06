@@ -10,6 +10,9 @@
 
 - hosts: innernet
   become: true
+  vars:
+    skip_tags:
+      - peers
   tags:
     - innernet
   roles:
@@ -17,12 +20,11 @@
     - cloudflared
     - cloudflare
     - cron
-    # - innernet
-    # - iptables
+    - innernet
+    - iptables
 
-# - hosts: localhost
-  # vars:
-    # oci_hostname: "innernet"
-    # hostname: "innernet"
-  # roles:
-    # - oci
+- hosts: localhost
+  vars:
+    hostname: "innernet"
+  roles:
+    - oci

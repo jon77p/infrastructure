@@ -10,7 +10,7 @@
   when: not innernet_check.stat.exists
 
 - name: Install innernet
+  become: true
   apt:
     deb: /tmp/innernet_1.5.0_amd64.deb
   when: not innernet_check.stat.exists
-

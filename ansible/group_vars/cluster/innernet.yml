@@ -1,4 +1,0 @@
----
-cluster_network_name: cluster
-cluster_network_cidr: 10.42.128.0/24
-cluster_network_parent: "{{ hostvars['innernet'].innernet_network }}"
