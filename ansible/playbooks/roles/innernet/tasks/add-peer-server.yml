@@ -1,3 +1,4 @@
+---
 - name: Innernet | Create /etc/innernet/peers directory
   become: true
   file:
