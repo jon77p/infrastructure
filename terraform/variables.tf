@@ -5,20 +5,15 @@ variable "oci_auth_private_key" {
 }
 
 variable "oci" {
-  description = "list containing OCI authentication information"
-  type = list(object({
+  description = "map containing OCI authentication information"
+  type = map(object({
     alias        = string
     user_ocid    = string
     fingerprint  = string
     tenancy_ocid = string
+    region       = string
   }))
-  default = []
-}
-
-variable "region" {
-  description = "region where you have OCI tenancy"
-  type        = string
-  default     = "us-sanjose-1"
+  default = {}
 }
 
 variable "domain" {
@@ -58,8 +53,8 @@ variable "setup_script_path" {
 }
 
 variable "instances" {
-  description = "list containing instance information for all configured OCI providers"
-  type = list(object({
+  description = "map containing instance information for all configured OCI providers"
+  type = map(object({
     instances = map(object({
       name     = string
       image_id = string
@@ -68,7 +63,7 @@ variable "instances" {
       ocpus    = number
     }))
   }))
-  default = []
+  default = {}
 }
 
 variable "cidrs" {
