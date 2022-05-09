@@ -11,7 +11,6 @@ variable "profile" {
 variable "region" {
   description = "region where you have OCI tenancy"
   type        = string
-  default     = "us-sanjose-1"
 }
 
 variable "domain" {
