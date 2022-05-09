@@ -15,11 +15,11 @@
 - debug:
     var: compartment
 
-- name: "Get instance with hostname {{ oci_hostname }}"
+- name: "Get instance with hostname {{ hostname }}"
   oracle.oci.oci_compute_instance_facts:
     config_profile_name: "{{ oci_profile }}"
     compartment_id: "{{ compartment.compartments[0].id }}"
-    display_name: "{{ oci_hostname }}"
+    display_name: "{{ hostname }}"
   register: instance
 
 - debug:

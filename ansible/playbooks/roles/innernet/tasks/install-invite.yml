@@ -1,0 +1,7 @@
+---
+- name: Innernet | Install all invites
+  include_tasks: "install-invite-client.yml"
+  when: "peer.name == inventory_hostname"
+  loop: "{{ peers }}"
+  loop_control:
+    loop_var: "peer"
