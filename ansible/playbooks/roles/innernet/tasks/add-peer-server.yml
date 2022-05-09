@@ -13,7 +13,7 @@
 
 - name: Innernet | add peer
   become: true
-  shell: innernet-server add-peer --name {{ peer.name }} --auto-ip --cidr {{ peer.cidr }} --admin false --save-config /etc/innernet-server/peers/invite-{{ peer.name }}-{{ peer.cidr }}.toml --yes {{ innernet_network }}
+  shell: innernet-server add-peer --name {{ peer.name }} --auto-ip --cidr {{ peer.cidr }} --admin {{ peer.admin | default("false") }} --save-config /etc/innernet-server/peers/invite-{{ peer.name }}-{{ peer.cidr }}.toml --yes {{ innernet_network }}
   when: not innernet_invite_peer_check.stat.exists
 
 - name: Innernet | Fetch invite for peer from innernet-server
