@@ -56,11 +56,12 @@ variable "instances" {
   description = "map containing instance information for all configured OCI providers"
   type = map(object({
     instances = map(object({
-      name     = string
-      image_id = string
-      shape    = string
-      memory   = number
-      ocpus    = number
+      name      = string
+      ad_number = number
+      image_id  = string
+      shape     = string
+      memory    = number
+      ocpus     = number
     }))
   }))
   default = {}
