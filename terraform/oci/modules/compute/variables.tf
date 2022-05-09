@@ -12,11 +12,12 @@ variable "terraform_ssh_public_key" {
 variable "instances" {
   description = "map of instances"
   type = map(object({
-    name     = string
-    image_id = string
-    shape    = string
-    memory   = number
-    ocpus    = number
+    name      = string
+    ad_number = number
+    image_id  = string
+    shape     = string
+    memory    = number
+    ocpus     = number
   }))
   default = {}
 }
