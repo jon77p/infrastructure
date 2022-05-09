@@ -21,3 +21,5 @@ peers:
     cidr: services
   - name: vault
     cidr: services
+  - name: pihole
+    cidr: services
