@@ -1,7 +1,8 @@
 ---
 compose_project_name: "grafana"
 compose_project_ports:
-  - "3000"
+  grafana:
+    - "3000"
 docker_user_id: "472"
 docker_group_id: "0"
 docker_volume_dirs:
@@ -24,7 +25,7 @@ compose_definition:
         - "{{ docker_volume_dirs[2] }}:/var/lib/grafana/plugins"
         - "{{ docker_volume_dirs[3] }}:/etc/grafana/provisioning"
       ports:
-        - "{{ compose_project_ports[0] }}:3000"
+        - "{{ compose_project_ports['grafana'][0] }}:3000"
       environment:
         GF_INSTALL_PLUGINS: "{{ grafana_plugins }}"
         GF_DEFAULT_INSTANCE_NAME: "{{ compose_project_name }}"

@@ -1,14 +1,14 @@
 ---
-- hosts: localhost,grafana
+- hosts: localhost,logs
   vars:
     opconnect_item_names:
-      - "grafana"
+      - "logs"
     opconnect_field_names:
       - "healthcheck"
   roles:
     - 1password
 
-- hosts: grafana
+- hosts: logs
   become: true
   roles:
     - common

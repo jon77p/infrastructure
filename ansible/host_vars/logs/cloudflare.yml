@@ -6,3 +6,9 @@ cloudflare_dns_records:
     value: "tunnel-{{ ansible_host }}.{{ domain }}"
     proxied: true
     state: present
+  - zone: "{{ domain }}"
+    record: "grafana.{{ domain }}"
+    type: CNAME
+    value: "tunnel-{{ ansible_host }}.{{ domain }}"
+    proxied: true
+    state: present

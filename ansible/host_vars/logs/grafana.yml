@@ -6,7 +6,7 @@ grafana_smtp_host: "smtp.gmail.com:587"
 grafana_smtp_port: "587"
 grafana_smtp_user: "{{ vault_secret_smtp_user }}"
 grafana_smtp_password: "{{ vault_secret_smtp_password }}"
-grafana_smtp_from: "{{ compose_project_name }}@{{ domain }}"
+grafana_smtp_from: "grafana@{{ domain }}"
 provisioning_dashboardproviders:
   apiVersion: 1
   providers:

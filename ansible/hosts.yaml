@@ -34,8 +34,8 @@ all:
               ansible_host: healthchecks
             nextcloud:
               ansible_host: nextcloud
-            grafana:
-              ansible_host: grafana
+            logs:
+              ansible_host: logs
             vault:
               ansible_host: vault
             codeserver:
@@ -48,7 +48,6 @@ all:
       hosts:
         certmanager:
         traefik:
-        grafana:
         loki:
         promtail:
         prometheus:
