@@ -15,5 +15,6 @@
     - common
     - cloudflared
     - cloudflare
+    - innernet
     - pihole
     - docker
