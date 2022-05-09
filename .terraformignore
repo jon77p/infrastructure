@@ -1,0 +1,9 @@
+ansible/
+.github/
+.git/
+venv/
+secrets*/
+firefly/
+migrate-todo/
+cluster/
+vscode/
