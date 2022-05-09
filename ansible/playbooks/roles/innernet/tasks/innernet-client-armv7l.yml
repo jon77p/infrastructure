@@ -1,25 +1,7 @@
-- name: Check if innernet is installed
-  stat:
-    path: /home/pi/.cargo/bin/innernet
-  register: innernet_check
-
-- name: Install build utils
-  become: true
-  apt:
-    state: latest
-    pkg:
-      - git
-      - clang
-      - libclang-dev
-      - llvm
-  when: not innernet_check.stat.exists
-
-- name: Install cargo
-  become: true
-  shell: curl https://sh.rustup.rs -sSf | sh
-  when: not innernet_check.stat.exists
-
-- name: Install innernet
-  become: true
-  shell: cargo install --git https://github.com/tonarino/innernet --tag v1.5.0 client
-  when: not innernet_check.stat.exists
+---
+- name: Install innernet via cargo
+  vars:
+    innernet_binary: "innernet"
+    innernet_program_type: "client"
+    cargo_path: "/home/pi/.cargo"
+  include_tasks: innernet-install-cargo.yml

@@ -35,4 +35,5 @@
     name: innernet@{{ innernet_network }}
     state: restarted
     enabled: yes
+    daemon-reload: yes
   when: not innernet_network_check.stat.exists

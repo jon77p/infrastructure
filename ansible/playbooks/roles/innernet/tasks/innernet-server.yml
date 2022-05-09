@@ -1,21 +1,6 @@
-- name: Check if innernet-server is installed
-  become: true
-  command: dpkg-query -W innernet-server
-  register: innernet_server_check_deb
-  failed_when: innernet_server_check_deb.rc > 1
-  changed_when: innernet_server_check_deb.rc == 1
-
-- name: Download innernet-server .deb
-  get_url:
-    url: https://github.com/tonarino/innernet/releases/download/v1.5.0/innernet-server_1.5.0_amd64.deb
-    dest: /tmp/innernet-server_1.5.0_amd64.deb
-  when: innernet_server_check_deb.rc == 1
-
+---
 - name: Install innernet-server
-  become: true
-  apt:
-    deb: /tmp/innernet-server_1.5.0_amd64.deb
-  when: innernet_server_check_deb.rc == 1
+  include_tasks: innernet-server-install.yml
 
 - name: Check if innernet network is created
   become: true
@@ -41,4 +26,5 @@
   systemd:
     name: innernet-server@{{ innernet_network }}
     state: restarted
+    daemon-reload: yes
     enabled: yes
