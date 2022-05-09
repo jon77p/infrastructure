@@ -10,3 +10,10 @@ oci_security_rules:
         destination_port_range:
           max: "{{ innernet_server_port }}"
           min: "{{ innernet_server_port }}"
+    - description: "allow {{ inventory_hostname }} UDP/{{ innernet_server_port }} inbound"
+      source: "0.0.0.0/0"
+      protocol: "17" # UDP
+      udp_options:
+        destination_port_range:
+          max: "{{ innernet_server_port }}"
+          min: "{{ innernet_server_port }}"
