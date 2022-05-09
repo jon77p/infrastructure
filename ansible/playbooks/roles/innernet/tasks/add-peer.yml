@@ -1,0 +1,6 @@
+---
+- name: Innernet | Add all peers
+  include_tasks: "add-peer-server.yml"
+  loop: "{{ peers }}"
+  loop_control:
+    loop_var: "peer"

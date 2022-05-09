@@ -1,19 +1,25 @@
 ---
-- hosts: localhost,vault
+- hosts: localhost,innernet
   vars:
     opconnect_item_names:
-      - "vault"
+      - "innernet"
     opconnect_field_names:
       - "healthcheck"
   roles:
     - 1password
 
-- hosts: vault
+- hosts: innernet
   become: true
   roles:
     - common
     - cloudflared
     - cloudflare
+    - cron
     - innernet
-    - vault
-    - docker
+    - iptables
+
+- hosts: localhost
+  vars:
+    hostname: "innernet"
+  roles:
+    - oci
