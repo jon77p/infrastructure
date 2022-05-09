@@ -7,5 +7,11 @@ additional_networks:
     network_cidr: 10.42.128.0/24
     network_parent: "{{ innernet_network }}"
 peers:
+  - name: firefly
+    cidr: services
   - name: nextcloud
+    cidr: services
+  - name: healthchecks
+    cidr: services
+  - name: vault
     cidr: services
