@@ -1,8 +1,7 @@
 ---
-innernet_network: jonprentice
-innernet_network_cidr: 10.42.0.0/16
-innernet_server_port: "{{ hostvars[inventory_hostname].innernet_server_port }}"
-
-cluster_network_name: cluster
-cluster_network_cidr: 10.42.128.0/24
-cluster_network_parent: "{{ innernet_network }}"
+innernet_version: "1.5.3"
+innernet_network: "{{ hostvars['innernet'].innernet_network }}"
+innernet_network_cidr: "{{ hostvars['innernet'].innernet_network_cidr }}"
+innernet_server_port: "{{ hostvars['innernet'].innernet_server_port }}"
+additional_networks: "{{ hostvars['innernet'].additional_networks | default([]) }}"
+peers: "{{ hostvars['innernet'].peers | default([]) }}"
