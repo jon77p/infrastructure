@@ -10,8 +10,6 @@
 
 - hosts: innernet
   become: true
-  tags:
-    - innernet
   roles:
     - common
     - cloudflared
