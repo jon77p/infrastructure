@@ -21,3 +21,5 @@ peers:
     cidr: services
   - name: vault
     cidr: services
+  - name: grafana
+    cidr: services
