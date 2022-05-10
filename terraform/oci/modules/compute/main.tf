@@ -57,7 +57,9 @@ resource "oci_core_instance" "ubuntu_instance" {
     user_data = base64gzip(templatefile(var.setup_script_path,
       {
         cf_account         = var.cf_account_id,
-        cf_domain          = "${var.cf_tunnels[each.key].name}.${each.value.domain}",
+        cf_domain          = each.value.domain,
+        cf_subdomain       = each.value.name,
+        is_subdomain       = each.value.is_subdomain,
         cf_tunnel_id       = var.cf_tunnels[each.key].id,
         cf_tunnel_name     = var.cf_tunnels[each.key].name,
         cf_ssh_certificate = var.cf_ssh_certificates[each.key].public_key,
