@@ -15,5 +15,6 @@
     - cloudflared
     - cloudflare
     - innernet
+    - dns
     - vault
     - docker

@@ -15,6 +15,7 @@
     - cloudflared
     - cloudflare
     - innernet
+    - dns
     - stefangweichinger.ansible_rclone
     - rclone
     - docker
