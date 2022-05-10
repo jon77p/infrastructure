@@ -14,11 +14,6 @@ variable "region" {
   default     = "us-sanjose-1"
 }
 
-variable "domain" {
-  description = "base resource domain name"
-  type        = string
-}
-
 variable "cidrs" {
   description = "object containing CIDR blocks for VCN and public + private subnets"
   type = object({
@@ -39,11 +34,7 @@ variable "cidrs" {
 
 variable "additional_ingress" {
   type = list(object({
-    name = string
-    entries = list(object({
-      protocol    = number
-      source      = string
-      tcp_options = object({})
-    }))
+    name    = string
+    entries = list(object({}))
   }))
 }

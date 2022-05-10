@@ -13,3 +13,8 @@ output "ssh_certificates" {
   value       = cloudflare_access_ca_certificate.ssh_certificate
   description = "List of cloudflare_access_ca_certificate resources"
 }
+
+output "cf_zones" {
+  value       = data.cloudflare_zones.cf_zones
+  description = "List of cloudflare_zones resources"
+}
