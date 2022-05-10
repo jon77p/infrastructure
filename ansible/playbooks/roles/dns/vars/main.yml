@@ -1,0 +1,2 @@
+---
+nameservers: "{{ hostvars[inventory_hostname].nameservers | default([]) }}"
