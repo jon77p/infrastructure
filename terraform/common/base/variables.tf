@@ -34,11 +34,7 @@ variable "cidrs" {
 
 variable "additional_ingress" {
   type = list(object({
-    name = string
-    entries = list(object({
-      protocol    = number
-      source      = string
-      tcp_options = object({})
-    }))
+    name    = string
+    entries = list(object({}))
   }))
 }
