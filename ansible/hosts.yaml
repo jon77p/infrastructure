@@ -36,6 +36,8 @@ all:
               ansible_host: nextcloud
             logs:
               ansible_host: logs
+            pihole:
+              ansible_host: pihole
             vault:
               ansible_host: vault
             codeserver:

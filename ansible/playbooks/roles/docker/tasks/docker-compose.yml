@@ -2,6 +2,7 @@
   become: true
   file:
     path: "{{ item }}"
+    recurse: true
     state: directory
   loop: "{{ docker_volume_dirs }}"
 

@@ -23,3 +23,5 @@ peers:
     cidr: services
   - name: logs
     cidr: services
+  - name: pihole
+    cidr: services

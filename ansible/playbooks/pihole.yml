@@ -1,16 +1,20 @@
 ---
-- hosts: localhost
+- hosts: localhost,pihole
   vars:
-    servicename: "pihole"
-  gather_facts: false
-  connection: local
+    opconnect_item_names:
+      - "pihole"
+    opconnect_field_names:
+      - "healthcheck"
+      - "password"
   roles:
-    - k8s
+    - 1password
 
-- hosts: manager
+- hosts: pihole
+  become: true
   roles:
+    - common
     - cloudflared
-
-- hosts: nodes
-  roles:
-    - cloudflared
+    - cloudflare
+    - innernet
+    - pihole
+    - docker
