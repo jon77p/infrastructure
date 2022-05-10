@@ -19,9 +19,7 @@ module "oci0" {
   profile                   = var.oci["oci0"].alias
   tenancy_id                = var.oci["oci0"].tenancy_ocid
   region                    = var.oci["oci0"].region
-  domain                    = var.domain
   cf_account_id             = var.cf_account_id
-  cf_zone_id                = var.cf_zone_id
   cf_email                  = var.cf_email
   cf_allowed_idp_ids        = var.cf_allowed_idp_ids
   cf_admin_group_id         = var.cf_admin_group_id
@@ -44,9 +42,7 @@ module "oci1" {
   profile                   = var.oci["oci1"].alias
   tenancy_id                = var.oci["oci1"].tenancy_ocid
   region                    = var.oci["oci1"].region
-  domain                    = var.domain
   cf_account_id             = var.cf_account_id
-  cf_zone_id                = var.cf_zone_id
   cf_email                  = var.cf_email
   cf_allowed_idp_ids        = var.cf_allowed_idp_ids
   cf_admin_group_id         = var.cf_admin_group_id
@@ -69,9 +65,7 @@ module "oci2" {
   profile                   = var.oci["oci2"].alias
   tenancy_id                = var.oci["oci2"].tenancy_ocid
   region                    = var.oci["oci2"].region
-  domain                    = var.domain
   cf_account_id             = var.cf_account_id
-  cf_zone_id                = var.cf_zone_id
   cf_email                  = var.cf_email
   cf_allowed_idp_ids        = var.cf_allowed_idp_ids
   cf_admin_group_id         = var.cf_admin_group_id
@@ -94,9 +88,7 @@ module "oci3" {
   profile                   = var.oci["oci3"].alias
   tenancy_id                = var.oci["oci3"].tenancy_ocid
   region                    = var.oci["oci3"].region
-  domain                    = var.domain
   cf_account_id             = var.cf_account_id
-  cf_zone_id                = var.cf_zone_id
   cf_email                  = var.cf_email
   cf_allowed_idp_ids        = var.cf_allowed_idp_ids
   cf_admin_group_id         = var.cf_admin_group_id

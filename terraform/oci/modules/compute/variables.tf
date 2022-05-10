@@ -12,12 +12,14 @@ variable "terraform_ssh_public_key" {
 variable "instances" {
   description = "map of instances"
   type = map(object({
-    name      = string
-    ad_number = number
-    image_id  = string
-    shape     = string
-    memory    = number
-    ocpus     = number
+    name         = string
+    domain       = string
+    is_subdomain = bool
+    ad_number    = number
+    image_id     = string
+    shape        = string
+    memory       = number
+    ocpus        = number
   }))
   default = {}
 }
@@ -29,11 +31,6 @@ variable "subnet_id" {
 
 variable "setup_script_path" {
   description = "Relative path to location of setup script"
-  type        = string
-}
-
-variable "domain" {
-  description = "base resource domain name"
   type        = string
 }
 

@@ -13,20 +13,12 @@ variable "region" {
   type        = string
 }
 
-variable "domain" {
-  description = "base resource domain name"
-  type        = string
-}
-
 variable "cf_account_id" {
   description = "The Cloudflare UUID for the Account the Zone lives in."
   type        = string
   sensitive   = true
 }
-variable "cf_zone_id" {
-  description = "Cloudflare zone id"
-  type        = string
-}
+
 variable "cf_email" {
   description = "Cloudflare email"
   type        = string
@@ -46,12 +38,14 @@ variable "setup_script_path" {
 variable "instances" {
   description = "map of instances"
   type = map(object({
-    name      = string
-    ad_number = number
-    image_id  = string
-    shape     = string
-    memory    = number
-    ocpus     = number
+    name         = string
+    domain       = string
+    is_subdomain = bool
+    ad_number    = number
+    image_id     = string
+    shape        = string
+    memory       = number
+    ocpus        = number
   }))
   default = {}
 }
