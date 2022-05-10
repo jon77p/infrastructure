@@ -1,0 +1,20 @@
+---
+- name: Update netplan to use nameservers
+  become: true
+  when: "nameservers != []"
+  blockinfile:
+    path: /etc/netplan/50-cloud-init.yaml
+    insertafter: '(\s*)set-name: (\S+)'
+    marker: "            # {mark} ANSIBLE MANAGED BLOCK"
+    block: "            nameservers:\n                addresses: {{ nameservers | to_json }}\n"
+  register: netplan
+
+- name: Apply new netplan
+  become: true
+  shell: netplan try
+  async: 5
+  poll: 1
+  when: netplan.changed
+
+- name: Reset connection
+  meta: reset_connection
