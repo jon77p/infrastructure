@@ -11,8 +11,8 @@ data "cloudflare_zones" "cf_zones" {
 resource "cloudflare_access_application" "ssh_app" {
   for_each                  = var.instances
   zone_id                   = data.cloudflare_zones.cf_zones[each.value.name].zones[0].id
-  name                      = "ssh-${each.value.name}.${each.value.domain}"
-  domain                    = "ssh-${each.value.name}.${each.value.domain}"
+  name                      = each.value.is_subdomain ? "ssh-${each.value.name}.${each.value.domain}" : "ssh.${each.value.domain}"
+  domain                    = each.value.is_subdomain ? "ssh-${each.value.name}.${each.value.domain}" : "ssh.${each.value.domain}"
   type                      = "ssh"
   session_duration          = "24h"
   auto_redirect_to_identity = true
@@ -24,7 +24,7 @@ resource "cloudflare_access_policy" "ssh_service_token_policy" {
   for_each       = var.instances
   application_id = cloudflare_access_application.ssh_app[each.value.name].id
   zone_id        = data.cloudflare_zones.cf_zones[each.value.name].zones[0].id
-  name           = "Service Token Auth Policy for ssh-${each.value.name}.${each.value.domain}"
+  name           = format("%s%s", "Service Token Auth Policy for ", "${each.value.is_subdomain ? "ssh-${each.value.name}.${each.value.domain}" : "ssh.${each.value.domain}"}")
   precedence     = 1
   decision       = "non_identity"
 
@@ -37,7 +37,7 @@ resource "cloudflare_access_policy" "ssh_policy" {
   for_each       = var.instances
   application_id = cloudflare_access_application.ssh_app[each.value.name].id
   zone_id        = data.cloudflare_zones.cf_zones[each.value.name].zones[0].id
-  name           = "Policy for ssh-${each.value.name}.${each.value.domain}"
+  name           = format("%s%s", "Policy for ", "${each.value.is_subdomain ? "ssh-${each.value.name}.${each.value.domain}" : "ssh.${each.value.domain}"}")
   precedence     = 2
   decision       = "allow"
 
