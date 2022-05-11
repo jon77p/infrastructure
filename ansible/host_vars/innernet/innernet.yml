@@ -10,6 +10,9 @@ additional_networks:
     network_cidr: 10.42.128.0/24
     network_parent: "{{ innernet_network }}"
 peers:
+  - name: pihole
+    cidr: services
+    ip: {{ pihole_innernet_address }}
   - name: jon77p
     cidr: humans
     admin: "true"
@@ -20,6 +23,4 @@ peers:
   - name: healthchecks
     cidr: services
   - name: vault
-    cidr: services
-  - name: pihole
     cidr: services
