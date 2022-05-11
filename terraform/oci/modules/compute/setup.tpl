@@ -39,7 +39,7 @@ loglevel: info
 metrics: localhost:2000
 
 ingress:
-  - hostname: "${is_subdomain ? "ssh-${cf_subdomain}.${cf_domain}" : "ssh.${cf_domain}"}"
+  - hostname: ${ssh_subdomain}
     service: ssh://${hostname}:22
   - hostname: "*"
     path: "^/_healthcheck$"
@@ -50,7 +50,7 @@ ingress:
   - hostname: "*"
     path: "^/ready$"
     service: http://localhost:2000
-  - hostname: "${is_subdomain ? "tunnel-${cf_subdomain}.${cf_domain}" : "tunnel.${cf_domain}"}"
+  - hostname: ${tunnel_subdomain}
     service: hello-world
   - service: http_status:404
 EOF
