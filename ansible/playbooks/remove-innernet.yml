@@ -1,0 +1,14 @@
+---
+- hosts: innernet
+  roles:
+    - remove_innernet
+
+- hosts:
+    - firefly
+    - healthchecks
+    - logs
+    - nextcloud
+    - pihole
+    - vault
+  roles:
+    - remove_innernet
