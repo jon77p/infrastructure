@@ -12,7 +12,7 @@ additional_networks:
 peers:
   - name: pihole
     cidr: services
-    ip: {{ pihole_innernet_address }}
+    ip: "{{ pihole_innernet_address }}"
   - name: jon77p
     cidr: humans
     admin: "true"
