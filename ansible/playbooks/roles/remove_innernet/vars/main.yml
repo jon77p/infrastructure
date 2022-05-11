@@ -1,0 +1,2 @@
+---
+innernet_network: "{{ hostvars['innernet'].innernet_network }}"
