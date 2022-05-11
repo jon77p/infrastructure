@@ -11,7 +11,7 @@
 
 - name: Apply new netplan
   become: true
-  shell: netplan try
+  shell: netplan apply
   async: 5
   poll: 1
   when: netplan.changed

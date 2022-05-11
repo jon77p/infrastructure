@@ -17,6 +17,7 @@
     - cron
     - innernet
     - iptables
+    - dns
 
 - hosts: localhost
   vars:
