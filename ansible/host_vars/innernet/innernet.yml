@@ -10,17 +10,25 @@ additional_networks:
     network_cidr: 10.42.128.0/24
     network_parent: "{{ innernet_network }}"
 peers:
+  - name: jon77p
+    cidr: humans
+    ip: "10.42.16.1"
+    admin: "true"
   - name: pihole
     cidr: services
     ip: "{{ pihole_innernet_address }}"
-  - name: jon77p
-    cidr: humans
-    admin: "true"
-  - name: firefly
-    cidr: services
   - name: nextcloud
     cidr: services
+    ip: "10.42.128.3"
   - name: healthchecks
     cidr: services
+    ip: "10.42.128.4"
   - name: vault
     cidr: services
+    ip: "10.42.128.5"
+  - name: firefly
+    cidr: services
+    ip: "10.42.128.6"
+  - name: logs
+    cidr: services
+    ip: "10.42.128.7"
