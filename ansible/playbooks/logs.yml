@@ -2,7 +2,7 @@
 - hosts: localhost,logs
   vars:
     opconnect_item_names:
-      - "logs"
+      - "grafana"
     opconnect_field_names:
       - "healthcheck"
   roles:

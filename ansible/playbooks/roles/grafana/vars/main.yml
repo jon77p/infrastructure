@@ -1,4 +1,4 @@
 ---
-docker_volume_dirs: "{{ hostvars[inventory_hostname].docker_volume_dirs | default([]) }}"
-docker_user_id: "{{ hostvars[inventory_hostname].docker_user_id | default('') }}"
-docker_group_id: "{{ hostvars[inventory_hostname].docker_group_id | default('') }}"
+docker_volume_dirs: "{{ hostvars[inventory_hostname].docker_volume_dirs }}"
+docker_user_id: "{{ hostvars[inventory_hostname].docker_user_id }}"
+docker_group_id: "{{ hostvars[inventory_hostname].docker_group_id }}"

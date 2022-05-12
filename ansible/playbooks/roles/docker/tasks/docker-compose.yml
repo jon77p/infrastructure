@@ -1,10 +1,8 @@
+---
 - name: Ensure all volume mounts exist
-  become: true
-  file:
-    path: "{{ item }}"
-    recurse: true
-    state: directory
-  loop: "{{ docker_volume_dirs }}"
+  vars:
+    directories: docker_volume_dirs
+  include_tasks: "volume-mounts-{{ docker_volume_dirs | type_debug }}.yml"
 
 - name: Take down {{ compose_project_name }} project
   community.docker.docker_compose:
@@ -21,9 +19,9 @@
   register: output
 
 - debug:
-    var: output
+    var: output.services
 
 - ansible.builtin.assert:
     that:
-      - "output.services.{{ compose_project_name }}.{{ compose_project_name }}_{{ item.key }}_1.state.running"
+      - "output.services.{{ item.key }}.{{ compose_project_name }}_{{ item.key }}_1.state.running"
   loop: "{{ compose_definition.services | dict2items }}"

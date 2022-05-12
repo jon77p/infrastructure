@@ -1,34 +1,39 @@
 ---
-compose_project_name: "grafana"
+compose_project_name: "logs"
 compose_project_ports:
   grafana:
     - "3000"
-docker_user_id: "472"
-docker_group_id: "0"
+docker_user_id:
+  grafana: "472"
+docker_group_id:
+  grafana: "0"
 docker_volume_dirs:
-  - "/mnt/{{ compose_project_name }}/config"
-  - "/mnt/{{ compose_project_name }}/data"
-  - "/mnt/{{ compose_project_name }}/plugins"
-  - "/mnt/{{ compose_project_name }}/provisioning"
-  - "/mnt/{{ compose_project_name }}/provisioning/datasources"
-  - "/mnt/{{ compose_project_name }}/provisioning/plugins"
-  - "/mnt/{{ compose_project_name }}/provisioning/notifiers"
-  - "/mnt/{{ compose_project_name }}/provisioning/dashboards"
+  logs:
+    - "/mnt/{{ compose_project_name }}"
+  grafana:
+    - "/mnt/{{ compose_project_name }}/grafana/config"
+    - "/mnt/{{ compose_project_name }}/grafana/data"
+    - "/mnt/{{ compose_project_name }}/grafana/plugins"
+    - "/mnt/{{ compose_project_name }}/grafana/provisioning"
+    - "/mnt/{{ compose_project_name }}/grafana/provisioning/datasources"
+    - "/mnt/{{ compose_project_name }}/grafana/provisioning/plugins"
+    - "/mnt/{{ compose_project_name }}/grafana/provisioning/notifiers"
+    - "/mnt/{{ compose_project_name }}/grafana/provisioning/dashboards"
 compose_definition:
   version: '3'
   services:
     grafana:
       image: grafana/grafana-oss:latest
       volumes:
-        - "{{ docker_volume_dirs[0] }}/grafana.ini:/etc/grafana/grafana.ini"
-        - "{{ docker_volume_dirs[1] }}:/var/lib/grafana"
-        - "{{ docker_volume_dirs[2] }}:/var/lib/grafana/plugins"
-        - "{{ docker_volume_dirs[3] }}:/etc/grafana/provisioning"
+        - "{{ docker_volume_dirs.grafana[0] }}/grafana.ini:/etc/grafana/grafana.ini"
+        - "{{ docker_volume_dirs.grafana[1] }}:/var/lib/grafana"
+        - "{{ docker_volume_dirs.grafana[2] }}:/var/lib/grafana/plugins"
+        - "{{ docker_volume_dirs.grafana[3] }}:/etc/grafana/provisioning"
       ports:
-        - "{{ compose_project_ports['grafana'][0] }}:3000"
+        - "{{ compose_project_ports.grafana[0] }}:3000"
       environment:
         GF_INSTALL_PLUGINS: "{{ grafana_plugins }}"
-        GF_DEFAULT_INSTANCE_NAME: "{{ compose_project_name }}"
+        GF_DEFAULT_INSTANCE_NAME: "grafana"
         GF_SECURITY_ADMIN_USER: "{{ grafana_admin_user }}"
         GF_SECURITY_ADMIN_PASSWORD: "{{ grafana_admin_password }}"
         GF_SMTP_ENABLED: "true"
@@ -42,7 +47,7 @@ compose_definition:
         GF_EMAILS_WELCOME_EMAIL_ON_SIGNUP: "true"
       restart: "always"
       healthcheck:
-        test: ["CMD", "wget", "https://healthchecks.{{ domain }}/ping/{{ opconnect_results[inventory_hostname].healthcheck }}", "-O", "/dev/null"]
+        test: ["CMD", "wget", "https://healthchecks.{{ domain }}/ping/{{ opconnect_results['grafana'].healthcheck }}", "-O", "/dev/null"]
         timeout: 45s
         interval: 10s
         retries: 5
