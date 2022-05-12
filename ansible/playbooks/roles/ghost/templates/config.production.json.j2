@@ -1,0 +1,35 @@
+{
+  "url": "{{ ghost.url }}",
+  "server": {
+    "port": {{ ghost.server.port | default(2368) }},
+    "host": "::"
+  },
+  "database": {
+    "client": "sqlite3",
+    "connection": {
+      "filename": "/var/lib/ghost/content/data/ghost.db"
+    }
+  },
+  "mail": {
+    "transport": "Direct"
+  },
+  "logging": {
+    "transports": [
+      "file",
+      "stdout"
+    ]
+  },
+  "process": "systemd",
+  "paths": {
+    "contentPath": "/var/lib/ghost/content"
+  },
+  "storage": {
+    "active": "ghost-storage-github",
+    "ghost-storage-github": {
+      "owner": "{{ ghost.github.owner }}",
+      "token": "{{ ghost.github.token }}",
+      "repo": "{{ ghost.github.repo }}",
+      "branch": "{{ ghost.github.branch }}"
+    }
+  }
+}

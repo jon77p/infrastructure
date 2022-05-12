@@ -3,8 +3,11 @@
   vars:
     opconnect_item_names:
       - "allaboutsecurity"
+      - "ghost"
     opconnect_field_names:
       - "healthcheck"
+      - "github_username"
+      - "github_token"
   roles:
     - 1password
 
@@ -17,4 +20,5 @@
     - cron
     - innernet
     - dns
+    - ghost
     - docker
