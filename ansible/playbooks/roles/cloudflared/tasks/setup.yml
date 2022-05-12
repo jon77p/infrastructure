@@ -13,7 +13,6 @@
 - name: Create initial config file
   become: true
   vars:
-    fqdn: "{{ ansible_hostname }}.{{ domain }}"
     additional_ingress: []
   template:
     src: ../templates/config.yml.j2
