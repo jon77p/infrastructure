@@ -46,6 +46,8 @@ all:
               ansible_host: innernet
             allaboutsecurity:
               ansible_host: allaboutsecurity
+            securemylife:
+              ansible_host: securemylife
       vars:
         ansible_ssh_user: ubuntu
     deployments:

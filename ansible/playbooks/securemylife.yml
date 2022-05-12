@@ -1,0 +1,24 @@
+---
+- hosts: localhost,securemylife
+  vars:
+    opconnect_item_names:
+      - "securemylife"
+      - "ghost"
+    opconnect_field_names:
+      - "healthcheck"
+      - "github_username"
+      - "github_token"
+  roles:
+    - 1password
+
+- hosts: securemylife
+  become: true
+  roles:
+    - common
+    - cloudflared
+    - cloudflare
+    - cron
+    - innernet
+    - dns
+    - ghost
+    - docker
