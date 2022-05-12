@@ -1,11 +1,11 @@
 ---
 grafana_plugins: "grafana-piechart-panel,grafana-worldmap-panel,grafana-clock-panel"
-grafana_admin_user: "{{ vault_secret_admin_user }}"
-grafana_admin_password: "{{ vault_secret_admin_password }}"
+grafana_admin_user: "{{ opconnect_results['grafana'].username }}"
+grafana_admin_password: "{{ opconnect_results['grafana'].password }}"
 grafana_smtp_host: "smtp.gmail.com:587"
 grafana_smtp_port: "587"
-grafana_smtp_user: "{{ vault_secret_smtp_user }}"
-grafana_smtp_password: "{{ vault_secret_smtp_password }}"
+grafana_smtp_user: "{{ opconnect_results['grafana'].smtp_username }}"
+grafana_smtp_password: "{{ opconnect_results['grafana'].smtp_password }}"
 grafana_smtp_from: "grafana@{{ domain }}"
 provisioning_dashboardproviders:
   apiVersion: 1

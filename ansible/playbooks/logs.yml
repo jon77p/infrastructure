@@ -4,7 +4,11 @@
     opconnect_item_names:
       - "grafana"
     opconnect_field_names:
+      - "username"
+      - "password"
       - "healthcheck"
+      - "smtp_username"
+      - "smtp_password"
   roles:
     - 1password
 
