@@ -34,6 +34,8 @@ all:
               ansible_host: healthchecks
             nextcloud:
               ansible_host: nextcloud
+            logs:
+              ansible_host: logs
             pihole:
               ansible_host: pihole
             vault:
@@ -48,7 +50,6 @@ all:
       hosts:
         certmanager:
         traefik:
-        grafana:
         loki:
         promtail:
         prometheus:
