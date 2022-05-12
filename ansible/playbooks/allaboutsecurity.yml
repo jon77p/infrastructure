@@ -1,16 +1,20 @@
 ---
-- hosts: localhost
-  vars:
-    servicename: "allaboutsecurity"
-  gather_facts: false
-  connection: local
-  roles:
-    - k8s
+# - hosts: localhost,allaboutsecurity
+#   vars:
+#     opconnect_item_names:
+#       - "allaboutsecurity"
+#     opconnect_field_names:
+#       - "healthcheck"
+#   roles:
+#     - 1password
 
-- hosts: manager
+- hosts: allaboutsecurity
+  become: true
   roles:
+    - common
     - cloudflared
-
-- hosts: nodes
-  roles:
-    - cloudflared
+    - cloudflare
+    - innernet
+    - dns
+    # - ghost
+    # - docker

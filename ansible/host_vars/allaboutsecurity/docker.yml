@@ -1,0 +1,4 @@
+---
+compose_project_name: "allaboutsecurity"
+compose_project_ports:
+  - "8080"

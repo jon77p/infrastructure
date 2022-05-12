@@ -44,6 +44,8 @@ all:
               ansible_host: codeserver
             innernet:
               ansible_host: innernet
+            allaboutsecurity:
+              ansible_host: allaboutsecurity
       vars:
         ansible_ssh_user: ubuntu
     deployments:
@@ -55,8 +57,6 @@ all:
         prometheus:
         unifipoller:
         gaps:
-        pihole:
-        allaboutsecurity:
         nodered:
         influxdb:
         varken:

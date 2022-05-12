@@ -3,6 +3,6 @@ cloudflare_dns_records:
   - zone: "{{ domain }}"
     record: "{{ domain }}"
     type: CNAME
-    value: "tunnel.thepi.cloud"
+    value: "tunnel.{{ domain }}"
     proxied: true
     state: present
