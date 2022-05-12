@@ -1,7 +1,7 @@
 ---
 - name: Ensure all volume mounts exist
   vars:
-    directories: docker_volume_dirs
+    directories: "{{ docker_volume_dirs }}"
   include_tasks: "volume-mounts-{{ docker_volume_dirs | type_debug }}.yml"
 
 - name: Take down {{ compose_project_name }} project

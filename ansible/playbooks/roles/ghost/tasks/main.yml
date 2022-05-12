@@ -1,0 +1,20 @@
+---
+- name: Create mount directories
+  become: true
+  file:
+    path: "{{ path }}"
+    recurse: true
+    state: directory
+  loop: "{{ docker_volume_dirs }}"
+  loop_control:
+    loop_var: "path"
+
+- name: Create config file
+  become: true
+  when: "docker_volume_dirs != []"
+  template:
+    src: ../templates/config.production.json.j2
+    dest: "{{ docker_volume_dirs[0] }}/config.production.json"
+
+- name: Install ghost-storage-github storage adapter
+  include_tasks: "ghost-storage-github-adapter.yml"

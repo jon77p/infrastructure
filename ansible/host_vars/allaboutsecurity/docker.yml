@@ -1,0 +1,24 @@
+---
+compose_project_name: "allaboutsecurity"
+compose_project_ports:
+  - "2368"
+docker_user_id:
+  ghost: "1000"
+docker_group_id:
+  ghost: "1000"
+docker_volume_dirs:
+  - "/mnt/{{ compose_project_name }}/ghost"
+  - "/mnt/{{ compose_project_name }}/ghost/content"
+  - "/mnt/{{ compose_project_name }}/ghost/node_modules"
+compose_definition:
+  version: '3'
+  services:
+    ghost:
+      image: ghost:latest
+      volumes:
+        - "{{ docker_volume_dirs[0] }}/config.production.json:/var/lib/ghost/config.production.json"
+        - "{{ docker_volume_dirs[1] }}:/var/lib/ghost/content"
+        - "{{ docker_volume_dirs[2] }}:/var/lib/ghost/node_modules"
+      ports:
+        - "{{ compose_project_ports[0] }}:2368"
+      restart: "always"

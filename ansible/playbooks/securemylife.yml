@@ -1,8 +1,8 @@
 ---
-- hosts: localhost,allaboutsecurity
+- hosts: localhost,securemylife
   vars:
     opconnect_item_names:
-      - "allaboutsecurity"
+      - "securemylife"
       - "ghost"
     opconnect_field_names:
       - "healthcheck"
@@ -11,7 +11,7 @@
   roles:
     - 1password
 
-- hosts: allaboutsecurity
+- hosts: securemylife
   become: true
   roles:
     - common
