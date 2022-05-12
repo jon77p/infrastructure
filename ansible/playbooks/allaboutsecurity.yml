@@ -1,12 +1,12 @@
 ---
-# - hosts: localhost,allaboutsecurity
-#   vars:
-#     opconnect_item_names:
-#       - "allaboutsecurity"
-#     opconnect_field_names:
-#       - "healthcheck"
-#   roles:
-#     - 1password
+- hosts: localhost,allaboutsecurity
+  vars:
+    opconnect_item_names:
+      - "allaboutsecurity"
+    opconnect_field_names:
+      - "healthcheck"
+  roles:
+    - 1password
 
 - hosts: allaboutsecurity
   become: true
@@ -14,7 +14,7 @@
     - common
     - cloudflared
     - cloudflare
+    - cron
     - innernet
     - dns
-    # - ghost
-    # - docker
+    - docker

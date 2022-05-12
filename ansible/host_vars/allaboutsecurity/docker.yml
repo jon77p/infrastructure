@@ -1,4 +1,19 @@
 ---
 compose_project_name: "allaboutsecurity"
 compose_project_ports:
-  - "8080"
+  - "2368"
+docker_volume_dirs:
+  - "/mnt/{{ compose_project_name }}/ghost"
+compose_definition:
+  version: '3'
+  services:
+    ghost:
+      image: ghost:latest
+      volumes:
+        - "{{ docker_volume_dirs[0] }}:/var/lib/ghost/content"
+      ports:
+        - "{{ compose_project_ports[0] }}:2368"
+      environment:
+        url: "https://{{ domain }}"
+        server.port: "{{ compose_project_ports[0] }}"
+      restart: "always"
