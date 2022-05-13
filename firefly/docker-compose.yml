@@ -23,7 +23,7 @@ services:
         traefik.http.routers.firefly.tls.certresolver: cloudflare
         traefik.http.services.firefly.loadbalancer.server.port: 8080
   fireflyiiidb:
-    image: mariadb
+    image: mariadb@sha256:07e06f2e7ae9dfc63707a83130a62e00167c827f08fcac7a9aa33f4b6dc34e0e
     env_file: secrets_mariadb.env
     volumes:
       - /mnt/firefly/db:/var/lib/mysql
@@ -52,7 +52,7 @@ services:
         traefik.http.routers.fireflycsv.tls.certresolver: cloudflare
         traefik.http.services.fireflycsv.loadbalancer.server.port: 8080
   plaid_connector:
-    image: registry.gitlab.com/georgehahn/firefly-plaid-connector:latest
+    image: registry.gitlab.com/georgehahn/firefly-plaid-connector:latest@sha256:325a77dcca0a764a1aff1d658890532d35c37f734133accbddf3b3c96499c7e1
     depends_on:
       - fireflyiii
     secrets:
