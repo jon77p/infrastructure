@@ -22,13 +22,13 @@
     state: restarted
   when: stubdisable.changed or resolvsymlink.changed
 
-- name: Update netplan to use 127.0.0.1 nameserver
+- name: Update netplan to 127.0.0.1 nameserver
   become: true
   blockinfile:
     path: /etc/netplan/50-cloud-init.yaml
     insertafter: '(\s*)set-name: (\S+)'
     marker: "            # {mark} ANSIBLE MANAGED BLOCK"
-    block: "            dhcp4-overrides:\n                use-dns: false\n            nameservers:\n                addresses: [127.0.0.1]\n"
+    block: "            dhcp4-overrides:\n                use-dns: false\n            nameservers:\n                addresses: [1.1.1.1]\n"
   register: netplan
 
 - name: Apply new netplan

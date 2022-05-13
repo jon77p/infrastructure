@@ -11,6 +11,8 @@ compose_definition:
   services:
     pihole:
       hostname: "{{ compose_project_name }}"
+      dns:
+        - 1.1.1.1
       image: pihole/pihole:latest
       volumes:
         - "{{ docker_volume_dirs[0] }}:/etc/pihole"
