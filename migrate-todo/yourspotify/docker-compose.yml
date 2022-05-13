@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   yourspotifyapp:
-    image: yooooomi/your_spotify_server
+    image: yooooomi/your_spotify_server@sha256:86f94765c82b2e70778961a05df9dc83c500797d463a3dc37593c35f0e8d1635
     links:
       - yourspotifymongo
     depends_on:
@@ -29,7 +29,7 @@ services:
         traefik.http.services.yourspotifyapi.loadbalancer.server.port: 8080
 
   yourspotifymongo:
-    image: mongo:latest
+    image: mongo:latest@sha256:82a55eb6d60997007ff390087d4e064218d477e9611a7becd78664a2ab490eff
     volumes:
       - /mnt/yourspotify/mongo:/data/db
     networks:
@@ -39,7 +39,7 @@ services:
         condition: on-failure
 
   yourspotifyweb:
-    image: yooooomi/your_spotify_client
+    image: yooooomi/your_spotify_client@sha256:64687f8ba39e795a552e831c47347fae47ffb5bafd73517be8131bbebfcfd2a8
     environment:
       - API_ENDPOINT=https://trends-spotify-cluster.${CF_DOMAIN}/api
     depends_on:
