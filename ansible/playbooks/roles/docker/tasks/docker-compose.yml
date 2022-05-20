@@ -12,6 +12,13 @@
     remove_images: "all"
     state: absent
 
+- name: Create any referenced Compose networks
+  community.docker.docker_network:
+    name: "{{ item.name }}"
+    attachable: "{{ item.attachable }}"
+    internal: "{{ item.internal }}"
+  loop: "{{ compose_network_names }}"
+
 - name: Deploy docker-compose for {{ compose_project_name }} project
   community.docker.docker_compose:
     project_name: "{{ compose_project_name }}"
@@ -20,6 +27,10 @@
 
 - debug:
     var: output.services
+
+- name: Wait for services to start
+  pause:
+    seconds: 30
 
 - ansible.builtin.assert:
     that:

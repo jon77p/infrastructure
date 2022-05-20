@@ -29,7 +29,12 @@ ingress:
     service: {{ item.service }}
     {% if item.originRequest is defined %}
     originRequest:
+      {% if item.originRequest.noTLSVerify is defined %}
       noTLSVerify: {{ item.originRequest.noTLSVerify }}
+      {% endif %}
+      {% if item.originRequest.httpHostHeader is defined %}
+      httpHostHeader: {{ item.originRequest.httpHostHeader }}
+      {% endif %}
     {% endif %}
   {% endfor %}
   - service: http_status:404

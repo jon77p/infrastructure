@@ -1,0 +1,31 @@
+---
+- hosts: localhost,firefly
+  vars:
+    opconnect_item_names:
+      - "firefly"
+      - "firefly-importer"
+      - "plaid"
+    opconnect_field_names:
+      - "healthcheck"
+      - "site_owner"
+      - "app_key"
+      - "db_username"
+      - "db_password"
+      - "smtp_username"
+      - "smtp_password"
+      - "firefly_access_token"
+      - "plaid_client_id"
+      - "plaid_client_secret"
+  roles:
+    - 1password
+
+- hosts: firefly
+  become: true
+  roles:
+    - common
+    - cloudflared
+    - cloudflare
+    - innernet
+    - dns
+    - firefly
+    - docker

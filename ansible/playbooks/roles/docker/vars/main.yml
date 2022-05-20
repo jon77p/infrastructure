@@ -3,4 +3,5 @@ compose_project_name: "{{ hostvars[inventory_hostname].compose_project_name | de
 docker_volume_dirs: "{{ hostvars[inventory_hostname].docker_volume_dirs | default([]) }}"
 compose_definition: "{{ hostvars[inventory_hostname].compose_definition | default(None) }}"
 compose_service_names: "{{ hostvars[inventory_hostname].compose_service_names | default([]) }}"
+compose_network_names: "{{ hostvars[inventory_hostname].compose_network_names | default([]) }}"
 servicelist: "{{ hostvars[inventory_hostname].servicelist | default([]) }}"
