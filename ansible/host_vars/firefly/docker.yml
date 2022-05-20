@@ -1,9 +1,12 @@
 ---
 compose_project_name: "firefly"
 docker_volume_dirs:
-  - "/mnt/firefly/upload"
-  - "/mnt/firefly/db"
-  - "/mnt/firefly/plaid"
+  firefly:
+    - "/mnt/firefly/upload"
+  fireflydb:
+    - "/mnt/firefly/db"
+  plaid:
+    - "/mnt/firefly/plaid"
 compose_network_names:
   - name: "firefly"
     attachable: yes
@@ -11,95 +14,3 @@ compose_network_names:
   - name: "web"
     attachable: yes
     internal: no
-compose_definition:
-  version: '3.8'
-  services:
-    firefly:
-      image: fireflyiii/core:latest
-      volumes:
-        - "{{ docker_volume_dirs[0] }}:/var/www/html/storage/upload"
-      environment:
-        SITE_OWNER: "{{ firefly_site_owner }}"
-        APP_KEY: "{{ firefly_app_key }}"
-        TRUSTED_PROXIES: "{{ firefly_trusted_proxies }}"
-        DB_CONNECTION: "mysql"
-        DB_HOST: "fireflydb"
-        DB_PORT: "{{ firefly_db_port }}"
-        DB_DATABASE: "{{ firefly_db_name }}"
-        DB_USERNAME: "{{ firefly_db_username }}"
-        DB_PASSWORD: "{{ firefly_db_password }}"
-        COOKIE_DOMAIN: "{{ domain }}"
-        MAIL_MAILER: "log"
-        MAIL_HOST: "{{ firefly_mail_host }}"
-        MAIL_PORT: "{{ firefly_mail_port }}"
-        MAIL_FROM: "{{ firefly_mail_from }}"
-        MAIL_USERNAME: "{{ firefly_mail_username }}"
-        MAIL_PASSWORD: "{{ firefly_mail_password }}"
-        MAIL_ENCRYPTION: "{{ firefly_mail_encryption }}"
-        SEND_REGISTRATION_MAIL: "false"
-        APP_NAME: "FireflyIII"
-        APP_URL: "http://localhost"
-      depends_on:
-        - "fireflydb"
-      networks:
-        - "firefly"
-        - "web"
-      ports:
-        - "{{ firefly_port }}:8080"
-      restart: "always"
-      healthcheck:
-        test: ["CMD", "curl", "https://healthchecks.{{ domain }}/ping/{{ opconnect_results[inventory_hostname].healthcheck }}"]
-        timeout: 45s
-        interval: 10s
-        retries: 5
-    fireflydb:
-      image: mariadb:latest
-      environment:
-        MYSQL_RANDOM_ROOT_PASSWORD: "yes"
-        MYSQL_USER: "{{ firefly_db_username }}"
-        MYSQL_PASSWORD: "{{ firefly_db_password }}"
-        MYSQL_DATABASE: "{{ firefly_db_name }}"
-      volumes:
-        - "{{ docker_volume_dirs[1] }}:/var/lib/mysql"
-      networks:
-        - "firefly"
-    data_importer:
-      image: fireflyiii/data-importer:latest
-      environment:
-        FIREFLY_III_ACCESS_TOKEN: "{{ data_importer.firefly_access_token }}"
-        FIREFLY_III_URL: "http://firefly:{{ firefly_port }}"
-        VANITY_URL: "https://firefly.{{ domain }}"
-        EXPECT_SECURE_URL: "true"
-        TRUSTED_PROXIES: "*"
-      depends_on:
-        - "firefly"
-      networks:
-        - "firefly"
-        - "web"
-      ports:
-        - "{{ data_importer.port }}:8080"
-      restart: "always"
-      healthcheck:
-        test: ["CMD", "curl", "https://healthchecks.{{ domain }}/ping/{{ opconnect_results['firefly-importer'].healthcheck }}"]
-        timeout: 45s
-        interval: 10s
-        retries: 5
-    plaid_connector:
-      image: registry.gitlab.com/georgehahn/firefly-plaid-connector:latest
-      volumes:
-        - "{{ docker_volume_dirs[2] }}:/config"
-      depends_on:
-        - "firefly"
-      networks:
-        - "firefly"
-      restart: "always"
-      healthcheck:
-        test: ["CMD", "curl", "https://healthchecks.{{ domain }}/ping/{{ opconnect_results['plaid'].healthcheck }}"]
-        timeout: 45s
-        interval: 10s
-        retries: 5
-  networks:
-    firefly:
-      attachable: "true"
-    web:
-      external: "true"

@@ -9,9 +9,9 @@
   loop_control:
     loop_var: "path"
 
-- name: Create config file
+- name: Create Plaid config file
   become: true
-  when: "docker_volume_dirs != []"
+  when: "docker_volume_dirs.plaid != []"
   template:
     src: ../templates/config.toml.j2
-    dest: "{{ docker_volume_dirs[2] }}/config.toml"
+    dest: "{{ docker_volume_dirs.plaid[0] }}/config.toml"
