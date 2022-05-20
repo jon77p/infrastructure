@@ -62,12 +62,14 @@ compose_definition:
         - "{{ docker_volume_dirs[1] }}:/var/lib/mysql"
       networks:
         - "firefly"
-    firefly-data-importer:
+    data_importer:
       image: fireflyiii/data-importer:latest
       environment:
         FIREFLY_III_ACCESS_TOKEN: "{{ firefly_fidi_access_token }}"
-        FIREFLY_III_URL: "http://firefly:8080"
+        FIREFLY_III_URL: "http://firefly:{{ firefly_port }}"
         VANITY_URL: "https://firefly.{{ domain }}"
+        EXPECT_SECURE_URL: "true"
+        TRUSTED_PROXIES: "*"
       depends_on:
         - "firefly"
       networks:

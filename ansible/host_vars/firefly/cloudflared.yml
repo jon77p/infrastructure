@@ -8,3 +8,4 @@ additional_ingress:
     service: "http://localhost:{{ firefly_fidi_port }}"
     originRequest:
       httpHostHeader: "firefly-importer.{{ domain }}"
+      noTLSVerify: true
