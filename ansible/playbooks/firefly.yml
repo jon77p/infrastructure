@@ -6,6 +6,14 @@
       - "firefly-importer"
     opconnect_field_names:
       - "healthcheck"
+      - "site_owner"
+      - "app_key"
+      - "db_username"
+      - "db_password"
+      - "smtp_username"
+      - "smtp_password"
+      - "firefly_access_token"
+      - "firefly_client_id"
   roles:
     - 1password
 
