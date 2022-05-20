@@ -36,7 +36,6 @@
   become: true
   vars:
     cf_tunnel_id: "{{ tunnel_output.stdout }}"
-    fqdn: "{{ ansible_hostname }}.{{ domain }}"
   template:
     src: ../templates/config.yml.j2
     dest: /tmp/cloudflared-config.yml

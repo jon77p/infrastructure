@@ -1,0 +1,10 @@
+---
+- name: Create all volume mounts
+  become: true
+  file:
+    path: "{{ path }}"
+    recurse: true
+    state: directory
+  loop: "{{ directories }}"
+  loop_control:
+    loop_var: "path"

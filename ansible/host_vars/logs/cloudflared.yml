@@ -1,0 +1,4 @@
+---
+additional_ingress:
+  - hostname: "grafana.{{ domain }}"
+    service: "http://localhost:{{ compose_project_ports['grafana'][0] }}"

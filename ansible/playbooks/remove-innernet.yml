@@ -10,5 +10,6 @@
     - nextcloud
     - pihole
     - vault
+    - allaboutsecurity
   roles:
     - remove_innernet

@@ -1,2 +1,4 @@
 ---
 user_password: "{{ vault_user_password }}"
+cf_ssh_subdomain: "ssh-{{ inventory_hostname }}.{{ domain }}"
+cf_tunnel_subdomain: "tunnel-{{ inventory_hostname }}.{{ domain }}"

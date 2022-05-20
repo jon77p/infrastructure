@@ -16,6 +16,12 @@
   tags:
     - install
 
+- name: Innernet | install innernet aarch64
+  include_tasks: innernet-client-aarch64.yml
+  when: inventory_hostname != 'innernet' and ansible_architecture == "aarch64" and not ('install' in skip_tags)
+  tags:
+    - install
+
 - name: Innernet | install innernet x86_64
   include_tasks: innernet-client-x86_64.yml
   when: inventory_hostname != 'innernet' and ansible_architecture == "x86_64" and not ('install' in skip_tags)

@@ -34,6 +34,8 @@ all:
               ansible_host: healthchecks
             nextcloud:
               ansible_host: nextcloud
+            logs:
+              ansible_host: logs
             pihole:
               ansible_host: pihole
             vault:
@@ -42,20 +44,21 @@ all:
               ansible_host: codeserver
             innernet:
               ansible_host: innernet
+            allaboutsecurity:
+              ansible_host: allaboutsecurity
+            securemylife:
+              ansible_host: securemylife
       vars:
         ansible_ssh_user: ubuntu
     deployments:
       hosts:
         certmanager:
         traefik:
-        grafana:
         loki:
         promtail:
         prometheus:
         unifipoller:
         gaps:
-        pihole:
-        allaboutsecurity:
         nodered:
         influxdb:
         varken:

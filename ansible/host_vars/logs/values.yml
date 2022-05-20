@@ -39,53 +39,53 @@ values:
     datasources.yaml:
       apiVersion: 1
       datasources:
-      - name: Prometheus
-        type: prometheus
-        url: http://prometheus-server.prometheus
-        access: proxy
-        isDefault: true
-      - name: Loki
-        type: loki
-        url: http://loki.loki:3100
-        access: proxy
-      - name: InfluxDB
-        type: influxdb
-        url: http://influxdb.influxdb:8086
-        access: proxy
-        database: influxdb
-      - name: Varken
-        type: influxdb
-        url: http://influxdb.influxdb:8086
-        access: proxy
-        database: varken
+        - name: Prometheus
+          type: prometheus
+          url: http://prometheus-server.prometheus
+          access: proxy
+          isDefault: true
+        - name: Loki
+          type: loki
+          url: http://loki.loki:3100
+          access: proxy
+        - name: InfluxDB
+          type: influxdb
+          url: http://influxdb.influxdb:8086
+          access: proxy
+          database: influxdb
+        - name: Varken
+          type: influxdb
+          url: http://influxdb.influxdb:8086
+          access: proxy
+          database: varken
   dashboardProviders:
     dashboardproviders.yaml:
       apiVersion: 1
       providers:
-      - name: 'default'
-        orgId: 1
-        folder: ''
-        type: file
-        disableDeletion: false
-        editable: true
-        options:
-          path: /var/lib/grafana/dashboards/default
-      - name: 'unifi'
-        orgId: 1
-        folder: 'Unifi'
-        type: file
-        disableDeletion: false
-        editable: true
-        options:
-          path: /var/lib/grafana/dashboards/unifi
-      - name: 'media'
-        orgId: 1
-        folder: 'Media'
-        type: file
-        disableDeletion: false
-        editable: true
-        options:
-          path: /var/lib/grafana/dashboards/media
+        - name: 'default'
+          orgId: 1
+          folder: ''
+          type: file
+          disableDeletion: false
+          editable: true
+          options:
+            path: /var/lib/grafana/dashboards/default
+        - name: 'unifi'
+          orgId: 1
+          folder: 'Unifi'
+          type: file
+          disableDeletion: false
+          editable: true
+          options:
+            path: /var/lib/grafana/dashboards/unifi
+        - name: 'media'
+          orgId: 1
+          folder: 'Media'
+          type: file
+          disableDeletion: false
+          editable: true
+          options:
+            path: /var/lib/grafana/dashboards/media
   dashboards:
     default:
       prometheus:

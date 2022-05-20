@@ -1,16 +1,24 @@
 ---
-- hosts: localhost
+- hosts: localhost,allaboutsecurity
   vars:
-    servicename: "allaboutsecurity"
-  gather_facts: false
-  connection: local
+    opconnect_item_names:
+      - "allaboutsecurity"
+      - "ghost"
+    opconnect_field_names:
+      - "healthcheck"
+      - "github_username"
+      - "github_token"
   roles:
-    - k8s
+    - 1password
 
-- hosts: manager
+- hosts: allaboutsecurity
+  become: true
   roles:
+    - common
     - cloudflared
-
-- hosts: nodes
-  roles:
-    - cloudflared
+    - cloudflare
+    - cron
+    - innernet
+    - dns
+    - ghost
+    - docker

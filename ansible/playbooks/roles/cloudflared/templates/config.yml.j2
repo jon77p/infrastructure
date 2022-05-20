@@ -8,7 +8,7 @@ loglevel: info
 metrics: localhost:2000
 
 ingress:
-  - hostname: ssh-{{ fqdn }}
+  - hostname: "{{ cf_ssh_subdomain }}"
     service: ssh://{{ ansible_hostname }}:22
   - hostname: "*"
     path: "^/_healthcheck$"
@@ -19,7 +19,7 @@ ingress:
   - hostname: "*"
     path: "^/ready$"
     service: http://localhost:2000
-  - hostname: "tunnel-{{ fqdn }}"
+  - hostname: "{{ cf_tunnel_subdomain }}"
     service: hello-world
   {% for item in additional_ingress %}
   - hostname: {{ item.hostname }}
