@@ -13,6 +13,14 @@ firefly_mail_from: "firefly@{{ domain }}"
 firefly_mail_username: "{{ opconnect_results['firefly'].smtp_username }}"
 firefly_mail_password: "{{ opconnect_results['firefly'].smtp_password }}"
 firefly_mail_encryption: "tls"
-firefly_fidi_port: "8081"
-firefly_fidi_access_token: "{{ opconnect_results['firefly-importer'].firefly_access_token }}"
-firefly_fidi_client_id: "{{ opconnect_results['firefly-importer'].firefly_client_id }}"
+data_importer:
+  port: "8081"
+  firefly_access_token: "{{ opconnect_results['firefly-importer'].firefly_access_token }}"
+plaid:
+  client_id: "{{ opconnect_results['plaid'].plaid_client_id }}"
+  secret: "{{ opconnect_results['plaid'].plaid_client_secret }}"
+  firefly:
+    port: "{{ firefly_port }}"
+    access_token: "{{ opconnect_results['plaid'].firefly_access_token }}"
+  access_tokens: "{{ vault_plaid_access_tokens }}"
+  accounts: "{{ vault_plaid_accounts }}"

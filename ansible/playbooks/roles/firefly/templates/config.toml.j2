@@ -1,0 +1,41 @@
+[sync]
+# sync_mode can be "batch" or "polled"
+#  - "batch" runs once and exits
+#  - "polled" runs forever, syncing every "sync_frequency_minutes"
+sync_mode = "polled"
+
+# minutes to wait between syncs in polled mode
+sync_frequency_minutes = 5
+
+# number of days of data to sync
+max_sync_days = 30
+
+[plaid]
+# Plaid API authentication
+# Note: the plaid environment is currently hardcoded to "development"
+client_id = "{{ plaid.client_id }}"
+secret = "{{ plaid.secret }}"
+
+# List of Plaid access tokens for each institution to sync from
+# These can be created manually using the plaid quickstart example:
+# https://github.com/plaid/quickstart>
+access_tokens = [
+{% for item in plaid.access_tokens %}
+    "{{ item }}",
+{% endfor %}
+]
+
+[firefly]
+url = "http://firefly:{{ plaid.firefly.port }}"
+
+# Firefly personal access tokens can be created in FF3 on the Options > Profile page
+token = "{{ plaid.firefly.access_token }}"
+
+{% for item in plaid.accounts %}
+# Account sync configuration
+[[account]]
+# Firefly ID for this account
+firefly_account_id = {{ item.firefly_account_id }}
+account_name = "{{ item.account_name }}"
+
+{% endfor %}

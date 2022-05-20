@@ -4,6 +4,7 @@
     opconnect_item_names:
       - "firefly"
       - "firefly-importer"
+      - "plaid"
     opconnect_field_names:
       - "healthcheck"
       - "site_owner"
@@ -13,7 +14,8 @@
       - "smtp_username"
       - "smtp_password"
       - "firefly_access_token"
-      - "firefly_client_id"
+      - "plaid_client_id"
+      - "plaid_client_secret"
   roles:
     - 1password
 
@@ -25,4 +27,5 @@
     - cloudflare
     - innernet
     - dns
+    - firefly
     - docker

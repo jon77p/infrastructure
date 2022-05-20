@@ -3,6 +3,7 @@ compose_project_name: "firefly"
 docker_volume_dirs:
   - "/mnt/firefly/upload"
   - "/mnt/firefly/db"
+  - "/mnt/firefly/plaid"
 compose_network_names:
   - name: "firefly"
     attachable: yes
@@ -65,7 +66,7 @@ compose_definition:
     data_importer:
       image: fireflyiii/data-importer:latest
       environment:
-        FIREFLY_III_ACCESS_TOKEN: "{{ firefly_fidi_access_token }}"
+        FIREFLY_III_ACCESS_TOKEN: "{{ data_importer.firefly_access_token }}"
         FIREFLY_III_URL: "http://firefly:{{ firefly_port }}"
         VANITY_URL: "https://firefly.{{ domain }}"
         EXPECT_SECURE_URL: "true"
@@ -76,10 +77,24 @@ compose_definition:
         - "firefly"
         - "web"
       ports:
-        - "{{ firefly_fidi_port }}:8080"
+        - "{{ data_importer.port }}:8080"
       restart: "always"
       healthcheck:
         test: ["CMD", "curl", "https://healthchecks.{{ domain }}/ping/{{ opconnect_results['firefly-importer'].healthcheck }}"]
+        timeout: 45s
+        interval: 10s
+        retries: 5
+    plaid_connector:
+      image: registry.gitlab.com/georgehahn/firefly-plaid-connector:latest
+      volumes:
+        - "{{ docker_volume_dirs[2] }}:/config"
+      depends_on:
+        - "firefly"
+      networks:
+        - "firefly"
+      restart: "always"
+      healthcheck:
+        test: ["CMD", "curl", "https://healthchecks.{{ domain }}/ping/{{ opconnect_results['plaid'].healthcheck }}"]
         timeout: 45s
         interval: 10s
         retries: 5
