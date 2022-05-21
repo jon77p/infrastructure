@@ -4,7 +4,7 @@ services:
   firefly:
     image: fireflyiii/core:latest
     volumes:
-      - "{{ docker_volume_dirs.firefly[0] }}:/var/www/html/storage/upload"
+      - "{{ docker_volume_dirs[0] }}:/var/www/html/storage/upload"
     environment:
       SITE_OWNER: "{{ firefly.site_owner }}"
       APP_KEY: "{{ firefly.app_key }}"
@@ -47,7 +47,7 @@ services:
       MYSQL_PASSWORD: "{{ fireflydb.password }}"
       MYSQL_DATABASE: "{{ fireflydb.database }}"
     volumes:
-      - "{{ docker_volume_dirs.fireflydb[0] }}:/var/lib/mysql"
+      - "{{ docker_volume_dirs[1] }}:/var/lib/mysql"
     networks:
       - "firefly"
   data_importer:
@@ -74,7 +74,7 @@ services:
   plaid_connector:
     image: registry.gitlab.com/georgehahn/firefly-plaid-connector:latest
     volumes:
-      - "{{ docker_volume_dirs.plaid[0] }}:/config"
+      - "{{ docker_volume_dirs[2] }}:/config"
     depends_on:
       - "firefly"
     networks:

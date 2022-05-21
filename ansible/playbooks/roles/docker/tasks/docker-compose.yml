@@ -4,6 +4,11 @@
     directories: "{{ docker_volume_dirs }}"
   include_tasks: "volume-mounts-{{ docker_volume_dirs | type_debug }}.yml"
 
+- name: Load project definition for host
+  include_vars:
+    file: "../../../../host_vars/{{ inventory_hostname }}/docker-compose.yml"
+    name: compose_definition
+
 - name: Take down {{ compose_project_name }} project
   community.docker.docker_compose:
     project_name: "{{ compose_project_name }}"
