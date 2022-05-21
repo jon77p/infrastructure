@@ -2,7 +2,7 @@
 version: '3'
 services:
   nextclouddb:
-    image: mariadb:latest
+    image: mariadb:latest@sha256:07e06f2e7ae9dfc63707a83130a62e00167c827f08fcac7a9aa33f4b6dc34e0e
     restart: always
     command: --transaction-isolation=READ-COMMITTED --log-bin=mysqld-bin --binlog-format=ROW --innodb-file-per-table=1 --skip-innodb-read-only-compressed
     environment:
@@ -15,7 +15,7 @@ services:
     networks:
       - "nextcloud"
   nextcloud:
-    image: nextcloud:latest
+    image: nextcloud:latest@sha256:f832bb0a0c3df2ae66e8156dedc0ca8d79259d5355be8a90cc4342a9655a235a
     volumes:
       - "{{ docker_volume_dirs[0] }}:/var/www/html"
       - "{{ docker_volume_dirs[1] }}:/var/www/html/data"
