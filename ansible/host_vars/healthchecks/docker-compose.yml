@@ -1,0 +1,27 @@
+---
+version: '3'
+services:
+  healthchecks:
+    image: linuxserver/healthchecks:latest
+    volumes:
+      - "{{ docker_volume_dirs[0] }}:/config"
+    ports:
+      - "{{ compose_project_port }}:8000"
+    environment:
+      SITE_ROOT: "https://healthchecks.{{ domain }}"
+      SITE_NAME: "Healthchecks"
+      SITE_LOGO_URL: "https://healthchecks.io/static/img/logo-rounded.svg"
+      DEFAULT_FROM_EMAIL: "healthchecks@{{ domain }}"
+      EMAIL_HOST: "{{ healthchecks.email.host }}"
+      EMAIL_PORT: "{{ healthchecks.email.port }}"
+      EMAIL_HOST_USER: "{{ healthchecks.email.username }}"
+      EMAIL_HOST_PASSWORD: "{{ healthchecks.email.password }}"
+      EMAIL_USE_TLS: "{{ healthchecks.email.use_tls | string() }}"
+      SUPERUSER_EMAIL: "{{ healthchecks.superuser.email }}"
+      SUPERUSER_PASSWORD: "{{ healthchecks.superuser.password }}"
+    restart: "always"
+    healthcheck:
+      test: ["CMD", "wget", "https://hc-ping.com/{{ healthchecks.healthcheck }}", "-O", "/dev/null"]
+      timeout: 45s
+      interval: 10s
+      retries: 5

@@ -1,2 +1,12 @@
 ---
-healthcheck_uuid: "{{ vault_healthcheck_uuid }}"
+healthchecks:
+  healthcheck: "{{ opconnect_results['healthchecks'].healthcheck }}"
+  email:
+    host: "smtp.gmail.com"
+    port: "587"
+    username: "{{ opconnect_results['healthchecks'].smtp_username }}"
+    password: "{{ opconnect_results['healthchecks'].smtp_password }}"
+    use_tls: "True"
+  superuser:
+    email: "{{ opconnect_results['healthchecks'].username }}"
+    password: "{{ opconnect_results['healthchecks'].password }}"
