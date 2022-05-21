@@ -2,7 +2,7 @@
 version: '3.8'
 services:
   firefly:
-    image: fireflyiii/core:latest
+    image: fireflyiii/core:latest@sha256:2dfdd46cb1bba3d87f0046381928d6e2422eb6999e5f15047250fe57f8b68f6d
     volumes:
       - "{{ docker_volume_dirs[0] }}:/var/www/html/storage/upload"
     environment:
@@ -40,7 +40,7 @@ services:
       interval: 10s
       retries: 5
   fireflydb:
-    image: mariadb:latest
+    image: mariadb:latest@sha256:07e06f2e7ae9dfc63707a83130a62e00167c827f08fcac7a9aa33f4b6dc34e0e
     environment:
       MYSQL_RANDOM_ROOT_PASSWORD: "yes"
       MYSQL_USER: "{{ fireflydb.username }}"
@@ -51,7 +51,7 @@ services:
     networks:
       - "firefly"
   data_importer:
-    image: fireflyiii/data-importer:latest
+    image: fireflyiii/data-importer:latest@sha256:5cb61a152631f298b87ef003c973c16018445150644c08bf25fb8adff219297c
     environment:
       FIREFLY_III_ACCESS_TOKEN: "{{ data_importer.firefly_access_token }}"
       FIREFLY_III_URL: "http://firefly:{{ firefly.port }}"
@@ -72,7 +72,7 @@ services:
       interval: 10s
       retries: 5
   plaid_connector:
-    image: registry.gitlab.com/georgehahn/firefly-plaid-connector:latest
+    image: registry.gitlab.com/georgehahn/firefly-plaid-connector:latest@sha256:325a77dcca0a764a1aff1d658890532d35c37f734133accbddf3b3c96499c7e1
     volumes:
       - "{{ docker_volume_dirs[2] }}:/config"
     depends_on:

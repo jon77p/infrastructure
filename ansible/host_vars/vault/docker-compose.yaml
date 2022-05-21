@@ -2,7 +2,7 @@
 version: '3.4'
 services:
   vault:
-    image: vault:latest
+    image: vault:latest@sha256:748f13ad4b437eb2ca78c5332aeeba5b8346c2022a244fa41e5d3ae889826629
     volumes:
       - "{{ docker_volume_dirs[0] }}:/vault/config"
       - "{{ docker_volume_dirs[1] }}:/vault/file"
@@ -20,7 +20,7 @@ services:
       interval: 10s
       retries: 5
   opconnect_api:
-    image: 1password/connect-api:latest
+    image: 1password/connect-api:latest@sha256:e34919262c51e10d53ecaba5d8d3085bba209995e436990ad32dcb3a39394f6f
     volumes:
       - "{{ docker_volume_dirs[4] }}/1password-credentials.json:/home/opuser/.op/1password-credentials.json"
       - "data:/home/opuser/.op/data"
@@ -28,7 +28,7 @@ services:
       - "{{ op_connect_ports[0] }}:8080"
     restart: "always"
   opconnect_sync:
-    image: 1password/connect-sync:latest
+    image: 1password/connect-sync:latest@sha256:2dad1711656f282f74421ef382055b4ed3c9923fb342f44773802d87c59e1641
     volumes:
       - "{{ docker_volume_dirs[4] }}/1password-credentials.json:/home/opuser/.op/1password-credentials.json"
       - "data:/home/opuser/.op/data"
