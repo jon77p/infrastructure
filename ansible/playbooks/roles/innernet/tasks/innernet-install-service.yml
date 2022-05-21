@@ -12,6 +12,7 @@
   copy:
     src: "innernet@.service"
     dest: "/usr/lib/systemd/system/innernet@.service"
+  register: innernet_service
 
 - name: "Create innernet-server@.service"
   become: true
@@ -19,7 +20,9 @@
   copy:
     src: "innernet-server@.service"
     dest: "/usr/lib/systemd/system/innernet-server@.service"
+  register: innernet_service
 
 - name: "Reload systemd for new service"
   systemd:
     daemon_reload: yes
+  when: innernet_service.changed
