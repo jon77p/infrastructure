@@ -1,4 +1,17 @@
 ---
+- hosts: localhost,healthchecks
+  vars:
+    opconnect_item_names:
+      - "healthchecks"
+    opconnect_field_names:
+      - "healthcheck"
+      - "username"
+      - "password"
+      - "smtp_username"
+      - "smtp_password"
+  roles:
+    - 1password
+
 - hosts: healthchecks
   become: true
   roles:

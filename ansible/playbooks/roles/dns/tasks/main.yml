@@ -14,7 +14,7 @@
   shell: netplan apply
   async: 5
   poll: 1
-  when: netplan.changed
+  when: "nameservers != []"
 
 - name: Reset connection
   meta: reset_connection

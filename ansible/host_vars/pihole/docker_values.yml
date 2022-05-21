@@ -1,0 +1,11 @@
+---
+pihole:
+  healthcheck: "{{ opconnect_results['pihole'].healthcheck }}"
+  admin:
+    password: "{{ opconnect_results['pihole'].password }}"
+    email: "{{ vault_secret_admin_email }}"
+  dns: "{{ vault_secret_pihole_dns }}"
+  dnssec: "true"
+  dns_bogus_priv: "true"
+  dns_fqdn_required: "true"
+  virtual_host: "{{ compose_project_name }}.{{ domain }}"

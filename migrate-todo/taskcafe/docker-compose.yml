@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   taskcafe:
-    image: ghcr.io/jon77p/taskcafe:latest
+    image: ghcr.io/jon77p/taskcafe:latest@sha256:2a266a81be44bf7e6457ac509d7b755074dbbb79870d6052366b8d90978aeba9
     depends_on:
       - taskcafe-postgres
       - traefik
@@ -26,7 +26,7 @@ services:
         traefik.http.services.tasks.loadbalancer.server.port: 3333
 
   taskcafe-postgres:
-    image: postgres:14.2-alpine
+    image: postgres:14.3-alpine@sha256:a00af33e23643f497a42bc24d2f6f28cc67f3f48b076135c5626b2e07945ff9c
     volumes:
       - /mnt/taskcafe/postgres:/var/lib/postgresql/data
     env_file: secrets-postgres.env

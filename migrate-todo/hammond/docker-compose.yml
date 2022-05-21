@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   hammond:
-    image: akhilrex/hammond:latest
+    image: akhilrex/hammond:latest@sha256:c4f8d0c1cacdfb530e1434d0f58362ee1893691e8ac6cd767e93cf2e919b5b0e
     depends_on:
       - traefik
     volumes:

@@ -5,6 +5,12 @@
       - "nextcloud"
     opconnect_field_names:
       - "healthcheck"
+      - "username"
+      - "password"
+      - "smtp_username"
+      - "smtp_password"
+      - "mysql_username"
+      - "mysql_password"
   roles:
     - 1password
 

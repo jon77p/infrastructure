@@ -4,12 +4,13 @@
     - remove_innernet
 
 - hosts:
-    - firefly
-    - healthchecks
-    - logs
-    - nextcloud
     - pihole
+    - nextcloud
+    - healthchecks
     - vault
+    - firefly
+    - logs
     - allaboutsecurity
+    - securemylife
   roles:
     - remove_innernet

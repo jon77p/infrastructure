@@ -1,0 +1,13 @@
+---
+compose_project_name: "firefly"
+docker_volume_dirs:
+  - "/mnt/firefly/upload"
+  - "/mnt/firefly/db"
+  - "/mnt/firefly/plaid"
+compose_network_names:
+  - name: "firefly"
+    attachable: yes
+    internal: yes
+  - name: "web"
+    attachable: yes
+    internal: no
