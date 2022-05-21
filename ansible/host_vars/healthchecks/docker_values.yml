@@ -1,8 +1,12 @@
 ---
-email_host: "{{ vault_email_host }}"
-email_port: "{{ vault_email_port }}"
-email_host_user: "{{ vault_email_host_user }}"
-email_host_password: "{{ vault_email_host_password }}"
-email_use_tls: "{{ vault_email_use_tls }}"
-superuser_email: "{{ vault_superuser_email }}"
-superuser_password: "{{ vault_superuser_password }}"
+healthchecks:
+  healthcheck: "{{ opconnect_results['healthchecks'].healthcheck }}"
+  email:
+    host: "smtp.gmail.com"
+    port: "587"
+    username: "{{ opconnect_results['healthchecks'].smtp_username }}"
+    password: "{{ opconnect_results['healthchecks'].smtp_password }}"
+    use_tls: "True"
+  superuser:
+    email: "{{ opconnect_results['healthchecks'].username }}"
+    password: "{{ opconnect_results['healthchecks'].password }}"

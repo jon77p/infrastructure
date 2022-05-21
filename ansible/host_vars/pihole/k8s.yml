@@ -1,4 +1,0 @@
----
-service_name: "pihole"
-namespaces:
-  - "{{ service_name }}"

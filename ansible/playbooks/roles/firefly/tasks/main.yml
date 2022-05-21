@@ -9,7 +9,7 @@
   loop_control:
     loop_var: "path"
 
-- name: Create config file
+- name: Create Plaid config file
   become: true
   when: "docker_volume_dirs != []"
   template:

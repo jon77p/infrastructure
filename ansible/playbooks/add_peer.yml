@@ -1,12 +1,18 @@
 ---
 
 - hosts: innernet
-  vars:
-    skip_tags:
-      - install
   roles:
     - innernet
 
-- hosts: nextcloud
+- hosts:
+    - pihole
+    - nextcloud
+    - healthchecks
+    - vault
+    - firefly
+    - logs
+    - allaboutsecurity
+    - securemylife
   roles:
     - innernet
+    - dns

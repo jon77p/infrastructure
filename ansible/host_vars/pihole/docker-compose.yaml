@@ -1,0 +1,30 @@
+---
+version: '3'
+services:
+  pihole:
+    hostname: "{{ compose_project_name }}"
+    image: pihole/pihole:latest
+    volumes:
+      - "{{ docker_volume_dirs[0] }}:/etc/pihole"
+      - "{{ docker_volume_dirs[1] }}:/etc/dnsmasq.d"
+    ports:
+      - "{{ compose_project_ports[0] }}:80/tcp"
+      - "{{ compose_project_ports[1] }}:53/tcp"
+      - "{{ compose_project_ports[1] }}:53/udp"
+    environment:
+      TZ: "America/Los_Angeles"
+      WEBPASSWORD: "{{ pihole.admin.password }}"
+      ADMIN_EMAIL: "{{ pihole.admin.email }}"
+      PIHOLE_DNS_: "{{ pihole.dns }}"
+      DNSSEC: "{{ pihole.dnssec }}"
+      DNS_BOGUS_PRIV: "{{ pihole.dns_bogus_priv }}"
+      DNS_FQDN_REQUIRED: "{{ pihole.dns_fqdn_required }}"
+      VIRTUAL_HOST: "{{ pihole.virtual_host }}"
+      WEBTHEME: "default-darker"
+      DNSMASQ_LISTENING: "all"
+    restart: "always"
+    healthcheck:
+      test: ["CMD", "curl", "https://healthchecks.{{ domain }}/ping/{{ pihole.healthcheck }}"]
+      timeout: 45s
+      interval: 10s
+      retries: 5
