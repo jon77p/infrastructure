@@ -1,8 +1,11 @@
 ---
-pihole_admin_password: "{{ opconnect_results[inventory_hostname].password }}"
-pihole_admin_email: "{{ vault_secret_admin_email }}"
-pihole_dns: "{{ vault_secret_pihole_dns }}"
-pihole_dnssec: "true"
-pihole_dns_bogus_priv: "true"
-pihole_dns_fqdn_required: "true"
-pihole_virtual_host: "{{ compose_project_name }}.{{ domain }}"
+pihole:
+  healthcheck: "{{ opconnect_results['pihole'].healthcheck }}"
+  admin:
+    password: "{{ opconnect_results['pihole'].password }}"
+    email: "{{ vault_secret_admin_email }}"
+  dns: "{{ vault_secret_pihole_dns }}"
+  dnssec: "true"
+  dns_bogus_priv: "true"
+  dns_fqdn_required: "true"
+  virtual_host: "{{ compose_project_name }}.{{ domain }}"
