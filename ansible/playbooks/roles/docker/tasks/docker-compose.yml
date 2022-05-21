@@ -6,7 +6,7 @@
 
 - name: Load project definition for host
   include_vars:
-    file: "../../../../host_vars/{{ inventory_hostname }}/docker-compose.yml"
+    file: "../../../../host_vars/{{ inventory_hostname }}/docker-compose.yaml"
     name: compose_definition
 
 - name: Take down {{ compose_project_name }} project
