@@ -4,9 +4,18 @@ services:
   ghost:
     image: ghost:latest@sha256:c90c2cbcb27901a7b84d3c0baa21bcb3250d0fc29331d5963a724ead6e7382af
     volumes:
-      - "{{ docker_volume_dirs[0] }}/config.production.json:/var/lib/ghost/config.production.json"
-      - "{{ docker_volume_dirs[1] }}:/var/lib/ghost/content"
-      - "{{ docker_volume_dirs[2] }}:/var/lib/ghost/node_modules"
+      - "{{ docker_volume_dirs.ghost[0] }}/config.production.json:/var/lib/ghost/config.production.json"
+      - "{{ docker_volume_dirs.ghost[1] }}:/var/lib/ghost/content"
+      - "{{ docker_volume_dirs.ghost[2] }}:/var/lib/ghost/node_modules"
     ports:
       - "{{ compose_project_ports[0] }}:2368"
     restart: "always"
+  promtail:
+    image: grafana/promtail:latest
+    restart: "always"
+    volumes:
+      - "/var/log/cloudflared.log:/var/log/cloudflared.log:ro"
+      - "/var/log/journal:/var/log/journal:ro"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "{{ docker_volume_dirs.promtail[0] }}/config.yaml:/etc/promtail/config.yaml"
+    command: "-config.file=/etc/promtail/config.yaml"

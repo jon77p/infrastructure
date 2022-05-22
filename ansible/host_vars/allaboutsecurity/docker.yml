@@ -7,6 +7,9 @@ docker_user_id:
 docker_group_id:
   ghost: "1000"
 docker_volume_dirs:
-  - "/mnt/{{ compose_project_name }}/ghost"
-  - "/mnt/{{ compose_project_name }}/ghost/content"
-  - "/mnt/{{ compose_project_name }}/ghost/node_modules"
+  ghost:
+    - "/mnt/{{ compose_project_name }}/ghost"
+    - "/mnt/{{ compose_project_name }}/ghost/content"
+    - "/mnt/{{ compose_project_name }}/ghost/node_modules"
+  promtail:
+    - "/mnt/{{ compose_project_name }}/promtail/config"

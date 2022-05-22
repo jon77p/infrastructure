@@ -21,4 +21,5 @@
     - innernet
     - dns
     - ghost
+    - promtail
     - docker
