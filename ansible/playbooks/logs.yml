@@ -2,11 +2,12 @@
 - hosts: localhost,logs
   vars:
     opconnect_item_names:
+      - "logs"
       - "grafana"
     opconnect_field_names:
+      - "healthcheck"
       - "username"
       - "password"
-      - "healthcheck"
       - "smtp_username"
       - "smtp_password"
   roles:
@@ -18,6 +19,7 @@
     - common
     - cloudflared
     - cloudflare
+    - cron
     - innernet
     - dns
     - grafana
