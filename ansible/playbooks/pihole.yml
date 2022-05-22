@@ -17,4 +17,5 @@
     - cloudflare
     - innernet
     - pihole
+    - promtail
     - docker
