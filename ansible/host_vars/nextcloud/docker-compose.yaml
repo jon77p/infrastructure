@@ -11,14 +11,14 @@ services:
       MYSQL_PASSWORD: "{{ mysql.password }}"
       MYSQL_DATABASE: "{{ mysql.database }}"
     volumes:
-      - "{{ docker_volume_dirs[2] }}:/var/lib/mysql"
+      - "{{ docker_volume_dirs.nextclouddb[0] }}:/var/lib/mysql"
     networks:
       - "nextcloud"
   nextcloud:
     image: nextcloud:latest@sha256:f832bb0a0c3df2ae66e8156dedc0ca8d79259d5355be8a90cc4342a9655a235a
     volumes:
-      - "{{ docker_volume_dirs[0] }}:/var/www/html"
-      - "{{ docker_volume_dirs[1] }}:/var/www/html/data"
+      - "{{ docker_volume_dirs.nextcloud[0] }}:/var/www/html"
+      - "{{ docker_volume_dirs.nextcloud[1] }}:/var/www/html/data"
     ports:
       - "{{ compose_project_port }}:80"
     environment:
@@ -49,6 +49,15 @@ services:
       timeout: 45s
       interval: 10s
       retries: 5
+  promtail:
+    image: grafana/promtail:latest
+    restart: "always"
+    volumes:
+      - "/var/log/cloudflared.log:/var/log/cloudflared.log:ro"
+      - "/var/log/journal:/var/log/journal:ro"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "{{ docker_volume_dirs.promtail[0] }}/config.yaml:/etc/promtail/config.yaml"
+    command: "-config.file=/etc/promtail/config.yaml"
 networks:
   nextcloud:
     attachable: "true"

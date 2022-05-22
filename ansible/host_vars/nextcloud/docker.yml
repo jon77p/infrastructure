@@ -2,9 +2,13 @@
 compose_project_name: "nextcloud"
 compose_project_port: "8080"
 docker_volume_dirs:
-  - "/mnt/{{ compose_project_name }}/html"
-  - "{{ rclone_mount_dir }}"
-  - "/mnt/{{ compose_project_name }}/db"
+  nextcloud:
+    - "/mnt/{{ compose_project_name }}/html"
+    - "{{ rclone_mount_dir }}"
+  nextclouddb:
+    - "/mnt/{{ compose_project_name }}/db"
+  promtail:
+    - "/mnt/{{ compose_project_name }}/promtail/config"
 compose_network_names:
   - name: "nextcloud"
     attachable: yes
