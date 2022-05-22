@@ -16,12 +16,12 @@
 - hosts: logs
   become: true
   roles:
-    # - common
-    # - cloudflared
-    # - cloudflare
-    # - cron
-    # - innernet
-    # - dns
+    - common
+    - cloudflared
+    - cloudflare
+    - cron
+    - innernet
+    - dns
     - loki
     - promtail
     - grafana
