@@ -3,12 +3,14 @@ version: '3'
 services:
   loki:
     image: grafana/loki:latest
+    restart: "always"
     volumes:
       - "{{ docker_volume_dirs.loki[0] }}/local-config.yaml:/etc/loki/local-config.yaml"
     ports:
       - "{{ compose_project_ports.loki[0] }}:3100"
   promtail:
     image: grafana/promtail:latest
+    restart: "always"
     depends_on:
       - loki
     volumes:
@@ -19,6 +21,7 @@ services:
     command: "-config.file=/etc/promtail/config.yaml"
   grafana:
     image: grafana/grafana-oss:latest
+    restart: "always"
     volumes:
       - "{{ docker_volume_dirs.grafana[0] }}/grafana.ini:/etc/grafana/grafana.ini"
       - "{{ docker_volume_dirs.grafana[1] }}:/var/lib/grafana"
@@ -40,4 +43,3 @@ services:
       GF_SMTP_FROM_ADDRESS: "{{ grafana.smtp.from }}"
       GF_USERS_VERIFY_EMAIL_ENABLED: "true"
       GF_EMAILS_WELCOME_EMAIL_ON_SIGNUP: "true"
-    restart: "always"
