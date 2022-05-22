@@ -1,6 +1,22 @@
 ---
 version: '3'
 services:
+  loki:
+    image: grafana/loki:latest
+    volumes:
+      - "{{ docker_volume_dirs.loki[0] }}/local-config.yaml:/etc/loki/local-config.yaml"
+    ports:
+      - "{{ compose_project_ports.loki[0] }}:3100"
+  promtail:
+    image: grafana/promtail:latest
+    depends_on:
+      - loki
+    volumes:
+      - "/var/log/cloudflared.log:/var/log/cloudflared.log:ro"
+      - "/var/log/journal:/var/log/journal:ro"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "{{ docker_volume_dirs.promtail[0] }}/config.yaml:/etc/promtail/config.yaml"
+    command: "-config.file=/etc/promtail/config.yaml"
   grafana:
     image: grafana/grafana-oss:latest
     volumes:

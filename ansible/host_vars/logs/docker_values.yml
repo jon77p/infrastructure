@@ -1,4 +1,7 @@
 ---
+loki:
+  host: "loki"
+  port: "{{ compose_project_ports.loki[0] }}"
 grafana:
   plugins: "grafana-piechart-panel,grafana-worldmap-panel,grafana-clock-panel"
   admin:
