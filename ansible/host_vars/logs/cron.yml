@@ -1,0 +1,10 @@
+---
+cronjobs:
+  - name: "HealthCheck"
+    minute: "*"
+    hour: "*"
+    day: "*"
+    weekday: "*"
+    month: "*"
+    job: "curl -m 10 --retry 5 -o /dev/null https://healthchecks.{{ domain }}/ping/{{ opconnect_results['logs'].healthcheck }}"
+    state: "present"
