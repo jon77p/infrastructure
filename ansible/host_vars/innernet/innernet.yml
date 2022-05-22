@@ -31,7 +31,7 @@ peers:
     ip: "10.42.128.6"
   - name: logs
     cidr: services
-    ip: "10.42.128.7"
+    ip: "{{ logs_innernet_address }}"
   - name: allaboutsecurity
     cidr: services
     ip: "10.42.128.8"

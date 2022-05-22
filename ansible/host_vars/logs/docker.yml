@@ -2,7 +2,7 @@
 compose_project_name: "logs"
 compose_project_ports:
   loki:
-    - "3100"
+    - "{{ loki.port }}"
   grafana:
     - "3000"
 docker_user_id:

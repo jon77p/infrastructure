@@ -4,7 +4,7 @@ services:
   healthchecks:
     image: linuxserver/healthchecks:latest@sha256:3d2d8a40e10e7122b2b8df31bae9129018079c01779d1b4874426c058a343c00
     volumes:
-      - "{{ docker_volume_dirs[0] }}:/config"
+      - "{{ docker_volume_dirs.healthchecks[0] }}:/config"
     ports:
       - "{{ compose_project_port }}:8000"
     environment:
@@ -25,3 +25,12 @@ services:
       timeout: 45s
       interval: 10s
       retries: 5
+  promtail:
+    image: grafana/promtail:latest
+    restart: "always"
+    volumes:
+      - "/var/log/cloudflared.log:/var/log/cloudflared.log:ro"
+      - "/var/log/journal:/var/log/journal:ro"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "{{ docker_volume_dirs.promtail[0] }}/config.yaml:/etc/promtail/config.yaml"
+    command: "-config.file=/etc/promtail/config.yaml"
