@@ -17,4 +17,5 @@
     - innernet
     - dns
     - vault
+    - promtail
     - docker

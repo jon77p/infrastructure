@@ -4,10 +4,10 @@ services:
   vault:
     image: vault:latest@sha256:748f13ad4b437eb2ca78c5332aeeba5b8346c2022a244fa41e5d3ae889826629
     volumes:
-      - "{{ docker_volume_dirs[0] }}:/vault/config"
-      - "{{ docker_volume_dirs[1] }}:/vault/file"
-      - "{{ docker_volume_dirs[2] }}:/vault/logs"
-      - "{{ docker_volume_dirs[3] }}:/vault/plugins"
+      - "{{ docker_volume_dirs.vault[0] }}:/vault/config"
+      - "{{ docker_volume_dirs.vault[1] }}:/vault/file"
+      - "{{ docker_volume_dirs.vault[2] }}:/vault/logs"
+      - "{{ docker_volume_dirs.vault[3] }}:/vault/plugins"
     ports:
       - "{{ compose_project_ports[0] }}:8200"
     cap_add:
@@ -22,7 +22,7 @@ services:
   opconnect_api:
     image: 1password/connect-api:latest@sha256:e34919262c51e10d53ecaba5d8d3085bba209995e436990ad32dcb3a39394f6f
     volumes:
-      - "{{ docker_volume_dirs[4] }}/1password-credentials.json:/home/opuser/.op/1password-credentials.json"
+      - "{{ docker_volume_dirs.opconnect[0] }}/1password-credentials.json:/home/opuser/.op/1password-credentials.json"
       - "data:/home/opuser/.op/data"
     ports:
       - "{{ op_connect_ports[0] }}:8080"
@@ -30,10 +30,19 @@ services:
   opconnect_sync:
     image: 1password/connect-sync:latest@sha256:2dad1711656f282f74421ef382055b4ed3c9923fb342f44773802d87c59e1641
     volumes:
-      - "{{ docker_volume_dirs[4] }}/1password-credentials.json:/home/opuser/.op/1password-credentials.json"
+      - "{{ docker_volume_dirs.opconnect[0] }}/1password-credentials.json:/home/opuser/.op/1password-credentials.json"
       - "data:/home/opuser/.op/data"
     ports:
       - "{{ op_connect_ports[1] }}:8080"
     restart: "always"
+  promtail:
+    image: grafana/promtail:latest
+    restart: "always"
+    volumes:
+      - "/var/log/cloudflared.log:/var/log/cloudflared.log:ro"
+      - "/var/log/journal:/var/log/journal:ro"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "{{ docker_volume_dirs.promtail[0] }}/config.yaml:/etc/promtail/config.yaml"
+    command: "-config.file=/etc/promtail/config.yaml"
 volumes:
   data:
