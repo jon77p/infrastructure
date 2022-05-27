@@ -54,16 +54,12 @@ all:
       hosts:
         certmanager:
         traefik:
-        loki:
-        promtail:
-        prometheus:
         unifipoller:
         gaps:
         nodered:
         influxdb:
         varken:
         traefikhub:
-        piholeexporter:
         kubernetesdashboard:
         spekt8:
         descheduler:

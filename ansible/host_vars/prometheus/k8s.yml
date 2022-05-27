@@ -1,4 +1,0 @@
----
-service_name: "prometheus"
-namespaces:
-  - "{{ service_name }}"
