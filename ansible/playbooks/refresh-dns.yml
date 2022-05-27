@@ -1,0 +1,14 @@
+---
+- hosts:
+    - pihole
+    - innernet
+    - nextcloud
+    - healthchecks
+    - vault
+    - firefly
+    - monitoring
+    - allaboutsecurity
+    - securemylife
+    - codeserver
+  roles:
+    - dns
