@@ -1,3 +1,4 @@
 ---
 nameservers:
-  - "{{ pihole_innernet_address }}"
+  - "{{ cloudflare_dns_ip_addresses.primary }}"
+  - "{{ cloudflare_dns_ip_addresses.secondary }}"
