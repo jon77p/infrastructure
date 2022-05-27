@@ -2,6 +2,7 @@
 prometheus:
   host: "prometheus"
   port: "9000"
+  internal_port: "9090"
   cloudflared:
     - "firefly.{{ domain }}"
     - "firefly-importer.{{ domain }}"
@@ -34,12 +35,12 @@ grafana:
       datasources:
         - name: Loki
           type: loki
-          access: direct
+          access: proxy
           url: "http://{{ loki.host }}:{{ loki.port }}"
         - name: Prometheus
           type: prometheus
-          access: direct
-          url: "http://{{ prometheus.host }}:{{ prometheus.port }}"
+          access: proxy
+          url: "http://{{ prometheus.host }}:{{ prometheus.internal_port }}"
     dashboardProviders:
       apiVersion: 1
       providers:
