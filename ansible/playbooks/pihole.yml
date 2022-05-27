@@ -16,6 +16,7 @@
     - cloudflared
     - cloudflare
     - innernet
+    - dns
     - pihole
     - promtail
     - docker

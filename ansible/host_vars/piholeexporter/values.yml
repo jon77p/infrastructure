@@ -1,8 +1,0 @@
----
-values:
-  image:
-    tag: "v0.0.11"
-  extraEnvVars:
-    PIHOLE_HOSTNAME: "pihole-web.pihole.svc.cluster.local"
-  secretEnvVars:
-    PIHOLE_APITOKEN: "{{ vault_secrets_pihole_apitoken }}"

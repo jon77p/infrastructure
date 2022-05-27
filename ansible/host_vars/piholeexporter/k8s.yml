@@ -1,4 +1,0 @@
----
-service_name: "pihole-exporter"
-namespaces:
-  - "pihole"

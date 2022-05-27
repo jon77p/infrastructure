@@ -8,9 +8,9 @@ services:
       - "{{ docker_volume_dirs.pihole[0] }}:/etc/pihole"
       - "{{ docker_volume_dirs.pihole[1] }}:/etc/dnsmasq.d"
     ports:
-      - "{{ compose_project_ports[0] }}:80/tcp"
-      - "{{ compose_project_ports[1] }}:53/tcp"
-      - "{{ compose_project_ports[1] }}:53/udp"
+      - "{{ compose_project_ports.pihole[0] }}:80/tcp"
+      - "{{ compose_project_ports.pihole[1] }}:53/tcp"
+      - "{{ compose_project_ports.pihole[1] }}:53/udp"
     environment:
       TZ: "America/Los_Angeles"
       WEBPASSWORD: "{{ pihole.admin.password }}"
@@ -28,6 +28,14 @@ services:
       timeout: 45s
       interval: 10s
       retries: 5
+  pihole_exporter:
+    image: ekofr/pihole-exporter:latest
+    ports:
+      - "{{ compose_project_ports.pihole_exporter[0] }}:9617"
+    environment:
+      PIHOLE_HOSTNAME: "{{ pihole_exporter.pihole_hostname }}"
+      PIHOLE_PASSWORD: "{{ pihole.admin.password }}"
+    restart: "always"
   promtail:
     image: grafana/promtail:latest
     restart: "always"

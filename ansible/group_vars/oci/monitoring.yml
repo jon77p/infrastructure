@@ -5,3 +5,6 @@ prometheus:
 loki:
   host: "{{ monitoring_innernet_address }}"
   port: "3100"
+pihole_exporter:
+  host: "{{ pihole_innernet_address }}"
+  port: "9617"
