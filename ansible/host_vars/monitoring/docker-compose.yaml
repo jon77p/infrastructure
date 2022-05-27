@@ -1,6 +1,14 @@
 ---
 version: '3'
 services:
+  prometheus:
+    image: prom/prometheus:latest
+    restart: "always"
+    volumes:
+      - "{{ docker_volume_dirs.prometheus[0] }}/prometheus.yml:/etc/prometheus/prometheus.yml"
+      # - "{{ docker_volume_dirs.prometheus[1] }}:/prometheus"
+    ports:
+      - "{{ compose_project_ports.prometheus[0] }}:9090"
   loki:
     image: grafana/loki:latest
     restart: "always"

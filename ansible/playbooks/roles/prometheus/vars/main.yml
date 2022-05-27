@@ -1,0 +1,4 @@
+---
+docker_volume_dirs: "{{ hostvars[inventory_hostname].docker_volume_dirs }}"
+prometheus: "{{ hostvars[inventory_hostname].prometheus }}"
+grafana: "{{ hostvars[inventory_hostname].grafana }}"

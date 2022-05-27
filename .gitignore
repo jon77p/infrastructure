@@ -3,5 +3,3 @@ secrets*
 Brewfile.lock.json
 .config.env
 .decrypted~*.yaml
-!ansible/host_vars/logs/
-!ansible/host_vars/logs/*

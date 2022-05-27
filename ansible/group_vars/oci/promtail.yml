@@ -1,4 +1,0 @@
----
-loki:
-  host: "{{ logs_innernet_address }}"
-  port: "3100"

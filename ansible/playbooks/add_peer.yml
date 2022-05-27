@@ -10,9 +10,10 @@
     - healthchecks
     - vault
     - firefly
-    - logs
+    - monitoring
     - allaboutsecurity
     - securemylife
+    - codeserver
   roles:
     - innernet
     - dns

@@ -9,8 +9,9 @@
     - healthchecks
     - vault
     - firefly
-    - logs
+    - monitoring
     - allaboutsecurity
     - securemylife
+    - codeserver
   roles:
     - remove_innernet

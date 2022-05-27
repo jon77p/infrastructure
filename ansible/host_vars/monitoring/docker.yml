@@ -1,17 +1,22 @@
 ---
-compose_project_name: "logs"
+compose_project_name: "monitoring"
 compose_project_ports:
+  prometheus:
+    - "{{ prometheus.port }}"
   loki:
     - "{{ loki.port }}"
   grafana:
-    - "3000"
+    - "{{ grafana.port }}"
 docker_user_id:
   grafana: "472"
 docker_group_id:
   grafana: "0"
 docker_volume_dirs:
-  logs:
+  monitoring:
     - "/mnt/{{ compose_project_name }}"
+  prometheus:
+    - "/mnt/{{ compose_project_name }}/prometheus/config"
+    - "/mnt/{{ compose_project_name }}/prometheus/data"
   loki:
     - "/mnt/{{ compose_project_name }}/loki/config"
   promtail:

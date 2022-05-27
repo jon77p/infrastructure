@@ -34,8 +34,8 @@ all:
               ansible_host: healthchecks
             nextcloud:
               ansible_host: nextcloud
-            logs:
-              ansible_host: logs
+            monitoring:
+              ansible_host: monitoring
             pihole:
               ansible_host: pihole
             vault:

@@ -1,0 +1,7 @@
+---
+prometheus:
+  host: "{{ monitoring_innernet_address }}"
+  port: "9000"
+loki:
+  host: "{{ monitoring_innernet_address }}"
+  port: "3100"

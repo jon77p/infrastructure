@@ -1,8 +1,8 @@
 ---
-- hosts: localhost,logs
+- hosts: localhost,monitoring
   vars:
     opconnect_item_names:
-      - "logs"
+      - "monitoring"
       - "grafana"
     opconnect_field_names:
       - "healthcheck"
@@ -13,7 +13,7 @@
   roles:
     - 1password
 
-- hosts: logs
+- hosts: monitoring
   become: true
   roles:
     - common
@@ -22,6 +22,7 @@
     - cron
     - innernet
     - dns
+    - prometheus
     - loki
     - promtail
     - grafana
