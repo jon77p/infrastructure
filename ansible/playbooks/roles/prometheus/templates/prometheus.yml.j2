@@ -25,7 +25,13 @@ scrape_configs:
 - job_name: 'pihole'
   static_configs:
     - targets:
-      - "{{ pihole_innernet_address }}:{{ pihole_exporter.port }}"
+      - "{{ pihole_exporter.host }}:{{ pihole_exporter.port }}"
+- job_name: 'healthchecks'
+  scheme: http
+  metrics_path: "/projects/{{ prometheus.healthchecks.project_id }}/metrics/{{ prometheus.healthchecks.readonly_apikey }}"
+  static_configs:
+    - targets:
+      - "{{ healthchecks.host }}:{{ healthchecks.port }}"
 - job_name: 'cloudflared'
   scheme: https
   static_configs:

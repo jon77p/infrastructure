@@ -1,5 +1,6 @@
 ---
 healthchecks:
+  port: "8000"
   healthcheck: "{{ opconnect_results['healthchecks'].healthcheck }}"
   email:
     host: "smtp.gmail.com"

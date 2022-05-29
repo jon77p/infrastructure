@@ -22,7 +22,7 @@ peers:
     ip: "10.42.128.3"
   - name: healthchecks
     cidr: services
-    ip: "10.42.128.4"
+    ip: "{{ healthchecks_innernet_address }}"
   - name: vault
     cidr: services
     ip: "10.42.128.5"

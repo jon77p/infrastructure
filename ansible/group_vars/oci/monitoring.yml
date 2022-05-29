@@ -8,3 +8,6 @@ loki:
 pihole_exporter:
   host: "{{ pihole_innernet_address }}"
   port: "9617"
+healthchecks:
+  host: "{{ healthchecks_innernet_address }}"
+  port: "8000"

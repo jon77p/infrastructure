@@ -9,6 +9,11 @@ services:
       # - "{{ docker_volume_dirs.prometheus[1] }}:/prometheus"
     ports:
       - "{{ compose_project_ports.prometheus[0] }}:{{ prometheus.internal_port }}"
+    healthcheck:
+      test: ["CMD", "wget", "https://healthchecks.{{ domain }}/ping/{{ prometheus.healthcheck }}", "-O", "/dev/null"]
+      timeout: 45s
+      interval: 10s
+      retries: 5
   loki:
     image: grafana/loki:latest
     restart: "always"
@@ -16,6 +21,11 @@ services:
       - "{{ docker_volume_dirs.loki[0] }}/local-config.yaml:/etc/loki/local-config.yaml"
     ports:
       - "{{ compose_project_ports.loki[0] }}:3100"
+    healthcheck:
+      test: ["CMD", "wget", "https://healthchecks.{{ domain }}/ping/{{ loki.healthcheck }}", "-O", "/dev/null"]
+      timeout: 45s
+      interval: 10s
+      retries: 5
   promtail:
     image: grafana/promtail:latest
     restart: "always"
@@ -27,6 +37,32 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - "{{ docker_volume_dirs.promtail[0] }}/config.yaml:/etc/promtail/config.yaml"
     command: "-config.file=/etc/promtail/config.yaml"
+  influxdb:
+    image: influxdb:1.8
+    restart: "always"
+    volumes:
+      - "{{ docker_volume_dirs.influxdb[0] }}:/var/lib/influxdb"
+    ports:
+      - "{{ compose_project_ports.influxdb[0] }}:8086"
+    healthcheck:
+      test: ["CMD", "curl", "https://healthchecks.{{ domain }}/ping/{{ influxdb.healthcheck }}"]
+      timeout: 45s
+      interval: 10s
+      retries: 5
+  varken:
+    image: boerderij/varken:latest
+    restart: "always"
+    depends_on:
+      - influxdb
+    volumes:
+      - "{{ docker_volume_dirs.varken[0] }}:/config"
+    environment:
+      - TZ=America/Los_Angeles
+    healthcheck:
+      test: ["CMD", "wget", "https://healthchecks.{{ domain }}/ping/{{ varken.healthcheck }}", "-O", "/dev/null"]
+      timeout: 45s
+      interval: 10s
+      retries: 5
   grafana:
     image: grafana/grafana-oss:latest
     restart: "always"
@@ -37,6 +73,11 @@ services:
       - "{{ docker_volume_dirs.grafana[3] }}:/etc/grafana/provisioning"
     ports:
       - "{{ compose_project_ports.grafana[0] }}:3000"
+    depends_on:
+      - prometheus
+      - loki
+      - influxdb
+      - varken
     environment:
       GF_INSTALL_PLUGINS: "{{ grafana.plugins }}"
       GF_DEFAULT_INSTANCE_NAME: "grafana"
