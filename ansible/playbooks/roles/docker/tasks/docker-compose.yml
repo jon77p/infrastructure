@@ -28,6 +28,7 @@
   community.docker.docker_compose:
     project_name: "{{ compose_project_name }}"
     definition: "{{ compose_definition }}"
+    timeout: 60
   register: output
 
 - debug:
