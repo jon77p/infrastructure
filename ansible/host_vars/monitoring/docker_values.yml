@@ -1,4 +1,10 @@
 ---
+cadvisor:
+  port: "8888"
+  internal_port: "8080"
+node_exporter:
+  port: "9100"
+  internal_port: "9100"
 prometheus:
   host: "prometheus"
   port: "9000"

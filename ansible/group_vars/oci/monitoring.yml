@@ -1,4 +1,10 @@
 ---
+cadvisor:
+  host: "{{ monitoring_innernet_address }}"
+  port: "8888"
+node_exporter:
+  host: "{{ monitoring_innernet_address }}"
+  port: "9100"
 prometheus:
   host: "{{ monitoring_innernet_address }}"
   port: "9000"
