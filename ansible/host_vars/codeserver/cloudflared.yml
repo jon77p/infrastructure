@@ -1,4 +1,4 @@
 ---
 additional_ingress:
-  - hostname: "{{ project_name }}.{{ domain }}"
-    service: "http://localhost:{{ project_port }}"
+  - hostname: "{{ codeserver.project_name }}.{{ domain }}"
+    service: "http://localhost:{{ codeserver.port }}"

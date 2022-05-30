@@ -1,7 +1,7 @@
 ---
 cloudflare_dns_records:
   - zone: "{{ domain }}"
-    record: "{{ project_name }}.{{ domain }}"
+    record: "{{ codeserver.project_name }}.{{ domain }}"
     type: CNAME
     value: "tunnel-{{ ansible_host }}.{{ domain }}"
     proxied: true

@@ -6,5 +6,5 @@ cronjobs:
     day: "*"
     weekday: "*"
     month: "*"
-    job: "curl -m 10 --retry 5 -o /dev/null https://healthchecks.{{ domain }}/ping/{{ opconnect_results[inventory_hostname].healthcheck }}"
+    job: "curl -m 10 --retry 5 -o /dev/null https://healthchecks.{{ domain }}/ping/{{ codeserver.healthcheck }}"
     state: "present"

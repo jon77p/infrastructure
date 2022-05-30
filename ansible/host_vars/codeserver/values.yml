@@ -1,21 +1,6 @@
 ---
-values:
-  image:
-    repository: linuxserver/code-server
-    tag: "latest"
-  ingress:
-    enabled: true
-    annotations:
-      kubernetes.io/ingress.class: traefik
-      traefik.ingress.kubernetes.io/router.entrypoints: websecure
-      cert-manager.io/cluster-issuer: cloudflare-issuer
-    hosts:
-      - host: "code.{{ domain }}"
-        paths:
-          - path: /
-    tls:
-      - secretName: "{{ service_name }}-tls"
-        hosts:
-          - "code.{{ domain }}"
-  persistence:
-    enabled: true
+codeserver:
+  project_name: "code"
+  port: "8080"
+  healthcheck: "{{ opconnect_results['codeserver'].healthcheck }}"
+  password: "{{ opconnect_results['codeserver'].password }}"
