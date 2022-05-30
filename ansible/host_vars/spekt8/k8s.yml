@@ -1,4 +1,0 @@
----
-service_name: "spekt8"
-namespaces:
-  - "{{ service_name }}"

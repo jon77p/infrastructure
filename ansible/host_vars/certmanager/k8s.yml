@@ -1,5 +1,0 @@
----
-service_name: "cert-manager"
-dns_zones:
-  - "{{ domain }}"
-  - "allaboutsecurity.xyz"

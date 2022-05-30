@@ -1,8 +1,0 @@
----
-cloudflare_dns_records:
-  - zone: "{{ domain }}"
-    record: "live.{{ domain }}"
-    type: CNAME
-    value: "tunnel.{{ domain }}"
-    proxied: true
-    state: present

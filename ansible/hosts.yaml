@@ -52,14 +52,5 @@ all:
         ansible_ssh_user: ubuntu
     deployments:
       hosts:
-        certmanager:
-        traefik:
-        unifipoller:
         gaps:
         nodered:
-        influxdb:
-        varken:
-        traefikhub:
-        kubernetesdashboard:
-        spekt8:
-        descheduler:

@@ -1,3 +1,0 @@
----
-values:
-  token: "{{ vault_secrets_hub_token }}"
