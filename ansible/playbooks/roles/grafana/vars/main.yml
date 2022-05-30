@@ -2,3 +2,5 @@
 docker_volume_dirs: "{{ hostvars[inventory_hostname].docker_volume_dirs }}"
 docker_user_id: "{{ hostvars[inventory_hostname].docker_user_id }}"
 docker_group_id: "{{ hostvars[inventory_hostname].docker_group_id }}"
+grafana: "{{ hostvars[inventory_hostname].grafana }}"
+loki: "{{ hostvars[inventory_hostname].loki }}"

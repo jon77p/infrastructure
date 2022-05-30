@@ -1,0 +1,21 @@
+---
+cadvisor:
+  host: "{{ monitoring_innernet_address }}"
+  port: "8888"
+  internal_port: "8080"
+node_exporter:
+  host: "{{ monitoring_innernet_address }}"
+  port: "9100"
+  internal_port: "9100"
+prometheus:
+  host: "{{ monitoring_innernet_address }}"
+  port: "9000"
+loki:
+  host: "{{ monitoring_innernet_address }}"
+  port: "3100"
+pihole_exporter:
+  host: "{{ pihole_innernet_address }}"
+  port: "9617"
+healthchecks:
+  host: "{{ healthchecks_innernet_address }}"
+  port: "8000"

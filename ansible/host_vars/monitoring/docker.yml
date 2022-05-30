@@ -1,0 +1,42 @@
+---
+compose_project_name: "monitoring"
+compose_project_ports:
+  cadvisor:
+    - "{{ cadvisor.port }}"
+  node_exporter:
+    - "{{ node_exporter.port }}"
+  prometheus:
+    - "{{ prometheus.port }}"
+  loki:
+    - "{{ loki.port }}"
+  influxdb:
+    - "{{ influxdb.port }}"
+  grafana:
+    - "{{ grafana.port }}"
+docker_user_id:
+  grafana: "472"
+docker_group_id:
+  grafana: "0"
+docker_volume_dirs:
+  monitoring:
+    - "/mnt/{{ compose_project_name }}"
+  prometheus:
+    - "/mnt/{{ compose_project_name }}/prometheus/config"
+    - "/mnt/{{ compose_project_name }}/prometheus/data"
+  loki:
+    - "/mnt/{{ compose_project_name }}/loki/config"
+  promtail:
+    - "/mnt/{{ compose_project_name }}/promtail/config"
+  influxdb:
+    - "/mnt/{{ compose_project_name }}/influxdb/config"
+  varken:
+    - "/mnt/{{ compose_project_name }}/varken/config"
+  grafana:
+    - "/mnt/{{ compose_project_name }}/grafana/config"
+    - "/mnt/{{ compose_project_name }}/grafana/data"
+    - "/mnt/{{ compose_project_name }}/grafana/plugins"
+    - "/mnt/{{ compose_project_name }}/grafana/provisioning"
+    - "/mnt/{{ compose_project_name }}/grafana/provisioning/datasources"
+    - "/mnt/{{ compose_project_name }}/grafana/provisioning/plugins"
+    - "/mnt/{{ compose_project_name }}/grafana/provisioning/notifiers"
+    - "/mnt/{{ compose_project_name }}/grafana/provisioning/dashboards"

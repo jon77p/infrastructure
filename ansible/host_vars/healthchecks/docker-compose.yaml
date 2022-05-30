@@ -4,7 +4,7 @@ services:
   healthchecks:
     image: linuxserver/healthchecks:latest@sha256:f01852094a8667a79e97b27f4484ffd8cf97171de5dd1df6f6a54929660545f2
     volumes:
-      - "{{ docker_volume_dirs[0] }}:/config"
+      - "{{ docker_volume_dirs.healthchecks[0] }}:/config"
     ports:
       - "{{ compose_project_port }}:8000"
     environment:
@@ -25,3 +25,34 @@ services:
       timeout: 45s
       interval: 10s
       retries: 5
+  promtail:
+    image: grafana/promtail:latest
+    restart: "always"
+    volumes:
+      - "/var/log/cloudflared.log:/var/log/cloudflared.log:ro"
+      - "/var/log/journal:/var/log/journal:ro"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "{{ docker_volume_dirs.promtail[0] }}/config.yaml:/etc/promtail/config.yaml"
+    command: "-config.file=/etc/promtail/config.yaml"
+  node_exporter:
+    image: quay.io/prometheus/node-exporter:latest
+    restart: "always"
+    ports:
+      - "{{ node_exporter.port }}:{{ node_exporter.internal_port }}"
+    command:
+      - "--path.rootfs=/host"
+      - "--collector.systemd"
+      - "--collector.processes"
+    pid: host
+    volumes:
+      - "/:/host:ro,rslave"
+  cadvisor:
+    image: zcube/cadvisor:latest
+    restart: "always"
+    ports:
+      - "{{ cadvisor.port }}:{{ cadvisor.internal_port }}"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro

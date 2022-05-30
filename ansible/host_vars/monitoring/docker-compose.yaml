@@ -1,0 +1,119 @@
+---
+version: '3'
+services:
+  cadvisor:
+    image: zcube/cadvisor:latest
+    restart: "always"
+    ports:
+      - "{{ compose_project_ports.cadvisor[0] }}:{{ cadvisor.internal_port }}"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+  node_exporter:
+    image: quay.io/prometheus/node-exporter:latest
+    restart: "always"
+    ports:
+      - "{{ compose_project_ports.node_exporter[0] }}:{{ node_exporter.internal_port }}"
+    command:
+      - "--path.rootfs=/host"
+      - "--collector.systemd"
+      - "--collector.processes"
+    pid: host
+    volumes:
+      - "/:/host:ro,rslave"
+  prometheus:
+    image: prom/prometheus:latest
+    restart: "always"
+    volumes:
+      - "{{ docker_volume_dirs.prometheus[0] }}/prometheus.yml:/etc/prometheus/prometheus.yml"
+      - "{{ docker_volume_dirs.prometheus[1] }}:/prometheus" # todo: chown this after creation on host: chown 65534:65534
+    ports:
+      - "{{ compose_project_ports.prometheus[0] }}:{{ prometheus.internal_port }}"
+    depends_on:
+      - cadvisor
+      - node_exporter
+    healthcheck:
+      test: ["CMD", "wget", "https://healthchecks.{{ domain }}/ping/{{ prometheus.healthcheck }}", "-O", "/dev/null"]
+      timeout: 45s
+      interval: 10s
+      retries: 5
+  loki:
+    image: grafana/loki:latest
+    restart: "always"
+    volumes:
+      - "{{ docker_volume_dirs.loki[0] }}/local-config.yaml:/etc/loki/local-config.yaml"
+    ports:
+      - "{{ compose_project_ports.loki[0] }}:3100"
+    healthcheck:
+      test: ["CMD", "wget", "https://healthchecks.{{ domain }}/ping/{{ loki.healthcheck }}", "-O", "/dev/null"]
+      timeout: 45s
+      interval: 10s
+      retries: 5
+  promtail:
+    image: grafana/promtail:latest
+    restart: "always"
+    depends_on:
+      - loki
+    volumes:
+      - "/var/log/cloudflared.log:/var/log/cloudflared.log:ro"
+      - "/var/log/journal:/var/log/journal:ro"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "{{ docker_volume_dirs.promtail[0] }}/config.yaml:/etc/promtail/config.yaml"
+    command: "-config.file=/etc/promtail/config.yaml"
+  influxdb:
+    image: influxdb:1.8
+    restart: "always"
+    volumes:
+      - "{{ docker_volume_dirs.influxdb[0] }}:/var/lib/influxdb"
+    ports:
+      - "{{ compose_project_ports.influxdb[0] }}:8086"
+    healthcheck:
+      test: ["CMD", "curl", "https://healthchecks.{{ domain }}/ping/{{ influxdb.healthcheck }}"]
+      timeout: 45s
+      interval: 10s
+      retries: 5
+  varken:
+    image: boerderij/varken:latest
+    restart: "always"
+    depends_on:
+      - influxdb
+    volumes:
+      - "{{ docker_volume_dirs.varken[0] }}:/config"
+    environment:
+      - TZ=America/Los_Angeles
+    healthcheck:
+      test: ["CMD", "wget", "https://healthchecks.{{ domain }}/ping/{{ varken.healthcheck }}", "-O", "/dev/null"]
+      timeout: 45s
+      interval: 10s
+      retries: 5
+  grafana:
+    image: grafana/grafana-oss:latest
+    restart: "always"
+    volumes:
+      - "{{ docker_volume_dirs.grafana[0] }}/grafana.ini:/etc/grafana/grafana.ini"
+      - "{{ docker_volume_dirs.grafana[1] }}:/var/lib/grafana"
+      - "{{ docker_volume_dirs.grafana[2] }}:/var/lib/grafana/plugins"
+      - "{{ docker_volume_dirs.grafana[3] }}:/etc/grafana/provisioning"
+    ports:
+      - "{{ compose_project_ports.grafana[0] }}:3000"
+    depends_on:
+      - prometheus
+      - loki
+      - influxdb
+      - varken
+    environment:
+      GF_INSTALL_PLUGINS: "{{ grafana.plugins }}"
+      GF_DEFAULT_INSTANCE_NAME: "grafana"
+      GF_SECURITY_ADMIN_USER: "{{ grafana.admin.username }}"
+      GF_SECURITY_ADMIN_PASSWORD: "{{ grafana.admin.password }}"
+      GF_SMTP_ENABLED: "true"
+      GF_SMTP_HOST: "{{ grafana.smtp.host }}"
+      GF_SMTP_PORT: "{{ grafana.smtp.port }}"
+      GF_SMTP_USER: "{{ grafana.smtp.username }}"
+      GF_SMTP_PASSWORD: "{{ grafana.smtp.password }}"
+      GF_SMTP_SKIP_VERIFY: "false"
+      GF_SMTP_FROM_ADDRESS: "{{ grafana.smtp.from }}"
+      GF_USERS_VERIFY_EMAIL_ENABLED: "true"
+      GF_EMAILS_WELCOME_EMAIL_ON_SIGNUP: "true"

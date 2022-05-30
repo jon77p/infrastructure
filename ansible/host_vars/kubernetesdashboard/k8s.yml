@@ -1,4 +1,0 @@
----
-service_name: "kubernetes-dashboard"
-namespaces:
-  - "{{ service_name }}"

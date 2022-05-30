@@ -1,0 +1,164 @@
+---
+cadvisor:
+  port: "8888"
+  internal_port: "8080"
+node_exporter:
+  port: "9100"
+  internal_port: "9100"
+prometheus:
+  host: "prometheus"
+  port: "9000"
+  internal_port: "9090"
+  healthcheck: "{{ opconnect_results['prometheus'].healthcheck }}"
+  cloudflared:
+    - "firefly.{{ domain }}"
+    - "firefly-importer.{{ domain }}"
+    - "healthchecks.{{ domain }}"
+    - "prometheus.{{ domain }}"
+    - "grafana.{{ domain }}"
+    - "drive.thepi.cloud"
+    - "pihole.{{ domain }}"
+    - "vault.{{ domain }}"
+    - "allaboutsecurity.xyz"
+    - "securemy.life"
+  healthchecks:
+    project_id: "{{ opconnect_results['healthchecks'].project_id }}"
+    readonly_apikey: "{{ opconnect_results['healthchecks'].readonly_apikey }}"
+loki:
+  host: "loki"
+  port: "3100"
+  healthcheck: "{{ opconnect_results['loki'].healthcheck }}"
+grafana:
+  port: "3000"
+  plugins: "grafana-piechart-panel,grafana-worldmap-panel,grafana-clock-panel"
+  admin:
+    username: "{{ opconnect_results['grafana'].username }}"
+    password: "{{ opconnect_results['grafana'].password }}"
+  smtp:
+    host: "smtp.gmail.com:587"
+    port: "587"
+    username: "{{ opconnect_results['grafana'].smtp_username }}"
+    password: "{{ opconnect_results['grafana'].smtp_password }}"
+    from: "grafana@{{ domain }}"
+  provisioning:
+    datasources:
+      apiVersion: 1
+      datasources:
+        - name: Loki
+          type: loki
+          access: proxy
+          url: "http://{{ loki.host }}:{{ loki.port }}"
+        - name: Prometheus
+          type: prometheus
+          access: proxy
+          url: "http://{{ prometheus.host }}:{{ prometheus.internal_port }}"
+        - name: Influxdb
+          type: influxdb
+          access: proxy
+          url: "http://{{ influxdb.host }}:{{ influxdb.port }}"
+          database: "influx"
+          username: "{{ influxdb.username }}"
+          password: "{{ influxdb.password }}"
+        - name: Varken
+          type: influxdb
+          access: proxy
+          url: "http://{{ influxdb.host }}:{{ influxdb.port }}"
+          database: "varken"
+          username: "{{ influxdb.username }}"
+          password: "{{ influxdb.password }}"
+    dashboardProviders:
+      apiVersion: 1
+      providers:
+        - name: 'default'
+          orgId: 1
+          folder: ''
+          type: file
+          disableDeletion: false
+          editable: true
+          options:
+            path: /var/lib/grafana/dashboards/default
+        - name: 'unifi'
+          orgId: 1
+          folder: 'Unifi'
+          type: file
+          disableDeletion: false
+          editable: true
+          options:
+            path: /var/lib/grafana/dashboards/unifi
+        - name: 'media'
+          orgId: 1
+          folder: 'Media'
+          type: file
+          disableDeletion: false
+          editable: true
+          options:
+            path: /var/lib/grafana/dashboards/media
+  dashboards:
+    default:
+      prometheus:
+        gnetId: 2
+        revision: 2
+        datasource: Prometheus
+      pihole:
+        gnetId: 10176
+        revision: 2
+        datasource: Prometheus
+    unifi:
+      client-insights:
+        gnetId: 11315
+        revision: 8
+        datasource: Prometheus
+      uap-insights:
+        gnetId: 11314
+        revision: 9
+        datasource: Prometheus
+      network-sites:
+        gnetId: 11311
+        revision: 4
+        datasource: Prometheus
+      usw-insights:
+        gnetId: 11312
+        revision: 8
+        datasource: Prometheus
+      usg-insights:
+        gnetId: 11313
+        revision: 8
+        datasource: Prometheus
+      client-dpi:
+        gnetId: 11310
+        revision: 4
+        datasource: Prometheus
+    media:
+      varken-official:
+        gnetId: 9585
+        revision: 5
+        datasource: Varken
+      varken-unofficial:
+        gnetId: 9558
+        revision: 15
+        datasource: Varken
+influxdb:
+  host: "influxdb"
+  port: "8086"
+  healthcheck: "{{ opconnect_results['influxdb'].healthcheck }}"
+  username: "{{ opconnect_results['influxdb'].username }}"
+  password: "{{ opconnect_results['influxdb'].password }}"
+varken:
+  healthcheck: "{{ opconnect_results['mediaserver'].healthcheck }}"
+  maxmind:
+    license_key: "{{ opconnect_results['mediaserver'].maxmind_license_key }}"
+  tautulli:
+    - url: "{{ opconnect_results['mediaserver'].tautulli_url }}"
+      apikey: "{{ opconnect_results['mediaserver'].tautulli_apikey }}"
+  sonarr:
+    - url: "{{ opconnect_results['mediaserver'].sonarr_url }}"
+      apikey: "{{ opconnect_results['mediaserver'].sonarr_apikey }}"
+  radarr:
+    - url: "{{ opconnect_results['mediaserver'].radarr_url }}"
+      apikey: "{{ opconnect_results['mediaserver'].radarr_apikey }}"
+  lidarr:
+    - url: "{{ opconnect_results['mediaserver'].lidarr_url }}"
+      apikey: "{{ opconnect_results['mediaserver'].lidarr_apikey }}"
+  ombi:
+    - url: "{{ opconnect_results['mediaserver'].ombi_url }}"
+      apikey: "{{ opconnect_results['mediaserver'].ombi_apikey }}"

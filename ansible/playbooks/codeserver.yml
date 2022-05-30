@@ -16,4 +16,6 @@
     - cloudflared
     - cloudflare
     - cron
+    - innernet
+    - dns
     - codeserver

@@ -1,2 +1,2 @@
 ---
-healthcheck_uuid: "{{ vault_healthcheck_uuid }}"
+healthcheck_uuid: "{{ opconnect['k8s_nodes'].healthcheck }}"

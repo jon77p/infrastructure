@@ -1,0 +1,17 @@
+---
+- name: Create mount directories
+  become: true
+  file:
+    path: "{{ path }}"
+    recurse: true
+    state: directory
+  loop: "{{ docker_volume_dirs.loki }}"
+  loop_control:
+    loop_var: "path"
+
+- name: Create config file
+  become: true
+  when: "docker_volume_dirs.loki != []"
+  template:
+    src: ../templates/local-config.yaml.j2
+    dest: "{{ docker_volume_dirs.loki[0] }}/local-config.yaml"

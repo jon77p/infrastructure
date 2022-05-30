@@ -34,8 +34,8 @@ all:
               ansible_host: healthchecks
             nextcloud:
               ansible_host: nextcloud
-            logs:
-              ansible_host: logs
+            monitoring:
+              ansible_host: monitoring
             pihole:
               ansible_host: pihole
             vault:
@@ -52,18 +52,5 @@ all:
         ansible_ssh_user: ubuntu
     deployments:
       hosts:
-        certmanager:
-        traefik:
-        loki:
-        promtail:
-        prometheus:
-        unifipoller:
         gaps:
         nodered:
-        influxdb:
-        varken:
-        traefikhub:
-        piholeexporter:
-        kubernetesdashboard:
-        spekt8:
-        descheduler:

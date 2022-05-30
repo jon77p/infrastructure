@@ -1,4 +1,0 @@
----
-service_name: "whoami"
-namespaces:
-  - "{{ service_name }}"

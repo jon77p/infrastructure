@@ -1,0 +1,17 @@
+---
+- name: Create mount directories
+  become: true
+  file:
+    path: "{{ path }}"
+    recurse: true
+    state: directory
+  loop: "{{ docker_volume_dirs.varken }}"
+  loop_control:
+    loop_var: "path"
+
+- name: Create config file
+  become: true
+  when: "docker_volume_dirs.varken != []"
+  template:
+    src: ../templates/varken.ini.j2
+    dest: "{{ docker_volume_dirs.varken[0] }}/varken.ini"

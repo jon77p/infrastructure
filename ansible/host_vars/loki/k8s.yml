@@ -1,4 +1,0 @@
----
-service_name: "loki"
-namespaces:
-  - "{{ service_name }}"

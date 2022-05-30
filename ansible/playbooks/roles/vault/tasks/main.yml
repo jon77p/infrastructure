@@ -1,22 +1,30 @@
 ---
-- name: Create mount directories
+- name: Create mount directories - vault
   become: true
   file:
     path: "{{ item }}"
     recurse: true
     state: directory
-  loop: "{{ docker_volume_dirs }}"
+  loop: "{{ docker_volume_dirs.vault }}"
+
+- name: Create mount directories - opconnect
+  become: true
+  file:
+    path: "{{ item }}"
+    recurse: true
+    state: directory
+  loop: "{{ docker_volume_dirs.opconnect }}"
 
 - name: Create config file
   become: true
-  when: "docker_volume_dirs != []"
+  when: "docker_volume_dirs.vault != []"
   template:
     src: ../templates/config.hcl.j2
-    dest: "{{ docker_volume_dirs[0] }}/config.hcl"
+    dest: "{{ docker_volume_dirs.vault[0] }}/config.hcl"
 
 - name: Create 1Password Connect Credentials file
   become: true
   when: "op_connect_credentials != ''"
   template:
     src: ../templates/1password-credentials.json.j2
-    dest: "{{ docker_volume_dirs[4] }}/1password-credentials.json"
+    dest: "{{ docker_volume_dirs.opconnect[0] }}/1password-credentials.json"

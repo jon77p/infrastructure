@@ -5,12 +5,12 @@ services:
     hostname: "{{ compose_project_name }}"
     image: pihole/pihole:latest@sha256:dcd0885a3fe050da005cb544904444cc098017636d6d495ac8770a9aa523a0ef
     volumes:
-      - "{{ docker_volume_dirs[0] }}:/etc/pihole"
-      - "{{ docker_volume_dirs[1] }}:/etc/dnsmasq.d"
+      - "{{ docker_volume_dirs.pihole[0] }}:/etc/pihole"
+      - "{{ docker_volume_dirs.pihole[1] }}:/etc/dnsmasq.d"
     ports:
-      - "{{ compose_project_ports[0] }}:80/tcp"
-      - "{{ compose_project_ports[1] }}:53/tcp"
-      - "{{ compose_project_ports[1] }}:53/udp"
+      - "{{ compose_project_ports.pihole[0] }}:80/tcp"
+      - "{{ compose_project_ports.pihole[1] }}:53/tcp"
+      - "{{ compose_project_ports.pihole[1] }}:53/udp"
     environment:
       TZ: "America/Los_Angeles"
       WEBPASSWORD: "{{ pihole.admin.password }}"
@@ -28,3 +28,42 @@ services:
       timeout: 45s
       interval: 10s
       retries: 5
+  pihole_exporter:
+    image: ekofr/pihole-exporter:latest
+    ports:
+      - "{{ compose_project_ports.pihole_exporter[0] }}:9617"
+    environment:
+      PIHOLE_HOSTNAME: "{{ pihole_exporter.pihole_hostname }}"
+      PIHOLE_PASSWORD: "{{ pihole.admin.password }}"
+    restart: "always"
+  promtail:
+    image: grafana/promtail:latest
+    restart: "always"
+    volumes:
+      - "/var/log/cloudflared.log:/var/log/cloudflared.log:ro"
+      - "/var/log/journal:/var/log/journal:ro"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "{{ docker_volume_dirs.promtail[0] }}/config.yaml:/etc/promtail/config.yaml"
+    command: "-config.file=/etc/promtail/config.yaml"
+  node_exporter:
+    image: quay.io/prometheus/node-exporter:latest
+    restart: "always"
+    ports:
+      - "{{ node_exporter.port }}:{{ node_exporter.internal_port }}"
+    command:
+      - "--path.rootfs=/host"
+      - "--collector.systemd"
+      - "--collector.processes"
+    pid: host
+    volumes:
+      - "/:/host:ro,rslave"
+  cadvisor:
+    image: zcube/cadvisor:latest
+    restart: "always"
+    ports:
+      - "{{ cadvisor.port }}:{{ cadvisor.internal_port }}"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro

@@ -2,6 +2,12 @@
 - name: "Install Code-Server"
   shell: "curl -fsSL https://code-server.dev/install.sh | sh"
 
+- name: "Create necessary config directories"
+  file:
+    path: "/home/{{ ansible_ssh_user }}/.config/code-server"
+    state: directory
+    recurse: true
+
 - name: "Create config file"
   template:
     src: ../templates/config.yaml.j2

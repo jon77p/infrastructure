@@ -1,0 +1,48 @@
+---
+- hosts: localhost,monitoring
+  vars:
+    opconnect_item_names:
+      - "monitoring"
+      - "grafana"
+      - "influxdb"
+      - "prometheus"
+      - "loki"
+      - "mediaserver"
+      - "healthchecks"
+    opconnect_field_names:
+      - "healthcheck"
+      - "username"
+      - "password"
+      - "smtp_username"
+      - "smtp_password"
+      - "tautulli_url"
+      - "tautulli_apikey"
+      - "sonarr_url"
+      - "sonarr_apikey"
+      - "radarr_url"
+      - "radarr_apikey"
+      - "lidarr_url"
+      - "lidarr_apikey"
+      - "ombi_url"
+      - "ombi_apikey"
+      - "maxmind_license_key"
+      - "project_id"
+      - "readonly_apikey"
+  roles:
+    - 1password
+
+- hosts: monitoring
+  become: true
+  roles:
+    - common
+    - cloudflared
+    - cloudflare
+    - cron
+    - innernet
+    - dns
+    - prometheus
+    - loki
+    - promtail
+    - grafana
+    - varken
+    - docker

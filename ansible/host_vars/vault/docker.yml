@@ -1,0 +1,17 @@
+---
+compose_project_name: "vault"
+compose_project_ports:
+  - "8200"
+op_connect_ports:
+  - "8080"
+  - "8081"
+docker_volume_dirs:
+  vault:
+    - "/mnt/{{ compose_project_name }}/config"
+    - "/mnt/{{ compose_project_name }}/file"
+    - "/mnt/{{ compose_project_name }}/logs"
+    - "/mnt/{{ compose_project_name }}/plugins"
+  opconnect:
+    - "/mnt/op-connect"
+  promtail:
+    - "/mnt/{{ compose_project_name }}/promtail/config"

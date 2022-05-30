@@ -4,7 +4,7 @@ services:
   firefly:
     image: fireflyiii/core:latest@sha256:2dfdd46cb1bba3d87f0046381928d6e2422eb6999e5f15047250fe57f8b68f6d
     volumes:
-      - "{{ docker_volume_dirs[0] }}:/var/www/html/storage/upload"
+      - "{{ docker_volume_dirs.firefly[0] }}:/var/www/html/storage/upload"
     environment:
       SITE_OWNER: "{{ firefly.site_owner }}"
       APP_KEY: "{{ firefly.app_key }}"
@@ -47,7 +47,7 @@ services:
       MYSQL_PASSWORD: "{{ fireflydb.password }}"
       MYSQL_DATABASE: "{{ fireflydb.database }}"
     volumes:
-      - "{{ docker_volume_dirs[1] }}:/var/lib/mysql"
+      - "{{ docker_volume_dirs.fireflydb[0] }}:/var/lib/mysql"
     networks:
       - "firefly"
   data_importer:
@@ -74,7 +74,7 @@ services:
   plaid_connector:
     image: registry.gitlab.com/georgehahn/firefly-plaid-connector:latest@sha256:325a77dcca0a764a1aff1d658890532d35c37f734133accbddf3b3c96499c7e1
     volumes:
-      - "{{ docker_volume_dirs[2] }}:/config"
+      - "{{ docker_volume_dirs.plaid[0] }}:/config"
     depends_on:
       - "firefly"
     networks:
@@ -85,6 +85,38 @@ services:
       timeout: 45s
       interval: 10s
       retries: 5
+  promtail:
+    image: grafana/promtail:latest
+    restart: "always"
+    volumes:
+      - "/var/log/cloudflared.log:/var/log/cloudflared.log:ro"
+      - "/var/log/journal:/var/log/journal:ro"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "{{ docker_volume_dirs.promtail[0] }}/config.yaml:/etc/promtail/config.yaml"
+    command: "-config.file=/etc/promtail/config.yaml"
+  node_exporter:
+    image: quay.io/prometheus/node-exporter:latest
+    restart: "always"
+    ports:
+      - "{{ node_exporter.port }}:{{ node_exporter.internal_port }}"
+    command:
+      - "--path.rootfs=/host"
+      - "--collector.systemd"
+      - "--collector.processes"
+    pid: host
+    volumes:
+      - "/:/host:ro,rslave"
+  cadvisor:
+    image: zcube/cadvisor:latest
+    restart: "always"
+    ports:
+      - "{{ cadvisor.port }}:{{ cadvisor.internal_port }}"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+
 networks:
   firefly:
     attachable: "true"

@@ -24,4 +24,5 @@
     - dns
     - stefangweichinger.ansible_rclone
     - rclone
+    - promtail
     - docker

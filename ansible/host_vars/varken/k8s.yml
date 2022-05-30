@@ -1,4 +1,0 @@
----
-service_name: "varken"
-namespaces:
-  - "{{ service_name }}"

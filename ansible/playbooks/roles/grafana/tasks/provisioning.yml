@@ -1,0 +1,12 @@
+---
+- name: "Create Provisioning Directory {{ item.key }}"
+  become: true
+  file:
+    path: "{{ docker_volume_dirs.grafana[3] }}/{{ item.key }}"
+    state: directory
+
+- name: "Create Provisioning File {{ item.key }}"
+  become: true
+  copy:
+    dest: "{{ docker_volume_dirs.grafana[3] }}/{{ item.key }}/config.yaml"
+    content: "{{ item.value }}"

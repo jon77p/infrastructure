@@ -17,3 +17,8 @@
   template:
     src: ../templates/grafana.ini.j2
     dest: "{{ docker_volume_dirs.grafana[0] }}/grafana.ini"
+
+- name: Create Provisioning files
+  include_tasks: "provisioning.yml"
+  when: "grafana.provisioning is defined"
+  loop: "{{ grafana.provisioning | dict2items }}"

@@ -1,0 +1,4 @@
+---
+docker_volume_dirs: "{{ hostvars[inventory_hostname].docker_volume_dirs }}"
+varken: "{{ hostvars[inventory_hostname].varken }}"
+influxdb: "{{ hostvars[inventory_hostname].influxdb }}"

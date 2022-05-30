@@ -1,0 +1,46 @@
+---
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions.yaml
+
+clients:
+  - url: http://{{ loki.host }}:{{ loki.port }}/loki/api/v1/push
+
+scrape_configs:
+- job_name: cloudflared
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      job: varlogs
+      __path__: /var/log/cloudflared.log
+- job_name: syslog
+  syslog:
+    listen_address: 0.0.0.0:1514
+    labels:
+      job: "syslog"
+  relabel_configs:
+    - source_labels: ['__syslog_message_hostname']
+      target_label: 'host'
+- job_name: journal
+  journal:
+    path: /var/log/journal
+    max_age: 12h
+    labels:
+      job: systemd-journal
+  relabel_configs:
+    - source_labels: ['__journal__systemd_unit']
+      target_label: 'unit'
+    - source_labels: ['__journal__hostname']
+      target_label: 'hostname'
+- job_name: docker_scrape
+  docker_sd_configs:
+    - host: unix:///var/run/docker.sock
+      refresh_interval: 5s
+  relabel_configs:
+    - source_labels: ['__meta_docker_container_name']
+      regex: '/(.*)'
+      target_label: 'container'

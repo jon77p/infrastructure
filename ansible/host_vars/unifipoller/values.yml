@@ -1,8 +1,0 @@
----
-values:
-  env:
-    UP_UNIFI_DEFAULT_USER: "{{ unifi_user }}"
-    UP_UNIFI_DEFAULT_PASS: "{{ unifi_pass }}"
-    UP_UNIFI_DEFAULT_URL: "{{ unifi_url }}"
-    UP_UNIFI_DEFAULT_SAVE_IPS: true
-    UP_UNIFI_DEFAULT_SAVE_DPI: true

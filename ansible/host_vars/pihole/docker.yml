@@ -1,8 +1,14 @@
 ---
 compose_project_name: "pihole"
 compose_project_ports:
-  - "8080"
-  - "53"
+  pihole:
+    - "8080"
+    - "53"
+  pihole_exporter:
+    - "{{ pihole_exporter.port }}"
 docker_volume_dirs:
-  - "/mnt/{{ compose_project_name }}/config"
-  - "/mnt/{{ compose_project_name }}/dnsmasq.d"
+  pihole:
+    - "/mnt/{{ compose_project_name }}/config"
+    - "/mnt/{{ compose_project_name }}/dnsmasq.d"
+  promtail:
+    - "/mnt/{{ compose_project_name }}/promtail/config"

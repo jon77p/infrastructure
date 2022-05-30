@@ -1,0 +1,60 @@
+---
+global:
+  evaluation_interval: 1m
+  scrape_interval: 1m
+  scrape_timeout: 10s
+scrape_configs:
+- job_name: "prometheus"
+  static_configs:
+    - targets:
+      - "localhost:9090"
+- job_name: 'cadvisor'
+  scrape_interval: 5s
+  static_configs:
+    - targets:
+      - "cadvisor:{{ cadvisor.internal_port }}"
+{% for item in innernet_peers %}
+{% if not item.startswith('monitoring') %}
+      - "{{ item }}:{{ cadvisor.port }}"
+{% endif %}
+{% endfor %}
+- job_name: 'node'
+  static_configs:
+    - targets:
+      - "node_exporter:{{ node_exporter.internal_port }}"
+{% for item in innernet_peers %}
+{% if not item.startswith('monitoring') %}
+      - "{{ item }}:{{ node_exporter.port }}"
+{% endif %}
+{% endfor %}
+- job_name: 'grafana'
+  static_configs:
+    - targets:
+      - "grafana:{{ grafana.port }}"
+- job_name: 'homeassistant'
+  scrape_interval: 60s
+  metrics_path: /api/prometheus
+  authorization:
+    type: "Bearer"
+    credentials_file: "/prometheus/homeassistant.creds"
+  scheme: http
+  static_configs:
+    - targets:
+      - "homeassistant:8123"
+- job_name: 'pihole'
+  static_configs:
+    - targets:
+      - "{{ pihole_exporter.host }}:{{ pihole_exporter.port }}"
+- job_name: 'healthchecks'
+  scheme: http
+  metrics_path: "/projects/{{ prometheus.healthchecks.project_id }}/metrics/{{ prometheus.healthchecks.readonly_apikey }}"
+  static_configs:
+    - targets:
+      - "{{ healthchecks.host }}:{{ healthchecks.port }}"
+- job_name: 'cloudflared'
+  scheme: https
+  static_configs:
+    - targets:
+{% for item in prometheus.cloudflared %}
+      - "{{ item }}"
+{% endfor %}

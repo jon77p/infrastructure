@@ -10,9 +10,20 @@
     - healthchecks
     - vault
     - firefly
-    - logs
+    - monitoring
     - allaboutsecurity
     - securemylife
+    - codeserver
   roles:
     - innernet
     - dns
+
+# - hosts: localhost
+# tasks:
+#    - name: Install innernet network from invite
+#      become: true
+#      shell: innernet install --delete-invite --default-name ansible/secrets/invite-jon77p-humans.toml
+#      ignore_errors: true
+#    - name: Add humans to services innernet association
+#      become: true
+#      shell: innernet add-association --yes "{{ hostvars['innernet'].innernet_network }}" "{{ hostvars['innernet'].additional_networks[0].network_name }}" "{{ hostvars['innernet'].additional_networks[1].network_name }}"

@@ -20,4 +20,5 @@
     - cloudflare
     - innernet
     - dns
+    - promtail
     - docker

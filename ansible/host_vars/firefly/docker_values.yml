@@ -27,7 +27,7 @@ plaid:
   client_id: "{{ opconnect_results['plaid'].plaid_client_id }}"
   secret: "{{ opconnect_results['plaid'].plaid_client_secret }}"
   firefly:
-    port: "{{ firefly_port }}"
+    port: "{{ firefly.port }}"
     access_token: "{{ opconnect_results['plaid'].firefly_access_token }}"
   access_tokens: "{{ vault_plaid_access_tokens }}"
   accounts: "{{ vault_plaid_accounts }}"

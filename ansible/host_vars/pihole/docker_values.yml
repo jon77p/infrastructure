@@ -9,3 +9,6 @@ pihole:
   dns_bogus_priv: "true"
   dns_fqdn_required: "true"
   virtual_host: "{{ compose_project_name }}.{{ domain }}"
+pihole_exporter:
+  pihole_hostname: "{{ compose_project_name }}"
+  port: "9617"
