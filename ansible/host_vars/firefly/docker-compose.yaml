@@ -2,7 +2,7 @@
 version: '3.8'
 services:
   firefly:
-    image: fireflyiii/core:latest@sha256:2dfdd46cb1bba3d87f0046381928d6e2422eb6999e5f15047250fe57f8b68f6d
+    image: fireflyiii/core:latest@sha256:60f53ea1ce7404f876562aff48815345f5386be04077eea432bdd11c053ba5d4
     volumes:
       - "{{ docker_volume_dirs.firefly[0] }}:/var/www/html/storage/upload"
     environment:
