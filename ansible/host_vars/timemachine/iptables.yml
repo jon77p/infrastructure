@@ -5,11 +5,11 @@ iptables_rules:
     chain: INPUT
     rule_num: 6
     ctstate: NEW
-    destination_port: "{{ timemachine_port }}"
+    destination_port: "{{ timemachine.port }}"
     protocol: tcp
     state: present
     jump: ACCEPT
-    comment: Accept new connections to TCP/{{ timemachine_port }}
+    comment: "Accept new connections to TCP/{{ timemachine.port }}"
   - action: insert
     chain: INPUT
     rule_num: 7

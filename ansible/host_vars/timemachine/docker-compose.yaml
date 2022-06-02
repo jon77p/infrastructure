@@ -1,0 +1,68 @@
+---
+version: '3'
+services:
+  timemachine:
+    image: servercontainers/samba:latest
+    hostname: "{{ compose_project_name }}"
+    volumes:
+      - "{{ docker_volume_dirs.timemachine[0] }}:/shares/timemachine"
+      - "/etc/avahi/services:/external/avahi"
+    ports:
+      - "{{ timemachine.port }}:{{ timemachine.internal_port }}"
+      # - "137:137/udp"
+      # - "138:138/udp"
+      # - "139:139"
+    # network_mode: "host"
+    restart: "always"
+    environment:
+      AVAHI_NAME: "timemachine"
+      MODEL: "TimeCapsule8,119"
+      GROUPS_timemachine: "{{ docker_group_id.timemachine }}"
+      ACCOUNT_jon77p: "{{ timemachine.password }}"
+      UID_jon77p: "{{ docker_user_id.timemachine }}"
+      GROUPS_jon77p: "timemachine"
+      SAMBA_VOLUME_CONFIG_timemachine: "[TimeMachine]; path=/shares/timemachine/%U; valid users = jon77p; guest ok = no; read only = no; browseable = yes; fruit:time machine = yes; fruit:time machine max size = 500G"
+      # SHARE_NAME: "{{ timemachine.sharename }}"
+      # SMB_INHERIT_PERMISSIONS: "yes"
+      # SMB_NFS_ACES: "no"
+      # SMB_METADATA: "stream"
+      # SMB_PORT: "445"
+      # SMB_VFS_OBJECTS: "acl_xattr catia fruit streams_xattr"
+      # VOLUME_SIZE_LIMIT: "0"
+      # WORKGROUP: "WORKGROUP"
+    healthcheck:
+      test: ["CMD", "wget", "https://healthchecks.{{ domain }}/ping/{{ timemachine.healthcheck }}", "-O", "/dev/null"]
+      timeout: 45s
+      interval: 10s
+      retries: 5
+  promtail:
+    image: grafana/promtail:latest
+    restart: "always"
+    volumes:
+      - "/var/log/cloudflared.log:/var/log/cloudflared.log:ro"
+      - "/var/log/journal:/var/log/journal:ro"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "{{ docker_volume_dirs.promtail[0] }}/config.yaml:/etc/promtail/config.yaml"
+    command: "-config.file=/etc/promtail/config.yaml"
+  node_exporter:
+    image: quay.io/prometheus/node-exporter:latest
+    restart: "always"
+    ports:
+      - "{{ node_exporter.port }}:{{ node_exporter.internal_port }}"
+    command:
+      - "--path.rootfs=/host"
+      - "--collector.systemd"
+      - "--collector.processes"
+    pid: host
+    volumes:
+      - "/:/host:ro,rslave"
+  cadvisor:
+    image: zcube/cadvisor:latest
+    restart: "always"
+    ports:
+      - "{{ cadvisor.port }}:{{ cadvisor.internal_port }}"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro

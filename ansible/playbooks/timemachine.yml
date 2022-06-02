@@ -1,4 +1,16 @@
 ---
+- hosts: localhost,timemachine
+  vars:
+    opconnect_item_names:
+      - "timemachine"
+    opconnect_field_names:
+      - "healthcheck"
+      - "username"
+      - "password"
+      - "sharename"
+  roles:
+    - 1password
+
 - name: Setup timemachine
   hosts: timemachine
   become: true
@@ -6,8 +18,11 @@
     - common
     - cloudflared
     - cloudflare
+#     - innernet
+#     - dns
     - stefangweichinger.ansible_rclone
     - rclone
+#     - promtail
     - docker
     - iptables
 

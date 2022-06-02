@@ -1,7 +1,10 @@
 ---
 compose_project_name: timemachine
 docker_volume_dirs:
-  - "{{ rclone_mount_dir }}"
+  timemachine:
+    - "{{ rclone_mount_dir }}"
+  promtail:
+    - "/mnt/{{ compose_project_name }}/promtail/config"
 compose_definition:
   version: '3'
   services:
@@ -43,3 +46,7 @@ compose_definition:
         timeout: 45s
         interval: 10s
         retries: 5
+docker_user_id:
+  timemachine: 1000
+docker_group_id:
+  timemachine: 1000

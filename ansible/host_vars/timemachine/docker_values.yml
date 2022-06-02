@@ -1,0 +1,8 @@
+---
+timemachine:
+  port: "548"
+  internal_port: "548"
+  healthcheck: "{{ opconnect_results['timemachine'].healthcheck }}"
+  username: "{{ opconnect_results['timemachine'].username }}"
+  password: "{{ opconnect_results['timemachine'].password }}"
+  sharename: "{{ opconnect_results['timemachine'].sharename }}"
