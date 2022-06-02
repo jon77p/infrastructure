@@ -106,19 +106,9 @@ services:
     pid: host
     volumes:
       - "/:/host:ro,rslave"
-  cadvisor:
-    image: zcube/cadvisor:latest
-    restart: "always"
-    ports:
-      - "{{ cadvisor.port }}:{{ cadvisor.internal_port }}"
-    volumes:
-      - /:/rootfs:ro
-      - /var/run:/var/run:rw
-      - /sys:/sys:ro
-      - /var/lib/docker/:/var/lib/docker:ro
 
 networks:
   firefly:
-    attachable: "true"
+    attachable: true
   web:
-    external: "true"
+    external: true
