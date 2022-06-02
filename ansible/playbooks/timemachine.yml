@@ -1,14 +1,29 @@
 ---
-- hosts: timemachine
-  become: true
-  roles:
-    - common
-    - cloudflared
-    - cloudflare
-    - stefangweichinger.ansible_rclone
-    - rclone
-    - docker
-    - iptables
+# - hosts: localhost,timemachine
+#   vars:
+#     opconnect_item_names:
+#       - "timemachine"
+#     opconnect_field_names:
+#       - "healthcheck"
+#       - "username"
+#       - "password"
+#       - "sharename"
+#   roles:
+#     - 1password
+
+# - hosts: timemachine
+#   become: true
+#   roles:
+#     - common
+#     - cloudflared
+#     - cloudflare
+#     - innernet
+#     - dns
+#     - stefangweichinger.ansible_rclone
+#     - rclone
+#     - promtail
+#     - docker
+#     - iptables
 
 - hosts: localhost
   vars:

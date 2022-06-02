@@ -1,0 +1,3 @@
+---
+nameservers:
+  - "{{ pihole_innernet_address }}"

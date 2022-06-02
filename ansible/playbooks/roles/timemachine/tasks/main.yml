@@ -1,0 +1,17 @@
+---
+- name: Create mount directories
+  become: true
+  file:
+    path: "{{ path }}"
+    recurse: true
+    owner: "{{ docker_user_id.timemachine }}"
+    group: "{{ docker_group_id.timemachine }}"
+    state: directory
+  loop: "{{ docker_volume_dirs.timemachine }}"
+  loop_control:
+    loop_var: "path"
+- name: Install avahi
+  become: true
+  apt:
+    name: avahi-daemon
+    state: latest
