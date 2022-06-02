@@ -1,0 +1,2 @@
+---
+crowdsec: "{{ hostvars[inventory_hostname].crowdsec }}"

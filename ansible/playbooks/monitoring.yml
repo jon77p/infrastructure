@@ -9,6 +9,7 @@
       - "loki"
       - "mediaserver"
       - "healthchecks"
+      - "crowdsec"
     opconnect_field_names:
       - "healthcheck"
       - "username"
@@ -28,6 +29,7 @@
       - "maxmind_license_key"
       - "project_id"
       - "readonly_apikey"
+      - "key"
   roles:
     - 1password
 
@@ -38,6 +40,8 @@
     - cloudflared
     - cloudflare
     - cron
+    - crowdsec
+    - iptables
     - innernet
     - dns
     - prometheus

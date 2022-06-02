@@ -4,10 +4,12 @@
     opconnect_item_names:
       - "allaboutsecurity"
       - "ghost"
+      - "crowdsec"
     opconnect_field_names:
       - "healthcheck"
       - "github_username"
       - "github_token"
+      - "key"
   roles:
     - 1password
 
@@ -18,6 +20,8 @@
     - cloudflared
     - cloudflare
     - cron
+    - crowdsec
+    - iptables
     - innernet
     - dns
     - ghost
