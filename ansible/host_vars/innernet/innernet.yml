@@ -41,6 +41,9 @@ peers:
   - name: codeserver
     cidr: services
     ip: "10.42.128.10"
+  - name: timemachine
+    cidr: services
+    ip: "10.42.128.11"
 oci_peers:
   - "pihole.{{ innernet_network }}.wg"
   - "nextcloud.{{ innernet_network }}.wg"
@@ -51,3 +54,4 @@ oci_peers:
   - "allaboutsecurity.{{ innernet_network }}.wg"
   - "securemylife.{{ innernet_network }}.wg"
   - "codeserver.{{ innernet_network }}.wg"
+  - "timemachine.{{ innernet_network }}.wg"
