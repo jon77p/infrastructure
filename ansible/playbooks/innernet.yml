@@ -22,6 +22,7 @@
     - innernet
     - iptables
     - dns
+    - node_exporter
 
 - hosts: localhost
   vars:
