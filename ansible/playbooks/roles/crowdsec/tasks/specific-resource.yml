@@ -3,8 +3,9 @@
   become: true
   shell: "cscli {{ resource_type }} list -o raw | grep {{ item }}"
   register: "resource_installed"
+  ignore_errors: true
 
 - name: "Install CrowdSec {{ resource_type }}: {{ item }}"
-  when: "resource_installed.rc == 1"
+  when: "resource_installed.rc != 0"
   become: true
   shell: "cscli {{ resource_type }} install {{ item }}"

@@ -31,6 +31,7 @@
     - iptables
     - innernet
     - dns
+    - node_exporter
     - firefly
     - promtail
     - docker
