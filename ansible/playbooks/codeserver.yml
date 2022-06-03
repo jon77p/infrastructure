@@ -22,4 +22,5 @@
     - iptables
     - innernet
     - dns
+    - node_exporter
     - codeserver
