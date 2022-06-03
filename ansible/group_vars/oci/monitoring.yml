@@ -2,7 +2,6 @@
 node_exporter:
   host: "{{ monitoring_innernet_address }}"
   port: "9100"
-  internal_port: "9100"
 prometheus:
   host: "{{ monitoring_innernet_address }}"
   port: "9000"

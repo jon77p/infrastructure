@@ -10,12 +10,8 @@ scrape_configs:
       - "localhost:9090"
 - job_name: 'node'
   static_configs:
-    - targets:
-      - "node_exporter:{{ node_exporter.internal_port }}"
 {% for item in innernet_peers %}
-{% if not item.startswith('monitoring') %}
       - "{{ item }}:{{ node_exporter.port }}"
-{% endif %}
 {% endfor %}
 - job_name: 'crowdsec'
   static_configs:

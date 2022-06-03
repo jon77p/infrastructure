@@ -20,6 +20,7 @@
     - crowdsec
     - innernet
     - dns
+    - node_exporter
     - vault
     - promtail
     - docker
