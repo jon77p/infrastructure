@@ -26,6 +26,7 @@
     - iptables
     - innernet
     - dns
+    - node_exporter
     - stefangweichinger.ansible_rclone
     - rclone
     - promtail
