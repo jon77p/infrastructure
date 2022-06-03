@@ -16,8 +16,8 @@
     - common
     - cloudflared
     - cloudflare
+    # - iptables
     - crowdsec
-    - iptables
     - innernet
     - dns
     - vault

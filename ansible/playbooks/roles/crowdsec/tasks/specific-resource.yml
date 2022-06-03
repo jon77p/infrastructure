@@ -1,0 +1,10 @@
+---
+- name: "Check if {{ item }} {{ resource_type }} is installed"
+  become: true
+  shell: "cscli {{ resource_type }} list -o raw | grep {{ item }}"
+  register: "resource_installed"
+
+- name: "Install CrowdSec {{ resource_type }}: {{ item }}"
+  when: "resource_installed.rc == 1"
+  become: true
+  shell: "cscli {{ resource_type }} install {{ item }}"

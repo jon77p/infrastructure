@@ -1,6 +1,6 @@
 ---
 additional_ingress:
   - hostname: "{{ compose_project_name }}.{{ domain }}"
-    service: "http://localhost:{{ compose_project_ports[0] }}"
+    service: "http://localhost:{{ vault.port }}"
   - hostname: "opconnect.{{ domain }}"
-    service: "http://localhost:{{ op_connect_ports[0] }}"
+    service: "http://localhost:{{ opconnect.api.port }}"

@@ -40,25 +40,29 @@
     regexp: '^(\s)*listen_addr: 127.0.0.1'
     line: "  listen_addr: 0.0.0.0"
 
-- name: Install all CrowdSec collections
-  become: true
-  shell: "cscli collections install {{ item }}"
-  loop: "{{ crowdsec.collections | default([]) }}"
+- name: Upgrade or install CrowdSec collections
+  when: "inventory_hostname != 'vault'"
+  include_tasks: resources.yml
+  vars:
+    resource_type: "collections"
 
-- name: Install all CrowdSec parsers
-  become: true
-  shell: "cscli parsers install {{ item }}"
-  loop: "{{ crowdsec.parsers | default([]) }}"
+- name: Upgrade or install CrowdSec parsers
+  when: "inventory_hostname != 'vault'"
+  include_tasks: resources.yml
+  vars:
+    resource_type: "parsers"
 
-- name: Install all CrowdSec scenarios
-  become: true
-  shell: "cscli scenarios install {{ item }}"
-  loop: "{{ crowdsec.scenarios | default([]) }}"
+- name: Upgrade or install CrowdSec scenarios
+  when: "inventory_hostname != 'vault'"
+  include_tasks: resources.yml
+  vars:
+    resource_type: "scenarios"
 
-- name: Install all CrowdSec postoverflows
-  become: true
-  shell: "cscli postoverflows install {{ item }}"
-  loop: "{{ crowdsec.postoverflows | default([]) }}"
+- name: Upgrade or install CrowdSec postoverflows
+  when: "inventory_hostname != 'vault'"
+  include_tasks: resources.yml
+  vars:
+    resource_type: "postoverflows"
 
 - name: Install CrowdSec iptables bouncer
   become: true
