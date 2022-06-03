@@ -44,6 +44,7 @@
     - iptables
     - innernet
     - dns
+    - node_exporter
     - prometheus
     - loki
     - promtail

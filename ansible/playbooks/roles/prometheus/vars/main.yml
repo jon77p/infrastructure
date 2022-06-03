@@ -1,0 +1,2 @@
+---
+innernet_peers: "{{ hostvars['innernet'].oci_peers }}"

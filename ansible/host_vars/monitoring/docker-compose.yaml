@@ -1,18 +1,6 @@
 ---
 version: '3'
 services:
-  node_exporter:
-    image: quay.io/prometheus/node-exporter:latest
-    restart: "always"
-    ports:
-      - "{{ compose_project_ports.node_exporter[0] }}:{{ node_exporter.internal_port }}"
-    command:
-      - "--path.rootfs=/host"
-      - "--collector.systemd"
-      - "--collector.processes"
-    pid: host
-    volumes:
-      - "/:/host:ro,rslave"
   prometheus:
     image: prom/prometheus:latest
     restart: "always"
@@ -21,8 +9,6 @@ services:
       - "{{ docker_volume_dirs.prometheus[1] }}:/prometheus" # todo: chown this after creation on host: chown 65534:65534
     ports:
       - "{{ compose_project_ports.prometheus[0] }}:{{ prometheus.internal_port }}"
-    depends_on:
-      - node_exporter
     healthcheck:
       test: ["CMD", "wget", "https://healthchecks.{{ domain }}/ping/{{ prometheus.healthcheck }}", "-O", "/dev/null"]
       timeout: 45s
