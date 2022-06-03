@@ -21,6 +21,7 @@
     - iptables
     - innernet
     - dns
+    - node_exporter
     - pihole
     - promtail
     - docker
