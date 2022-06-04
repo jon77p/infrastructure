@@ -7,3 +7,4 @@ firefly/
 migrate-todo/
 cluster/
 vscode/
+*.tfvars*
