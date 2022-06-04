@@ -1,0 +1,85 @@
+---
+- name: Install CrowdSec repositories
+  become: true
+  shell: curl -s https://packagecloud.io/install/repositories/crowdsec/crowdsec/script.deb.sh | bash
+
+- name: Install crowdsec
+  apt:
+    name: crowdsec
+    state: latest
+
+- name: Enroll CrowdSec instance with cloud console
+  become: true
+  shell: "cscli console enroll --name {{ inventory_hostname }} {{ crowdsec.key }}"
+
+- name: Update CrowdSec default API port to {{ crowdsec.api.port }}
+  become: true
+  lineinfile:
+    path: /etc/crowdsec/config.yaml
+    regexp: '^(\s)*listen_uri: 127.0.0.1:{{ crowdsec.api.default_port }}'
+    line: "    listen_uri: 127.0.0.1:{{ crowdsec.api.port }}"
+
+- name: Update CrowdSec local_api_credentials default API port to {{ crowdsec.api.port }}
+  become: true
+  lineinfile:
+    path: /etc/crowdsec/local_api_credentials.yaml
+    regexp: '^url: http://127.0.0.1:{{ crowdsec.api.default_port }}'
+    line: "url: http://127.0.0.1:{{ crowdsec.api.port }}"
+
+- name: Update CrowdSec default Prometheus port to {{ crowdsec.prometheus.port }}
+  become: true
+  lineinfile:
+    path: /etc/crowdsec/config.yaml
+    regexp: '^(\s)*listen_port: {{ crowdsec.prometheus.default_port }}'
+    line: "  listen_port: {{ crowdsec.prometheus.port }}"
+
+- name: Update CrowdSec default Prometheus host to 0.0.0.0
+  become: true
+  lineinfile:
+    path: /etc/crowdsec/config.yaml
+    regexp: '^(\s)*listen_addr: 127.0.0.1'
+    line: "  listen_addr: 0.0.0.0"
+
+- name: Upgrade or install CrowdSec collections
+  when: "inventory_hostname != 'vault'"
+  include_tasks: resources.yml
+  vars:
+    resource_type: "collections"
+
+- name: Upgrade or install CrowdSec parsers
+  when: "inventory_hostname != 'vault'"
+  include_tasks: resources.yml
+  vars:
+    resource_type: "parsers"
+
+- name: Upgrade or install CrowdSec scenarios
+  when: "inventory_hostname != 'vault'"
+  include_tasks: resources.yml
+  vars:
+    resource_type: "scenarios"
+
+- name: Upgrade or install CrowdSec postoverflows
+  when: "inventory_hostname != 'vault'"
+  include_tasks: resources.yml
+  vars:
+    resource_type: "postoverflows"
+
+- name: Install CrowdSec iptables bouncer
+  become: true
+  apt:
+    name: crowdsec-firewall-bouncer-iptables
+    state: latest
+
+- name: Enable and start CrowdSec service
+  become: true
+  systemd:
+    name: crowdsec
+    state: restarted
+    enabled: yes
+
+- name: Enable and start crowdsec-firewall-bouncer service
+  become: true
+  systemd:
+    name: crowdsec-firewall-bouncer
+    state: restarted
+    enabled: yes

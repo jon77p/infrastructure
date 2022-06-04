@@ -3,9 +3,11 @@
   vars:
     opconnect_item_names:
       - "pihole"
+      - "crowdsec"
     opconnect_field_names:
       - "healthcheck"
       - "password"
+      - "key"
   roles:
     - 1password
 
@@ -15,8 +17,11 @@
     - common
     - cloudflared
     - cloudflare
+    - crowdsec
+    - iptables
     - innernet
     - dns
+    - node_exporter
     - pihole
     - promtail
     - docker

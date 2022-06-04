@@ -9,8 +9,8 @@ unifi_server_ids = false
 maxmind_license_key = {{ varken.maxmind.license_key }}
 
 [influxdb]
-url = {{ influxdb.host }}
-port = {{ influxdb.port }}
+url = "influxdb"
+port = {{ influxdb.internal_port }}
 ssl = false
 verify_ssl = false
 username = {{ influxdb.username }}

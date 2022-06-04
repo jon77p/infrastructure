@@ -9,13 +9,13 @@ services:
       - "{{ docker_volume_dirs.vault[2] }}:/vault/logs"
       - "{{ docker_volume_dirs.vault[3] }}:/vault/plugins"
     ports:
-      - "{{ compose_project_ports[0] }}:8200"
+      - "{{ vault.port }}:{{ vault.internal_port }}"
     cap_add:
       - "IPC_LOCK"
     restart: "always"
     command: ["vault", "server", "-config", "/vault/config/config.hcl"]
     healthcheck:
-      test: ["CMD", "wget", "https://healthchecks.{{ domain }}/ping/{{ opconnect_results['vault'].healthcheck }}", "-O", "/dev/null"]
+      test: ["CMD", "wget", "https://healthchecks.{{ domain }}/ping/{{ vault.healthcheck }}", "-O", "/dev/null"]
       timeout: 45s
       interval: 10s
       retries: 5
@@ -25,7 +25,7 @@ services:
       - "{{ docker_volume_dirs.opconnect[0] }}/1password-credentials.json:/home/opuser/.op/1password-credentials.json"
       - "data:/home/opuser/.op/data"
     ports:
-      - "{{ op_connect_ports[0] }}:8080"
+      - "{{ opconnect.api.port }}:{{ opconnect.api.internal_port }}"
     restart: "always"
   opconnect_sync:
     image: 1password/connect-sync:latest@sha256:2dad1711656f282f74421ef382055b4ed3c9923fb342f44773802d87c59e1641
@@ -33,7 +33,7 @@ services:
       - "{{ docker_volume_dirs.opconnect[0] }}/1password-credentials.json:/home/opuser/.op/1password-credentials.json"
       - "data:/home/opuser/.op/data"
     ports:
-      - "{{ op_connect_ports[1] }}:8080"
+      - "{{ opconnect.sync.port }}:{{ opconnect.sync.internal_port }}"
     restart: "always"
   promtail:
     image: grafana/promtail:latest
@@ -44,18 +44,6 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - "{{ docker_volume_dirs.promtail[0] }}/config.yaml:/etc/promtail/config.yaml"
     command: "-config.file=/etc/promtail/config.yaml"
-  node_exporter:
-    image: quay.io/prometheus/node-exporter:latest
-    restart: "always"
-    ports:
-      - "{{ node_exporter.port }}:{{ node_exporter.internal_port }}"
-    command:
-      - "--path.rootfs=/host"
-      - "--collector.systemd"
-      - "--collector.processes"
-    pid: host
-    volumes:
-      - "/:/host:ro,rslave"
 
 volumes:
   data:

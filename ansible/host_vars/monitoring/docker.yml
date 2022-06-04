@@ -1,10 +1,6 @@
 ---
 compose_project_name: "monitoring"
 compose_project_ports:
-  cadvisor:
-    - "{{ cadvisor.port }}"
-  node_exporter:
-    - "{{ node_exporter.port }}"
   prometheus:
     - "{{ prometheus.port }}"
   loki:

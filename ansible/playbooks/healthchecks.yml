@@ -3,12 +3,14 @@
   vars:
     opconnect_item_names:
       - "healthchecks"
+      - "crowdsec"
     opconnect_field_names:
       - "healthcheck"
       - "username"
       - "password"
       - "smtp_username"
       - "smtp_password"
+      - "key"
   roles:
     - 1password
 
@@ -18,7 +20,10 @@
     - common
     - cloudflared
     - cloudflare
+    - crowdsec
+    - iptables
     - innernet
     - dns
+    - node_exporter
     - promtail
     - docker

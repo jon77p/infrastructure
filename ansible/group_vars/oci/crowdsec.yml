@@ -1,0 +1,27 @@
+---
+crowdsec:
+  key: "{{ opconnect_results['crowdsec'].key }}"
+  api:
+    default_port: 8080
+    port: 8086
+  prometheus:
+    default_port: 6060
+    port: 6060
+  collections:
+    - "crowdsecurity/base-http-scenarios"
+    # - "crowdsecurity/iptables"
+    - "crowdsecurity/linux"
+    - "crowdsecurity/sshd"
+    # - "crowdsecurity/whitelist-good-actors"
+  parsers:
+    - "crowdsecurity/iptables-logs"
+    - "crowdsecurity/pam-logs"
+    - "crowdsecurity/sshd-logs"
+  scenarios:
+    - "crowdsecurity/http-backdoors-attempts"
+    - "crowdsecurity/iptables-scan-multi_ports"
+    - "crowdsecurity/ssh-bf"
+    - "crowdsecurity/ssh-slow-bf"
+  postoverflows:
+    - "crowdsecurity/rdns"
+    - "crowdsecurity/seo-bots-whitelist"

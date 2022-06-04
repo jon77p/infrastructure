@@ -1,15 +1,13 @@
 ---
-cadvisor:
-  host: "{{ monitoring_innernet_address }}"
-  port: "8888"
-  internal_port: "8080"
 node_exporter:
   host: "{{ monitoring_innernet_address }}"
   port: "9100"
-  internal_port: "9100"
 prometheus:
   host: "{{ monitoring_innernet_address }}"
   port: "9000"
+influxdb:
+  host: "{{ monitoring_innernet_address }}"
+  port: "8087"
 loki:
   host: "{{ monitoring_innernet_address }}"
   port: "3100"

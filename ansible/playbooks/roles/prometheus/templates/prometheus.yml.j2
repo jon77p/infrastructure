@@ -8,24 +8,17 @@ scrape_configs:
   static_configs:
     - targets:
       - "localhost:9090"
-- job_name: 'cadvisor'
-  scrape_interval: 5s
-  static_configs:
-    - targets:
-      - "cadvisor:{{ cadvisor.internal_port }}"
-{% for item in innernet_peers %}
-{% if not item.startswith('monitoring') %}
-      - "{{ item }}:{{ cadvisor.port }}"
-{% endif %}
-{% endfor %}
 - job_name: 'node'
   static_configs:
     - targets:
-      - "node_exporter:{{ node_exporter.internal_port }}"
 {% for item in innernet_peers %}
-{% if not item.startswith('monitoring') %}
       - "{{ item }}:{{ node_exporter.port }}"
-{% endif %}
+{% endfor %}
+- job_name: 'crowdsec'
+  static_configs:
+    - targets:
+{% for item in innernet_peers %}
+      - "{{ item }}:{{ crowdsec.prometheus.port }}"
 {% endfor %}
 - job_name: 'grafana'
   static_configs:
