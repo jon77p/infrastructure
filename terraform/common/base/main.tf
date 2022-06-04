@@ -10,7 +10,6 @@ terraform {
 data "oci_identity_compartments" "terraform" {
   compartment_id = var.tenancy_id
   name           = "terraform"
-  state          = "ACTIVE"
 }
 
 module "vcn" {
