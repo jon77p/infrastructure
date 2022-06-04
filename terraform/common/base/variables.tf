@@ -11,7 +11,6 @@ variable "profile" {
 variable "region" {
   description = "region where you want to deploy"
   type        = string
-  default     = "us-phoenix-1"
 }
 
 variable "cidrs" {
