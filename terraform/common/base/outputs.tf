@@ -1,23 +1,27 @@
 # Outputs for new compartment
 output "compartment-name" {
-  value = oci_identity_compartment.terraform.name
+  value = data.oci_identity_compartments.terraform.compartments[0].name
 }
 output "compartment-id" {
-  value = oci_identity_compartment.terraform.id
+  value = data.oci_identity_compartments.terraform.compartments[0].id
 }
 
 # Outputs for VCN
 output "vcn-name" {
-  value = module.vcn.vcn_all_attributes.display_name
+  # value = module.vcn.vcn_all_attributes.display_name
+  value = oci_core_vcn.terraform.display_name
 }
 output "vcn-id" {
-  value = module.vcn.vcn_id
+  # value = module.vcn.vcn_id
+  value = oci_core_vcn.terraform.id
 }
 output "vcn-dns_label" {
-  value = module.vcn.vcn_all_attributes.dns_label
+  # value = module.vcn.vcn_all_attributes.dns_label
+  value = oci_core_vcn.terraform.dns_label
 }
 output "vcn-domain_name" {
-  value = module.vcn.vcn_all_attributes.dns_label
+  # value = module.vcn.vcn_all_attributes.dns_label
+  value = oci_core_vcn.terraform.dns_label
 }
 
 # Outputs for private subnet
