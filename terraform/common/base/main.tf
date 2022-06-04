@@ -19,7 +19,7 @@ module "vcn" {
   compartment_id          = data.oci_identity_compartments.terraform.compartments[0].id
   region                  = var.region
   vcn_name                = "terraform"
-  vcn_dns_label           = replace(format("%s_%s", var.profile, var.region), "-", "_")
+  vcn_dns_label           = format("%s_%s", var.profile, replace(var.region, "-", ""))
   create_internet_gateway = true
   create_nat_gateway      = false
   create_service_gateway  = false

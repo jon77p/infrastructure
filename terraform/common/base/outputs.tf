@@ -14,10 +14,10 @@ output "vcn-id" {
   value = length(data.oci_core_vcns.terraform.virtual_networks) > 0 ? data.oci_core_vcns.terraform.virtual_networks[0].id : ""
 }
 output "vcn-dns_label" {
-  value = length(data.oci_core_vcns.terraform.virtual_networks) > 0 ? data.oci_core_vcns.terraform.virtual_networks[0].dns_label : replace(format("%s_%s", var.profile, var.region), "-", "_")
+  value = length(data.oci_core_vcns.terraform.virtual_networks) > 0 ? data.oci_core_vcns.terraform.virtual_networks[0].dns_label : format("%s_%s", var.profile, replace(var.region, "-", ""))
 }
 output "vcn-domain_name" {
-  value = length(data.oci_core_vcns.terraform.virtual_networks) > 0 ? data.oci_core_vcns.terraform.virtual_networks[0].dns_label : replace(format("%s_%s", var.profile, var.region), "-", "_")
+  value = length(data.oci_core_vcns.terraform.virtual_networks) > 0 ? data.oci_core_vcns.terraform.virtual_networks[0].dns_label : format("%s_%s", var.profile, replace(var.region, "-", ""))
 }
 
 # Outputs for private subnet
@@ -31,7 +31,7 @@ output "private-subnet-dns_label" {
   value = length(oci_core_subnet.private) > 0 ? oci_core_subnet.private[0].dns_label : "private"
 }
 output "private-subnet-subnet_domain_name" {
-  value = length(oci_core_subnet.private) > 0 ? oci_core_subnet.private[0].subnet_domain_name : format("%s.%s.oraclevcn.com", "private", replace(format("%s_%s", var.profile, var.region), "-", "_"))
+  value = length(oci_core_subnet.private) > 0 ? oci_core_subnet.private[0].subnet_domain_name : format("%s.%s.oraclevcn.com", "private", format("%s_%s", var.profile, replace(var.region, "-", "")))
 }
 
 # Outputs for public subnet
@@ -45,5 +45,5 @@ output "public-subnet-dns_label" {
   value = length(oci_core_subnet.public) > 0 ? oci_core_subnet.public[0].dns_label : "public"
 }
 output "public-subnet-subnet_domain_name" {
-  value = length(oci_core_subnet.public) > 0 ? oci_core_subnet.public[0].subnet_domain_name : format("%s.%s.oraclevcn.com", "public", replace(format("%s_%s", var.profile, var.region), "-", "_"))
+  value = length(oci_core_subnet.public) > 0 ? oci_core_subnet.public[0].subnet_domain_name : format("%s.%s.oraclevcn.com", "public", format("%s_%s", var.profile, replace(var.region, "-", "")))
 }
