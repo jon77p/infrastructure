@@ -10,7 +10,6 @@ terraform {
 data "oci_identity_compartments" "terraform" {
   compartment_id = var.tenancy_id
   name           = "terraform"
-  state          = "ACTIVE"
 }
 
 module "vcn" {
@@ -19,7 +18,7 @@ module "vcn" {
   compartment_id          = data.oci_identity_compartments.terraform.compartments[0].id
   region                  = var.region
   vcn_name                = "terraform"
-  vcn_dns_label           = format("%s_%s", var.profile, replace(var.region, "-", ""))
+  vcn_dns_label           = var.profile
   create_internet_gateway = true
   create_nat_gateway      = false
   create_service_gateway  = false
