@@ -9,9 +9,9 @@ variable "profile" {
 }
 
 variable "region" {
-  description = "region where you have OCI tenancy"
+  description = "region where you want to deploy"
   type        = string
-  default     = "us-sanjose-1"
+  default     = "us-phoenix-1"
 }
 
 variable "cidrs" {

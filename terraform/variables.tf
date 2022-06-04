@@ -11,7 +11,7 @@ variable "oci" {
     user_ocid    = string
     fingerprint  = string
     tenancy_ocid = string
-    region       = string
+    regions      = list(string)
   }))
   default = {}
 }
@@ -52,6 +52,7 @@ variable "instances" {
       domain       = string
       is_subdomain = bool
       ad_number    = number
+      region       = string
       image_id     = string
       shape        = string
       memory       = number

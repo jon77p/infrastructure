@@ -35,6 +35,7 @@ module "compute" {
   source = "./modules/compute"
 
   compartment_id           = module.base.compartment-id
+  region                   = var.region
   terraform_ssh_public_key = var.terraform_ssh_public_key
   setup_script_path        = var.setup_script_path
   instances                = var.instances
