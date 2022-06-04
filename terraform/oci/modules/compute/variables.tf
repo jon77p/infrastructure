@@ -3,6 +3,11 @@ variable "compartment_id" {
   type        = string
 }
 
+variable "region" {
+  description = "region where you can deploy"
+  type        = string
+}
+
 variable "terraform_ssh_public_key" {
   description = "Public Key for Terraform-created compute instances"
   type        = string
@@ -16,6 +21,7 @@ variable "instances" {
     domain       = string
     is_subdomain = bool
     ad_number    = number
+    region       = string
     image_id     = string
     shape        = string
     memory       = number

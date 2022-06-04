@@ -9,7 +9,7 @@ variable "profile" {
 }
 
 variable "region" {
-  description = "region where you have OCI tenancy"
+  description = "region where you can deploy"
   type        = string
 }
 
@@ -42,6 +42,7 @@ variable "instances" {
     domain       = string
     is_subdomain = bool
     ad_number    = number
+    region       = string
     image_id     = string
     shape        = string
     memory       = number
