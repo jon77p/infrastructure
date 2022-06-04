@@ -7,13 +7,6 @@ terraform {
   }
 }
 
-resource "oci_identity_compartment" "terraform" {
-  # Required
-  compartment_id = var.tenancy_id
-  description    = "Compartment for Terraform resources."
-  name           = "terraform"
-}
-
 data "oci_identity_compartments" "terraform" {
   compartment_id = var.tenancy_id
   name           = "terraform"
