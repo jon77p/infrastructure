@@ -12,7 +12,7 @@
 - name: Apply new netplan
   become: true
   shell: netplan apply
-  async: 5
+  async: 10
   poll: 1
   when: "nameservers != []"
 

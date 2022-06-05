@@ -48,7 +48,7 @@
 - name: Diff updated config with current cloudflared config
   become: true
   shell: diff /tmp/cloudflared-config.yml /etc/cloudflared/config.yml
-  ignore_errors: yes
+  ignore_errors: true
   when: "validation_check.rc == 0"
   register: diff_result
 
@@ -65,6 +65,8 @@
     state: restarted
     no_block: yes
   when: "validation_check.rc == 0 and diff_result.rc != 0"
+  async: 5
+  poll: 1
 
 - name: Reset connection
   meta: reset_connection

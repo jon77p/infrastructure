@@ -1,3 +1,14 @@
+---
+- name: Install iptables-persistent
+  become: true
+  apt:
+    name: iptables-persistent
+    state: latest
+
+- name: Restore iptables rules if they exist
+  become: true
+  shell: iptables-restore /etc/iptables/rules.v4
+
 - name: iptables update rules
   become: true
   iptables:
@@ -12,13 +23,6 @@
     comment: "{{ item.comment }}"
   loop: "{{ iptables_rules }}"
 
-- name: Install iptables-persistent
-  become: true
-  apt:
-    name: iptables-persistent
-    state: latest
-
 - name: Save iptables rules
   become: true
-  shell: iptables-save > /etc/iptables/rules.v4
-
+  shell: iptables-save -f /etc/iptables/rules.v4
