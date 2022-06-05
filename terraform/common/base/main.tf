@@ -7,15 +7,16 @@ terraform {
   }
 }
 
-data "oci_identity_compartments" "terraform" {
+resource "oci_identity_compartment" "terraform" {
   compartment_id = var.tenancy_id
   name           = "terraform"
+  description    = "Compartment for Terraform resources."
 }
 
 module "vcn" {
   source                  = "oracle-terraform-modules/vcn/oci"
   version                 = "3.4.0"
-  compartment_id          = data.oci_identity_compartments.terraform.compartments[0].id
+  compartment_id          = oci_identity_compartment.terraform.id
   region                  = var.region
   vcn_name                = "terraform"
   vcn_dns_label           = var.profile
@@ -26,12 +27,12 @@ module "vcn" {
 }
 
 data "oci_core_vcns" "terraform" {
-  compartment_id = data.oci_identity_compartments.terraform.compartments[0].id
+  compartment_id = oci_identity_compartment.terraform.id
   display_name   = "terraform"
 }
 
 resource "oci_core_security_list" "terraform" {
-  compartment_id = data.oci_identity_compartments.terraform.compartments[0].id
+  compartment_id = oci_identity_compartment.terraform.id
   vcn_id         = module.vcn.vcn_id
   display_name   = "terraform"
   egress_security_rules {
@@ -74,7 +75,7 @@ resource "oci_core_security_list" "terraform" {
 
 resource "oci_core_subnet" "public" {
   display_name               = "public"
-  compartment_id             = data.oci_identity_compartments.terraform.compartments[0].id
+  compartment_id             = oci_identity_compartment.terraform.id
   vcn_id                     = module.vcn.vcn_id
   route_table_id             = module.vcn.ig_route_id
   dns_label                  = "public"
@@ -88,7 +89,7 @@ resource "oci_core_subnet" "public" {
 
 resource "oci_core_subnet" "private" {
   display_name               = "private"
-  compartment_id             = data.oci_identity_compartments.terraform.compartments[0].id
+  compartment_id             = oci_identity_compartment.terraform.id
   vcn_id                     = module.vcn.vcn_id
   route_table_id             = module.vcn.ig_route_id
   dns_label                  = "private"
