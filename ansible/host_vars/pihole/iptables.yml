@@ -18,3 +18,12 @@ iptables_rules:
     state: present
     jump: ACCEPT
     comment: "Accept new connections to TCP/{{ node_exporter.port }}"
+  - action: insert
+    chain: INPUT
+    rule_num: 8
+    ctstate: NEW
+    destination_port: "{{ pihole_exporter.port }}"
+    protocol: tcp
+    state: present
+    jump: ACCEPT
+    comment: "Accept new connections to TCP/{{ pihole_exporter.port }}"
