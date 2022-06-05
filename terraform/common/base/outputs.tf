@@ -1,9 +1,9 @@
 # Outputs for new compartment
 output "compartment-name" {
-  value = data.oci_identity_compartments.terraform.compartments[0].name
+  value = oci_identity_compartment.terraform.name
 }
 output "compartment-id" {
-  value = data.oci_identity_compartments.terraform.compartments[0].id
+  value = oci_identity_compartment.terraform.id
 }
 
 # Outputs for VCN
