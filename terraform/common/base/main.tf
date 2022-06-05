@@ -72,11 +72,6 @@ resource "oci_core_security_list" "terraform" {
   }
 }
 
-data "oci_core_route_tables" "terraform_route_tables" {
-  compartment_id = data.oci_identity_compartments.terraform.compartments[0].id
-  display_name   = "internet-route"
-}
-
 resource "oci_core_subnet" "public" {
   display_name               = "public"
   compartment_id             = data.oci_identity_compartments.terraform.compartments[0].id
