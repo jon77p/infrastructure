@@ -31,9 +31,8 @@ data "oci_core_vcns" "terraform" {
 }
 
 resource "oci_core_security_list" "terraform" {
-  count          = length(data.oci_core_vcns.terraform.virtual_networks) > 0 ? 1 : 0
   compartment_id = data.oci_identity_compartments.terraform.compartments[0].id
-  vcn_id         = data.oci_core_vcns.terraform.virtual_networks[0].id
+  vcn_id         = module.vcn.vcn_id
   display_name   = "terraform"
   egress_security_rules {
     protocol    = local.all_protocols
@@ -42,7 +41,7 @@ resource "oci_core_security_list" "terraform" {
   }
   ingress_security_rules {
     protocol    = local.tcp_protocol
-    source      = data.oci_core_vcns.terraform.virtual_networks[0].cidr_block
+    source      = module.vcn.vcn_all_attributes.cidr_blocks[0]
     description = "Allows all TCP traffic for all ports for VCN subnet"
   }
   ingress_security_rules {
@@ -56,7 +55,7 @@ resource "oci_core_security_list" "terraform" {
   }
   ingress_security_rules {
     protocol    = local.icmp_protocol
-    source      = data.oci_core_vcns.terraform.virtual_networks[0].cidr_block
+    source      = module.vcn.vcn_all_attributes.cidr_blocks[0]
     description = "ICMP traffic for: 3, 4 Destination Unreachable: Fragmentation Needed and Don't Fragment was Set"
     icmp_options {
       type = 3
@@ -65,7 +64,7 @@ resource "oci_core_security_list" "terraform" {
   }
   ingress_security_rules {
     protocol    = local.icmp_protocol
-    source      = data.oci_core_vcns.terraform.virtual_networks[0].cidr_block
+    source      = module.vcn.vcn_all_attributes.cidr_blocks[0]
     description = "ICMP traffic for: 3 Destination Unreachable"
     icmp_options {
       type = 3
@@ -73,37 +72,30 @@ resource "oci_core_security_list" "terraform" {
   }
 }
 
-data "oci_core_route_tables" "terraform_route_tables" {
-  compartment_id = data.oci_identity_compartments.terraform.compartments[0].id
-  display_name   = "internet-route"
-}
-
 resource "oci_core_subnet" "public" {
-  count                      = length(data.oci_core_vcns.terraform.virtual_networks) > 0 && length(data.oci_core_route_tables.terraform_route_tables.route_tables) > 0 ? 1 : 0
   display_name               = "public"
   compartment_id             = data.oci_identity_compartments.terraform.compartments[0].id
-  route_table_id             = data.oci_core_route_tables.terraform_route_tables.route_tables[0].id
-  vcn_id                     = data.oci_core_vcns.terraform.virtual_networks[0].id
+  vcn_id                     = module.vcn.vcn_id
+  route_table_id             = module.vcn.ig_route_id
   dns_label                  = "public"
   cidr_block                 = var.cidrs.subnets.public
   prohibit_internet_ingress  = false
   prohibit_public_ip_on_vnic = false
   security_list_ids = [
-    oci_core_security_list.terraform[0].id
+    oci_core_security_list.terraform.id
   ]
 }
 
 resource "oci_core_subnet" "private" {
-  count                      = length(data.oci_core_vcns.terraform.virtual_networks) > 0 && length(data.oci_core_route_tables.terraform_route_tables.route_tables) > 0 ? 1 : 0
   display_name               = "private"
   compartment_id             = data.oci_identity_compartments.terraform.compartments[0].id
-  route_table_id             = data.oci_core_route_tables.terraform_route_tables.route_tables[0].id
-  vcn_id                     = data.oci_core_vcns.terraform.virtual_networks[0].id
+  vcn_id                     = module.vcn.vcn_id
+  route_table_id             = module.vcn.ig_route_id
   dns_label                  = "private"
   cidr_block                 = var.cidrs.subnets.private
   prohibit_internet_ingress  = true
   prohibit_public_ip_on_vnic = true
   security_list_ids = [
-    oci_core_security_list.terraform[0].id
+    oci_core_security_list.terraform.id
   ]
 }

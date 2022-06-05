@@ -22,28 +22,28 @@ output "vcn-domain_name" {
 
 # Outputs for private subnet
 output "private-subnet-name" {
-  value = length(oci_core_subnet.private) > 0 ? oci_core_subnet.private[0].display_name : "private"
+  value = oci_core_subnet.private.display_name
 }
 output "private-subnet-id" {
-  value = length(oci_core_subnet.private) > 0 ? oci_core_subnet.private[0].id : ""
+  value = oci_core_subnet.private.id
 }
 output "private-subnet-dns_label" {
-  value = length(oci_core_subnet.private) > 0 ? oci_core_subnet.private[0].dns_label : "private"
+  value = oci_core_subnet.private.dns_label
 }
 output "private-subnet-subnet_domain_name" {
-  value = length(oci_core_subnet.private) > 0 ? oci_core_subnet.private[0].subnet_domain_name : format("%s.%s.oraclevcn.com", "private", var.profile)
+  value = oci_core_subnet.private.subnet_domain_name
 }
 
 # Outputs for public subnet
 output "public-subnet-name" {
-  value = length(oci_core_subnet.public) > 0 ? oci_core_subnet.public[0].display_name : "public"
+  value = oci_core_subnet.public.display_name
 }
 output "public-subnet-id" {
-  value = length(oci_core_subnet.public) > 0 ? oci_core_subnet.public[0].id : ""
+  value = oci_core_subnet.public.id
 }
 output "public-subnet-dns_label" {
-  value = length(oci_core_subnet.public) > 0 ? oci_core_subnet.public[0].dns_label : "public"
+  value = oci_core_subnet.public.dns_label
 }
 output "public-subnet-subnet_domain_name" {
-  value = length(oci_core_subnet.public) > 0 ? oci_core_subnet.public[0].subnet_domain_name : format("%s.%s.oraclevcn.com", "public", var.profile)
+  value = oci_core_subnet.public.subnet_domain_name
 }
