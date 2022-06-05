@@ -36,4 +36,22 @@ iptables_rules:
     protocol: tcp
     state: present
     jump: ACCEPT
-    comment: Accept new connections to TCP/139
+    comment: "Accept new connections to TCP/139"
+  - action: insert
+    chain: INPUT
+    rule_num: 10
+    ctstate: NEW
+    destination_port: "{{ crowdsec.prometheus.port }}"
+    protocol: tcp
+    state: present
+    jump: ACCEPT
+    comment: "Accept new connections to TCP/{{ crowdsec.prometheus.port }}"
+  - action: insert
+    chain: INPUT
+    rule_num: 11
+    ctstate: NEW
+    destination_port: "{{ node_exporter.port }}"
+    protocol: tcp
+    state: present
+    jump: ACCEPT
+    comment: "Accept new connections to TCP/{{ node_exporter.port }}"

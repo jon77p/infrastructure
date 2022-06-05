@@ -1,30 +1,32 @@
 ---
 - hosts: localhost,timemachine
   vars:
-    opconnect_item_names:
-      - "timemachine"
-    opconnect_field_names:
-      - "healthcheck"
-      - "username"
-      - "password"
-      - "sharename"
+    opconnect_items:
+      timemachine:
+        - "healthcheck"
+        - "username"
+        - "password"
+        - "sharename"
+      crowdsec:
+        - "key"
   roles:
     - 1password
 
-- name: Setup timemachine
-  hosts: timemachine
+- hosts: timemachine
   become: true
   roles:
     - common
     - cloudflared
     - cloudflare
-#     - innernet
-#     - dns
+    - crowdsec
+    - iptables
+    - innernet
+    - dns
     - stefangweichinger.ansible_rclone
     - rclone
-#     - promtail
+    - node_exporter
+    - promtail
     - docker
-    - iptables
 
 - name: Setup OCI for timemachine
   hosts: localhost
