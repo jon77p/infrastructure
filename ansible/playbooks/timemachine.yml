@@ -1,14 +1,32 @@
 ---
+- hosts: localhost,timemachine
+  vars:
+    opconnect_items:
+      timemachine:
+        - "healthcheck"
+        - "username"
+        - "password"
+        - "sharename"
+      crowdsec:
+        - "key"
+  roles:
+    - 1password
+
 - hosts: timemachine
   become: true
   roles:
     - common
     - cloudflared
     - cloudflare
+    - crowdsec
+    - iptables
+    - innernet
+    - dns
     - stefangweichinger.ansible_rclone
     - rclone
+    - node_exporter
+    - promtail
     - docker
-    - iptables
 
 - hosts: localhost
   vars:

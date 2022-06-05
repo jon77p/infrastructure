@@ -3,13 +3,13 @@ oci_profile: "oci1"
 oci_security_rules:
   egress_security_rules: []
   ingress_security_rules:
-    - description: "allow timemachine TCP/{{ timemachine_port }} inbound"
+    - description: "allow timemachine TCP/{{ timemachine.port }} inbound"
       source: "0.0.0.0/0"
       protocol: "6" # TCP
       tcp_options:
         destination_port_range:
-          max: "{{ timemachine_port }}"
-          min: "{{ timemachine_port }}"
+          max: "548"
+          min: "548"
     - description: "allow timemachine UDP/137 inbound"
       source: "0.0.0.0/0"
       protocol: "17" # UDP

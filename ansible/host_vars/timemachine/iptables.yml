@@ -5,11 +5,11 @@ iptables_rules:
     chain: INPUT
     rule_num: 6
     ctstate: NEW
-    destination_port: "{{ timemachine_port }}"
+    destination_port: "{{ timemachine.port }}"
     protocol: tcp
     state: present
     jump: ACCEPT
-    comment: "Accept new connections to TCP/{{ timemachine_port }}"
+    comment: "Accept new connections to TCP/{{ timemachine.port }}"
   - action: insert
     chain: INPUT
     rule_num: 7
@@ -37,3 +37,21 @@ iptables_rules:
     state: present
     jump: ACCEPT
     comment: "Accept new connections to TCP/139"
+  - action: insert
+    chain: INPUT
+    rule_num: 10
+    ctstate: NEW
+    destination_port: "{{ crowdsec.prometheus.port }}"
+    protocol: tcp
+    state: present
+    jump: ACCEPT
+    comment: "Accept new connections to TCP/{{ crowdsec.prometheus.port }}"
+  - action: insert
+    chain: INPUT
+    rule_num: 11
+    ctstate: NEW
+    destination_port: "{{ node_exporter.port }}"
+    protocol: tcp
+    state: present
+    jump: ACCEPT
+    comment: "Accept new connections to TCP/{{ node_exporter.port }}"
