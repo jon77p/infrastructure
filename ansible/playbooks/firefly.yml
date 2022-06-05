@@ -1,23 +1,25 @@
 ---
 - hosts: localhost,firefly
   vars:
-    opconnect_item_names:
-      - "firefly"
-      - "firefly-importer"
-      - "plaid"
-      - "crowdsec"
-    opconnect_field_names:
-      - "healthcheck"
-      - "site_owner"
-      - "app_key"
-      - "db_username"
-      - "db_password"
-      - "smtp_username"
-      - "smtp_password"
-      - "firefly_access_token"
-      - "plaid_client_id"
-      - "plaid_client_secret"
-      - "key"
+    opconnect_items:
+      firefly:
+        - "healthcheck"
+        - "site_owner"
+        - "app_key"
+        - "db_username"
+        - "db_password"
+        - "smtp_username"
+        - "smtp_password"
+      firefly-importer:
+        - "healthcheck"
+        - "firefly_access_token"
+      plaid:
+        - "healthcheck"
+        - "firefly_access_token"
+        - "plaid_client_id"
+        - "plaid_client_secret"
+      crowdsec:
+        - "key"
   roles:
     - 1password
 

@@ -1,15 +1,14 @@
 ---
 - hosts: localhost,securemylife
   vars:
-    opconnect_item_names:
-      - "securemylife"
-      - "ghost"
-      - "crowdsec"
-    opconnect_field_names:
-      - "healthcheck"
-      - "github_username"
-      - "github_token"
-      - "key"
+    opconnect_items:
+      securemylife:
+        - "healthcheck"
+      ghost:
+        - "github_username"
+        - "github_token"
+      crowdsec:
+        - "key"
   roles:
     - 1password
 

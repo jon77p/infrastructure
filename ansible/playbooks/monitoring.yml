@@ -1,35 +1,40 @@
 ---
 - hosts: localhost,monitoring
   vars:
-    opconnect_item_names:
-      - "monitoring"
-      - "grafana"
-      - "influxdb"
-      - "prometheus"
-      - "loki"
-      - "mediaserver"
-      - "healthchecks"
-      - "crowdsec"
-    opconnect_field_names:
-      - "healthcheck"
-      - "username"
-      - "password"
-      - "smtp_username"
-      - "smtp_password"
-      - "tautulli_url"
-      - "tautulli_apikey"
-      - "sonarr_url"
-      - "sonarr_apikey"
-      - "radarr_url"
-      - "radarr_apikey"
-      - "lidarr_url"
-      - "lidarr_apikey"
-      - "ombi_url"
-      - "ombi_apikey"
-      - "maxmind_license_key"
-      - "project_id"
-      - "readonly_apikey"
-      - "key"
+    opconnect_items:
+      monitoring:
+        - "healthcheck"
+      grafana:
+        - "username"
+        - "password"
+        - "smtp_username"
+        - "smtp_password"
+      influxdb:
+        - "healthcheck"
+        - "username"
+        - "password"
+      prometheus:
+        - "healthcheck"
+      loki:
+        - "healthcheck"
+      mediaserver:
+        - "healthcheck"
+        - "tautulli_url"
+        - "tautulli_apikey"
+        - "sonarr_url"
+        - "sonarr_apikey"
+        - "radarr_url"
+        - "radarr_apikey"
+        - "lidarr_url"
+        - "lidarr_apikey"
+        - "ombi_url"
+        - "ombi_apikey"
+        - "maxmind_license_key"
+      healthchecks:
+        - "project_id"
+        - "readonly_apikey"
+      crowdsec:
+        - "key"
   roles:
     - 1password
 

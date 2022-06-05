@@ -1,12 +1,11 @@
 ---
 - hosts: localhost,vault
   vars:
-    opconnect_item_names:
-      - "vault"
-      - "crowdsec"
-    opconnect_field_names:
-      - "healthcheck"
-      - "key"
+    opconnect_items:
+      vault:
+        - "healthcheck"
+      crowdsec:
+        - "key"
   roles:
     - 1password
 
