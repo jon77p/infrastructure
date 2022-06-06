@@ -1,13 +1,30 @@
 [Unit]
 Description={{ service_description }}
 Documentation=
-After=network.target
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=notify
+KillMode=none
+Environment=GOMAXPROCS=2
 
 [Service]
 Type=simple
 User={{ user }}
 ExecStart=/usr/local/bin/rclone mount {{ rclone_remote }}: {{ rclone_mount_dir }} \
-  --allow-other --allow-root --allow-non-empty \
+  --allow-other \
+  --user-agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36' \
+  --use-mmap \
+  --dir-cache-time 168h \
+  --timeout 1h \
+  --umask 002 \
+  --poll-interval=1m \
+  --vfs-cache-mode writes \
+  --vfs-read-chunk-size 64M \
+  --vfs-read-chunk-size-limit 2048M \
+  --tpslimit 10 \
+  --tpslimit-burst 10 \
   --uid {{ rclone_mount_uid }} --gid {{ rclone_mount_gid }} --dir-perms {{ rclone_mount_mode }}
 ExecStop=/bin/fusermount -uzq {{ rclone_mount_dir }}
 Restart=on-failure
