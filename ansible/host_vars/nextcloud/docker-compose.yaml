@@ -4,31 +4,34 @@ services:
   nextclouddb:
     image: mariadb:latest@sha256:a98834606bea049d3094d0d90964eb749d9a10c46f60e58e67ca75a6a155c1ad
     restart: always
-    command: --transaction-isolation=READ-COMMITTED --log-bin=mysqld-bin --binlog-format=ROW --innodb-file-per-table=1 --skip-innodb-read-only-compressed
     environment:
       MYSQL_RANDOM_ROOT_PASSWORD: "yes"
-      MYSQL_USER: "{{ mysql.username }}"
-      MYSQL_PASSWORD: "{{ mysql.password }}"
-      MYSQL_DATABASE: "{{ mysql.database }}"
+      MYSQL_USER: "{{ nextclouddb.username }}"
+      MYSQL_PASSWORD: "{{ nextclouddb.password }}"
+      MYSQL_DATABASE: "{{ nextclouddb.database }}"
     volumes:
       - "{{ docker_volume_dirs.nextclouddb[0] }}:/var/lib/mysql"
     networks:
-      - nextcloud
+      - "nextcloud"
+    # command: --transaction-isolation=READ-COMMITTED --log-bin=mysqld-bin --binlog-format=ROW --innodb-file-per-table=1 --skip-innodb-read-only-compressed
   nextcloud:
     image: nextcloud:latest@sha256:ff3a3aadd0154a7e2bbbeaaaf2c49d98af2b5e236930fea9bad6b3b58d5eac4a
     volumes:
       - "{{ docker_volume_dirs.nextcloud[0] }}:/var/www/html"
-      - "{{ docker_volume_dirs.nextcloud[1] }}:/var/www/html/data"
+      - "{{ docker_volume_dirs.nextcloud[1] }}:/var/www/html/config"
+      - "{{ docker_volume_dirs.nextcloud[2] }}:/var/www/html/custom_apps"
+      - "{{ docker_volume_dirs.nextcloud[3] }}:/var/www/html/themes"
+      - "{{ docker_volume_dirs.nextcloud[4] }}:/var/www/html/data"
     ports:
-      - "{{ compose_project_port }}:80"
+      - "{{ nextcloud.port }}:80"
     environment:
       PUID: "{{ rclone_mount_uid }}"
       PGID: "{{ rclone_mount_gid }}"
-      MYSQL_HOST: nextclouddb
-      MYSQL_DATABASE: "{{ mysql.database }}"
-      MYSQL_USER: "{{ mysql.username }}"
-      MYSQL_PASSWORD: "{{ mysql.password }}"
-      MAIL_FROM_ADDRESS: nextcloud
+      MYSQL_HOST: "nextclouddb"
+      MYSQL_DATABASE: "{{ nextclouddb.database }}"
+      MYSQL_USER: "{{ nextclouddb.username }}"
+      MYSQL_PASSWORD: "{{ nextclouddb.password }}"
+      MAIL_FROM_ADDRESS: "nextcloud"
       MAIL_DOMAIN: "{{ cloudflare_dns_records[0].record }}"
       SMTP_HOST: "{{ nextcloud.smtp.host }}"
       SMTP_PORT: "{{ nextcloud.smtp.port }}"

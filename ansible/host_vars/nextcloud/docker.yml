@@ -1,10 +1,18 @@
 ---
-compose_project_name: nextcloud
-compose_project_port: "8080"
+compose_project_name: "nextcloud"
+compose_project_port: "{{ nextcloud.port }}"
+docker_user_id:
+  nextcloud: "{{ rclone_mount_uid }}"
+docker_group_id:
+  nextcloud: "{{ rclone_mount_gid }}"
 docker_volume_dirs:
   nextcloud:
-    - /mnt/{{ compose_project_name }}/html
-    - "{{ rclone_mount_dir }}"
+    - "/mnt/{{ compose_project_name }}/html"
+    - "/mnt/{{ compose_project_name }}/config"
+    - "/mnt/{{ compose_project_name }}/custom_apps"
+    - "/mnt/{{ compose_project_name }}/themes"
+    # - "{{ rclone_mount_dir }}"
+    - "/mnt/{{ compose_project_name }}/data"
   nextclouddb:
     - /mnt/{{ compose_project_name }}/db
   promtail:

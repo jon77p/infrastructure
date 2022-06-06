@@ -1,0 +1,12 @@
+---
+- name: Create mount directories
+  become: true
+  file:
+    path: "{{ path }}"
+    recurse: true
+    owner: "{{ docker_user_id.nextcloud }}"
+    group: "{{ docker_group_id.nextcloud }}"
+    state: directory
+  loop: "{{ docker_volume_dirs.nextcloud }}"
+  loop_control:
+    loop_var: "path"
