@@ -2,18 +2,17 @@
 - name: Get 1Password secrets
   hosts: localhost,nextcloud
   vars:
-    opconnect_item_names:
-      - nextcloud
-      - crowdsec
-    opconnect_field_names:
-      - healthcheck
-      - username
-      - password
-      - smtp_username
-      - smtp_password
-      - mysql_username
-      - mysql_password
-      - key
+    opconnect_items:
+      nextcloud:
+        - "healthcheck"
+        - "username"
+        - "password"
+        - "smtp_username"
+        - "smtp_password"
+        - "mysql_username"
+        - "mysql_password"
+      crowdsec:
+        - "key"
   roles:
     - opconnect
 
@@ -21,15 +20,16 @@
   hosts: nextcloud
   become: true
   roles:
-    - common
-    - cloudflared
-    - cloudflare
-    - crowdsec
-    - iptables
-    - innernet
-    - dns
+    # - common
+    # - cloudflared
+    # - cloudflare
+    # - crowdsec
+    # - iptables
+    # - innernet
+    # - dns
     - node_exporter
-    - stefangweichinger.ansible_rclone
-    - rclone
+    # - stefangweichinger.ansible_rclone
+    # - rclone
+    - nextcloud
     - promtail
     - docker
