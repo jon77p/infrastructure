@@ -4,11 +4,6 @@ variable "cf_account_id" {
   sensitive   = true
 }
 
-variable "cf_email" {
-  description = "Cloudflare email"
-  type        = string
-}
-
 variable "instances" {
   description = "map of instances"
   type = map(object({
