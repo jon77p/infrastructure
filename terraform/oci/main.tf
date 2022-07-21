@@ -24,7 +24,6 @@ module "tunnel" {
   source = "./modules/tunnel"
 
   instances                 = var.instances
-  cf_email                  = var.cf_email
   cf_account_id             = var.cf_account_id
   cf_allowed_idp_ids        = var.cf_allowed_idp_ids
   cf_admin_group_id         = var.cf_admin_group_id
