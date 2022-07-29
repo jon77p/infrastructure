@@ -2,7 +2,7 @@ terraform {
   required_providers {
     oci = {
       source  = "oracle/oci"
-      version = "4.86.0"
+      version = "4.86.1"
     }
     cloudflare = {
       source = "cloudflare/cloudflare"
