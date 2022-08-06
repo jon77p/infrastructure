@@ -43,15 +43,6 @@ provider "oci" {
   alias        = "oci2-region1"
 }
 
-provider "oci" {
-  tenancy_ocid = var.oci["oci3"].tenancy_ocid
-  user_ocid    = var.oci["oci3"].user_ocid
-  fingerprint  = var.oci["oci3"].fingerprint
-  private_key  = var.oci_auth_private_key
-  region       = var.oci["oci3"].regions[0]
-  alias        = "oci3"
-}
-
 provider "cloudflare" {
   api_token = var.cf_api_token
 }
