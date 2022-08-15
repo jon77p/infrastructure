@@ -4,7 +4,9 @@
   "codeMakerOutput": "generated",
   "projectId": "dad79d3e-d6d4-47bf-844b-3f72f5590e33",
   "sendCrashReports": "false",
-  "terraformProviders": [],
+  "terraformProviders": [
+    "oracle/oci@4.88.1"
+  ],
   "terraformModules": [],
   "context": {
     "excludeStackIdFromLogicalIds": "true",
