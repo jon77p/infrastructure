@@ -3,7 +3,7 @@ version: '3'
 services:
   pihole:
     hostname: "{{ compose_project_name }}"
-    image: pihole/pihole:latest@sha256:f7624f452b7a6320405b6ff00a9ed253d99fd33a22abced1954633ceb5bae24e
+    image: pihole/pihole:latest@sha256:f9e68c29c26e63a9d2fdd221167281948067a3e91864c45f7317332e443ee3be
     volumes:
       - "{{ docker_volume_dirs.pihole[0] }}:/etc/pihole"
       - "{{ docker_volume_dirs.pihole[1] }}:/etc/dnsmasq.d"
