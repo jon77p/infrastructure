@@ -20,7 +20,7 @@ services:
       interval: 10s
       retries: 5
   opconnect_api:
-    image: 1password/connect-api:latest@sha256:932a0b97720850926b14d00069fe4639ae31e5f999d31036e2ee32384861e31e
+    image: 1password/connect-api:latest@sha256:215416a986773b1a238e9c044e9e3e8b5c042742a8c6741d081288dff55a8779
     volumes:
       - "{{ docker_volume_dirs.opconnect[0] }}/1password-credentials.json:/home/opuser/.op/1password-credentials.json"
       - "data:/home/opuser/.op/data"
