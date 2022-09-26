@@ -2,7 +2,7 @@
 version: '3'
 services:
   prometheus:
-    image: prom/prometheus:latest
+    image: prom/prometheus:latest@sha256:b591915dad4ee2375fbb24cd019c50a546aae561bc63510516efec70d69b4292
     restart: "always"
     volumes:
       - "{{ docker_volume_dirs.prometheus[0] }}/prometheus.yml:/etc/prometheus/prometheus.yml"
@@ -15,7 +15,7 @@ services:
       interval: 10s
       retries: 5
   loki:
-    image: grafana/loki:latest
+    image: grafana/loki:latest@sha256:1ee60f980950b00e505bd564b40f720132a0653b110e993043bb5940673d060a
     restart: "always"
     volumes:
       - "{{ docker_volume_dirs.loki[0] }}/local-config.yaml:/etc/loki/local-config.yaml"
@@ -27,7 +27,7 @@ services:
       interval: 10s
       retries: 5
   promtail:
-    image: grafana/promtail:latest
+    image: grafana/promtail:latest@sha256:072527b12cdfa1393d04a08aeba6b0eb42fd6921426ea14eaf8c828953771749
     restart: "always"
     depends_on:
       - loki
@@ -50,7 +50,7 @@ services:
       interval: 10s
       retries: 5
   varken:
-    image: boerderij/varken:latest
+    image: boerderij/varken:latest@sha256:784aaf577c822a3e69c5b2792e0422896c8cdb0455e584cd5a4e46bca789848d
     restart: "always"
     depends_on:
       - influxdb
@@ -64,7 +64,7 @@ services:
       interval: 10s
       retries: 5
   grafana:
-    image: grafana/grafana-oss:latest
+    image: grafana/grafana-oss:latest@sha256:ff68ed4324e471ffa269aa5308cdcf12276ef2d5a660daea95db9d629a32a7d8
     restart: "always"
     volumes:
       - "{{ docker_volume_dirs.grafana[0] }}/grafana.ini:/etc/grafana/grafana.ini"
