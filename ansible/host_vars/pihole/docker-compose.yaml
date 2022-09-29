@@ -29,7 +29,7 @@ services:
       interval: 10s
       retries: 5
   pihole_exporter:
-    image: ekofr/pihole-exporter:latest
+    image: ekofr/pihole-exporter:latest@sha256:65ec4ce466e74c9c59bf7a88a708120bd055a2e021e32badddad3878bd60f752
     ports:
       - "{{ compose_project_ports.pihole_exporter[0] }}:9617"
     environment:
@@ -37,7 +37,7 @@ services:
       PIHOLE_PASSWORD: "{{ pihole.admin.password }}"
     restart: "always"
   promtail:
-    image: grafana/promtail:latest
+    image: grafana/promtail:latest@sha256:072527b12cdfa1393d04a08aeba6b0eb42fd6921426ea14eaf8c828953771749
     restart: "always"
     volumes:
       - "/var/log/cloudflared.log:/var/log/cloudflared.log:ro"
