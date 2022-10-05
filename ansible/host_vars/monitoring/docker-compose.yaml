@@ -2,7 +2,7 @@
 version: '3'
 services:
   prometheus:
-    image: prom/prometheus:latest@sha256:b591915dad4ee2375fbb24cd019c50a546aae561bc63510516efec70d69b4292
+    image: prom/prometheus:latest@sha256:1a70874024f82008d4f327921598dd6e9eb84460d27c13524c4fa0ee4b482012
     restart: "always"
     volumes:
       - "{{ docker_volume_dirs.prometheus[0] }}/prometheus.yml:/etc/prometheus/prometheus.yml"
