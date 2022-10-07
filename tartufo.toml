@@ -7,7 +7,8 @@ entropy = true
 exclude-path-patterns = [
   {path-pattern = '\.talismanrc', reason = 'Talisman config file'},
   {path-pattern = 'package-lock\.json', reason = 'NPM Lock File'},
-  {path-pattern = 'yarn\.lock$', reason = 'Yarn Lock File'}
+  {path-pattern = 'yarn\.lock$', reason = 'Yarn Lock File'},
+  {path-pattern = '\.sops\.yaml$', reason = 'SOPS config file'},
 ]
 
 exclude-entropy-patterns = [
