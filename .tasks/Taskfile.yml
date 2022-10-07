@@ -1,0 +1,9 @@
+version: '3'
+
+includes:
+  setup: setup
+
+tasks:
+  setup:
+    deps:
+      - setup:setup
