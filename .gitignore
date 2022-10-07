@@ -1,6 +1,6 @@
 **/secrets*.env
 secrets*
-!.tasks/secrets/*
+!.tasks/secrets
 Brewfile.lock.json
 .config.env
 .decrypted~*.yaml
