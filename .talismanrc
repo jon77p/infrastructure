@@ -1,0 +1,10 @@
+fileignoreconfig:
+- filename: .envrc
+  checksum: 2cecf901cdb15dee67a72b8b5f97f7dc24c0cb3b99331c48bf048bc1d273e32b
+- filename: .tasks/secrets/Taskfile.yml
+  checksum: 3d8dff7e0a87ef836dce86476d6d4c36c935061bebc38e38cd99e1b443e6d299
+- filename: .tasks/setup/Taskfile.yml
+  checksum: a1ec7a2abf1bd703c6d288416cf83a907867c89c98b51c7044daf0353515eeaa
+- filename: tartufo.toml
+  checksum: ff122de617a9f8c3b2572f29d4e4e98e54bdc9fabbf800c949d46872d0e38389
+version: "1.0"
