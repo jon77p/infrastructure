@@ -67,3 +67,18 @@ repos:
     - id: go-vet
     - id: go-mod-tidy
     - id: go-mod-vendor
+# YAML-related hooks
+- repo: https://github.com/adrienverge/yamllint
+  rev: v1.28.0
+  hooks:
+    - id: yamllint
+      args:
+        - --config-file
+        - .github/lint/.yamllint.yaml
+# Terraform-related hooks
+- repo: https://github.com/gruntwork-io/pre-commit
+  rev: v0.1.17
+  hooks:
+    - id: terraform-fmt
+    - id: terraform-validate
+    - id: tflint
