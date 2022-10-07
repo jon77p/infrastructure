@@ -1,19 +1,21 @@
 ---
-# https://taskfile.dev
-
 version: '3'
 
-vars:
-  PROJECT_DIR:
-    sh: "git rev-parse --show-toplevel"
-  CLUSTER_DIR: "{{.PROJECT_DIR}}/cluster"
-  ANSIBLE_DIR: "{{.PROJECT_DIR}}/ansible"
-
-ENV:
-  KUBECONFIG: "{{.ANSIBLE_DIR}}/kubeconfig"
-
 includes:
-  ansible: ".taskfiles/ansible.yml"
-  format: ".taskfiles/format.yml"
-  lint: ".taskfiles/lint.yml"
-  pre-commit: ".taskfiles/pre-commit.yml"
+  tasks: .tasks
+
+tasks:
+  setup:
+    desc: Setup repo environment
+    deps:
+      - tasks:setup
+  update:
+    desc: Run updates
+    deps:
+      - task: update-pre-commit
+  update-pre-commit:
+    desc: Update pre-commit hooks
+    deps:
+      - tasks:setup:pre-commit
+    cmds:
+      - pre-commit autoupdate
