@@ -7,4 +7,6 @@ fileignoreconfig:
   checksum: a1ec7a2abf1bd703c6d288416cf83a907867c89c98b51c7044daf0353515eeaa
 - filename: tartufo.toml
   checksum: ff122de617a9f8c3b2572f29d4e4e98e54bdc9fabbf800c949d46872d0e38389
+- filename: .tasks/secrets/Taskfile.yml
+  checksum: d19f2b1e0bb3aac932aac44b2238545f9fe237d801e284aaf3fc6a19d7aa7951
 version: "1.0"
