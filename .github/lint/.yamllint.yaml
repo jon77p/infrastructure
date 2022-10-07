@@ -3,6 +3,8 @@ ignore: |
   *.sops.*
   gotk-components.yaml
   vault*.yml
+  .venv/
+  migrate-todo/
 extends: default
 rules:
   truthy:
