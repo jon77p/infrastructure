@@ -8,12 +8,12 @@ includes:
 tasks:
   setup:
     deps:
-      - virtualenv
       - pip
-      - direnv:setup
-      - secrets:setup
-      - pre-commit
-      - markdownlint
+      - yarn
+    cmds:
+      - task: direnv:setup
+      - task: secrets:setup
+      - task: pre-commit
   virtualenv:
     cmds:
       - python3 -m venv .venv
@@ -35,3 +35,10 @@ tasks:
       - >-
         source .venv/bin/activate &&
         pre-commit install -f
+  yarn:
+    cmds:
+      - yarn install
+    generates:
+      - node_modules
+    status:
+      - test -d node_modules
