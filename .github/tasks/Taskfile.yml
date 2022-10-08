@@ -1,0 +1,27 @@
+---
+version: "3"
+
+includes:
+  format: format.yml
+  lint: lint.yml
+  scan: scan.yml
+  setup: setup
+  update: update
+
+tasks:
+  setup:
+    deps:
+      - update:os:update
+      - setup:setup
+  update:
+    deps:
+      - update:update
+  lint:
+    deps:
+      - lint:all
+  format:
+    deps:
+      - format:all
+  scan:
+    deps:
+      - scan:scan

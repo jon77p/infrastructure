@@ -1,0 +1,9 @@
+---
+version: "3"
+
+tasks:
+  update:
+    cmds:
+      - >-
+        brew update &&
+        brew upgrade

@@ -1,7 +1,7 @@
 ---
 on:
   - pull_request
-name: 'Tartufo Scan'
+name: "Tartufo Scan"
 jobs:
   tartufo:
     runs-on: ubuntu-latest

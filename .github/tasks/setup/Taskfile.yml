@@ -1,0 +1,44 @@
+---
+version: "3"
+
+includes:
+  secrets: ../secrets
+  direnv: direnv/Taskfile_{{OS}}.yml
+
+tasks:
+  setup:
+    deps:
+      - pip
+      - yarn
+    cmds:
+      - task: direnv:setup
+      - task: secrets:setup
+      - task: pre-commit
+  virtualenv:
+    cmds:
+      - python3 -m venv .venv
+    generates:
+      - .venv/bin/activate
+    status:
+      - test -d .venv
+  pip:
+    deps:
+      - virtualenv
+    cmds:
+      - >-
+        source .venv/bin/activate &&
+        pip install -q -r requirements.dev.txt
+  pre-commit:
+    deps:
+      - pip
+    cmds:
+      - >-
+        source .venv/bin/activate &&
+        pre-commit install -f
+  yarn:
+    cmds:
+      - yarn install
+    generates:
+      - node_modules
+    status:
+      - test -d node_modules

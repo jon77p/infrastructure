@@ -1,0 +1,9 @@
+---
+version: "3"
+
+tasks:
+  scan:
+    cmds:
+      - >-
+        source .venv/bin/activate &&
+        tartufo scan-local-repo .
