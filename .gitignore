@@ -32,7 +32,7 @@ Thumbs.db
 
 **/secrets*.env
 secrets*
-!.tasks/secrets
+!.github/tasks/secrets
 Brewfile.lock.json
 .config.env
 .decrypted~*.yaml
