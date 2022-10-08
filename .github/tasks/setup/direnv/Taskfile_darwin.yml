@@ -1,0 +1,12 @@
+---
+version: "3"
+
+tasks:
+  install:
+    cmds:
+      - brew install direnv # macOS only
+    status:
+      - which direnv
+  setup:
+    deps:
+      - install

@@ -1,0 +1,16 @@
+---
+version: "3"
+
+tasks:
+  install:
+    cmds:
+      - sudo apt install -qq -o=Dpkg::Use-Pty=0 -y direnv
+    status:
+      - which direnv
+  setup:
+    deps:
+      - install
+    cmds:
+      - >-
+        grep -qF 'eval "$(direnv hook bash)"' ~/.bashrc ||
+        echo 'eval "$(direnv hook bash)"' >> ~/.bashrc

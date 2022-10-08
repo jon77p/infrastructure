@@ -1,8 +1,38 @@
+# Logs
+logs
+*.log
+
+# Node directories
+node_modules/
+.npm
+
+# Python cache files
+*.pyc
+__pycache__/
+
+# VirtualEnv
+.venv/
+venv/
+
+# C Object files
+*.o
+*.so
+
+# dotenv environment variables file
+.env
+
+# Editor files
+.vscode/
+
+# macOS files
+.DS_Store
+.Spotlight-V100
+.Trashes
+Thumbs.db
+
 **/secrets*.env
 secrets*
 !.tasks/secrets
 Brewfile.lock.json
 .config.env
 .decrypted~*.yaml
-
-.venv/

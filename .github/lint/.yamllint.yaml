@@ -1,10 +1,7 @@
 ---
 ignore: |
-  *.sops.*
-  gotk-components.yaml
-  vault*.yml
   .venv/
-  migrate-todo/
+  node_modules/
 extends: default
 rules:
   truthy:

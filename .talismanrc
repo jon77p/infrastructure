@@ -1,12 +1,12 @@
 fileignoreconfig:
 - filename: .envrc
-  checksum: 2cecf901cdb15dee67a72b8b5f97f7dc24c0cb3b99331c48bf048bc1d273e32b
+  checksum: 602d5ae3058a4e10d40fb38c16ca071cf7cacd706989e8a5773106ce6b0a448a
+- filename: yarn.lock
+  checksum: 906a124e3525ca53cca8c528a4b36e6858788d8dec4786b0ba7a28f17d1125ad
+- filename: .pre-commit-config.yaml
+  checksum: 06c6cfea2c873824980af62ed125bb53b27239c2f2654d06cbbf259c941d9b18
 - filename: .tasks/secrets/Taskfile.yml
   checksum: 3d8dff7e0a87ef836dce86476d6d4c36c935061bebc38e38cd99e1b443e6d299
 - filename: .tasks/setup/Taskfile.yml
   checksum: a1ec7a2abf1bd703c6d288416cf83a907867c89c98b51c7044daf0353515eeaa
-- filename: tartufo.toml
-  checksum: ff122de617a9f8c3b2572f29d4e4e98e54bdc9fabbf800c949d46872d0e38389
-- filename: .tasks/secrets/Taskfile.yml
-  checksum: d19f2b1e0bb3aac932aac44b2238545f9fe237d801e284aaf3fc6a19d7aa7951
 version: "1.0"

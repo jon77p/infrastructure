@@ -1,0 +1,14 @@
+---
+on: issues
+name: Create Default Labels
+jobs:
+  labels:
+    name: DefaultLabelsActions
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
+      - uses: lannonbr/issue-label-manager-action@7890981d0e8f2922211a7fe2c391c53cb3037cb4 # tag=3.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          delete: true # delete any labels that don't exist in .github/labels.json

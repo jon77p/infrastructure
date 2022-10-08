@@ -1,0 +1,37 @@
+---
+version: "3"
+
+includes:
+  secrets: ../secrets
+  direnv: direnv/Taskfile_{{OS}}.yml
+
+tasks:
+  setup:
+    deps:
+      - virtualenv
+      - pip
+      - direnv:setup
+      - secrets:setup
+      - pre-commit
+      - markdownlint
+  virtualenv:
+    cmds:
+      - python3 -m venv .venv
+    generates:
+      - .venv/bin/activate
+    status:
+      - test -d .venv
+  pip:
+    deps:
+      - virtualenv
+    cmds:
+      - >-
+        source .venv/bin/activate &&
+        pip install -q -r requirements.dev.txt
+  pre-commit:
+    deps:
+      - pip
+    cmds:
+      - >-
+        source .venv/bin/activate &&
+        pre-commit install -f

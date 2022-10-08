@@ -1,8 +1,8 @@
 ---
-version: '3'
+version: "3"
 
 includes:
-  tasks: .tasks
+  tasks: .github/tasks
 
 tasks:
   setup:
@@ -12,10 +12,16 @@ tasks:
   update:
     desc: Run updates
     deps:
-      - task: update-pre-commit
-  update-pre-commit:
-    desc: Update pre-commit hooks
+      - tasks:update
+  lint:
+    desc: Lint current repo
     deps:
-      - tasks:setup:pre-commit
-    cmds:
-      - pre-commit autoupdate
+      - tasks:lint
+  format:
+    desc: Format current repo
+    deps:
+      - tasks:format
+  scan:
+    desc: Scan current repo
+    deps:
+      - tasks:scan
