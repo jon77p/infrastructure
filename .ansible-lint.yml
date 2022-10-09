@@ -6,7 +6,6 @@
 exclude_paths:
   - .github/**/*
   - migrate-todo/**/*
-  - ansible/**/*
 # parseable: true
 # quiet: true
 # verbosity: 1
