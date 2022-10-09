@@ -55,7 +55,7 @@ repos:
       - id: ggshield
         args: [secret, scan, pre-commit]
   - repo: https://github.com/thoughtworks/talisman
-    rev: "63126f50cafcf5e30832252ac2802ff671b6289a" # frozen: v1.29.1
+    rev: 63126f50cafcf5e30832252ac2802ff671b6289a # frozen: v1.29.1
     hooks:
       - id: talisman-commit
         entry: cmd --githook pre-commit

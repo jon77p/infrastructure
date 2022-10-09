@@ -6,6 +6,7 @@
 exclude_paths:
   - .github/**/*
   - migrate-todo/**/*
+  - ansible/**/*
 # parseable: true
 # quiet: true
 # verbosity: 1
@@ -73,9 +74,9 @@ extra_vars:
 # List of additional kind:pattern to be added at the top of the default
 # match list, first match determines the file kind.
 kinds:
-  - playbook: "ansible/playbooks/**/*.{yml,yaml}"
+  - playbook: ansible/playbooks/**/*.{yml,yaml}
   # - galaxy: "**/folder/galaxy.yml"
-  - tasks: "ansible/playbooks/roles/**/tasks/*.{yml,yaml}"
-  - vars: "ansible/*_vars/**/*.{yml,yaml}"
+  - tasks: ansible/playbooks/roles/**/tasks/*.{yml,yaml}
+  - vars: ansible/*_vars/**/*.{yml,yaml}
   # - meta: "**/meta/main.yml"
   # - yaml: "**/*.yaml-too"

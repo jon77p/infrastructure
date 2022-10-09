@@ -4,7 +4,7 @@ fileignoreconfig:
 - filename: yarn.lock
   checksum: 906a124e3525ca53cca8c528a4b36e6858788d8dec4786b0ba7a28f17d1125ad
 - filename: .pre-commit-config.yaml
-  checksum: 06c6cfea2c873824980af62ed125bb53b27239c2f2654d06cbbf259c941d9b18
+  checksum: c9d8960e18b0255be6b665cb0728d13804fa02c9603ff489bf64948d5015f982
 - filename: .tasks/secrets/Taskfile.yml
   checksum: 3d8dff7e0a87ef836dce86476d6d4c36c935061bebc38e38cd99e1b443e6d299
 - filename: .tasks/setup/Taskfile.yml
