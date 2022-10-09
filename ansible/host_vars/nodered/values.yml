@@ -8,13 +8,13 @@ values:
         traefik.ingress.kubernetes.io/router.entrypoints: websecure
         cert-manager.io/cluster-issuer: cloudflare-issuer
       hosts:
-        - host: "nodered.{{ domain }}"
+        - host: nodered.{{ domain }}
           paths:
             - path: /
       tls:
         - secretName: "{{ service_name }}-tls"
           hosts:
-            - "nodered.{{ domain }}"
+            - nodered.{{ domain }}
   persistence:
     config:
       enabled: true

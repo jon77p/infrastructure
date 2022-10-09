@@ -1,21 +1,22 @@
-- name: Create tunnel-{{ ansible_host }} dns record
+---
+- name: Create dns record {{ "tunnel-" ~ ansible_host }}
   community.general.cloudflare_dns:
     account_email: "{{ cf_email }}"
     api_token: "{{ cf_api_token }}"
     zone: "{{ domain }}"
-    record: "tunnel-{{ ansible_host }}.{{ domain }}"
+    record: tunnel-{{ ansible_host }}.{{ domain }}
     type: CNAME
     value: "{{ cf_tunnel_id }}.cfargotunnel.com"
     proxied: true
     state: present
 
-- name: Create ssh-{{ ansible_host }} dns record
+- name: Create dns record {{ "ssh-" ~ ansible_host }}
   community.general.cloudflare_dns:
     account_email: "{{ cf_email }}"
     api_token: "{{ cf_api_token }}"
     zone: "{{ domain }}"
-    record: "ssh-{{ ansible_host }}.{{ domain }}"
+    record: ssh-{{ ansible_host }}.{{ domain }}
     type: CNAME
-    value: "tunnel-{{ ansible_host }}.{{ domain }}"
+    value: tunnel-{{ ansible_host }}.{{ domain }}
     proxied: true
     state: present

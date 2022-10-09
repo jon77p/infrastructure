@@ -1,8 +1,8 @@
 ---
 cloudflare_dns_records:
   - zone: "{{ domain }}"
-    record: "nodered.{{ domain }}"
+    record: nodered.{{ domain }}
     type: CNAME
-    value: "tunnel.{{ domain }}"
+    value: tunnel.{{ domain }}
     proxied: true
     state: present

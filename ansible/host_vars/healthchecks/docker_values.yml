@@ -3,7 +3,7 @@ healthchecks:
   port: "8000"
   healthcheck: "{{ opconnect_results['healthchecks'].healthcheck }}"
   email:
-    host: "smtp.gmail.com"
+    host: smtp.gmail.com
     port: "587"
     username: "{{ opconnect_results['healthchecks'].smtp_username }}"
     password: "{{ opconnect_results['healthchecks'].smtp_password }}"

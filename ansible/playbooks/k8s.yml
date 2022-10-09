@@ -1,6 +1,6 @@
 ---
-
-- hosts: manager
+- name: Setup k8s on manager
+  hosts: manager
   become: true
   roles:
     - common
@@ -9,7 +9,8 @@
     - cron
     - k8s
 
-- hosts: nodes
+- name: Setup k8s on nodes
+  hosts: nodes
   become: true
   roles:
     - common
@@ -18,31 +19,32 @@
     - cron
     - k8s
 
-- hosts: localhost
+- name: Setup k8s on localhost
+  hosts: localhost
   gather_facts: false
   connection: local
   vars:
-    BOOTSTRAP_FLUX_KEY_FP: "$BOOTSTRAP_FLUX_KEY_FP"
+    BOOTSTRAP_FLUX_KEY_FP: $BOOTSTRAP_FLUX_KEY_FP
   tasks:
-    - name: "Get absolute path for repository"
+    - name: Get absolute path for repository
       run_once: true
-      command: "git rev-parse --show-toplevel"
+      ansible.builtin.command: git rev-parse --show-toplevel
       register: repo_abs_path
     - name: Replace 'pi1' with IP
-      replace:
+      ansible.builtin.replace:
         path: "{{ repo_abs_path.stdout }}/ansible/kubeconfig"
-        regexp: 'pi1'
-        replace: '192.168.1.101'
-    - name: "Create the flux-system namespace"
+        regexp: pi1
+        ansible.builtin.replace: 192.168.1.101
+    - name: Create the flux-system namespace
       kubernetes.core.k8s:
         state: present
-        name: "flux-system"
+        name: flux-system
         api_version: v1
         kind: Namespace
-    - name: "Get Flux GPG Secret Key"
-      command: "gpg --export-secret-keys --armor {{ BOOTSTRAP_FLUX_KEY_FP }}"
+    - name: Get Flux GPG Secret Key
+      ansible.builtin.command: gpg --export-secret-keys --armor {{ BOOTSTRAP_FLUX_KEY_FP }}
       register: gpg
-    - name: "Add Flux GPG Key for decrypting SOPS secrets"
+    - name: Add Flux GPG Key for decrypting SOPS secrets
       kubernetes.core.k8s:
         state: present
         definition:
@@ -50,9 +52,9 @@
           kind: Secret
           type: generic
           metadata:
-            name: "sops-gpg"
-            namespace: "flux-system"
+            name: sops-gpg
+            namespace: flux-system
           data:
             sops.asc: "{{ gpg.stdout | b64encode }}"
-    - name: "Install Flux"
-      command: "kubectl apply --kustomize={{ repo_abs_path.stdout }}/cluster/base/flux-system --force"
+    - name: Install Flux
+      ansible.builtin.command: kubectl apply --kustomize={{ repo_abs_path.stdout }}/cluster/base/flux-system --force

@@ -1,4 +1,4 @@
 ---
 additional_ingress:
   - hostname: "{{ compose_project_name }}.{{ domain }}"
-    service: "http://localhost:{{ compose_project_port }}"
+    service: http://localhost:{{ compose_project_port }}

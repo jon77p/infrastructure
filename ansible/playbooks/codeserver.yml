@@ -1,16 +1,18 @@
 ---
-- hosts: localhost,codeserver
+- name: Get 1Password secrets
+  hosts: localhost,codeserver
   vars:
     opconnect_items:
       codeserver:
-        - "healthcheck"
-        - "password"
+        - healthcheck
+        - password
       crowdsec:
-        - "key"
+        - key
   roles:
-    - 1password
+    - opconnect
 
-- hosts: codeserver
+- name: Setup codeserver
+  hosts: codeserver
   become: true
   roles:
     - common

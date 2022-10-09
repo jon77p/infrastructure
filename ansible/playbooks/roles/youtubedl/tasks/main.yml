@@ -1,13 +1,16 @@
+---
 - name: Create configuration directories
   become: true
-  file:
-    path: "{{ item }}"
+  ansible.builtin.file:
+    path: "{{ youtubedl_config_dir }}"
     state: directory
   loop: "{{ docker_volume_dirs }}"
+  loop_control:
+    loop_var: youtubedl_config_dir
 
 - name: Create config file
   become: true
-  when: "docker_volume_dirs != []"
-  template:
+  when: docker_volume_dirs != []
+  ansible.builtin.template:
     src: ../templates/config.yml.j2
     dest: "{{ docker_volume_dirs[0] }}/config.yml"

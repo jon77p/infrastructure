@@ -1,30 +1,44 @@
 ---
 - name: Innernet | Create /etc/innernet-server/peers directory
   become: true
-  file:
+  ansible.builtin.file:
     path: /etc/innernet-server/peers
     state: directory
 
-- name: Innernet | Check if invite has been created for peer {{ peer.name }}
+- name: Innernet | Check if invite has been created for peer {{ innernet_peer.name }}
   become: true
-  stat:
-    path: /etc/innernet-server/peers/invite-{{ peer.name }}-{{ peer.cidr }}.toml
+  ansible.builtin.stat:
+    path: /etc/innernet-server/peers/invite-{{ innernet_peer.name }}-{{ innernet_peer.cidr }}.toml
   register: innernet_invite_peer_check
 
-- name: Innernet | add peer {{ peer.name }} with auto-ip
+- name: Innernet | add peer with auto-ip {{ innernet_peer.name }}
   become: true
-  shell: innernet-server add-peer --name {{ peer.name }} --auto-ip --cidr {{ peer.cidr }} --admin {{ peer.admin | default("false") }} --save-config /etc/innernet-server/peers/invite-{{ peer.name }}-{{ peer.cidr }}.toml --yes {{ innernet_network }}
-  when: not innernet_invite_peer_check.stat.exists and peer.ip is not defined
+  ansible.builtin.command: |
+    innernet-server add-peer
+    --name {{ innernet_peer.name }}
+    --auto-ip
+    --cidr {{ innernet_peer.cidr }}
+    --admin {{ innernet_peer.admin | default("false") }}
+    --save-config /etc/innernet-server/peers/invite-{{ innernet_peer.name }}-{{ innernet_peer.cidr }}.toml
+    --yes {{ innernet_network }}
+  when: not innernet_invite_peer_check.stat.exists and innernet_peer.ip is not defined
 
-- name: Innernet | add peer {{ peer.name }} with manual ip
+- name: Innernet | add peer with manual ip {{ innernet_peer.name }}
   become: true
-  shell: innernet-server add-peer --name {{ peer.name }} --ip {{ peer.ip }} --cidr {{ peer.cidr }} --admin {{ peer.admin | default("false") }} --save-config /etc/innernet-server/peers/invite-{{ peer.name }}-{{ peer.cidr }}.toml --yes {{ innernet_network }}
-  when: not innernet_invite_peer_check.stat.exists and peer.ip is defined
+  ansible.builtin.command: |
+    innernet-server add-peer
+    --name {{ innernet_peer.name }}
+    --ip {{ innernet_peer.ip }}
+    --cidr {{ innernet_peer.cidr }}
+    --admin {{ innernet_peer.admin | default("false") }}
+    --save-config /etc/innernet-server/peers/invite-{{ innernet_peer.name }}-{{ innernet_peer.cidr }}.toml
+    --yes {{ innernet_network }}
+  when: not innernet_invite_peer_check.stat.exists and innernet_peer.ip is defined
 
-- name: Innernet | Fetch invite invite-{{ peer.name }}-{{ peer.cidr }}.toml from innernet-server
+- name: Innernet | Fetch invite from innernet-server {{ "invite-" ~ innernet_peer.name ~ "-" ~ innernet_peer.cidr ~ ".toml" }}
   become: true
-  fetch:
-    src: /etc/innernet-server/peers/invite-{{ peer.name }}-{{ peer.cidr }}.toml
-    dest: ../secrets/invite-{{ peer.name }}-{{ peer.cidr }}.toml
-    flat: yes
+  ansible.builtin.fetch:
+    src: /etc/innernet-server/peers/invite-{{ innernet_peer.name }}-{{ innernet_peer.cidr }}.toml
+    dest: ../secrets/invite-{{ innernet_peer.name }}-{{ innernet_peer.cidr }}.toml
+    flat: true
   when: not innernet_invite_peer_check.stat.exists

@@ -1,25 +1,28 @@
 ---
 ### docker deployment
 # - hosts: gaps
-  # become: true
-  # roles:
-    # - common
-    # - cloudflared
-    # - cloudflare
-    # - docker
+# become: true
+# roles:
+# - common
+# - cloudflared
+# - cloudflare
+# - docker
 
-- hosts: localhost
+- name: Setup gaps
+  hosts: localhost
   vars:
-    servicename: "gaps"
+    servicename: gaps
   gather_facts: false
   connection: local
   roles:
     - k8s
 
-- hosts: manager
+- name: Setup cloudflared on manager
+  hosts: manager
   roles:
     - cloudflared
 
-- hosts: nodes
+- name: Setup cloudflare on nodes
+  hosts: nodes
   roles:
     - cloudflared

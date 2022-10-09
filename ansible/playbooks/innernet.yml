@@ -1,15 +1,17 @@
 ---
-- hosts: localhost,innernet
+- name: Setup innernet
+  hosts: localhost,innernet
   vars:
     opconnect_items:
       innernet:
-        - "healthcheck"
+        - healthcheck
       crowdsec:
-        - "key"
+        - key
   roles:
-    - 1password
+    - opconnect
 
-- hosts: innernet
+- name: Setup innernet
+  hosts: innernet
   become: true
   roles:
     - common
@@ -23,8 +25,9 @@
     - dns
     - node_exporter
 
-- hosts: localhost
+- name: Add OCI setup for innernet
+  hosts: localhost
   vars:
-    hostname: "innernet"
+    hostname: innernet
   roles:
     - oci

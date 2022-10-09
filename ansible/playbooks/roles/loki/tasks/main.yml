@@ -1,17 +1,17 @@
 ---
 - name: Create mount directories
   become: true
-  file:
-    path: "{{ path }}"
+  ansible.builtin.file:
+    path: "{{ loki_path }}"
     recurse: true
     state: directory
   loop: "{{ docker_volume_dirs.loki }}"
   loop_control:
-    loop_var: "path"
+    loop_var: loki_path
 
 - name: Create config file
   become: true
-  when: "docker_volume_dirs.loki != []"
-  template:
+  when: docker_volume_dirs.loki != []
+  ansible.builtin.template:
     src: ../templates/local-config.yaml.j2
     dest: "{{ docker_volume_dirs.loki[0] }}/local-config.yaml"

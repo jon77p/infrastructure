@@ -1,10 +1,11 @@
 ---
-
-- hosts: innernet
+- name: Initialize peers on the innernet server
+  hosts: innernet
   roles:
     - innernet
 
-- hosts:
+- name: Connect each peer to the innernet server
+  hosts:
     - pihole
     - nextcloud
     - healthchecks
@@ -18,13 +19,19 @@
   roles:
     - innernet
     - dns
-
 # - hosts: localhost
 # tasks:
 #    - name: Install innernet network from invite
 #      become: true
-#      shell: innernet install --delete-invite --default-name ansible/secrets/invite-jon77p-humans.toml
+#      ansible.builtin.command: |
+#        innernet install
+#        --delete-invite
+#        --default-name ansible/secrets/invite-jon77p-humans.toml
 #      ignore_errors: true
 #    - name: Add humans to services innernet association
 #      become: true
-#      shell: innernet add-association --yes "{{ hostvars['innernet'].innernet_network }}" "{{ hostvars['innernet'].additional_networks[0].network_name }}" "{{ hostvars['innernet'].additional_networks[1].network_name }}"
+#      ansible.builtin.command: |
+#        innernet add-association
+#        --yes "{{ hostvars['innernet'].innernet_network }}"
+#        "{{ hostvars['innernet'].additional_networks[0].network_name }}"
+#        "{{ hostvars['innernet'].additional_networks[1].network_name }}"

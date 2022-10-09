@@ -1,15 +1,17 @@
 ---
-- hosts: localhost,vault
+- name: Get 1Password secrets
+  hosts: localhost,vault
   vars:
     opconnect_items:
       vault:
-        - "healthcheck"
+        - healthcheck
       crowdsec:
-        - "key"
+        - key
   roles:
-    - 1password
+    - opconnect
 
-- hosts: vault
+- name: Setup vault
+  hosts: vault
   become: true
   roles:
     - common

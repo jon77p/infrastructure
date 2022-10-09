@@ -1,41 +1,43 @@
+---
 - name: Check if k3s is installed
-  stat:
+  ansible.builtin.stat:
     path: /usr/local/bin/k3s
   register: k3s_check
 
 - name: Install k3s
   when: not k3s_check.stat.exists
-  shell: curl -sfL https://get.k3s.io | sh -
+  ansible.builtin.command: curl -sfL https://get.k3s.io | sh -
 
 - name: Get absolute path for repository
   delegate_to: localhost
   become: false
   run_once: true
-  command: "git rev-parse --show-toplevel"
+  ansible.builtin.command: git rev-parse --show-toplevel
   register: repo_abs_path
 
 - name: Add Traefik Pilot and ingress config
-  template:
+  ansible.builtin.template:
     src: ../templates/traefik-config.yaml.j2
     dest: /var/lib/rancher/k3s/server/manifests/traefik-config.yaml
 
 - name: Retrieve node token
-  shell: cat /var/lib/rancher/k3s/server/node-token
+  ansible.builtin.command: cat /var/lib/rancher/k3s/server/node-token
   register: nodetoken
 
 - name: Store node token in dummy host
-  add_host:
-    name: "K3S_TOKEN_HOLDER"
+  ansible.builtin.add_host:
+    name: K3S_TOKEN_HOLDER
     token: "{{ nodetoken.stdout }}"
     manager: "{{ ansible_hostname }}"
 
-- debug:
+- name: Debug K3S_TOKEN_HOLDER
+  ansible.builtin.debug:
     var: hostvars['K3S_TOKEN_HOLDER']['token']
 
 - name: Fetch kubeconfig from manager
   run_once: true
-  fetch:
-    src: "/etc/rancher/k3s/k3s.yaml"
+  ansible.builtin.fetch:
+    src: /etc/rancher/k3s/k3s.yaml
     dest: "{{ repo_abs_path.stdout }}/ansible/kubeconfig"
     flat: true
 
@@ -43,7 +45,7 @@
   delegate_to: localhost
   become: false
   run_once: true
-  replace:
+  ansible.builtin.replace:
     path: "{{ repo_abs_path.stdout }}/ansible/kubeconfig"
-    regexp: "https://127.0.0.1:6443"
-    replace: "https://{{ ansible_hostname }}:6443"
+    regexp: https://127.0.0.1:6443
+    ansible.builtin.replace: https://{{ ansible_hostname }}:6443

@@ -1,16 +1,19 @@
 ---
-- hosts: localhost
+- name: Setup nodered with k8s
+  hosts: localhost
   vars:
-    servicename: "nodered"
+    servicename: nodered
   gather_facts: false
   connection: local
   roles:
     - k8s
 
-- hosts: manager
+- name: Setup cloudflared on manager
+  hosts: manager
   roles:
     - cloudflared
 
-- hosts: nodes
+- name: Setup cloudflare on nodes
+  hosts: nodes
   roles:
     - cloudflared

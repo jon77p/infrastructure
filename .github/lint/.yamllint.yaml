@@ -2,6 +2,9 @@
 ignore: |
   .venv/
   node_modules/
+  migrate-todo/
+  ansible/**/vault*.yml
+  ansible/host_vars/youtubedl/healthcheck.yml
 extends: default
 rules:
   truthy:

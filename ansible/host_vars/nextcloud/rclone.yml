@@ -1,9 +1,9 @@
 ---
 rclone_remote: "{{ vault_rclone_remote }}"
 rclone_configs: "{{ vault_rclone_configs }}"
-rclone_mount_user: "www-data"
-rclone_mount_group: "www-data"
+rclone_mount_user: www-data
+rclone_mount_group: www-data
 rclone_mount_uid: "33"
 rclone_mount_gid: "33"
-rclone_mount_dir: "/mnt/{{ rclone_remote }}"
+rclone_mount_dir: /mnt/{{ rclone_remote }}
 rclone_mount_mode: "770"

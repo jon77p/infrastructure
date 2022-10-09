@@ -1,7 +1,8 @@
 ---
-- hosts: "{{ target_name }}"
+- name: Add tunnel route
+  hosts: "{{ target_name }}"
   vars_prompt:
-    - name: "target_name"
+    - name: target_name
       prompt: Enter a hostname to add a new DNS route
       private: false
   roles:

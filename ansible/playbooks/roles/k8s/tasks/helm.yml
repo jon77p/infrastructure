@@ -1,22 +1,25 @@
-- include_vars: "helm.yml"
+---
+- name: Include variables
+  ansible.builtin.include_vars: helm.yml
 
 - name: Add helm chart repo
-  when: "helm.repo is defined"
+  when: helm.repo is defined
   kubernetes.core.helm_repository:
     name: "{{ helm.repo.name }}"
     repo_url: "{{ helm.repo.url }}"
 
 - name: Clone helm chart git repo
-  when: "helm.git is defined"
-  git:
+  when: helm.git is defined
+  ansible.builtin.git:
     repo: "{{ helm.git.repo }}"
     dest: "{{ helm.git.dest }}"
 
-- debug:
+- name: Debug helm
+  ansible.builtin.debug:
     var: helm
 
 - name: Deploy helm chart
-  when: "helm.git is not defined"
+  when: helm.git is not defined
   kubernetes.core.helm:
     update_repo_cache: true
     name: "{{ helm.name }}"
@@ -26,7 +29,7 @@
     values: "{{ helm.chart_values }}"
 
 - name: Deploy helm chart from local git path
-  when: "helm.git is defined"
+  when: helm.git is defined
   kubernetes.core.helm:
     name: "{{ helm.name }}"
     chart_ref: "{{ helm.git.dest }}/{{ helm.git.chart_path }}"
@@ -35,7 +38,7 @@
     values: "{{ helm.chart_values }}"
 
 - name: Remove cloned helm chart repo
-  when: "helm.git is defined and helm.git.remove"
-  file:
+  when: helm.git is defined and helm.git.remove
+  ansible.builtin.file:
     path: "{{ helm.git.dest }}"
     state: absent

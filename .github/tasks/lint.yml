@@ -6,6 +6,7 @@ tasks:
     - task: markdown
     - task: yaml
     - task: format
+    - task: ansible
 
   markdown:
     cmds:
@@ -20,4 +21,9 @@ tasks:
   format:
     cmds:
       - prettier --ignore-path '.github/lint/.prettierignore' --config '.github/lint/.prettierrc.yaml' --check .
+    ignore_error: true
+
+  ansible:
+    cmds:
+      - ansible-lint -c '.ansible-lint.yml'
     ignore_error: true

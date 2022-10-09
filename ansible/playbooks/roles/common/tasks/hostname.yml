@@ -1,4 +1,5 @@
+---
 - name: Set hostname for host
   become: true
-  hostname:
+  ansible.builtin.hostname:
     name: "{{ ansible_ssh_host }}"

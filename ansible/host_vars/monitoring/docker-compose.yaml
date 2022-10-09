@@ -1,57 +1,57 @@
 ---
-version: '3'
+version: "3"
 services:
   prometheus:
     image: prom/prometheus:latest@sha256:4748e26f9369ee7270a7cd3fb9385c1adb441c05792ce2bce2f6dd622fd91d38
-    restart: "always"
+    restart: always
     volumes:
       - "{{ docker_volume_dirs.prometheus[0] }}/prometheus.yml:/etc/prometheus/prometheus.yml"
       - "{{ docker_volume_dirs.prometheus[1] }}:/prometheus" # todo: chown this after creation on host: chown 65534:65534
     ports:
       - "{{ compose_project_ports.prometheus[0] }}:{{ prometheus.internal_port }}"
     healthcheck:
-      test: ["CMD", "wget", "https://healthchecks.{{ domain }}/ping/{{ prometheus.healthcheck }}", "-O", "/dev/null"]
+      test: [CMD, wget, "https://healthchecks.{{ domain }}/ping/{{ prometheus.healthcheck }}", -O, /dev/null]
       timeout: 45s
       interval: 10s
       retries: 5
   loki:
     image: grafana/loki:latest@sha256:1ee60f980950b00e505bd564b40f720132a0653b110e993043bb5940673d060a
-    restart: "always"
+    restart: always
     volumes:
       - "{{ docker_volume_dirs.loki[0] }}/local-config.yaml:/etc/loki/local-config.yaml"
     ports:
       - "{{ compose_project_ports.loki[0] }}:3100"
     healthcheck:
-      test: ["CMD", "wget", "https://healthchecks.{{ domain }}/ping/{{ loki.healthcheck }}", "-O", "/dev/null"]
+      test: [CMD, wget, "https://healthchecks.{{ domain }}/ping/{{ loki.healthcheck }}", -O, /dev/null]
       timeout: 45s
       interval: 10s
       retries: 5
   promtail:
     image: grafana/promtail:latest@sha256:072527b12cdfa1393d04a08aeba6b0eb42fd6921426ea14eaf8c828953771749
-    restart: "always"
+    restart: always
     depends_on:
       - loki
     volumes:
-      - "/var/log/cloudflared.log:/var/log/cloudflared.log:ro"
-      - "/var/log/journal:/var/log/journal:ro"
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - /var/log/cloudflared.log:/var/log/cloudflared.log:ro
+      - /var/log/journal:/var/log/journal:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
       - "{{ docker_volume_dirs.promtail[0] }}/config.yaml:/etc/promtail/config.yaml"
-    command: "-config.file=/etc/promtail/config.yaml"
+    command: -config.file=/etc/promtail/config.yaml
   influxdb:
     image: influxdb:2.4@sha256:ca943fe9d445aafc3e767a4a9e2c066f6c7abf562c75793b2e43f34a614ba4bc
-    restart: "always"
+    restart: always
     volumes:
       - "{{ docker_volume_dirs.influxdb[0] }}:/var/lib/influxdb"
     ports:
       - "{{ compose_project_ports.influxdb[0] }}:{{ influxdb.internal_port }}"
     healthcheck:
-      test: ["CMD", "curl", "https://healthchecks.{{ domain }}/ping/{{ influxdb.healthcheck }}"]
+      test: [CMD, curl, "https://healthchecks.{{ domain }}/ping/{{ influxdb.healthcheck }}"]
       timeout: 45s
       interval: 10s
       retries: 5
   varken:
     image: boerderij/varken:latest@sha256:784aaf577c822a3e69c5b2792e0422896c8cdb0455e584cd5a4e46bca789848d
-    restart: "always"
+    restart: always
     depends_on:
       - influxdb
     volumes:
@@ -59,13 +59,13 @@ services:
     environment:
       - TZ=America/Los_Angeles
     healthcheck:
-      test: ["CMD", "wget", "https://healthchecks.{{ domain }}/ping/{{ varken.healthcheck }}", "-O", "/dev/null"]
+      test: [CMD, wget, "https://healthchecks.{{ domain }}/ping/{{ varken.healthcheck }}", -O, /dev/null]
       timeout: 45s
       interval: 10s
       retries: 5
   grafana:
     image: grafana/grafana-oss:latest@sha256:8b81f1225bc450e56cdcaffbfa5a051b891c8332789960e7362c38edba73a123
-    restart: "always"
+    restart: always
     volumes:
       - "{{ docker_volume_dirs.grafana[0] }}/grafana.ini:/etc/grafana/grafana.ini"
       - "{{ docker_volume_dirs.grafana[1] }}:/var/lib/grafana"
@@ -80,7 +80,7 @@ services:
       - varken
     environment:
       GF_INSTALL_PLUGINS: "{{ grafana.plugins }}"
-      GF_DEFAULT_INSTANCE_NAME: "grafana"
+      GF_DEFAULT_INSTANCE_NAME: grafana
       GF_SECURITY_ADMIN_USER: "{{ grafana.admin.username }}"
       GF_SECURITY_ADMIN_PASSWORD: "{{ grafana.admin.password }}"
       GF_SMTP_ENABLED: "true"

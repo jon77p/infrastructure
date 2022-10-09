@@ -8,7 +8,7 @@ iptables_rules:
     protocol: tcp
     state: present
     jump: ACCEPT
-    comment: "Accept new connections to TCP/{{ crowdsec.prometheus.port }}"
+    comment: Accept new connections to TCP/{{ crowdsec.prometheus.port }}
   - action: insert
     chain: INPUT
     rule_num: 7
@@ -17,7 +17,7 @@ iptables_rules:
     protocol: tcp
     state: present
     jump: ACCEPT
-    comment: "Accept new connections to TCP/{{ node_exporter.port }}"
+    comment: Accept new connections to TCP/{{ node_exporter.port }}
   - action: insert
     chain: INPUT
     rule_num: 8
@@ -26,4 +26,4 @@ iptables_rules:
     protocol: tcp
     state: present
     jump: ACCEPT
-    comment: "Accept new connections to TCP/{{ pihole_exporter.port }}"
+    comment: Accept new connections to TCP/{{ pihole_exporter.port }}

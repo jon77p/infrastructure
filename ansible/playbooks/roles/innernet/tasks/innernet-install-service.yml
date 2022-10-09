@@ -1,28 +1,28 @@
 ---
-- name: "Create innernet.target"
+- name: Create innernet.target
   become: true
   when: innernet_binary == "innernet"
-  copy:
-    src: "innernet.target"
-    dest: "/usr/lib/systemd/system/innernet.target"
+  ansible.builtin.copy:
+    src: innernet.target
+    dest: /usr/lib/systemd/system/innernet.target
 
-- name: "Create innernet@.service"
+- name: Create innernet@.service
   become: true
   when: innernet_binary == "innernet"
-  copy:
-    src: "innernet@.service"
-    dest: "/usr/lib/systemd/system/innernet@.service"
+  ansible.builtin.copy:
+    src: innernet@.service
+    dest: /usr/lib/systemd/system/innernet@.service
   register: innernet_service
 
-- name: "Create innernet-server@.service"
+- name: Create innernet-server@.service
   become: true
   when: innernet_binary == "innernet-server"
-  copy:
-    src: "innernet-server@.service"
-    dest: "/usr/lib/systemd/system/innernet-server@.service"
+  ansible.builtin.copy:
+    src: innernet-server@.service
+    dest: /usr/lib/systemd/system/innernet-server@.service
   register: innernet_service
 
-- name: "Reload systemd for new service"
-  systemd:
-    daemon_reload: yes
+- name: Reload systemd for new service
+  ansible.builtin.systemd:
+    daemon_reload: true
   when: innernet_service.changed

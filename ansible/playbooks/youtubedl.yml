@@ -1,5 +1,6 @@
 ---
-- hosts: youtubedl
+- name: Setup youtubedl
+  hosts: youtubedl
   become: true
   roles:
     - common

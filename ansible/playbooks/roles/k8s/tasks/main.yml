@@ -1,7 +1,8 @@
+---
 - name: Setup cluster
-  when: "servicename is not defined"
-  include_tasks: setup.yml
+  when: servicename is not defined
+  ansible.builtin.include_tasks: setup.yml
 
-- name: "Setup {{ servicename }} service"
-  when: "servicename is defined"
-  include_tasks: service.yml
+- name: Setup service {{ servicename }}
+  when: servicename is defined
+  ansible.builtin.include_tasks: service.yml

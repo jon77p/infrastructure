@@ -8,20 +8,20 @@ crowdsec:
     default_port: 6060
     port: 6060
   collections:
-    - "crowdsecurity/base-http-scenarios"
+    - crowdsecurity/base-http-scenarios
     # - "crowdsecurity/iptables"
-    - "crowdsecurity/linux"
-    - "crowdsecurity/sshd"
+    - crowdsecurity/linux
+    - crowdsecurity/sshd
     # - "crowdsecurity/whitelist-good-actors"
   parsers:
-    - "crowdsecurity/iptables-logs"
-    - "crowdsecurity/pam-logs"
-    - "crowdsecurity/sshd-logs"
+    - crowdsecurity/iptables-logs
+    - crowdsecurity/pam-logs
+    - crowdsecurity/sshd-logs
   scenarios:
-    - "crowdsecurity/http-backdoors-attempts"
-    - "crowdsecurity/iptables-scan-multi_ports"
-    - "crowdsecurity/ssh-bf"
-    - "crowdsecurity/ssh-slow-bf"
+    - crowdsecurity/http-backdoors-attempts
+    - crowdsecurity/iptables-scan-multi_ports
+    - crowdsecurity/ssh-bf
+    - crowdsecurity/ssh-slow-bf
   postoverflows:
-    - "crowdsecurity/rdns"
-    - "crowdsecurity/seo-bots-whitelist"
+    - crowdsecurity/rdns
+    - crowdsecurity/seo-bots-whitelist

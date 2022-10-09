@@ -1,13 +1,13 @@
 ---
 - name: Check if cargo is installed
   become: true
-  stat:
+  ansible.builtin.stat:
     path: "{{ cargo_path }}/bin/cargo"
   register: cargo_check
 
 - name: Install build utils
   become: true
-  apt:
+  ansible.builtin.apt:
     state: latest
     pkg:
       - git
@@ -18,26 +18,30 @@
 
 - name: Install cargo
   become: true
-  shell: curl https://sh.rustup.rs -sSf | sh -s -- -y
+  ansible.builtin.command: curl https://sh.rustup.rs -sSf | sh -s -- -y
   when: not cargo_check.stat.exists
 
 - name: Check if innernet is installed
   become: true
-  stat:
+  ansible.builtin.stat:
     path: "{{ cargo_path }}/bin/{{ innernet_binary }}"
   register: innernet_check
 
-- name: "Install innernet - {{ innernet_program_type }}"
+- name: Install innernet - {{ innernet_program_type }}
   become: true
-  shell: "{{ cargo_path }}/bin/cargo install --git https://github.com/tonarino/innernet --tag v{{ innernet_version }} {{ innernet_program_type }}"
+  ansible.builtin.command: |
+    {{ cargo_path }}/bin/cargo install
+    --git https://github.com/tonarino/innernet
+    --tag v{{ innernet_version }}
+    {{ innernet_program_type }}
   when: not innernet_check.stat.exists
 
-- name: "Symlink {{ innernet_binary }} into /usr/bin/"
+- name: Symlink to /usr/bin/{{ innernet_binary }}
   become: true
-  file:
+  ansible.builtin.file:
     src: "{{ cargo_path }}/bin/{{ innernet_binary }}"
-    dest: "/usr/bin/{{ innernet_binary }}"
+    dest: /usr/bin/{{ innernet_binary }}
     state: link
 
-- name: "Create necessary {{ innernet_binary }} service"
-  include_tasks: "innernet-install-service.yml"
+- name: Create necessary service {{ innernet_binary }}
+  ansible.builtin.include_tasks: innernet-install-service.yml

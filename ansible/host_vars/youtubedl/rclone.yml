@@ -1,4 +1,4 @@
 ---
 rclone_remote: "{{ vault_rclone_remote }}"
 rclone_configs: "{{ vault_rclone_configs }}"
-rclone_mount_dir: "/mnt/{{ rclone_remote }}"
+rclone_mount_dir: /mnt/{{ rclone_remote }}

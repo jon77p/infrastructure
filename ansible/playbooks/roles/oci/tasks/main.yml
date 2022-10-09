@@ -1,31 +1,35 @@
-- name: "Get tenancy OCID"
-  shell: cat ~/.oci/config | grep "{{ oci_profile }}" -A 5 | grep tenancy | awk '{ print $3 }'
+---
+- name: Get tenancy OCID
+  ansible.builtin.command: cat ~/.oci/config | grep "{{ oci_profile }}" -A 5 | grep tenancy | awk '{ print $3 }'
   register: tenancy
 
-- debug:
+- name: Debug tenancy
+  ansible.builtin.debug:
     var: tenancy
 
-- name: "Get 'terraform' compartment OCID"
+- name: Get 'terraform' compartment OCID
   oracle.oci.oci_identity_compartment_facts:
     config_profile_name: "{{ oci_profile }}"
     parent_compartment_id: "{{ tenancy.stdout }}"
-    name: "terraform"
+    name: terraform
   register: compartment
 
-- debug:
+- name: Debug compartment
+  ansible.builtin.debug:
     var: compartment
 
-- name: "Get instance with hostname {{ hostname }}"
+- name: Get instance with hostname {{ hostname }}
   oracle.oci.oci_compute_instance_facts:
     config_profile_name: "{{ oci_profile }}"
     compartment_id: "{{ compartment.compartments[0].id }}"
     display_name: "{{ hostname }}"
   register: instance
 
-- debug:
+- name: Debug instance
+  ansible.builtin.debug:
     var: instance
 
-- name: "Get vnic attachment for instance"
+- name: Get vnic attachment for instance
   oracle.oci.oci_compute_vnic_attachment_facts:
     config_profile_name: "{{ oci_profile }}"
     compartment_id: "{{ compartment.compartments[0].id }}"
@@ -34,27 +38,31 @@
     instance_ids: "{{ instance | community.general.json_query('instances[?lifecycle_state==`RUNNING`].id') }}"
   register: vnic_attachment
 
-- debug:
+- name: Debug vnic_attachment
+  ansible.builtin.debug:
     var: vnic_attachment
 
-- name: "Get subnet for vnic attachment"
+- name: Get subnet for vnic attachment
   oracle.oci.oci_network_subnet_facts:
     config_profile_name: "{{ oci_profile }}"
     compartment_id: "{{ compartment.compartments[0].id }}"
     subnet_id: "{{ vnic_attachment.vnic_attachments[0].subnet_id }}"
   register: subnet
 
-- debug:
+- name: Debug subnet
+  ansible.builtin.debug:
     var: subnet
 
-- name: "Add security rules to security lists"
+- name: Add security rules to security lists
   oracle.oci.oci_network_security_list:
     config_profile_name: "{{ oci_profile }}"
     compartment_id: "{{ compartment.compartments[0].id }}"
-    security_list_id: "{{ item }}"
+    security_list_id: "{{ oci_security_list_id }}"
     state: present
     vcn_id: "{{ subnet.subnets[0].vcn_id }}"
     egress_security_rules: "{{ security_rules.egress_security_rules }}"
     ingress_security_rules: "{{ security_rules.ingress_security_rules }}"
     purge_security_rules: false
   loop: "{{ subnet.subnets[0].security_list_ids }}"
+  loop_control:
+    loop_var: oci_security_list_id

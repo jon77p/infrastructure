@@ -1,26 +1,25 @@
 ---
 - name: Check if innernet is installed
   become: true
-  command: dpkg-query -W innernet
+  ansible.builtin.command: dpkg-query -W innernet
   register: innernet_check_deb
   failed_when: innernet_check_deb.rc > 1
   changed_when: innernet_check_deb.rc == 1
 
 - name: Download innernet .deb
-  get_url:
-    url: "https://github.com/tonarino/innernet/releases/download/v{{ innernet_version }}/innernet_{{ innernet_version }}_amd64.deb"
+  ansible.builtin.get_url:
+    url: https://github.com/tonarino/innernet/releases/download/v{{ innernet_version }}/innernet_{{ innernet_version }}_amd64.deb
     dest: /tmp/innernet_{{ innernet_version }}_amd64.deb
   when: innernet_check_deb.rc == 1
 
 - name: Install innernet
   become: true
-  apt:
+  ansible.builtin.apt:
     deb: /tmp/innernet_{{ innernet_version }}_amd64.deb
   when: innernet_check_deb.rc == 1
-
 # - name: Install innernet via cargo
 #   vars:
 #     innernet_binary: "innernet"
 #     innernet_program_type: "client"
 #     cargo_path: "/root/.cargo"
-#   include_tasks: innernet-install-cargo.yml
+#   ansible.builtin.include_tasks: innernet-install-cargo.yml

@@ -1,18 +1,20 @@
 ---
-- hosts: localhost,securemylife
+- name: Get 1Password secrets
+  hosts: localhost,securemylife
   vars:
     opconnect_items:
       securemylife:
-        - "healthcheck"
+        - healthcheck
       ghost:
-        - "github_username"
-        - "github_token"
+        - github_username
+        - github_token
       crowdsec:
-        - "key"
+        - key
   roles:
-    - 1password
+    - opconnect
 
-- hosts: securemylife
+- name: Setup securemylife
+  hosts: securemylife
   become: true
   roles:
     - common

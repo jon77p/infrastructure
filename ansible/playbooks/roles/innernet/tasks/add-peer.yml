@@ -1,13 +1,13 @@
 ---
 - name: Innernet | Add all peers
-  include_tasks: "add-peer-server.yml"
+  ansible.builtin.include_tasks: add-peer-server.yml
   loop: "{{ peers }}"
   loop_control:
-    loop_var: "peer"
+    loop_var: innernet_peer
 
 - name: Innernet | Restart innernet-server
   become: true
-  systemd:
+  ansible.builtin.systemd:
     name: innernet-server@{{ innernet_network }}
     state: restarted
   when: not innernet_invite_peer_check.stat.exists

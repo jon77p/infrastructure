@@ -1,41 +1,42 @@
+---
 - name: Innernet | install wireguard
-  include_tasks: wireguard.yml
+  ansible.builtin.include_tasks: wireguard.yml
   when: not ('install' in skip_tags)
   tags:
     - install
 
 - name: Innernet | install innernet-server
-  include_tasks: innernet-server.yml
+  ansible.builtin.include_tasks: innernet-server.yml
   when: inventory_hostname == 'innernet' and not ('install' in skip_tags)
   tags:
     - install
 
 - name: Innernet | install innernet armv7l
-  include_tasks: innernet-client-armv7l.yml
+  ansible.builtin.include_tasks: innernet-client-armv7l.yml
   when: inventory_hostname != 'innernet' and ansible_architecture == "armv7l" and not ('install' in skip_tags)
   tags:
     - install
 
 - name: Innernet | install innernet aarch64
-  include_tasks: innernet-client-aarch64.yml
+  ansible.builtin.include_tasks: innernet-client-aarch64.yml
   when: inventory_hostname != 'innernet' and ansible_architecture == "aarch64" and not ('install' in skip_tags)
   tags:
     - install
 
 - name: Innernet | install innernet x86_64
-  include_tasks: innernet-client-x86_64.yml
+  ansible.builtin.include_tasks: innernet-client-x86_64.yml
   when: inventory_hostname != 'innernet' and ansible_architecture == "x86_64" and not ('install' in skip_tags)
   tags:
     - install
 
 - name: Innernet | Add peers to server
-  include_tasks: add-peer.yml
+  ansible.builtin.include_tasks: add-peer.yml
   when: inventory_hostname == 'innernet' and not ('peers' in skip_tags)
   tags:
     - peers
 
 - name: Innernet | Install invite on peer
-  include_tasks: install-invite.yml
+  ansible.builtin.include_tasks: install-invite.yml
   when: inventory_hostname != 'innernet' and not ('peers' in skip_tags)
   tags:
     - peers

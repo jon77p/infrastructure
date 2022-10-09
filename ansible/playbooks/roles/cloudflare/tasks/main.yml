@@ -1,20 +1,25 @@
-- include_vars: "vault_main.yml"
+---
+- name: Inclue variables
+  ansible.builtin.include_vars: vault_main.yml
 
-- debug:
+- name: Debug records
+  ansible.builtin.debug:
     var: cloudflare_dns_records
 
 - name: Create initial tunnel records
   when: "'oci' not in group_names and servicename is not defined"
-  include_tasks: setup.yml
+  ansible.builtin.include_tasks: setup.yml
 
 - name: Create additional records to point to tunnel
   community.general.cloudflare_dns:
     account_email: "{{ cf_email }}"
     api_token: "{{ cf_api_token }}"
-    zone: "{{ item.zone }}"
-    record: "{{ item.record }}"
-    type: "{{ item.type }}"
-    value: "{{ item.value }}"
-    proxied: "{{ item.proxied }}"
-    state: "{{ item.state }}"
+    zone: "{{ cloudflare_dns_record.zone }}"
+    record: "{{ cloudflare_dns_record.record }}"
+    type: "{{ cloudflare_dns_record.type }}"
+    value: "{{ cloudflare_dns_record.value }}"
+    proxied: "{{ cloudflare_dns_record.proxied }}"
+    state: "{{ cloudflare_dns_record.state }}"
   loop: "{{ cloudflare_dns_records }}"
+  loop_control:
+    loop_var: cloudflare_dns_record

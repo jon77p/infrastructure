@@ -27,10 +27,10 @@ values:
       check_for_updates: true
     smtp:
       enabled: true
-      host: "smtp.gmail.com:587"
+      host: smtp.gmail.com:587
       port: "587"
       skip_verify: false
-      from_address: "grafana@{{ domain }}"
+      from_address: grafana@{{ domain }}
   plugins:
     - grafana-piechart-panel
     - grafana-worldmap-panel
@@ -62,25 +62,25 @@ values:
     dashboardproviders.yaml:
       apiVersion: 1
       providers:
-        - name: 'default'
+        - name: default
           orgId: 1
-          folder: ''
+          folder: ""
           type: file
           disableDeletion: false
           editable: true
           options:
             path: /var/lib/grafana/dashboards/default
-        - name: 'unifi'
+        - name: unifi
           orgId: 1
-          folder: 'Unifi'
+          folder: Unifi
           type: file
           disableDeletion: false
           editable: true
           options:
             path: /var/lib/grafana/dashboards/unifi
-        - name: 'media'
+        - name: media
           orgId: 1
-          folder: 'Media'
+          folder: Media
           type: file
           disableDeletion: false
           editable: true

@@ -6,6 +6,8 @@ tasks:
     - task: markdown
     - task: yaml
     - task: json
+    - task: ansible
+
   markdown:
     cmds:
       - >-
@@ -42,4 +44,9 @@ tasks:
         --parser=json
         --write '*.json'
         '**/*.json'
+    ignore_error: true
+
+  ansible:
+    cmds:
+      - ansible-lint -c '.ansible-lint.yml' --write
     ignore_error: true

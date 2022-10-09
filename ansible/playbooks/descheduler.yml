@@ -1,7 +1,8 @@
 ---
-- hosts: localhost
+- name: Setup descheduler
+  hosts: localhost
   vars:
-    servicename: "descheduler"
+    servicename: descheduler
   gather_facts: false
   connection: local
   roles:

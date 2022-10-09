@@ -1,17 +1,17 @@
 ---
 - name: Create mount directories
   become: true
-  file:
-    path: "{{ path }}"
+  ansible.builtin.file:
+    path: "{{ promtail_path }}"
     recurse: true
     state: directory
   loop: "{{ docker_volume_dirs.promtail }}"
   loop_control:
-    loop_var: "path"
+    loop_var: promtail_path
 
 - name: Create config file
   become: true
-  when: "docker_volume_dirs.promtail != []"
-  template:
+  when: docker_volume_dirs.promtail != []
+  ansible.builtin.template:
     src: ../templates/config.yaml.j2
     dest: "{{ docker_volume_dirs.promtail[0] }}/config.yaml"

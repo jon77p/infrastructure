@@ -1,7 +1,7 @@
 ---
 values:
   image:
-    tag: "raspbian-latest"
+    tag: raspbian-latest
   ingress:
     main:
       enabled: true

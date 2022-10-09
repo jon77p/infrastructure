@@ -1,7 +1,7 @@
 ---
 innernet_server_port: 51820
-innernet_network: "jonprentice"
-innernet_network_cidr: "10.42.0.0/16"
+innernet_network: jonprentice
+innernet_network_cidr: 10.42.0.0/16
 additional_networks:
   - network_name: humans
     network_cidr: 10.42.16.0/24
@@ -12,46 +12,46 @@ additional_networks:
 peers:
   - name: jon77p
     cidr: humans
-    ip: "10.42.16.1"
+    ip: 10.42.16.1
     admin: "true"
   - name: pihole
     cidr: services
     ip: "{{ pihole_innernet_address }}"
   - name: nextcloud
     cidr: services
-    ip: "10.42.128.3"
+    ip: 10.42.128.3
   - name: healthchecks
     cidr: services
     ip: "{{ healthchecks_innernet_address }}"
   - name: vault
     cidr: services
-    ip: "10.42.128.5"
+    ip: 10.42.128.5
   - name: firefly
     cidr: services
-    ip: "10.42.128.6"
+    ip: 10.42.128.6
   - name: monitoring
     cidr: services
     ip: "{{ monitoring_innernet_address }}"
   - name: allaboutsecurity
     cidr: services
-    ip: "10.42.128.8"
+    ip: 10.42.128.8
   - name: securemylife
     cidr: services
-    ip: "10.42.128.9"
+    ip: 10.42.128.9
   - name: codeserver
     cidr: services
-    ip: "10.42.128.10"
+    ip: 10.42.128.10
   - name: timemachine
     cidr: services
-    ip: "10.42.128.11"
+    ip: 10.42.128.11
 oci_peers:
-  - "pihole.{{ innernet_network }}.wg"
-  - "nextcloud.{{ innernet_network }}.wg"
-  - "healthchecks.{{ innernet_network }}.wg"
-  - "vault.{{ innernet_network }}.wg"
-  - "firefly.{{ innernet_network }}.wg"
-  - "monitoring.{{ innernet_network }}.wg"
-  - "allaboutsecurity.{{ innernet_network }}.wg"
-  - "securemylife.{{ innernet_network }}.wg"
-  - "codeserver.{{ innernet_network }}.wg"
-  - "timemachine.{{ innernet_network }}.wg"
+  - pihole.{{ innernet_network }}.wg
+  - nextcloud.{{ innernet_network }}.wg
+  - healthchecks.{{ innernet_network }}.wg
+  - vault.{{ innernet_network }}.wg
+  - firefly.{{ innernet_network }}.wg
+  - monitoring.{{ innernet_network }}.wg
+  - allaboutsecurity.{{ innernet_network }}.wg
+  - securemylife.{{ innernet_network }}.wg
+  - codeserver.{{ innernet_network }}.wg
+  - timemachine.{{ innernet_network }}.wg

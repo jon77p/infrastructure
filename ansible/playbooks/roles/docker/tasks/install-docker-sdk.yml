@@ -1,34 +1,35 @@
+---
 - name: Check if docker is installed
-  command: dpkg-query -W docker
+  ansible.builtin.command: dpkg-query -W docker
   register: docker_check_deb
   failed_when: docker_check_deb.rc > 1
   changed_when: docker_check_deb.rc == 1
 
 - name: Ensure docker is installed
   become: true
-  shell: curl -fsSL https://get.docker.com | bash
+  ansible.builtin.command: curl -fsSL https://get.docker.com | bash
   when: docker_check_deb.rc == 1
 
 - name: Ensure pip is installed
   become: true
-  apt:
+  ansible.builtin.apt:
     name: python3-pip
     state: present
 
 - name: Install Docker SDK
-  pip:
+  ansible.builtin.pip:
     name: docker
     state: present
 
 - name: Install docker-compose
-  pip:
+  ansible.builtin.pip:
     name: docker-compose
     state: present
 
 - name: Ensure ansible user is in docker group
   become: true
-  user:
+  ansible.builtin.user:
     name: "{{ ansible_ssh_user }}"
     append: true
     groups:
-      - "docker"
+      - docker

@@ -1,18 +1,20 @@
 ---
-- hosts: localhost,allaboutsecurity
+- name: Get 1Password secrets
+  hosts: localhost,allaboutsecurity
   vars:
     opconnect_items:
       allaboutsecurity:
-        - "healthcheck"
+        - healthcheck
       ghost:
-        - "github_username"
-        - "github_token"
+        - github_username
+        - github_token
       crowdsec:
-        - "key"
+        - key
   roles:
-    - 1password
+    - opconnect
 
-- hosts: allaboutsecurity
+- name: Setup allaboutsecurity
+  hosts: allaboutsecurity
   become: true
   roles:
     - common

@@ -6,16 +6,16 @@ firefly:
   app_key: "{{ opconnect_results['firefly'].app_key }}"
   trusted_proxies: "**"
   mail:
-    host: "smtp.gmail.com"
+    host: smtp.gmail.com
     port: "587"
-    from: "firefly@{{ domain }}"
+    from: firefly@{{ domain }}
     username: "{{ opconnect_results['firefly'].smtp_username }}"
     password: "{{ opconnect_results['firefly'].smtp_password }}"
-    encryption: "tls"
+    encryption: tls
     send_registration: "true"
 fireflydb:
   port: "3306"
-  database: "firefly"
+  database: firefly
   username: "{{ opconnect_results['firefly'].db_username }}"
   password: "{{ opconnect_results['firefly'].db_password }}"
 data_importer:

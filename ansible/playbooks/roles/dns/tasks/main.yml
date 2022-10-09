@@ -1,20 +1,20 @@
 ---
 - name: Update netplan to use nameservers
   become: true
-  when: "nameservers != []"
-  blockinfile:
+  when: nameservers != []
+  ansible.builtin.blockinfile:
     path: /etc/netplan/50-cloud-init.yaml
-    insertafter: '(\s*)set-name: (\S+)'
+    insertafter: "(\\s*)set-name: (\\S+)"
     marker: "            # {mark} ANSIBLE MANAGED BLOCK"
     block: "            nameservers:\n                addresses: {{ nameservers | to_json }}\n"
   register: netplan
 
 - name: Apply new netplan
   become: true
-  shell: netplan apply
+  ansible.builtin.command: netplan apply
   async: 10
   poll: 1
-  when: "nameservers != []"
+  when: nameservers != []
 
 - name: Reset connection
-  meta: reset_connection
+  ansible.builtin.meta: reset_connection

@@ -4,10 +4,10 @@ name: Terraform
 on: # yamllint disable-line rule:truthy
   pull_request:
     paths:
-      - 'terraform/**'
+      - "terraform/**"
 jobs:
   terraform:
-    name: 'Terraform'
+    name: "Terraform"
     runs-on: ubuntu-latest
     defaults:
       run:

@@ -1,16 +1,18 @@
 ---
-- hosts: localhost,pihole
+- name: Get 1Password secrets
+  hosts: localhost,pihole
   vars:
     opconnect_items:
       pihole:
-        - "healthcheck"
-        - "password"
+        - healthcheck
+        - password
       crowdsec:
-        - "key"
+        - key
   roles:
-    - 1password
+    - opconnect
 
-- hosts: pihole
+- name: Setup pihole
+  hosts: pihole
   become: true
   roles:
     - common

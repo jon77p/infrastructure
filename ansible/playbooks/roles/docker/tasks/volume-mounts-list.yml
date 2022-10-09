@@ -1,10 +1,10 @@
 ---
 - name: Create all volume mounts
   become: true
-  file:
-    path: "{{ path }}"
+  ansible.builtin.file:
+    path: "{{ docker_path }}"
     recurse: true
     state: directory
   loop: "{{ directories }}"
   loop_control:
-    loop_var: "path"
+    loop_var: docker_path

@@ -1,16 +1,19 @@
 ---
-- name: Disable {{ innernet_program }}.service
+- name: Disable service for {{ innernet_program }}
   become: true
-  systemd:
+  ansible.builtin.systemd:
     name: "{{ innernet_program }}@{{ innernet_network }}"
     state: stopped
-    enabled: no
+    enabled: false
 
-- name: Uninstall {{ innernet_network }} innernet network
+- name: Uninstall innernet network {{ innernet_network }}
   become: true
-  shell: "{{ innernet_program }} uninstall {{ innernet_network }} --yes"
+  ansible.builtin.command: "{{ innernet_program }} uninstall {{ innernet_network }} --yes"
   ignore_errors: true # innernet-server doesn't have the --yes flag, yet
 
 - name: Remove all stored peer invites
-  shell: "rm -rf /etc/{{ innernet_program }}/peers"
+  ansible.builtin.file:
+    path: /etc/{{ innernet_program }}/peers
+    state: absent
+    force: true
   become: true

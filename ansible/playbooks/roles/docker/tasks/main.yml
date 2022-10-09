@@ -1,13 +1,13 @@
 ---
 - name: Docker | ensure SDK is installed
-  import_tasks: install-docker-sdk.yml
+  ansible.builtin.import_tasks: install-docker-sdk.yml
 
 - name: Docker | Reload docker-compose project
-  when: "compose_project_name != None"
-  import_tasks: docker-compose.yml
+  when: compose_project_name != None
+  ansible.builtin.import_tasks: docker-compose.yml
 
 - name: Docker | verify swarm services
-  include_tasks: verify-services.yml
+  ansible.builtin.include_tasks: verify-services.yml
   loop: "{{ servicelist }}"
   loop_control:
-    loop_var: service_name
+    loop_var: docker_service_name

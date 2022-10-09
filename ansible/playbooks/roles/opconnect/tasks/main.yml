@@ -1,19 +1,21 @@
 ---
-- name: "Create output dict"
-  set_fact:
+- name: Create output dict
+  ansible.builtin.set_fact:
     opconnect_item_results: "{{ hostvars['localhost'].opconnect_item_results | default({}) }}"
 
-- name: "Get items from 1Password Connect"
+- name: Get items from 1Password Connect
   when: inventory_hostname == 'localhost'
-  include_tasks: "opconnect-items.yml"
+  ansible.builtin.include_tasks: opconnect-items.yml
   loop: "{{ opconnect_items | dict2items }}"
+  loop_control:
+    loop_var: opconnect_item
 
-- name: "Update output dict"
+- name: Update output dict
   when: inventory_hostname == 'localhost'
-  set_fact:
+  ansible.builtin.set_fact:
     opconnect_results: "{{ hostvars['localhost'].opconnect_item_results }}"
 
-- name: "Update output dict"
+- name: Update output dict
   when: inventory_hostname != 'localhost'
-  set_fact:
+  ansible.builtin.set_fact:
     opconnect_results: "{{ hostvars['localhost'].opconnect_item_results }}"
