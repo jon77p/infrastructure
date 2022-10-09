@@ -3,7 +3,7 @@
   import_tasks: install-docker-sdk.yml
 
 - name: Docker | Reload docker-compose project
-  when: "compose_project_name != None"
+  when: compose_project_name != None
   import_tasks: docker-compose.yml
 
 - name: Docker | verify swarm services

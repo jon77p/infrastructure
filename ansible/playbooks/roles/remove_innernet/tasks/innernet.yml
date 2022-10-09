@@ -4,7 +4,7 @@
   systemd:
     name: "{{ innernet_program }}@{{ innernet_network }}"
     state: stopped
-    enabled: no
+    enabled: false
 
 - name: Uninstall {{ innernet_network }} innernet network
   become: true
@@ -12,5 +12,5 @@
   ignore_errors: true # innernet-server doesn't have the --yes flag, yet
 
 - name: Remove all stored peer invites
-  shell: "rm -rf /etc/{{ innernet_program }}/peers"
+  shell: rm -rf /etc/{{ innernet_program }}/peers
   become: true

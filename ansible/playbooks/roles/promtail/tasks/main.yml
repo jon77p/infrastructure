@@ -7,11 +7,11 @@
     state: directory
   loop: "{{ docker_volume_dirs.promtail }}"
   loop_control:
-    loop_var: "path"
+    loop_var: path
 
 - name: Create config file
   become: true
-  when: "docker_volume_dirs.promtail != []"
+  when: docker_volume_dirs.promtail != []
   template:
     src: ../templates/config.yaml.j2
     dest: "{{ docker_volume_dirs.promtail[0] }}/config.yaml"

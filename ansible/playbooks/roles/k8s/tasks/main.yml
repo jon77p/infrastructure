@@ -1,8 +1,8 @@
 ---
 - name: Setup cluster
-  when: "servicename is not defined"
+  when: servicename is not defined
   include_tasks: setup.yml
 
-- name: "Setup {{ servicename }} service"
-  when: "servicename is defined"
+- name: Setup {{ servicename }} service
+  when: servicename is defined
   include_tasks: service.yml

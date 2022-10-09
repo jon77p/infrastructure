@@ -7,14 +7,14 @@
     state: directory
   loop: "{{ docker_volume_dirs.ghost }}"
   loop_control:
-    loop_var: "path"
+    loop_var: path
 
 - name: Create config file
   become: true
-  when: "docker_volume_dirs.ghost != []"
+  when: docker_volume_dirs.ghost != []
   template:
     src: ../templates/config.production.json.j2
     dest: "{{ docker_volume_dirs.ghost[0] }}/config.production.json"
 
 - name: Install ghost-storage-github storage adapter
-  include_tasks: "ghost-storage-github-adapter.yml"
+  include_tasks: ghost-storage-github-adapter.yml

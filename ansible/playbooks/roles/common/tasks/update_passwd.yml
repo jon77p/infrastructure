@@ -4,4 +4,4 @@
   user:
     name: "{{ ansible_ssh_user }}"
     password: "{{ user_password }}"
-    update_password: "always"
+    update_password: always

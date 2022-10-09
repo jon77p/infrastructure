@@ -1,21 +1,21 @@
 ---
-- name: "Install Code-Server"
-  shell: "curl -fsSL https://code-server.dev/install.sh | sh"
+- name: Install Code-Server
+  shell: curl -fsSL https://code-server.dev/install.sh | sh
 
-- name: "Create necessary config directories"
+- name: Create necessary config directories
   file:
-    path: "/home/{{ ansible_ssh_user }}/.config/code-server"
+    path: /home/{{ ansible_ssh_user }}/.config/code-server
     state: directory
     recurse: true
 
-- name: "Create config file"
+- name: Create config file
   template:
     src: ../templates/config.yaml.j2
-    dest: "/home/{{ ansible_ssh_user }}/.config/code-server/config.yaml"
+    dest: /home/{{ ansible_ssh_user }}/.config/code-server/config.yaml
 
-- name: "Start Code-Server"
+- name: Start Code-Server
   become: true
   systemd:
-    name: "code-server@{{ ansible_ssh_user}}"
+    name: code-server@{{ ansible_ssh_user}}
     state: restarted
-    enabled: yes
+    enabled: true

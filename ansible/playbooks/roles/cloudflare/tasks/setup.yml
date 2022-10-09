@@ -4,7 +4,7 @@
     account_email: "{{ cf_email }}"
     api_token: "{{ cf_api_token }}"
     zone: "{{ domain }}"
-    record: "tunnel-{{ ansible_host }}.{{ domain }}"
+    record: tunnel-{{ ansible_host }}.{{ domain }}
     type: CNAME
     value: "{{ cf_tunnel_id }}.cfargotunnel.com"
     proxied: true
@@ -15,8 +15,8 @@
     account_email: "{{ cf_email }}"
     api_token: "{{ cf_api_token }}"
     zone: "{{ domain }}"
-    record: "ssh-{{ ansible_host }}.{{ domain }}"
+    record: ssh-{{ ansible_host }}.{{ domain }}
     type: CNAME
-    value: "tunnel-{{ ansible_host }}.{{ domain }}"
+    value: tunnel-{{ ansible_host }}.{{ domain }}
     proxied: true
     state: present

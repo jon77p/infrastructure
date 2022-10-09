@@ -1,7 +1,7 @@
 ---
 - name: Install innernet via cargo
   vars:
-    innernet_binary: "innernet"
-    innernet_program_type: "client"
-    cargo_path: "/root/.cargo"
+    innernet_binary: innernet
+    innernet_program_type: client
+    cargo_path: /root/.cargo
   include_tasks: innernet-install-cargo.yml

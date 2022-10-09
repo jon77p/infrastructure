@@ -36,8 +36,8 @@
   systemd:
     name: innernet@{{ innernet_network }}
     state: restarted
-    enabled: yes
-    daemon-reload: yes
+    enabled: true
+    daemon-reload: true
 
 - name: Innernet | Take down wireguard interface (part 1/2 of /etc/hosts refresh)
   become: true

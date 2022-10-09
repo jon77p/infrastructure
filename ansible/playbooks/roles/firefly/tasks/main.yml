@@ -7,11 +7,11 @@
     state: directory
   loop: "{{ docker_volume_dirs.plaid }}"
   loop_control:
-    loop_var: "path"
+    loop_var: path
 
 - name: Create Plaid config file
   become: true
-  when: "docker_volume_dirs.plaid != []"
+  when: docker_volume_dirs.plaid != []
   template:
     src: ../templates/config.toml.j2
     dest: "{{ docker_volume_dirs.plaid[0] }}/config.toml"

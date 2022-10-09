@@ -36,4 +36,4 @@
   systemd:
     name: cloudflared
     state: started
-    enabled: yes
+    enabled: true

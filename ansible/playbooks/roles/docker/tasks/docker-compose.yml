@@ -2,11 +2,11 @@
 - name: Ensure all volume mounts exist
   vars:
     directories: "{{ docker_volume_dirs }}"
-  include_tasks: "volume-mounts-{{ docker_volume_dirs | type_debug }}.yml"
+  include_tasks: volume-mounts-{{ docker_volume_dirs | type_debug }}.yml
 
 - name: Load project definition for host
   include_vars:
-    file: "../../../../host_vars/{{ inventory_hostname }}/docker-compose.yaml"
+    file: ../../../../host_vars/{{ inventory_hostname }}/docker-compose.yaml
     name: compose_definition
 
 - name: Take down {{ compose_project_name }} project
@@ -14,7 +14,7 @@
     project_name: "{{ compose_project_name }}"
     definition: "{{ compose_definition }}"
     remove_orphans: true
-    remove_images: "all"
+    remove_images: all
     state: absent
 
 - name: Create any referenced Compose networks
@@ -40,5 +40,5 @@
 
 - ansible.builtin.assert:
     that:
-      - "output.services.{{ item.key }}.{{ compose_project_name }}_{{ item.key }}_1.state.running"
+      - output.services.{{ item.key }}.{{ compose_project_name }}_{{ item.key }}_1.state.running
   loop: "{{ compose_definition.services | dict2items }}"

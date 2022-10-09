@@ -8,7 +8,7 @@
 
 - name: Download innernet .deb
   get_url:
-    url: "https://github.com/tonarino/innernet/releases/download/v{{ innernet_version }}/innernet_{{ innernet_version }}_amd64.deb"
+    url: https://github.com/tonarino/innernet/releases/download/v{{ innernet_version }}/innernet_{{ innernet_version }}_amd64.deb
     dest: /tmp/innernet_{{ innernet_version }}_amd64.deb
   when: innernet_check_deb.rc == 1
 

@@ -32,4 +32,4 @@
     name: "{{ ansible_ssh_user }}"
     append: true
     groups:
-      - "docker"
+      - docker

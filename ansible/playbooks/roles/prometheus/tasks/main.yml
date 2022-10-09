@@ -7,11 +7,11 @@
     state: directory
   loop: "{{ docker_volume_dirs.prometheus }}"
   loop_control:
-    loop_var: "path"
+    loop_var: path
 
 - name: Create config file
   become: true
-  when: "docker_volume_dirs.prometheus != []"
+  when: docker_volume_dirs.prometheus != []
   template:
     src: ../templates/prometheus.yml.j2
     dest: "{{ docker_volume_dirs.prometheus[0] }}/prometheus.yml"

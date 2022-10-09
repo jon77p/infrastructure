@@ -1,5 +1,5 @@
 ---
-- include_vars: "node.yml"
+- include_vars: node.yml
 
 - name: Check if k3s is installed
   become: true

@@ -4,7 +4,7 @@
   replace:
     path: /etc/systemd/resolved.conf
     regexp: "#?DNSStubListener=yes"
-    replace: "DNSStubListener=no"
+    replace: DNSStubListener=no
   register: stubdisable
 
 - name: Update /etc/resolv.conf symlink
@@ -26,7 +26,7 @@
   become: true
   blockinfile:
     path: /etc/netplan/50-cloud-init.yaml
-    insertafter: '(\s*)set-name: (\S+)'
+    insertafter: "(\\s*)set-name: (\\S+)"
     marker: "            # {mark} ANSIBLE MANAGED BLOCK"
     block: "            dhcp4-overrides:\n                use-dns: false\n            nameservers:\n                addresses: [1.1.1.1]\n"
   register: netplan

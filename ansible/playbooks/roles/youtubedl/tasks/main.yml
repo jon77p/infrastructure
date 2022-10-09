@@ -8,7 +8,7 @@
 
 - name: Create config file
   become: true
-  when: "docker_volume_dirs != []"
+  when: docker_volume_dirs != []
   template:
     src: ../templates/config.yml.j2
     dest: "{{ docker_volume_dirs[0] }}/config.yml"

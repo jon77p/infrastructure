@@ -12,7 +12,7 @@
   delegate_to: localhost
   become: false
   run_once: true
-  command: "git rev-parse --show-toplevel"
+  command: git rev-parse --show-toplevel
   register: repo_abs_path
 
 - name: Add Traefik Pilot and ingress config
@@ -26,7 +26,7 @@
 
 - name: Store node token in dummy host
   add_host:
-    name: "K3S_TOKEN_HOLDER"
+    name: K3S_TOKEN_HOLDER
     token: "{{ nodetoken.stdout }}"
     manager: "{{ ansible_hostname }}"
 
@@ -36,7 +36,7 @@
 - name: Fetch kubeconfig from manager
   run_once: true
   fetch:
-    src: "/etc/rancher/k3s/k3s.yaml"
+    src: /etc/rancher/k3s/k3s.yaml
     dest: "{{ repo_abs_path.stdout }}/ansible/kubeconfig"
     flat: true
 
@@ -46,5 +46,5 @@
   run_once: true
   replace:
     path: "{{ repo_abs_path.stdout }}/ansible/kubeconfig"
-    regexp: "https://127.0.0.1:6443"
-    replace: "https://{{ ansible_hostname }}:6443"
+    regexp: https://127.0.0.1:6443
+    replace: https://{{ ansible_hostname }}:6443

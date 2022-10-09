@@ -1,5 +1,5 @@
 ---
-- include_vars: "vault_main.yml"
+- include_vars: vault_main.yml
 
 - name: Check if cloudflared is installed
   become: true
@@ -50,12 +50,12 @@
   become: true
   shell: diff /tmp/cloudflared-config.yml /etc/cloudflared/config.yml
   ignore_errors: true
-  when: "validation_check.rc == 0"
+  when: validation_check.rc == 0
   register: diff_result
 
 - name: Copy updated cloudflared config file to /etc/cloudflared
   become: true
-  when: "validation_check.rc == 0 and diff_result.rc != 0"
+  when: validation_check.rc == 0 and diff_result.rc != 0
   shell:
     cmd: cp /tmp/cloudflared-config.yml /etc/cloudflared/config.yml
 
@@ -64,8 +64,8 @@
   systemd:
     name: cloudflared
     state: restarted
-    no_block: yes
-  when: "validation_check.rc == 0 and diff_result.rc != 0"
+    no_block: true
+  when: validation_check.rc == 0 and diff_result.rc != 0
   async: 5
   poll: 1
 
@@ -73,6 +73,6 @@
   meta: reset_connection
 
 - name: Wait for the cloudflared service to reload
-  when: "diff_result.rc != 0 and validation_check.rc == 0"
+  when: diff_result.rc != 0 and validation_check.rc == 0
   wait_for_connection:
     delay: 10

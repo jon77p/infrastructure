@@ -10,7 +10,8 @@
 
 - name: Create new network
   become: true
-  shell: innernet-server new --network-name {{ innernet_network }} --network-cidr {{ innernet_network_cidr }} --auto-external-endpoint --listen-port {{ innernet_server_port }}
+  shell: innernet-server new --network-name {{ innernet_network }} --network-cidr {{ innernet_network_cidr }} --auto-external-endpoint --listen-port {{ innernet_server_port
+    }}
   when: not innernet_server_check_network.stat.exists
 
 - name: Add additional CIDRs
@@ -26,5 +27,5 @@
   systemd:
     name: innernet-server@{{ innernet_network }}
     state: restarted
-    daemon-reload: yes
-    enabled: yes
+    daemon-reload: true
+    enabled: true

@@ -1,8 +1,8 @@
 ---
-- include_vars: "service.yml"
-- include_vars: "helm.yml"
+- include_vars: service.yml
+- include_vars: helm.yml
 
-- name: "Create the {{ item }} namespace"
+- name: Create the {{ item }} namespace
   loop: "{{ namespaces }}"
   kubernetes.core.k8s:
     state: present
@@ -10,43 +10,43 @@
     api_version: v1
     kind: Namespace
 
-- name: "Create the {{ item.metadata.name }} secrets"
+- name: Create the {{ item.metadata.name }} secrets
   loop: "{{ secrets }}"
   kubernetes.core.k8s:
     state: present
     definition: "{{ item }}"
 
 - name: Setup helm deployment
-  when: "helm != None and helm != ''"
+  when: helm != None and helm != ''
   include_tasks: helm.yml
 
-- name: "Create the {{ item.metadata.name }} deployment"
+- name: Create the {{ item.metadata.name }} deployment
   loop: "{{ deployments }}"
   kubernetes.core.k8s:
     state: present
     definition: "{{ item }}"
 
-- name: "Create the {{ item.metadata.name }} service"
+- name: Create the {{ item.metadata.name }} service
   loop: "{{ services }}"
   kubernetes.core.k8s:
     state: present
     definition: "{{ item }}"
 
-- name: "Create the {{ item.metadata.name }} ingress"
+- name: Create the {{ item.metadata.name }} ingress
   loop: "{{ ingress }}"
   kubernetes.core.k8s:
     state: present
     definition: "{{ item }}"
 
-- name: "Create the {{ item.metadata.name }} {{ item.kind }} resource"
+- name: Create the {{ item.metadata.name }} {{ item.kind }} resource
   loop: "{{ additional_resources }}"
   kubernetes.core.k8s:
     state: present
     force: true
     definition: "{{ item }}"
 
-- name: "Create any additional records"
+- name: Create any additional records
   vars:
     cloudflare_dns_records: "{{ hostvars[servicename].cloudflare_dns_records | default([]) }}"
   include_role:
-    name: "cloudflare"
+    name: cloudflare

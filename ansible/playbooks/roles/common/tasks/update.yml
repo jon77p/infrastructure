@@ -1,7 +1,7 @@
 ---
 - name: Update apt cache
   apt:
-    update_cache: yes
+    update_cache: true
 
 - name: Update all packages to their latest version
   apt:
@@ -14,7 +14,7 @@
 
 - name: Remove unneeded dependencies
   apt:
-    autoremove: yes
+    autoremove: true
 
 - name: Check if reboot required
   stat:

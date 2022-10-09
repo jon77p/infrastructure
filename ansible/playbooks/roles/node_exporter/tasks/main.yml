@@ -9,7 +9,7 @@
   become: true
   template:
     src: ../templates/prometheus-node-exporter.j2
-    dest: "/etc/default/prometheus-node-exporter"
+    dest: /etc/default/prometheus-node-exporter
 
 - name: Restart prometheus-node-exporter.service
   become: true

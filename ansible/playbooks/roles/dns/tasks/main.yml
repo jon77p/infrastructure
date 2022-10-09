@@ -1,10 +1,10 @@
 ---
 - name: Update netplan to use nameservers
   become: true
-  when: "nameservers != []"
+  when: nameservers != []
   blockinfile:
     path: /etc/netplan/50-cloud-init.yaml
-    insertafter: '(\s*)set-name: (\S+)'
+    insertafter: "(\\s*)set-name: (\\S+)"
     marker: "            # {mark} ANSIBLE MANAGED BLOCK"
     block: "            nameservers:\n                addresses: {{ nameservers | to_json }}\n"
   register: netplan
@@ -14,7 +14,7 @@
   shell: netplan apply
   async: 10
   poll: 1
-  when: "nameservers != []"
+  when: nameservers != []
 
 - name: Reset connection
   meta: reset_connection

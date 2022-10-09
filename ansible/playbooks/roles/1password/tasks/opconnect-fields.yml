@@ -1,5 +1,5 @@
 ---
-- name: "Find item {{ opconnect_field_name }}"
+- name: Find item {{ opconnect_field_name }}
   environment:
     OP_CONNECT_HOST: "{{ hostvars['localhost'].op_connect_host }}"
     OP_CONNECT_TOKEN: "{{ hostvars['localhost'].op_connect_token }}"
@@ -10,7 +10,7 @@
   register: opconnect_output
   ignore_errors: true
 
-- name: "Find item {{ opconnect_field_name }}"
+- name: Find item {{ opconnect_field_name }}
   when: opconnect_output is failed
   environment:
     OP_CONNECT_HOST: "{{ hostvars['localhost'].op_connect_host }}"
@@ -24,10 +24,10 @@
     msg: "{{ opconnect_output_item }}"
   when: opconnect_output is failed
 
-- name: "Update output dict"
+- name: Update output dict
   when: opconnect_output is succeeded
   set_fact:
     opconnect_item_results: "{{ hostvars['localhost'].opconnect_item_results | combine(new_item_result) }}"
   vars:
     new_field_result: '{ "{{ opconnect_field_name }}": "{{ opconnect_output.field.value }}" }'
-    new_item_result: '{ "{{ opconnect_item_name }}": {{ hostvars[''localhost''].opconnect_item_results[opconnect_item_name] | combine(new_field_result) }} }'
+    new_item_result: "{ \"{{ opconnect_item_name }}\": {{ hostvars['localhost'].opconnect_item_results[opconnect_item_name] | combine(new_field_result) }} }"

@@ -10,10 +10,10 @@
 - name: Update apt cache
   become: true
   apt:
-    update_cache: yes
+    update_cache: true
 
 - name: Install cloudflared
   become: true
   apt:
-    name: "cloudflared"
+    name: cloudflared
     state: latest

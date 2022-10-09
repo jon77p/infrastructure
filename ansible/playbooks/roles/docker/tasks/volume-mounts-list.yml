@@ -7,4 +7,4 @@
     state: directory
   loop: "{{ directories }}"
   loop_control:
-    loop_var: "path"
+    loop_var: path
