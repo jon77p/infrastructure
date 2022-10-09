@@ -23,7 +23,7 @@
   become: true
   lineinfile:
     path: /etc/crowdsec/local_api_credentials.yaml
-    regexp: '^url: http://127.0.0.1:{{ crowdsec.api.default_port }}'
+    regexp: "^url: http://127.0.0.1:{{ crowdsec.api.default_port }}"
     line: "url: http://127.0.0.1:{{ crowdsec.api.port }}"
 
 - name: Update CrowdSec default Prometheus port to {{ crowdsec.prometheus.port }}

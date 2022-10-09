@@ -3,8 +3,8 @@
   become: true
   replace:
     path: /etc/systemd/resolved.conf
-    regexp: '#?DNSStubListener=yes'
-    replace: 'DNSStubListener=no'
+    regexp: "#?DNSStubListener=yes"
+    replace: "DNSStubListener=no"
   register: stubdisable
 
 - name: Update /etc/resolv.conf symlink

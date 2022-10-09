@@ -2,7 +2,6 @@
 - name: Install Docker SDK if missing
   import_tasks: "../../docker/tasks/install-docker-sdk.yml"
 
-
 - name: "Create {{ docker_volume_dirs.ghost[1] }}/adapters/storage directory"
   become: true
   file:

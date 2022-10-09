@@ -7,8 +7,8 @@
   register: k3s_check
 
 # - name: Include innernet variables
-  # when: not k3s_check.stat.exists
-  # include_vars: roles/innernet/vars/main.yml
+# when: not k3s_check.stat.exists
+# include_vars: roles/innernet/vars/main.yml
 
 - name: Install k3s
   when: not k3s_check.stat.exists

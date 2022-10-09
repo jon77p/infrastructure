@@ -17,7 +17,6 @@
   apt:
     deb: /tmp/innernet_{{ innernet_version }}_amd64.deb
   when: innernet_check_deb.rc == 1
-
 # - name: Install innernet via cargo
 #   vars:
 #     innernet_binary: "innernet"
