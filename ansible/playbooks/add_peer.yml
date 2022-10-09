@@ -1,9 +1,11 @@
 ---
-- hosts: innernet
+- name: Initialize peers on the innernet server
+  hosts: innernet
   roles:
     - innernet
 
-- hosts:
+- name: Connect each peer to the innernet server
+  hosts:
     - pihole
     - nextcloud
     - healthchecks

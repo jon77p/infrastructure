@@ -1,5 +1,6 @@
 ---
-- hosts: localhost,allaboutsecurity
+- name: Get 1Password secrets
+  hosts: localhost,allaboutsecurity
   vars:
     opconnect_items:
       allaboutsecurity:
@@ -12,7 +13,8 @@
   roles:
     - 1password
 
-- hosts: allaboutsecurity
+- name: Setup allaboutsecurity
+  hosts: allaboutsecurity
   become: true
   roles:
     - common

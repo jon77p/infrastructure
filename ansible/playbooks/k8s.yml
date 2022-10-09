@@ -1,5 +1,6 @@
 ---
-- hosts: manager
+- name: Setup k8s on manager
+  hosts: manager
   become: true
   roles:
     - common
@@ -8,7 +9,8 @@
     - cron
     - k8s
 
-- hosts: nodes
+- name: Setup k8s on nodes
+  hosts: nodes
   become: true
   roles:
     - common
@@ -17,7 +19,8 @@
     - cron
     - k8s
 
-- hosts: localhost
+- name: Setup k8s on localhost
+  hosts: localhost
   gather_facts: false
   connection: local
   vars:

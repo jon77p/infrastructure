@@ -1,9 +1,11 @@
 ---
-- hosts: innernet
+- name: Remove innernet from innernet server
+  hosts: innernet
   roles:
     - remove_innernet
 
-- hosts:
+- name: Remove innernet from innernet clients
+  hosts:
     - pihole
     - nextcloud
     - healthchecks
@@ -17,7 +19,8 @@
   roles:
     - remove_innernet
 
-- hosts: localhost
+- name: Remove innernet from localhost
+  hosts: localhost
   tasks:
     - name: Uninstall innernet
       become: true

@@ -1,5 +1,6 @@
 ---
-- hosts: localhost,monitoring
+- name: Get 1Password secrets
+  hosts: localhost,monitoring
   vars:
     opconnect_items:
       monitoring:
@@ -38,7 +39,8 @@
   roles:
     - 1password
 
-- hosts: monitoring
+- name: Setup monitoring
+  hosts: monitoring
   become: true
   roles:
     - common

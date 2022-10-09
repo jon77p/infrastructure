@@ -1,5 +1,6 @@
 ---
-- hosts: localhost,firefly
+- name: Get 1Password secrets
+  hosts: localhost,firefly
   vars:
     opconnect_items:
       firefly:
@@ -23,7 +24,8 @@
   roles:
     - 1password
 
-- hosts: firefly
+- name: Setup firefly
+  hosts: firefly
   become: true
   roles:
     - common

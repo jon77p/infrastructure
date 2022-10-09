@@ -1,5 +1,6 @@
 ---
-- hosts: localhost
+- name: Setup certmanager
+  hosts: localhost
   vars:
     servicename: certmanager
   gather_facts: false

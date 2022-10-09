@@ -8,7 +8,8 @@
 # - cloudflare
 # - docker
 
-- hosts: localhost
+- name: Setup gaps
+  hosts: localhost
   vars:
     servicename: gaps
   gather_facts: false
@@ -16,10 +17,12 @@
   roles:
     - k8s
 
-- hosts: manager
+- name: Setup cloudflared on manager
+  hosts: manager
   roles:
     - cloudflared
 
-- hosts: nodes
+- name: Setup cloudflare on nodes
+  hosts: nodes
   roles:
     - cloudflared

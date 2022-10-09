@@ -1,5 +1,6 @@
 ---
-- hosts: localhost,vault
+- name: Get 1Password secrets
+  hosts: localhost,vault
   vars:
     opconnect_items:
       vault:
@@ -9,7 +10,8 @@
   roles:
     - 1password
 
-- hosts: vault
+- name: Setup vault
+  hosts: vault
   become: true
   roles:
     - common

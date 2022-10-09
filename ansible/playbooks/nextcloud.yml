@@ -1,5 +1,6 @@
 ---
-- hosts: localhost,nextcloud
+- name: Get 1Password secrets
+  hosts: localhost,nextcloud
   vars:
     opconnect_item_names:
       - nextcloud
@@ -16,7 +17,8 @@
   roles:
     - 1password
 
-- hosts: nextcloud
+- name: Setup nextcloud
+  hosts: nextcloud
   become: true
   roles:
     - common

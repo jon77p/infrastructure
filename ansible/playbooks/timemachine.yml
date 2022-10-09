@@ -1,5 +1,6 @@
 ---
-- hosts: timemachine
+- name: Setup timemachine
+  hosts: timemachine
   become: true
   roles:
     - common
@@ -10,7 +11,8 @@
     - docker
     - iptables
 
-- hosts: localhost
+- name: Setup OCI for timemachine
+  hosts: localhost
   vars:
     oci_hostname: timemachine
     hostname: "{{ oci_hostname }}"

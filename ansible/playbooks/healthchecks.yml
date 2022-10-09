@@ -1,5 +1,6 @@
 ---
-- hosts: localhost,healthchecks
+- name: Get 1Password secrets
+  hosts: localhost,healthchecks
   vars:
     opconnect_items:
       healthchecks:
@@ -13,7 +14,8 @@
   roles:
     - 1password
 
-- hosts: healthchecks
+- name: Setup healthchecks
+  hosts: healthchecks
   become: true
   roles:
     - common

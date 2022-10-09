@@ -1,5 +1,6 @@
 ---
-- hosts:
+- name: Refresh DNS
+  hosts:
     - pihole
     - innernet
     - nextcloud

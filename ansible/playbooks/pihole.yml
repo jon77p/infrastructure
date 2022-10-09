@@ -1,5 +1,6 @@
 ---
-- hosts: localhost,pihole
+- name: Get 1Password secrets
+  hosts: localhost,pihole
   vars:
     opconnect_items:
       pihole:
@@ -10,7 +11,8 @@
   roles:
     - 1password
 
-- hosts: pihole
+- name: Setup pihole
+  hosts: pihole
   become: true
   roles:
     - common

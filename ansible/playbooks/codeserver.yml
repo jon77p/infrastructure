@@ -1,5 +1,6 @@
 ---
-- hosts: localhost,codeserver
+- name: Get 1Password secrets
+  hosts: localhost,codeserver
   vars:
     opconnect_items:
       codeserver:
@@ -10,7 +11,8 @@
   roles:
     - 1password
 
-- hosts: codeserver
+- name: Setup codeserver
+  hosts: codeserver
   become: true
   roles:
     - common

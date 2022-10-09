@@ -1,5 +1,6 @@
 ---
-- hosts: localhost,securemylife
+- name: Get 1Password secrets
+  hosts: localhost,securemylife
   vars:
     opconnect_items:
       securemylife:
@@ -12,7 +13,8 @@
   roles:
     - 1password
 
-- hosts: securemylife
+- name: Setup securemylife
+  hosts: securemylife
   become: true
   roles:
     - common

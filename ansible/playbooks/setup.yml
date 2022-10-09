@@ -1,8 +1,10 @@
 ---
-- hosts: all
+- name: Do common setup for all hosts
+  hosts: all
   roles:
     - common
-- hosts: all
+- name: Setup innernet on all hosts
+  hosts: all
   tags:
     - cluster
   roles:

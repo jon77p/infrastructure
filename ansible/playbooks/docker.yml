@@ -1,5 +1,6 @@
 ---
-- hosts: firefly
+- name: Setup firefly
+  hosts: firefly
   roles:
     - docker
   vars:
@@ -12,7 +13,8 @@
       - fireflyiiidb
       - plaid_connector
 
-- hosts: stash
+- name: Setup stash
+  hosts: stash
   roles:
     - docker
   vars:
@@ -22,7 +24,8 @@
       - traefik
       - stash
 
-- hosts: timemachine
+- name: Setup timemachine
+  hosts: timemachine
   roles:
     - docker
   vars:
