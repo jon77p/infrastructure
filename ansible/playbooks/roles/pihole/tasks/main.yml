@@ -33,7 +33,7 @@
 
 - name: Apply new netplan
   become: true
-  ansible.builtin.shell: netplan try
+  ansible.builtin.command: netplan try
   async: 5
   poll: 1
   when: netplan.changed

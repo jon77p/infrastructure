@@ -1,7 +1,7 @@
 ---
 - name: Install CrowdSec repositories
   become: true
-  ansible.builtin.shell: curl -s https://packagecloud.io/install/repositories/crowdsec/crowdsec/script.deb.sh | bash
+  ansible.builtin.command: curl -s https://packagecloud.io/install/repositories/crowdsec/crowdsec/script.deb.sh | bash
 
 - name: Install crowdsec
   ansible.builtin.apt:
@@ -10,7 +10,7 @@
 
 - name: Enroll CrowdSec instance with cloud console
   become: true
-  ansible.builtin.shell: cscli console enroll --name {{ inventory_hostname }} {{ crowdsec.key }}
+  ansible.builtin.command: cscli console enroll --name {{ inventory_hostname }} {{ crowdsec.key }}
 
 - name: Update CrowdSec default API port to {{ crowdsec.api.port }}
   become: true

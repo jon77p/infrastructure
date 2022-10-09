@@ -24,7 +24,7 @@
 
 - name: Get required cloudflared values
   become: true
-  ansible.builtin.shell: cat /root/.cloudflared/config.yml | head -n 1 | awk '{print $2}'
+  ansible.builtin.command: cat /root/.cloudflared/config.yml | head -n 1 | awk '{print $2}'
   register: tunnel_output
 
 - ansible.builtin.debug:
@@ -43,12 +43,12 @@
 
 - name: Validate updated config ingress rules
   become: true
-  ansible.builtin.shell: cloudflared --config /tmp/cloudflared-config.yml --no-autoupdate tunnel ingress validate
+  ansible.builtin.command: cloudflared --config /tmp/cloudflared-config.yml --no-autoupdate tunnel ingress validate
   register: validation_check
 
 - name: Diff updated config with current cloudflared config
   become: true
-  ansible.builtin.shell: diff /tmp/cloudflared-config.yml /etc/cloudflared/config.yml
+  ansible.builtin.command: diff /tmp/cloudflared-config.yml /etc/cloudflared/config.yml
   ignore_errors: true
   when: validation_check.rc == 0
   register: diff_result
@@ -56,7 +56,7 @@
 - name: Copy updated cloudflared config file to /etc/cloudflared
   become: true
   when: validation_check.rc == 0 and diff_result.rc != 0
-  ansible.builtin.shell:
+  ansible.builtin.command:
     cmd: cp /tmp/cloudflared-config.yml /etc/cloudflared/config.yml
 
 - name: Restart cloudflared service

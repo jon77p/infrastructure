@@ -1,6 +1,6 @@
 ---
 - name: Get tenancy OCID
-  ansible.builtin.shell: cat ~/.oci/config | grep "{{ oci_profile }}" -A 5 | grep tenancy | awk '{ print $3 }'
+  ansible.builtin.command: cat ~/.oci/config | grep "{{ oci_profile }}" -A 5 | grep tenancy | awk '{ print $3 }'
   register: tenancy
 
 - ansible.builtin.debug:

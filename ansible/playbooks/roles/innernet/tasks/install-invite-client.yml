@@ -28,7 +28,7 @@
 
 - name: Innernet | add peer
   become: true
-  ansible.builtin.shell: innernet install --default-name --hosts-path /etc/hosts --delete-invite /etc/innernet/peers/invite-{{ peer.name }}-{{ peer.cidr }}.toml
+  ansible.builtin.command: innernet install --default-name --hosts-path /etc/hosts --delete-invite /etc/innernet/peers/invite-{{ peer.name }}-{{ peer.cidr }}.toml
   when: not innernet_network_check.stat.exists
 
 - name: Innernet | Enable new network
@@ -41,8 +41,8 @@
 
 - name: Innernet | Take down wireguard interface (part 1/2 of /etc/hosts refresh)
   become: true
-  ansible.builtin.shell: innernet down {{ innernet_network }}
+  ansible.builtin.command: innernet down {{ innernet_network }}
 
 - name: Innernet | Bring back up wireguard interface (part 2/2 of /etc/hosts refresh)
   become: true
-  ansible.builtin.shell: innernet up {{ innernet_network }}
+  ansible.builtin.command: innernet up {{ innernet_network }}

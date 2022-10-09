@@ -11,7 +11,7 @@
 
 - name: Apply new netplan
   become: true
-  ansible.builtin.shell: netplan apply
+  ansible.builtin.command: netplan apply
   async: 10
   poll: 1
   when: nameservers != []

@@ -1,6 +1,6 @@
 ---
-- include_vars: service.yml
-- include_vars: helm.yml
+- ansible.builtin.include_vars: service.yml
+- ansible.builtin.include_vars: helm.yml
 
 - name: Create the {{ item }} namespace
   loop: "{{ namespaces }}"
@@ -17,7 +17,7 @@
     definition: "{{ item }}"
 
 - name: Setup helm deployment
-  when: helm != None and helm != ''
+  when: helm != None and helm is defined
   ansible.builtin.include_tasks: helm.yml
 
 - name: Create the {{ item.metadata.name }} deployment

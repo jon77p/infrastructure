@@ -7,11 +7,11 @@
 
 - name: Restore iptables rules if they exist
   become: true
-  ansible.builtin.shell: iptables-restore /etc/iptables/rules.v4
+  ansible.builtin.command: iptables-restore /etc/iptables/rules.v4
 
 - name: iptables update rules
   become: true
-  iptables:
+  ansible.builtin.iptables:
     action: "{{ item.action }}"
     chain: "{{ item.chain }}"
     rule_num: "{{ item.rule_num }}"
@@ -25,4 +25,4 @@
 
 - name: Save iptables rules
   become: true
-  ansible.builtin.shell: iptables-save -f /etc/iptables/rules.v4
+  ansible.builtin.command: iptables-save -f /etc/iptables/rules.v4

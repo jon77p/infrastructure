@@ -21,15 +21,15 @@
 
 - name: Install the cloudflared service
   become: true
-  ansible.builtin.shell: cloudflared service install
+  ansible.builtin.command: cloudflared service install
 
 - name: Copy the credentials file manually
   become: true
-  ansible.builtin.shell: cp -va /root/.cloudflared/cert.json /etc/cloudflared/
+  ansible.builtin.command: cp -va /root/.cloudflared/cert.json /etc/cloudflared/
 
 - name: Copy the config file manually
   become: true
-  ansible.builtin.shell: cp -va /root/.cloudflared/config.yml /etc/cloudflared/
+  ansible.builtin.command: cp -va /root/.cloudflared/config.yml /etc/cloudflared/
 
 - name: Enable and start the tunnel
   become: true

@@ -18,7 +18,7 @@
 
 - name: Install cargo
   become: true
-  ansible.builtin.shell: curl https://sh.rustup.rs -sSf | sh -s -- -y
+  ansible.builtin.command: curl https://sh.rustup.rs -sSf | sh -s -- -y
   when: not cargo_check.stat.exists
 
 - name: Check if innernet is installed
@@ -29,7 +29,7 @@
 
 - name: Install innernet - {{ innernet_program_type }}
   become: true
-  ansible.builtin.shell: "{{ cargo_path }}/bin/cargo install --git https://github.com/tonarino/innernet --tag v{{ innernet_version }} {{ innernet_program_type }}"
+  ansible.builtin.command: "{{ cargo_path }}/bin/cargo install --git https://github.com/tonarino/innernet --tag v{{ innernet_version }} {{ innernet_program_type }}"
   when: not innernet_check.stat.exists
 
 - name: Symlink {{ innernet_binary }} into /usr/bin/

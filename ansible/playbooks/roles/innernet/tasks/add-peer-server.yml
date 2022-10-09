@@ -13,13 +13,13 @@
 
 - name: Innernet | add peer {{ peer.name }} with auto-ip
   become: true
-  ansible.builtin.shell: innernet-server add-peer --name {{ peer.name }} --auto-ip --cidr {{ peer.cidr }} --admin {{ peer.admin | default("false") }} --save-config
+  ansible.builtin.command: innernet-server add-peer --name {{ peer.name }} --auto-ip --cidr {{ peer.cidr }} --admin {{ peer.admin | default("false") }} --save-config
     /etc/innernet-server/peers/invite-{{ peer.name }}-{{ peer.cidr }}.toml --yes {{ innernet_network }}
   when: not innernet_invite_peer_check.stat.exists and peer.ip is not defined
 
 - name: Innernet | add peer {{ peer.name }} with manual ip
   become: true
-  ansible.builtin.shell: innernet-server add-peer --name {{ peer.name }} --ip {{ peer.ip }} --cidr {{ peer.cidr }} --admin {{ peer.admin | default("false") }} --save-config
+  ansible.builtin.command: innernet-server add-peer --name {{ peer.name }} --ip {{ peer.ip }} --cidr {{ peer.cidr }} --admin {{ peer.admin | default("false") }} --save-config
     /etc/innernet-server/peers/invite-{{ peer.name }}-{{ peer.cidr }}.toml --yes {{ innernet_network }}
   when: not innernet_invite_peer_check.stat.exists and peer.ip is defined
 

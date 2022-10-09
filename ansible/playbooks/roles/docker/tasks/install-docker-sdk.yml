@@ -7,7 +7,7 @@
 
 - name: Ensure docker is installed
   become: true
-  ansible.builtin.shell: curl -fsSL https://get.docker.com | bash
+  ansible.builtin.command: curl -fsSL https://get.docker.com | bash
   when: docker_check_deb.rc == 1
 
 - name: Ensure pip is installed

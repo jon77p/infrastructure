@@ -1,5 +1,5 @@
 ---
-- include_vars: helm.yml
+- ansible.builtin.include_vars: helm.yml
 
 - name: Add helm chart repo
   when: helm.repo is defined
@@ -9,7 +9,7 @@
 
 - name: Clone helm chart git repo
   when: helm.git is defined
-  git:
+  ansible.builtin.git:
     repo: "{{ helm.git.repo }}"
     dest: "{{ helm.git.dest }}"
 

@@ -1,6 +1,6 @@
 ---
 - name: Install Code-Server
-  ansible.builtin.shell: curl -fsSL https://code-server.dev/install.sh | sh
+  ansible.builtin.command: curl -fsSL https://code-server.dev/install.sh | sh
 
 - name: Create necessary config directories
   ansible.builtin.file:
