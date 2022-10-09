@@ -1,5 +1,5 @@
 ---
-version: '3.8'
+version: "3.8"
 services:
   firefly:
     image: fireflyiii/core:latest@sha256:c0300cfd3d76b45ff77723d080bedb010588e7accd276fd45c468e9f341d9ea5
@@ -35,7 +35,12 @@ services:
       - "{{ firefly.port }}:8080"
     restart: "always"
     healthcheck:
-      test: ["CMD", "curl", "https://healthchecks.{{ domain }}/ping/{{ firefly.healthcheck }}"]
+      test:
+        [
+          "CMD",
+          "curl",
+          "https://healthchecks.{{ domain }}/ping/{{ firefly.healthcheck }}",
+        ]
       timeout: 45s
       interval: 10s
       retries: 5
@@ -67,7 +72,12 @@ services:
       - "{{ data_importer.port }}:8080"
     restart: "always"
     healthcheck:
-      test: ["CMD", "curl", "https://healthchecks.{{ domain }}/ping/{{ data_importer.healthcheck }}"]
+      test:
+        [
+          "CMD",
+          "curl",
+          "https://healthchecks.{{ domain }}/ping/{{ data_importer.healthcheck }}",
+        ]
       timeout: 45s
       interval: 10s
       retries: 5
@@ -81,7 +91,12 @@ services:
       - "firefly"
     restart: "always"
     healthcheck:
-      test: ["CMD", "curl", "https://healthchecks.{{ domain }}/ping/{{ plaid.healthcheck }}"]
+      test:
+        [
+          "CMD",
+          "curl",
+          "https://healthchecks.{{ domain }}/ping/{{ plaid.healthcheck }}",
+        ]
       timeout: 45s
       interval: 10s
       retries: 5

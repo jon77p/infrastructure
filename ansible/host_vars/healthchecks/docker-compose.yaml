@@ -1,5 +1,5 @@
 ---
-version: '3'
+version: "3"
 services:
   healthchecks:
     image: linuxserver/healthchecks:latest@sha256:5c810f2465d78c7c123692c9d70ddeb3d0ff766ce521cd63d9a528ee023a4e3e
@@ -21,7 +21,14 @@ services:
       SUPERUSER_PASSWORD: "{{ healthchecks.superuser.password }}"
     restart: "always"
     healthcheck:
-      test: ["CMD", "wget", "https://hc-ping.com/{{ healthchecks.healthcheck }}", "-O", "/dev/null"]
+      test:
+        [
+          "CMD",
+          "wget",
+          "https://hc-ping.com/{{ healthchecks.healthcheck }}",
+          "-O",
+          "/dev/null",
+        ]
       timeout: 45s
       interval: 10s
       retries: 5

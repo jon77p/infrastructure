@@ -2,8 +2,8 @@
 compose_project_name: "timemachine"
 docker_volume_dirs:
   - "{{ rclone_mount_dir }}"
-compose_definition: 
-  version: '3'
+compose_definition:
+  version: "3"
   services:
     timemachine:
       environment:
@@ -38,7 +38,14 @@ compose_definition:
         - "139:139"
       restart: "always"
       healthcheck:
-        test: [ "CMD", "wget", "https://healthchecks.{{ domain }}/ping/{{ healthcheck_uuid }}", "-O", "/dev/null" ]
+        test:
+          [
+            "CMD",
+            "wget",
+            "https://healthchecks.{{ domain }}/ping/{{ healthcheck_uuid }}",
+            "-O",
+            "/dev/null",
+          ]
         timeout: 45s
         interval: 10s
         retries: 5

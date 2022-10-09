@@ -1,5 +1,5 @@
 ---
-version: '3'
+version: "3"
 services:
   nextclouddb:
     image: mariadb:latest@sha256:59ef1139afa1ec26f98e316a8dbef657daf9f64f84e9378b190d1d7557ad2feb
@@ -45,7 +45,12 @@ services:
       - "web"
     restart: "always"
     healthcheck:
-      test: ["CMD", "curl", "https://healthchecks.{{ domain }}/ping/{{ nextcloud.healthcheck }}"]
+      test:
+        [
+          "CMD",
+          "curl",
+          "https://healthchecks.{{ domain }}/ping/{{ nextcloud.healthcheck }}",
+        ]
       timeout: 45s
       interval: 10s
       retries: 5

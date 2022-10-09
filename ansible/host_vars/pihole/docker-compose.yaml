@@ -1,5 +1,5 @@
 ---
-version: '3'
+version: "3"
 services:
   pihole:
     hostname: "{{ compose_project_name }}"
@@ -24,7 +24,12 @@ services:
       DNSMASQ_LISTENING: "all"
     restart: "always"
     healthcheck:
-      test: ["CMD", "curl", "https://healthchecks.{{ domain }}/ping/{{ pihole.healthcheck }}"]
+      test:
+        [
+          "CMD",
+          "curl",
+          "https://healthchecks.{{ domain }}/ping/{{ pihole.healthcheck }}",
+        ]
       timeout: 45s
       interval: 10s
       retries: 5

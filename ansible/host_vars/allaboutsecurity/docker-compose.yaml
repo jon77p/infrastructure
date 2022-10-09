@@ -1,5 +1,5 @@
 ---
-version: '3'
+version: "3"
 services:
   ghost:
     image: ghost:latest@sha256:897b22f8ec361b84c60450150b367ffe9a368c55b2f4a90c366331b28c882ebb

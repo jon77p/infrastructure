@@ -63,25 +63,25 @@ grafana:
     dashboardProviders:
       apiVersion: 1
       providers:
-        - name: 'default'
+        - name: "default"
           orgId: 1
-          folder: ''
+          folder: ""
           type: file
           disableDeletion: false
           editable: true
           options:
             path: /var/lib/grafana/dashboards/default
-        - name: 'unifi'
+        - name: "unifi"
           orgId: 1
-          folder: 'Unifi'
+          folder: "Unifi"
           type: file
           disableDeletion: false
           editable: true
           options:
             path: /var/lib/grafana/dashboards/unifi
-        - name: 'media'
+        - name: "media"
           orgId: 1
-          folder: 'Media'
+          folder: "Media"
           type: file
           disableDeletion: false
           editable: true

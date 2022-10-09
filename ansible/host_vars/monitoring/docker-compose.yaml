@@ -1,5 +1,5 @@
 ---
-version: '3'
+version: "3"
 services:
   prometheus:
     image: prom/prometheus:latest@sha256:4748e26f9369ee7270a7cd3fb9385c1adb441c05792ce2bce2f6dd622fd91d38
@@ -10,7 +10,14 @@ services:
     ports:
       - "{{ compose_project_ports.prometheus[0] }}:{{ prometheus.internal_port }}"
     healthcheck:
-      test: ["CMD", "wget", "https://healthchecks.{{ domain }}/ping/{{ prometheus.healthcheck }}", "-O", "/dev/null"]
+      test:
+        [
+          "CMD",
+          "wget",
+          "https://healthchecks.{{ domain }}/ping/{{ prometheus.healthcheck }}",
+          "-O",
+          "/dev/null",
+        ]
       timeout: 45s
       interval: 10s
       retries: 5
@@ -22,7 +29,14 @@ services:
     ports:
       - "{{ compose_project_ports.loki[0] }}:3100"
     healthcheck:
-      test: ["CMD", "wget", "https://healthchecks.{{ domain }}/ping/{{ loki.healthcheck }}", "-O", "/dev/null"]
+      test:
+        [
+          "CMD",
+          "wget",
+          "https://healthchecks.{{ domain }}/ping/{{ loki.healthcheck }}",
+          "-O",
+          "/dev/null",
+        ]
       timeout: 45s
       interval: 10s
       retries: 5
@@ -45,7 +59,12 @@ services:
     ports:
       - "{{ compose_project_ports.influxdb[0] }}:{{ influxdb.internal_port }}"
     healthcheck:
-      test: ["CMD", "curl", "https://healthchecks.{{ domain }}/ping/{{ influxdb.healthcheck }}"]
+      test:
+        [
+          "CMD",
+          "curl",
+          "https://healthchecks.{{ domain }}/ping/{{ influxdb.healthcheck }}",
+        ]
       timeout: 45s
       interval: 10s
       retries: 5
@@ -59,7 +78,14 @@ services:
     environment:
       - TZ=America/Los_Angeles
     healthcheck:
-      test: ["CMD", "wget", "https://healthchecks.{{ domain }}/ping/{{ varken.healthcheck }}", "-O", "/dev/null"]
+      test:
+        [
+          "CMD",
+          "wget",
+          "https://healthchecks.{{ domain }}/ping/{{ varken.healthcheck }}",
+          "-O",
+          "/dev/null",
+        ]
       timeout: 45s
       interval: 10s
       retries: 5
