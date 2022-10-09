@@ -3,3 +3,4 @@ tartufo==3.2.1
 yamllint==1.28.0
 ansible==6.4.0
 ansible-lint==6.8.0
+jmespath==1.0.1
