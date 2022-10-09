@@ -2,12 +2,12 @@
 - name: Create mount directories
   become: true
   ansible.builtin.file:
-    path: "{{ path }}"
+    path: "{{ varken_path }}"
     recurse: true
     state: directory
   loop: "{{ docker_volume_dirs.varken }}"
   loop_control:
-    loop_var: path
+    loop_var: varken_path
 
 - name: Create config file
   become: true

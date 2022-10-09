@@ -14,10 +14,12 @@
   community.general.cloudflare_dns:
     account_email: "{{ cf_email }}"
     api_token: "{{ cf_api_token }}"
-    zone: "{{ item.zone }}"
-    record: "{{ item.record }}"
-    type: "{{ item.type }}"
-    value: "{{ item.value }}"
-    proxied: "{{ item.proxied }}"
-    state: "{{ item.state }}"
+    zone: "{{ cloudflare_dns_record.zone }}"
+    record: "{{ cloudflare_dns_record.record }}"
+    type: "{{ cloudflare_dns_record.type }}"
+    value: "{{ cloudflare_dns_record.value }}"
+    proxied: "{{ cloudflare_dns_record.proxied }}"
+    state: "{{ cloudflare_dns_record.state }}"
   loop: "{{ cloudflare_dns_records }}"
+  loop_control:
+    loop_var: cloudflare_dns_record

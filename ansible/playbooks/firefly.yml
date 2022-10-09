@@ -22,7 +22,7 @@
       crowdsec:
         - key
   roles:
-    - 1password
+    - opconnect
 
 - name: Setup firefly
   hosts: firefly

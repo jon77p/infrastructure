@@ -19,10 +19,12 @@
 
 - name: Create any referenced Compose networks
   community.docker.docker_network:
-    name: "{{ item.name }}"
-    attachable: "{{ item.attachable }}"
-    internal: "{{ item.internal }}"
+    name: "{{ docker_network.name }}"
+    attachable: "{{ docker_network.attachable }}"
+    internal: "{{ docker_network.internal }}"
   loop: "{{ compose_network_names }}"
+  loop_control:
+    loop_var: docker_network
 
 - name: Deploy docker-compose for project {{ compose_project_name }}
   community.docker.docker_compose:
@@ -42,5 +44,7 @@
 - name: Check if services are running
   ansible.builtin.assert:
     that:
-      - output.services.{{ item.key }}.{{ compose_project_name }}_{{ item.key }}_1.state.running
+      - output.services.{{ docker_service.key }}.{{ compose_project_name }}_{{ docker_service.key }}_1.state.running
   loop: "{{ compose_definition.services | dict2items }}"
+  loop_control:
+    loop_var: docker_service

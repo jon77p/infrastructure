@@ -6,3 +6,5 @@
 - name: Install all CrowdSec {{ resource_type }}
   ansible.builtin.include_tasks: specific-resource.yml
   loop: "{{ crowdsec[resource_type] | default([]) }}"
+  loop_control:
+    loop_var: crowdsec_resource

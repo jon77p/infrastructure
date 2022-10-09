@@ -10,4 +10,4 @@
   ansible.builtin.include_tasks: verify-services.yml
   loop: "{{ servicelist }}"
   loop_control:
-    loop_var: service_name
+    loop_var: docker_service_name

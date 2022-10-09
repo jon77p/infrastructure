@@ -1,7 +1,7 @@
 ---
 - name: Innernet | Install all invites
   ansible.builtin.include_tasks: install-invite-client.yml
-  when: peer.name == inventory_hostname
+  when: innernet_peer.name == inventory_hostname
   loop: "{{ peers }}"
   loop_control:
-    loop_var: peer
+    loop_var: innernet_peer

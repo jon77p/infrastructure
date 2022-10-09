@@ -37,7 +37,7 @@
       crowdsec:
         - key
   roles:
-    - 1password
+    - opconnect
 
 - name: Setup monitoring
   hosts: monitoring

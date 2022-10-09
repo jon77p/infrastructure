@@ -11,7 +11,7 @@
       crowdsec:
         - key
   roles:
-    - 1password
+    - opconnect
 
 - name: Setup allaboutsecurity
   hosts: allaboutsecurity

@@ -12,16 +12,18 @@
 - name: Update iptables rules
   become: true
   ansible.builtin.iptables:
-    action: "{{ item.action }}"
-    chain: "{{ item.chain }}"
-    rule_num: "{{ item.rule_num }}"
-    ctstate: "{{ item.ctstate }}"
-    destination_port: "{{ item.destination_port }}"
-    protocol: "{{ item.protocol }}"
-    state: "{{ item.state }}"
-    jump: "{{ item.jump }}"
-    comment: "{{ item.comment }}"
+    action: "{{ iptables_rule.action }}"
+    chain: "{{ iptables_rule.chain }}"
+    rule_num: "{{ iptables_rule.rule_num }}"
+    ctstate: "{{ iptables_rule.ctstate }}"
+    destination_port: "{{ iptables_rule.destination_port }}"
+    protocol: "{{ iptables_rule.protocol }}"
+    state: "{{ iptables_rule.state }}"
+    jump: "{{ iptables_rule.jump }}"
+    comment: "{{ iptables_rule.comment }}"
   loop: "{{ iptables_rules }}"
+  loop_control:
+    loop_var: iptables_rule
 
 - name: Save iptables rules
   become: true

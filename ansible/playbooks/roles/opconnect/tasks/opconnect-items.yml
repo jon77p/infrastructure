@@ -3,12 +3,12 @@
   ansible.builtin.set_fact:
     opconnect_item_results: "{{ hostvars['localhost'].opconnect_item_results | combine(new_result) }}"
   vars:
-    new_result: '{ "{{ item.key }}": {} }'
+    new_result: '{ "{{ opconnect_item.key }}": {} }'
 
-- name: Get values from 1Password Connect for {{ item.key }}
+- name: Get values from 1Password Connect for {{ opconnect_item.key }}
   ansible.builtin.include_tasks: opconnect-fields.yml
   vars:
-    opconnect_item_name: "{{ item.key }}"
-  loop: "{{ item.value }}"
+    opconnect_item_name: "{{ opconnect_item.key }}"
+  loop: "{{ opconnect_item.value }}"
   loop_control:
     loop_var: opconnect_field_name

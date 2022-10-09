@@ -7,6 +7,8 @@
   when: inventory_hostname == 'localhost'
   ansible.builtin.include_tasks: opconnect-items.yml
   loop: "{{ opconnect_items | dict2items }}"
+  loop_control:
+    loop_var: opconnect_item
 
 - name: Update output dict
   when: inventory_hostname == 'localhost'

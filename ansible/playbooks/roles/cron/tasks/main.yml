@@ -2,12 +2,14 @@
 - name: Add all cronjobs to host
   become: true
   ansible.builtin.cron:
-    name: "{{ item.name }}"
-    minute: "{{ item.minute }}"
-    hour: "{{ item.hour }}"
-    day: "{{ item.day }}"
-    weekday: "{{ item.weekday }}"
-    month: "{{ item.month }}"
-    job: "{{ item.job }}"
-    state: "{{ item.state }}"
+    name: "{{ cron_job.name }}"
+    minute: "{{ cron_job.minute }}"
+    hour: "{{ cron_job.hour }}"
+    day: "{{ cron_job.day }}"
+    weekday: "{{ cron_job.weekday }}"
+    month: "{{ cron_job.month }}"
+    job: "{{ cron_job.job }}"
+    state: "{{ cron_job.state }}"
   loop: "{{ cronjobs }}"
+  loop_control:
+    loop_var: cron_job

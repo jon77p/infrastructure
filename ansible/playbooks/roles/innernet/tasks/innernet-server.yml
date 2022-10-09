@@ -22,14 +22,16 @@
   become: true
   ansible.builtin.command: |
     innernet-server add-cidr
-    --name {{ item.network_name }}
-    --cidr {{ item.network_cidr }}
-    --parent {{ item.network_parent }}
+    --name {{ innernet_additional_network.network_name }}
+    --cidr {{ innernet_additional_network.network_cidr }}
+    --parent {{ innernet_additional_network.network_parent }}
     --yes {{ innernet_network }}
   register: result
   changed_when: result.rc == 0
   ignore_errors: true # no easy way to check if CIDR already exists
   loop: "{{ additional_networks }}"
+  loop_control:
+    loop_var: innernet_additional_network
 
 - name: Enable new network
   become: true

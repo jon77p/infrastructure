@@ -57,10 +57,12 @@
   oracle.oci.oci_network_security_list:
     config_profile_name: "{{ oci_profile }}"
     compartment_id: "{{ compartment.compartments[0].id }}"
-    security_list_id: "{{ item }}"
+    security_list_id: "{{ oci_security_list_id }}"
     state: present
     vcn_id: "{{ subnet.subnets[0].vcn_id }}"
     egress_security_rules: "{{ security_rules.egress_security_rules }}"
     ingress_security_rules: "{{ security_rules.ingress_security_rules }}"
     purge_security_rules: false
   loop: "{{ subnet.subnets[0].security_list_ids }}"
+  loop_control:
+    loop_var: oci_security_list_id

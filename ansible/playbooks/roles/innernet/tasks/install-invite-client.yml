@@ -16,14 +16,14 @@
   when: not innernet_network_check.stat.exists
   become: true
   ansible.builtin.stat:
-    path: /etc/innernet/peers/invite-{{ peer.name }}-{{ peer.cidr }}.toml
+    path: /etc/innernet/peers/invite-{{ innernet_peer.name }}-{{ innernet_peer.cidr }}.toml
   register: innernet_invite_check
 
 - name: Innernet | Copy invite from host to peer
   become: true
   ansible.builtin.copy:
-    src: ../secrets/invite-{{ peer.name }}-{{ peer.cidr }}.toml
-    dest: /etc/innernet/peers/invite-{{ peer.name }}-{{ peer.cidr }}.toml
+    src: ../secrets/invite-{{ innernet_peer.name }}-{{ innernet_peer.cidr }}.toml
+    dest: /etc/innernet/peers/invite-{{ innernet_peer.name }}-{{ innernet_peer.cidr }}.toml
   when: not innernet_network_check.stat.exists and not innernet_invite_check.stat.exists
 
 - name: Innernet | add peer
@@ -33,7 +33,7 @@
     --default-name
     --hosts-path /etc/hosts
     --delete-invite
-    /etc/innernet/peers/invite-{{ peer.name }}-{{ peer.cidr }}.toml
+    /etc/innernet/peers/invite-{{ innernet_peer.name }}-{{ innernet_peer.cidr }}.toml
   when: not innernet_network_check.stat.exists
 
 - name: Innernet | Enable new network

@@ -4,48 +4,60 @@
 - name: Include helm variables
   ansible.builtin.include_vars: helm.yml
 
-- name: Create the namespace {{ item }}
+- name: Create the namespace {{ k8s_namespace }}
   loop: "{{ namespaces }}"
+  loop_control:
+    loop_var: k8s_namespace
   kubernetes.core.k8s:
     state: present
-    name: "{{ item }}"
+    name: "{{ k8s_namespace }}"
     api_version: v1
     kind: Namespace
 
-- name: Create the secrets {{ item.metadata.name }}
+- name: Create the secrets {{ k8s_secret.metadata.name }}
   loop: "{{ secrets }}"
+  loop_control:
+    loop_var: k8s_secret
   kubernetes.core.k8s:
     state: present
-    definition: "{{ item }}"
+    definition: "{{ k8s_secret }}"
 
 - name: Setup helm deployment
   when: helm != None and helm is defined
   ansible.builtin.include_tasks: helm.yml
 
-- name: Create the deployment {{ item.metadata.name }}
+- name: Create the deployment {{ k8s_deployment.metadata.name }}
   loop: "{{ deployments }}"
+  loop_control:
+    loop_var: k8s_deployment
   kubernetes.core.k8s:
     state: present
-    definition: "{{ item }}"
+    definition: "{{ k8s_deployment }}"
 
-- name: Create the service {{ item.metadata.name }}
+- name: Create the service {{ k8s_service.metadata.name }}
   loop: "{{ services }}"
+  loop_control:
+    loop_var: k8s_service
   kubernetes.core.k8s:
     state: present
-    definition: "{{ item }}"
+    definition: "{{ k8s_service }}"
 
-- name: Create the ingress {{ item.metadata.name }}
+- name: Create the ingress {{ k8s_ingress.metadata.name }}
   loop: "{{ ingress }}"
+  loop_control:
+    loop_var: k8s_ingress
   kubernetes.core.k8s:
     state: present
-    definition: "{{ item }}"
+    definition: "{{ k8s_ingress }}"
 
-- name: Create the resource {{ item.metadata.name ~ " " ~ item.kind }}
+- name: Create the resource {{ k8s_resource.metadata.name ~ " " ~ k8s_resource.kind }}
   loop: "{{ additional_resources }}"
+  loop_control:
+    loop_var: k8s_resource
   kubernetes.core.k8s:
     state: present
     force: true
-    definition: "{{ item }}"
+    definition: "{{ k8s_resource }}"
 
 - name: Create any additional records
   vars:

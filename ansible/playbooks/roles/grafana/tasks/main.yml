@@ -2,14 +2,14 @@
 - name: Create mount directories
   become: true
   ansible.builtin.file:
-    path: "{{ path }}"
+    path: "{{ grafana_path }}"
     recurse: true
     owner: "{{ docker_user_id.grafana }}"
     group: "{{ docker_group_id.grafana }}"
     state: directory
   loop: "{{ docker_volume_dirs.grafana }}"
   loop_control:
-    loop_var: path
+    loop_var: grafana_path
 
 - name: Create config file
   become: true
@@ -22,3 +22,5 @@
   ansible.builtin.include_tasks: provisioning.yml
   when: grafana.provisioning is defined
   loop: "{{ grafana.provisioning | dict2items }}"
+  loop_control:
+    loop_var: grafana_provisioning

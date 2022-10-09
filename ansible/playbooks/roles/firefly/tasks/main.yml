@@ -2,12 +2,12 @@
 - name: Create mount directories
   become: true
   ansible.builtin.file:
-    path: "{{ path }}"
+    path: "{{ firefly_path }}"
     recurse: true
     state: directory
   loop: "{{ docker_volume_dirs.plaid }}"
   loop_control:
-    loop_var: path
+    loop_var: firefly_path
 
 - name: Create Plaid config file
   become: true
