@@ -7,6 +7,6 @@
 
 - name: Create Provisioning File {{ item.key }}
   become: true
-  copy:
+  ansible.builtin.copy:
     dest: "{{ docker_volume_dirs.grafana[3] }}/{{ item.key }}/config.yaml"
     content: "{{ item.value }}"

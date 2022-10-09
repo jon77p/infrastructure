@@ -1,5 +1,5 @@
 ---
-- name: Create tunnel-{{ ansible_host }} dns record
+- name: Create dns record {{ "tunnel-" ~ ansible_host }}
   community.general.cloudflare_dns:
     account_email: "{{ cf_email }}"
     api_token: "{{ cf_api_token }}"
@@ -10,7 +10,7 @@
     proxied: true
     state: present
 
-- name: Create ssh-{{ ansible_host }} dns record
+- name: Create dns record {{ "ssh-" ~ ansible_host }}
   community.general.cloudflare_dns:
     account_email: "{{ cf_email }}"
     api_token: "{{ cf_api_token }}"

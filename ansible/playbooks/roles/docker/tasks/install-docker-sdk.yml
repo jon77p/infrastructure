@@ -17,18 +17,18 @@
     state: present
 
 - name: Install Docker SDK
-  pip:
+  ansible.builtin.pip:
     name: docker
     state: present
 
 - name: Install docker-compose
-  pip:
+  ansible.builtin.pip:
     name: docker-compose
     state: present
 
 - name: Ensure ansible user is in docker group
   become: true
-  user:
+  ansible.builtin.user:
     name: "{{ ansible_ssh_user }}"
     append: true
     groups:

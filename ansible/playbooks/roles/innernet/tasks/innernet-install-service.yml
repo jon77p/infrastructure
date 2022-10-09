@@ -2,14 +2,14 @@
 - name: Create innernet.target
   become: true
   when: innernet_binary == "innernet"
-  copy:
+  ansible.builtin.copy:
     src: innernet.target
     dest: /usr/lib/systemd/system/innernet.target
 
 - name: Create innernet@.service
   become: true
   when: innernet_binary == "innernet"
-  copy:
+  ansible.builtin.copy:
     src: innernet@.service
     dest: /usr/lib/systemd/system/innernet@.service
   register: innernet_service
@@ -17,7 +17,7 @@
 - name: Create innernet-server@.service
   become: true
   when: innernet_binary == "innernet-server"
-  copy:
+  ansible.builtin.copy:
     src: innernet-server@.service
     dest: /usr/lib/systemd/system/innernet-server@.service
   register: innernet_service

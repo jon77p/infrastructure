@@ -1,5 +1,6 @@
 ---
-- include_vars: vault_main.yml
+- name: Include variables
+  ansible.builtin.include_vars: vault_main.yml
 
 - name: Check if cloudflared is installed
   become: true
@@ -27,10 +28,12 @@
   ansible.builtin.command: cat /root/.cloudflared/config.yml | head -n 1 | awk '{print $2}'
   register: tunnel_output
 
-- ansible.builtin.debug:
+- name: Debug tunnel_output
+  ansible.builtin.debug:
     var: tunnel_output
 
-- ansible.builtin.debug:
+- name: Debug additional_ingress
+  ansible.builtin.debug:
     var: additional_ingress
 
 - name: Create updated cloudflared config file
@@ -74,5 +77,5 @@
 
 - name: Wait for the cloudflared service to reload
   when: diff_result.rc != 0 and validation_check.rc == 0
-  wait_for_connection:
+  ansible.builtin.wait_for_connection:
     delay: 10

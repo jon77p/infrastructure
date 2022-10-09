@@ -1,6 +1,6 @@
 ---
 - name: Create output items dict
-  set_fact:
+  ansible.builtin.set_fact:
     opconnect_item_results: "{{ hostvars['localhost'].opconnect_item_results | combine(new_result) }}"
   vars:
     new_result: '{ "{{ item.key }}": {} }'

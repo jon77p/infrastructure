@@ -9,7 +9,7 @@
   become: true
   ansible.builtin.command: iptables-restore /etc/iptables/rules.v4
 
-- name: iptables update rules
+- name: Update iptables rules
   become: true
   ansible.builtin.iptables:
     action: "{{ item.action }}"

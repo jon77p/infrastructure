@@ -28,13 +28,13 @@
   tasks:
     - name: Get absolute path for repository
       run_once: true
-      command: git rev-parse --show-toplevel
+      ansible.builtin.command: git rev-parse --show-toplevel
       register: repo_abs_path
     - name: Replace 'pi1' with IP
-      replace:
+      ansible.builtin.replace:
         path: "{{ repo_abs_path.stdout }}/ansible/kubeconfig"
         regexp: pi1
-        replace: 192.168.1.101
+        ansible.builtin.replace: 192.168.1.101
     - name: Create the flux-system namespace
       kubernetes.core.k8s:
         state: present
@@ -42,7 +42,7 @@
         api_version: v1
         kind: Namespace
     - name: Get Flux GPG Secret Key
-      command: gpg --export-secret-keys --armor {{ BOOTSTRAP_FLUX_KEY_FP }}
+      ansible.builtin.command: gpg --export-secret-keys --armor {{ BOOTSTRAP_FLUX_KEY_FP }}
       register: gpg
     - name: Add Flux GPG Key for decrypting SOPS secrets
       kubernetes.core.k8s:
@@ -57,4 +57,4 @@
           data:
             sops.asc: "{{ gpg.stdout | b64encode }}"
     - name: Install Flux
-      command: kubectl apply --kustomize={{ repo_abs_path.stdout }}/cluster/base/flux-system --force
+      ansible.builtin.command: kubectl apply --kustomize={{ repo_abs_path.stdout }}/cluster/base/flux-system --force

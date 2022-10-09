@@ -7,7 +7,7 @@
   changed_when: innernet_server_check_deb.rc == 1
 
 - name: Download innernet-server .deb
-  get_url:
+  ansible.builtin.get_url:
     url: https://github.com/tonarino/innernet/releases/download/v{{ innernet_version }}/innernet-server_{{ innernet_version }}_amd64.deb
     dest: /tmp/innernet-server_{{ innernet_version }}_amd64.deb
   when: innernet_server_check_deb.rc == 1

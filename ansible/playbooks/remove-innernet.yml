@@ -24,8 +24,8 @@
   tasks:
     - name: Uninstall innernet
       become: true
-      shell: innernet uninstall --yes "{{ hostvars['innernet'].innernet_network }}"
+      ansible.builtin.command: innernet uninstall --yes "{{ hostvars['innernet'].innernet_network }}"
       ignore_errors: true
     - name: Ensure innernet is no longer running
       become: true
-      shell: pkill -9 innernet
+      ansible.builtin.command: pkill -9 innernet

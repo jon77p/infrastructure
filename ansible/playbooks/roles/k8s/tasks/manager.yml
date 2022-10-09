@@ -30,7 +30,8 @@
     token: "{{ nodetoken.stdout }}"
     manager: "{{ ansible_hostname }}"
 
-- ansible.builtin.debug:
+- name: Debug K3S_TOKEN_HOLDER
+  ansible.builtin.debug:
     var: hostvars['K3S_TOKEN_HOLDER']['token']
 
 - name: Fetch kubeconfig from manager

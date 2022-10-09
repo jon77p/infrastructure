@@ -1,7 +1,9 @@
 ---
-- include_vars: vault_main.yml
+- name: Inclue variables
+  ansible.builtin.include_vars: vault_main.yml
 
-- ansible.builtin.debug:
+- name: Debug records
+  ansible.builtin.debug:
     var: cloudflare_dns_records
 
 - name: Create initial tunnel records

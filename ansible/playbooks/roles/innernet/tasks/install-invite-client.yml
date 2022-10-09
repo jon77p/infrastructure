@@ -21,14 +21,19 @@
 
 - name: Innernet | Copy invite from host to peer
   become: true
-  copy:
+  ansible.builtin.copy:
     src: ../secrets/invite-{{ peer.name }}-{{ peer.cidr }}.toml
     dest: /etc/innernet/peers/invite-{{ peer.name }}-{{ peer.cidr }}.toml
   when: not innernet_network_check.stat.exists and not innernet_invite_check.stat.exists
 
 - name: Innernet | add peer
   become: true
-  ansible.builtin.command: innernet install --default-name --hosts-path /etc/hosts --delete-invite /etc/innernet/peers/invite-{{ peer.name }}-{{ peer.cidr }}.toml
+  ansible.builtin.command: |
+    innernet install
+    --default-name
+    --hosts-path /etc/hosts
+    --delete-invite
+    /etc/innernet/peers/invite-{{ peer.name }}-{{ peer.cidr }}.toml
   when: not innernet_network_check.stat.exists
 
 - name: Innernet | Enable new network

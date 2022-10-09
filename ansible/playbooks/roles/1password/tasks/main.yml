@@ -1,6 +1,6 @@
 ---
 - name: Create output dict
-  set_fact:
+  ansible.builtin.set_fact:
     opconnect_item_results: "{{ hostvars['localhost'].opconnect_item_results | default({}) }}"
 
 - name: Get items from 1Password Connect
@@ -10,10 +10,10 @@
 
 - name: Update output dict
   when: inventory_hostname == 'localhost'
-  set_fact:
+  ansible.builtin.set_fact:
     opconnect_results: "{{ hostvars['localhost'].opconnect_item_results }}"
 
 - name: Update output dict
   when: inventory_hostname != 'localhost'
-  set_fact:
+  ansible.builtin.set_fact:
     opconnect_results: "{{ hostvars['localhost'].opconnect_item_results }}"

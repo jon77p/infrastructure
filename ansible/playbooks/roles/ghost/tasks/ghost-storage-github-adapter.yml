@@ -1,8 +1,8 @@
 ---
 - name: Install Docker SDK if missing
-  import_tasks: ../../docker/tasks/install-docker-sdk.yml
+  ansible.builtin.import_tasks: ../../docker/tasks/install-docker-sdk.yml
 
-- name: Create {{ docker_volume_dirs.ghost[1] }}/adapters/storage directory
+- name: Create directory {{ docker_volume_dirs.ghost[1] ~ "/adapters/storage" }}
   become: true
   ansible.builtin.file:
     path: "{{ docker_volume_dirs.ghost[1] }}/adapters/storage"
@@ -11,7 +11,7 @@
     group: "{{ docker_group_id.ghost }}"
     state: directory
 
-- name: Create {{ docker_volume_dirs.ghost[2] }} directory
+- name: Create directory {{ docker_volume_dirs.ghost[2] }}
   become: true
   ansible.builtin.file:
     path: "{{ docker_volume_dirs.ghost[2] }}"

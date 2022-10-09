@@ -3,6 +3,6 @@
   when: servicename is not defined
   ansible.builtin.include_tasks: setup.yml
 
-- name: Setup {{ servicename }} service
+- name: Setup service {{ servicename }}
   when: servicename is defined
   ansible.builtin.include_tasks: service.yml

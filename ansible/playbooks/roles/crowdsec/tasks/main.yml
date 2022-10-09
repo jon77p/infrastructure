@@ -14,28 +14,28 @@
 
 - name: Update CrowdSec default API port to {{ crowdsec.api.port }}
   become: true
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/crowdsec/config.yaml
     regexp: "^(\\s)*listen_uri: 127.0.0.1:{{ crowdsec.api.default_port }}"
     line: "    listen_uri: 127.0.0.1:{{ crowdsec.api.port }}"
 
 - name: Update CrowdSec local_api_credentials default API port to {{ crowdsec.api.port }}
   become: true
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/crowdsec/local_api_credentials.yaml
     regexp: "^url: http://127.0.0.1:{{ crowdsec.api.default_port }}"
     line: "url: http://127.0.0.1:{{ crowdsec.api.port }}"
 
 - name: Update CrowdSec default Prometheus port to {{ crowdsec.prometheus.port }}
   become: true
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/crowdsec/config.yaml
     regexp: "^(\\s)*listen_port: {{ crowdsec.prometheus.default_port }}"
     line: "  listen_port: {{ crowdsec.prometheus.port }}"
 
 - name: Update CrowdSec default Prometheus host to 0.0.0.0
   become: true
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/crowdsec/config.yaml
     regexp: "^(\\s)*listen_addr: 127.0.0.1"
     line: "  listen_addr: 0.0.0.0"

@@ -11,19 +11,31 @@
     path: /etc/innernet-server/peers/invite-{{ peer.name }}-{{ peer.cidr }}.toml
   register: innernet_invite_peer_check
 
-- name: Innernet | add peer {{ peer.name }} with auto-ip
+- name: Innernet | add peer with auto-ip {{ peer.name }}
   become: true
-  ansible.builtin.command: innernet-server add-peer --name {{ peer.name }} --auto-ip --cidr {{ peer.cidr }} --admin {{ peer.admin | default("false") }} --save-config
-    /etc/innernet-server/peers/invite-{{ peer.name }}-{{ peer.cidr }}.toml --yes {{ innernet_network }}
+  ansible.builtin.command: |
+    innernet-server add-peer
+    --name {{ peer.name }}
+    --auto-ip
+    --cidr {{ peer.cidr }}
+    --admin {{ peer.admin | default("false") }}
+    --save-config /etc/innernet-server/peers/invite-{{ peer.name }}-{{ peer.cidr }}.toml
+    --yes {{ innernet_network }}
   when: not innernet_invite_peer_check.stat.exists and peer.ip is not defined
 
-- name: Innernet | add peer {{ peer.name }} with manual ip
+- name: Innernet | add peer with manual ip {{ peer.name }}
   become: true
-  ansible.builtin.command: innernet-server add-peer --name {{ peer.name }} --ip {{ peer.ip }} --cidr {{ peer.cidr }} --admin {{ peer.admin | default("false") }} --save-config
-    /etc/innernet-server/peers/invite-{{ peer.name }}-{{ peer.cidr }}.toml --yes {{ innernet_network }}
+  ansible.builtin.command: |
+    innernet-server add-peer
+    --name {{ peer.name }}
+    --ip {{ peer.ip }}
+    --cidr {{ peer.cidr }}
+    --admin {{ peer.admin | default("false") }}
+    --save-config /etc/innernet-server/peers/invite-{{ peer.name }}-{{ peer.cidr }}.toml
+    --yes {{ innernet_network }}
   when: not innernet_invite_peer_check.stat.exists and peer.ip is defined
 
-- name: Innernet | Fetch invite invite-{{ peer.name }}-{{ peer.cidr }}.toml from innernet-server
+- name: Innernet | Fetch invite from innernet-server {{ "invite-" ~ peer.name ~ "-" ~ peer.cidr ~ ".toml" }}
   become: true
   ansible.builtin.fetch:
     src: /etc/innernet-server/peers/invite-{{ peer.name }}-{{ peer.cidr }}.toml

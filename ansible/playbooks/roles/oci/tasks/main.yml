@@ -3,7 +3,8 @@
   ansible.builtin.command: cat ~/.oci/config | grep "{{ oci_profile }}" -A 5 | grep tenancy | awk '{ print $3 }'
   register: tenancy
 
-- ansible.builtin.debug:
+- name: Debug tenancy
+  ansible.builtin.debug:
     var: tenancy
 
 - name: Get 'terraform' compartment OCID
@@ -13,7 +14,8 @@
     name: terraform
   register: compartment
 
-- ansible.builtin.debug:
+- name: Debug compartment
+  ansible.builtin.debug:
     var: compartment
 
 - name: Get instance with hostname {{ hostname }}
@@ -23,7 +25,8 @@
     display_name: "{{ hostname }}"
   register: instance
 
-- ansible.builtin.debug:
+- name: Debug instance
+  ansible.builtin.debug:
     var: instance
 
 - name: Get vnic attachment for instance
@@ -35,7 +38,8 @@
     instance_ids: "{{ instance | community.general.json_query('instances[?lifecycle_state==`RUNNING`].id') }}"
   register: vnic_attachment
 
-- ansible.builtin.debug:
+- name: Debug vnic_attachment
+  ansible.builtin.debug:
     var: vnic_attachment
 
 - name: Get subnet for vnic attachment
@@ -45,7 +49,8 @@
     subnet_id: "{{ vnic_attachment.vnic_attachments[0].subnet_id }}"
   register: subnet
 
-- ansible.builtin.debug:
+- name: Debug subnet
+  ansible.builtin.debug:
     var: subnet
 
 - name: Add security rules to security lists

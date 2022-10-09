@@ -3,17 +3,17 @@
   ansible.builtin.debug:
     var: ansible_architecture
 
-- name: install cloudflared ARM
+- name: Install cloudflared ARM
   become: true
-  import_tasks: install-arm.yml
+  ansible.builtin.import_tasks: install-arm.yml
   when: ansible_architecture == "armv7l"
 
-- name: install cloudflared ARM64
+- name: Install cloudflared ARM64
   become: true
-  import_tasks: install-arm64.yml
+  ansible.builtin.import_tasks: install-arm64.yml
   when: ansible_architecture == "aarch64"
 
-- name: install cloudflared x86_64
+- name: Install cloudflared x86_64
   become: true
-  import_tasks: install-amd64.yml
+  ansible.builtin.import_tasks: install-amd64.yml
   when: ansible_architecture == "x86_64"

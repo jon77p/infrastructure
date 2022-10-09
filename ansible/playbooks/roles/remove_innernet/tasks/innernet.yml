@@ -12,5 +12,8 @@
   ignore_errors: true # innernet-server doesn't have the --yes flag, yet
 
 - name: Remove all stored peer invites
-  ansible.builtin.command: rm -rf /etc/{{ innernet_program }}/peers
+  ansible.builtin.file:
+    path: /etc/{{ innernet_program }}/peers
+    state: absent
+    force: true
   become: true

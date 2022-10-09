@@ -16,6 +16,6 @@
 - name: Start Code-Server
   become: true
   ansible.builtin.systemd:
-    name: code-server@{{ ansible_ssh_user}}
+    name: code-server@{{ ansible_ssh_user }}
     state: restarted
     enabled: true

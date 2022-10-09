@@ -20,13 +20,14 @@
     vault: "{{ hostvars['localhost'].op_connect_vault_id }}"
   register: opconnect_output_item
 
-- ansible.builtin.debug:
+- name: Debug output
+  ansible.builtin.debug:
     msg: "{{ opconnect_output_item }}"
   when: opconnect_output is failed
 
 - name: Update output dict
   when: opconnect_output is succeeded
-  set_fact:
+  ansible.builtin.set_fact:
     opconnect_item_results: "{{ hostvars['localhost'].opconnect_item_results | combine(new_item_result) }}"
   vars:
     new_field_result: '{ "{{ opconnect_field_name }}": "{{ opconnect_output.field.value }}" }'

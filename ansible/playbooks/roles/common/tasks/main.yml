@@ -1,10 +1,10 @@
 ---
 - name: Setup | set hostname
-  import_tasks: hostname.yml
+  ansible.builtin.import_tasks: hostname.yml
 
 - name: Setup | set user password
-  import_tasks: update_passwd.yml
+  ansible.builtin.import_tasks: update_passwd.yml
 
 - name: Setup | update packages
   become: true
-  import_tasks: update.yml
+  ansible.builtin.import_tasks: update.yml

@@ -1,5 +1,6 @@
 ---
-- ansible.builtin.include_vars: node.yml
+- name: Include variables
+  ansible.builtin.include_vars: node.yml
 
 - name: Check if k3s is installed
   become: true
@@ -9,7 +10,7 @@
 
 # - name: Include innernet variables
 # when: not k3s_check.stat.exists
-# include_vars: roles/innernet/vars/main.yml
+# ansible.builtin.include_vars: roles/innernet/vars/main.yml
 
 - name: Install k3s
   when: not k3s_check.stat.exists

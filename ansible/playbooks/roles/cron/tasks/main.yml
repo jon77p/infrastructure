@@ -1,7 +1,7 @@
 ---
 - name: Add all cronjobs to host
   become: true
-  cron:
+  ansible.builtin.cron:
     name: "{{ item.name }}"
     minute: "{{ item.minute }}"
     hour: "{{ item.hour }}"
