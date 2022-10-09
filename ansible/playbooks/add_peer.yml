@@ -1,5 +1,4 @@
 ---
-
 - hosts: innernet
   roles:
     - innernet
@@ -18,7 +17,6 @@
   roles:
     - innernet
     - dns
-
 # - hosts: localhost
 # tasks:
 #    - name: Install innernet network from invite

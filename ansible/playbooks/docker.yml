@@ -1,5 +1,4 @@
 ---
-
 - hosts: firefly
   roles:
     - docker
@@ -29,4 +28,3 @@
   vars:
     servicelist:
       - timemachine
-

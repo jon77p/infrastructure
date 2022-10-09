@@ -1,5 +1,4 @@
 ---
-
 - hosts: oci,cluster
   roles:
     - common

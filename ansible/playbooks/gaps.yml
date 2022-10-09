@@ -1,12 +1,12 @@
 ---
 ### docker deployment
 # - hosts: gaps
-  # become: true
-  # roles:
-    # - common
-    # - cloudflared
-    # - cloudflare
-    # - docker
+# become: true
+# roles:
+# - common
+# - cloudflared
+# - cloudflare
+# - docker
 
 - hosts: localhost
   vars:

@@ -1,5 +1,4 @@
 ---
-
 - hosts: manager
   become: true
   roles:
@@ -31,8 +30,8 @@
     - name: Replace 'pi1' with IP
       replace:
         path: "{{ repo_abs_path.stdout }}/ansible/kubeconfig"
-        regexp: 'pi1'
-        replace: '192.168.1.101'
+        regexp: "pi1"
+        replace: "192.168.1.101"
     - name: "Create the flux-system namespace"
       kubernetes.core.k8s:
         state: present
