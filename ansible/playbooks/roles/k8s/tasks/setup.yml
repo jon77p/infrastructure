@@ -1,3 +1,4 @@
+---
 - name: K3S | Setup manager
   when: "'manager' in group_names"
   include_tasks: manager.yml

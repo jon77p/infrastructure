@@ -1,3 +1,4 @@
+---
 - name: Download cloudflared .deb
   get_url:
     url: https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm.deb

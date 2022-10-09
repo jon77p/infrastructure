@@ -1,3 +1,4 @@
+---
 - name: Set hostname for host
   become: true
   hostname:

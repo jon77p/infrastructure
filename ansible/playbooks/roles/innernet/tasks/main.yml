@@ -1,3 +1,4 @@
+---
 - name: Innernet | install wireguard
   include_tasks: wireguard.yml
   when: not ('install' in skip_tags)

@@ -1,3 +1,4 @@
+---
 - name: Set user password
   become: true
   user:

@@ -1,3 +1,4 @@
+---
 - name: Create tunnel-{{ ansible_host }} dns record
   community.general.cloudflare_dns:
     account_email: "{{ cf_email }}"

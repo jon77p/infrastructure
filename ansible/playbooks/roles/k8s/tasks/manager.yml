@@ -1,3 +1,4 @@
+---
 - name: Check if k3s is installed
   stat:
     path: /usr/local/bin/k3s

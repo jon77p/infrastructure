@@ -1,3 +1,4 @@
+---
 - name: Create mountpoint directory at {{ rclone_mount_dir }}
   become: true
   file:

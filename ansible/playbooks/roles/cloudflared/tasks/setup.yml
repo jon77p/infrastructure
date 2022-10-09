@@ -1,3 +1,4 @@
+---
 - name: Create /root/.cloudflared directory
   become: true
   file:

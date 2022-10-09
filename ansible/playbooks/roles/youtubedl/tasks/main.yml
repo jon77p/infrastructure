@@ -1,3 +1,4 @@
+---
 - name: Create configuration directories
   become: true
   file:

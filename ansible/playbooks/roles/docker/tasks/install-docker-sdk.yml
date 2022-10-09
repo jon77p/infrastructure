@@ -1,3 +1,4 @@
+---
 - name: Check if docker is installed
   command: dpkg-query -W docker
   register: docker_check_deb

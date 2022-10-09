@@ -1,3 +1,4 @@
+---
 - name: Add Cloudflare package URL to sources list
   become: true
   shell: echo 'deb http://pkg.cloudflare.com/ buster main' | sudo tee /etc/apt/sources.list.d/cloudflare-main.list
