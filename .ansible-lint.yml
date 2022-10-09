@@ -32,6 +32,7 @@ use_default_rules: true
 skip_list:
   - no-relative-paths
   - package-latest
+  - latest[git]
 
 # Any rule that has the 'opt-in' tag will not be loaded unless its 'id' is
 # mentioned in the enable_list:
@@ -49,6 +50,10 @@ enable_list:
 # This makes the linter display but not fail for rules/tags listed below:
 warn_list:
   - skip_this_tag
+  - command-instead-of-module
+  - no-changed-when
+  - no-handler
+  - role-name
   - experimental # experimental is included in the implicit list
   # - role-name
   # - yaml[document-start]  # you can also use sub-rule matches
