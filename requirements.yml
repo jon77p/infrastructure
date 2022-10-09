@@ -1,0 +1,8 @@
+---
+collections:
+  - name: community.general
+  - name: community.docker
+  - name: kubernetes.core
+  - name: oracle.oci
+roles:
+  - name: stefangweichinger.ansible_rclone
