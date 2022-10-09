@@ -3,38 +3,38 @@
   vars:
     opconnect_items:
       monitoring:
-        - "healthcheck"
+        - healthcheck
       grafana:
-        - "username"
-        - "password"
-        - "smtp_username"
-        - "smtp_password"
+        - username
+        - password
+        - smtp_username
+        - smtp_password
       influxdb:
-        - "healthcheck"
-        - "username"
-        - "password"
+        - healthcheck
+        - username
+        - password
       prometheus:
-        - "healthcheck"
+        - healthcheck
       loki:
-        - "healthcheck"
+        - healthcheck
       mediaserver:
-        - "healthcheck"
-        - "tautulli_url"
-        - "tautulli_apikey"
-        - "sonarr_url"
-        - "sonarr_apikey"
-        - "radarr_url"
-        - "radarr_apikey"
-        - "lidarr_url"
-        - "lidarr_apikey"
-        - "ombi_url"
-        - "ombi_apikey"
-        - "maxmind_license_key"
+        - healthcheck
+        - tautulli_url
+        - tautulli_apikey
+        - sonarr_url
+        - sonarr_apikey
+        - radarr_url
+        - radarr_apikey
+        - lidarr_url
+        - lidarr_apikey
+        - ombi_url
+        - ombi_apikey
+        - maxmind_license_key
       healthchecks:
-        - "project_id"
-        - "readonly_apikey"
+        - project_id
+        - readonly_apikey
       crowdsec:
-        - "key"
+        - key
   roles:
     - 1password
 

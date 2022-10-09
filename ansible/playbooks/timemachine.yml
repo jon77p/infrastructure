@@ -12,7 +12,7 @@
 
 - hosts: localhost
   vars:
-    oci_hostname: "timemachine"
+    oci_hostname: timemachine
     hostname: "{{ oci_hostname }}"
   roles:
     - oci

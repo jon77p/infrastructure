@@ -3,9 +3,9 @@
   vars:
     opconnect_items:
       innernet:
-        - "healthcheck"
+        - healthcheck
       crowdsec:
-        - "key"
+        - key
   roles:
     - 1password
 
@@ -25,6 +25,6 @@
 
 - hosts: localhost
   vars:
-    hostname: "innernet"
+    hostname: innernet
   roles:
     - oci

@@ -1,7 +1,7 @@
 ---
 - hosts: localhost
   vars:
-    servicename: "nodered"
+    servicename: nodered
   gather_facts: false
   connection: local
   roles:

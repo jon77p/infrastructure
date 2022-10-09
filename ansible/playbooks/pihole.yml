@@ -3,10 +3,10 @@
   vars:
     opconnect_items:
       pihole:
-        - "healthcheck"
-        - "password"
+        - healthcheck
+        - password
       crowdsec:
-        - "key"
+        - key
   roles:
     - 1password
 

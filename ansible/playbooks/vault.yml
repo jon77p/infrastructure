@@ -3,9 +3,9 @@
   vars:
     opconnect_items:
       vault:
-        - "healthcheck"
+        - healthcheck
       crowdsec:
-        - "key"
+        - key
   roles:
     - 1password
 

@@ -3,13 +3,13 @@
   vars:
     opconnect_items:
       healthchecks:
-        - "healthcheck"
-        - "username"
-        - "password"
-        - "smtp_username"
-        - "smtp_password"
+        - healthcheck
+        - username
+        - password
+        - smtp_username
+        - smtp_password
       crowdsec:
-        - "key"
+        - key
   roles:
     - 1password
 

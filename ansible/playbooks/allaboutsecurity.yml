@@ -3,12 +3,12 @@
   vars:
     opconnect_items:
       allaboutsecurity:
-        - "healthcheck"
+        - healthcheck
       ghost:
-        - "github_username"
-        - "github_token"
+        - github_username
+        - github_token
       crowdsec:
-        - "key"
+        - key
   roles:
     - 1password
 

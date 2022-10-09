@@ -10,7 +10,7 @@
 
 - hosts: localhost
   vars:
-    servicename: "gaps"
+    servicename: gaps
   gather_facts: false
   connection: local
   roles:

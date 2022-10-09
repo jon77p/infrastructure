@@ -2,17 +2,17 @@
 - hosts: localhost,nextcloud
   vars:
     opconnect_item_names:
-      - "nextcloud"
-      - "crowdsec"
+      - nextcloud
+      - crowdsec
     opconnect_field_names:
-      - "healthcheck"
-      - "username"
-      - "password"
-      - "smtp_username"
-      - "smtp_password"
-      - "mysql_username"
-      - "mysql_password"
-      - "key"
+      - healthcheck
+      - username
+      - password
+      - smtp_username
+      - smtp_password
+      - mysql_username
+      - mysql_password
+      - key
   roles:
     - 1password
 
