@@ -9,14 +9,14 @@ services:
       SITE_OWNER: "{{ firefly.site_owner }}"
       APP_KEY: "{{ firefly.app_key }}"
       TRUSTED_PROXIES: "{{ firefly.trusted_proxies }}"
-      DB_CONNECTION: "mysql"
-      DB_HOST: "fireflydb"
+      DB_CONNECTION: mysql
+      DB_HOST: fireflydb
       DB_PORT: "{{ fireflydb.port }}"
       DB_DATABASE: "{{ fireflydb.database }}"
       DB_USERNAME: "{{ fireflydb.username }}"
       DB_PASSWORD: "{{ fireflydb.password }}"
       COOKIE_DOMAIN: "{{ domain }}"
-      MAIL_MAILER: "log"
+      MAIL_MAILER: log
       MAIL_HOST: "{{ firefly.mail.host }}"
       MAIL_PORT: "{{ firefly.mail.port }}"
       MAIL_FROM: "{{ firefly.mail.from }}"
@@ -24,23 +24,18 @@ services:
       MAIL_PASSWORD: "{{ firefly.mail.password }}"
       MAIL_ENCRYPTION: "{{ firefly.mail.encryption }}"
       SEND_REGISTRATION_MAIL: "{{ firefly.mail.send_registration }}"
-      APP_NAME: "FireflyIII"
-      APP_URL: "http://localhost"
+      APP_NAME: FireflyIII
+      APP_URL: http://localhost
     depends_on:
-      - "fireflydb"
+      - fireflydb
     networks:
-      - "firefly"
-      - "web"
+      - firefly
+      - web
     ports:
       - "{{ firefly.port }}:8080"
-    restart: "always"
+    restart: always
     healthcheck:
-      test:
-        [
-          "CMD",
-          "curl",
-          "https://healthchecks.{{ domain }}/ping/{{ firefly.healthcheck }}",
-        ]
+      test: [CMD, curl, "https://healthchecks.{{ domain }}/ping/{{ firefly.healthcheck }}"]
       timeout: 45s
       interval: 10s
       retries: 5
@@ -54,30 +49,25 @@ services:
     volumes:
       - "{{ docker_volume_dirs.fireflydb[0] }}:/var/lib/mysql"
     networks:
-      - "firefly"
+      - firefly
   data_importer:
     image: fireflyiii/data-importer:latest@sha256:6e5652fb9709ff537db16306a3dd58685257c92a9654fe23240f2b06c86250f0
     environment:
       FIREFLY_III_ACCESS_TOKEN: "{{ data_importer.firefly_access_token }}"
-      FIREFLY_III_URL: "http://firefly:{{ firefly.port }}"
-      VANITY_URL: "https://firefly.{{ domain }}"
+      FIREFLY_III_URL: http://firefly:{{ firefly.port }}
+      VANITY_URL: https://firefly.{{ domain }}
       EXPECT_SECURE_URL: "true"
       TRUSTED_PROXIES: "*"
     depends_on:
-      - "firefly"
+      - firefly
     networks:
-      - "firefly"
-      - "web"
+      - firefly
+      - web
     ports:
       - "{{ data_importer.port }}:8080"
-    restart: "always"
+    restart: always
     healthcheck:
-      test:
-        [
-          "CMD",
-          "curl",
-          "https://healthchecks.{{ domain }}/ping/{{ data_importer.healthcheck }}",
-        ]
+      test: [CMD, curl, "https://healthchecks.{{ domain }}/ping/{{ data_importer.healthcheck }}"]
       timeout: 45s
       interval: 10s
       retries: 5
@@ -86,29 +76,24 @@ services:
     volumes:
       - "{{ docker_volume_dirs.plaid[0] }}:/config"
     depends_on:
-      - "firefly"
+      - firefly
     networks:
-      - "firefly"
-    restart: "always"
+      - firefly
+    restart: always
     healthcheck:
-      test:
-        [
-          "CMD",
-          "curl",
-          "https://healthchecks.{{ domain }}/ping/{{ plaid.healthcheck }}",
-        ]
+      test: [CMD, curl, "https://healthchecks.{{ domain }}/ping/{{ plaid.healthcheck }}"]
       timeout: 45s
       interval: 10s
       retries: 5
   promtail:
     image: grafana/promtail:latest@sha256:072527b12cdfa1393d04a08aeba6b0eb42fd6921426ea14eaf8c828953771749
-    restart: "always"
+    restart: always
     volumes:
-      - "/var/log/cloudflared.log:/var/log/cloudflared.log:ro"
-      - "/var/log/journal:/var/log/journal:ro"
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - /var/log/cloudflared.log:/var/log/cloudflared.log:ro
+      - /var/log/journal:/var/log/journal:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
       - "{{ docker_volume_dirs.promtail[0] }}/config.yaml:/etc/promtail/config.yaml"
-    command: "-config.file=/etc/promtail/config.yaml"
+    command: -config.file=/etc/promtail/config.yaml
 
 networks:
   firefly:

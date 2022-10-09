@@ -13,7 +13,7 @@ services:
     volumes:
       - "{{ docker_volume_dirs.nextclouddb[0] }}:/var/lib/mysql"
     networks:
-      - "nextcloud"
+      - nextcloud
   nextcloud:
     image: nextcloud:latest@sha256:d48eabb839af0f502eadbf1fdc0dfe3a020448623cfaaf5af585b70771b55ad0
     volumes:
@@ -24,11 +24,11 @@ services:
     environment:
       PUID: "{{ rclone_mount_uid }}"
       PGID: "{{ rclone_mount_gid }}"
-      MYSQL_HOST: "nextclouddb"
+      MYSQL_HOST: nextclouddb
       MYSQL_DATABASE: "{{ mysql.database }}"
       MYSQL_USER: "{{ mysql.username }}"
       MYSQL_PASSWORD: "{{ mysql.password }}"
-      MAIL_FROM_ADDRESS: "nextcloud"
+      MAIL_FROM_ADDRESS: nextcloud
       MAIL_DOMAIN: "{{ cloudflare_dns_records[0].record }}"
       SMTP_HOST: "{{ nextcloud.smtp.host }}"
       SMTP_PORT: "{{ nextcloud.smtp.port }}"
@@ -38,31 +38,26 @@ services:
       NEXTCLOUD_ADMIN_USER: "{{ nextcloud.admin.username }}"
       NEXTCLOUD_ADMIN_PASSWORD: "{{ nextcloud.admin.password }}"
       NEXTCLOUD_TRUSTED_DOMAINS: "{{ cloudflare_dns_records[0].record }}"
-      OVERWRITEPROTOCOL: "https"
+      OVERWRITEPROTOCOL: https
       OVERWRITEHOST: "{{ cloudflare_dns_records[0].record }}"
     networks:
-      - "nextcloud"
-      - "web"
-    restart: "always"
+      - nextcloud
+      - web
+    restart: always
     healthcheck:
-      test:
-        [
-          "CMD",
-          "curl",
-          "https://healthchecks.{{ domain }}/ping/{{ nextcloud.healthcheck }}",
-        ]
+      test: [CMD, curl, "https://healthchecks.{{ domain }}/ping/{{ nextcloud.healthcheck }}"]
       timeout: 45s
       interval: 10s
       retries: 5
   promtail:
     image: grafana/promtail:latest@sha256:072527b12cdfa1393d04a08aeba6b0eb42fd6921426ea14eaf8c828953771749
-    restart: "always"
+    restart: always
     volumes:
-      - "/var/log/cloudflared.log:/var/log/cloudflared.log:ro"
-      - "/var/log/journal:/var/log/journal:ro"
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - /var/log/cloudflared.log:/var/log/cloudflared.log:ro
+      - /var/log/journal:/var/log/journal:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
       - "{{ docker_volume_dirs.promtail[0] }}/config.yaml:/etc/promtail/config.yaml"
-    command: "-config.file=/etc/promtail/config.yaml"
+    command: -config.file=/etc/promtail/config.yaml
 
 networks:
   nextcloud:

@@ -1,39 +1,39 @@
 ---
 prometheus:
-  host: "prometheus"
+  host: prometheus
   port: "9000"
   internal_port: "9090"
   healthcheck: "{{ opconnect_results['prometheus'].healthcheck }}"
   cloudflared:
-    - "firefly.{{ domain }}"
-    - "firefly-importer.{{ domain }}"
-    - "healthchecks.{{ domain }}"
-    - "prometheus.{{ domain }}"
-    - "grafana.{{ domain }}"
-    - "drive.thepi.cloud"
-    - "pihole.{{ domain }}"
-    - "vault.{{ domain }}"
-    - "allaboutsecurity.xyz"
-    - "securemy.life"
+    - firefly.{{ domain }}
+    - firefly-importer.{{ domain }}
+    - healthchecks.{{ domain }}
+    - prometheus.{{ domain }}
+    - grafana.{{ domain }}
+    - drive.thepi.cloud
+    - pihole.{{ domain }}
+    - vault.{{ domain }}
+    - allaboutsecurity.xyz
+    - securemy.life
   healthchecks:
     project_id: "{{ opconnect_results['healthchecks'].project_id }}"
     readonly_apikey: "{{ opconnect_results['healthchecks'].readonly_apikey }}"
 loki:
-  host: "loki"
+  host: loki
   port: "3100"
   healthcheck: "{{ opconnect_results['loki'].healthcheck }}"
 grafana:
   port: "3000"
-  plugins: "grafana-piechart-panel,grafana-worldmap-panel,grafana-clock-panel"
+  plugins: grafana-piechart-panel,grafana-worldmap-panel,grafana-clock-panel
   admin:
     username: "{{ opconnect_results['grafana'].username }}"
     password: "{{ opconnect_results['grafana'].password }}"
   smtp:
-    host: "smtp.gmail.com:587"
+    host: smtp.gmail.com:587
     port: "587"
     username: "{{ opconnect_results['grafana'].smtp_username }}"
     password: "{{ opconnect_results['grafana'].smtp_password }}"
-    from: "grafana@{{ domain }}"
+    from: grafana@{{ domain }}
   provisioning:
     datasources:
       apiVersion: 1
@@ -41,29 +41,29 @@ grafana:
         - name: Loki
           type: loki
           access: proxy
-          url: "http://{{ loki.host }}:{{ loki.port }}"
+          url: http://{{ loki.host }}:{{ loki.port }}
         - name: Prometheus
           type: prometheus
           access: proxy
-          url: "http://{{ prometheus.host }}:{{ prometheus.internal_port }}"
+          url: http://{{ prometheus.host }}:{{ prometheus.internal_port }}
         - name: Influxdb
           type: influxdb
           access: proxy
-          url: "http://{{ influxdb.host }}:{{ influxdb.port }}"
-          database: "influx"
+          url: http://{{ influxdb.host }}:{{ influxdb.port }}
+          database: influx
           username: "{{ influxdb.username }}"
           password: "{{ influxdb.password }}"
         - name: Varken
           type: influxdb
           access: proxy
-          url: "http://{{ influxdb.host }}:{{ influxdb.port }}"
-          database: "varken"
+          url: http://{{ influxdb.host }}:{{ influxdb.port }}
+          database: varken
           username: "{{ influxdb.username }}"
           password: "{{ influxdb.password }}"
     dashboardProviders:
       apiVersion: 1
       providers:
-        - name: "default"
+        - name: default
           orgId: 1
           folder: ""
           type: file
@@ -71,17 +71,17 @@ grafana:
           editable: true
           options:
             path: /var/lib/grafana/dashboards/default
-        - name: "unifi"
+        - name: unifi
           orgId: 1
-          folder: "Unifi"
+          folder: Unifi
           type: file
           disableDeletion: false
           editable: true
           options:
             path: /var/lib/grafana/dashboards/unifi
-        - name: "media"
+        - name: media
           orgId: 1
-          folder: "Media"
+          folder: Media
           type: file
           disableDeletion: false
           editable: true
@@ -132,7 +132,7 @@ grafana:
         revision: 15
         datasource: Varken
 influxdb:
-  host: "influxdb"
+  host: influxdb
   port: "8087"
   internal_port: "8086"
   healthcheck: "{{ opconnect_results['influxdb'].healthcheck }}"

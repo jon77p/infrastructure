@@ -1,6 +1,6 @@
 ---
 codeserver:
-  project_name: "code"
+  project_name: code
   port: "8080"
   healthcheck: "{{ opconnect_results['codeserver'].healthcheck }}"
   password: "{{ opconnect_results['codeserver'].password }}"

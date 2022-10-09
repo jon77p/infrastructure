@@ -1,8 +1,8 @@
 ---
-compose_project_name: "youtubedl"
+compose_project_name: youtubedl
 compose_project_port: "8080"
 docker_volume_dirs:
-  - "/mnt/{{ compose_project_name }}"
+  - /mnt/{{ compose_project_name }}
 compose_definition:
   version: "3"
   services:
@@ -14,16 +14,9 @@ compose_definition:
         - "{{ rclone_mount_dir }}:/outputs"
       ports:
         - "{{ compose_project_port }}:8080"
-      restart: "always"
+      restart: always
       healthcheck:
-        test:
-          [
-            "CMD",
-            "wget",
-            "https://healthchecks.{{ domain }}/ping/{{ healthcheck_uuid }}",
-            "-O",
-            "/dev/null",
-          ]
+        test: [CMD, wget, "https://healthchecks.{{ domain }}/ping/{{ healthcheck_uuid }}", -O, /dev/null]
         timeout: 45s
         interval: 10s
         retries: 5

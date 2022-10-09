@@ -2,15 +2,15 @@
 nextcloud:
   healthcheck: "{{ opconnect_results['nextcloud'].healthcheck }}"
   smtp:
-    host: "smtp.gmail.com"
+    host: smtp.gmail.com
     port: "587"
     username: "{{ opconnect_results['nextcloud'].smtp_username }}"
     password: "{{ opconnect_results['nextcloud'].smtp_password }}"
-    secure: "tls"
+    secure: tls
   admin:
     username: "{{ opconnect_results['nextcloud'].username }}"
     password: "{{ opconnect_results['nextcloud'].password }}"
 mysql:
-  database: "nextcloud"
+  database: nextcloud
   username: "{{ opconnect_results['nextcloud'].mysql_username }}"
   password: "{{ opconnect_results['nextcloud'].mysql_password }}"

@@ -1,5 +1,5 @@
 ---
-compose_project_name: "securemylife"
+compose_project_name: securemylife
 compose_project_ports:
   - "2368"
 docker_user_id:
@@ -8,8 +8,8 @@ docker_group_id:
   ghost: "1000"
 docker_volume_dirs:
   ghost:
-    - "/mnt/{{ compose_project_name }}/ghost"
-    - "/mnt/{{ compose_project_name }}/ghost/content"
-    - "/mnt/{{ compose_project_name }}/ghost/node_modules"
+    - /mnt/{{ compose_project_name }}/ghost
+    - /mnt/{{ compose_project_name }}/ghost/content
+    - /mnt/{{ compose_project_name }}/ghost/node_modules
   promtail:
-    - "/mnt/{{ compose_project_name }}/promtail/config"
+    - /mnt/{{ compose_project_name }}/promtail/config

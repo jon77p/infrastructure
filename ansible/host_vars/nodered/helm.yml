@@ -2,9 +2,9 @@
 helm:
   name: "{{ service_name }}"
   repo:
-    name: "k8s-at-home"
-    url: "https://k8s-at-home.com/charts/"
-  chart: "k8s-at-home/node-red"
+    name: k8s-at-home
+    url: https://k8s-at-home.com/charts/
+  chart: k8s-at-home/node-red
   namespace: "{{ service_name }}"
   create_namespace: true
   chart_values: "{{ values }}"

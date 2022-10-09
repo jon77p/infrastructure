@@ -11,18 +11,11 @@ services:
     ports:
       - "{{ vault.port }}:{{ vault.internal_port }}"
     cap_add:
-      - "IPC_LOCK"
-    restart: "always"
-    command: ["vault", "server", "-config", "/vault/config/config.hcl"]
+      - IPC_LOCK
+    restart: always
+    command: [vault, server, -config, /vault/config/config.hcl]
     healthcheck:
-      test:
-        [
-          "CMD",
-          "wget",
-          "https://healthchecks.{{ domain }}/ping/{{ vault.healthcheck }}",
-          "-O",
-          "/dev/null",
-        ]
+      test: [CMD, wget, "https://healthchecks.{{ domain }}/ping/{{ vault.healthcheck }}", -O, /dev/null]
       timeout: 45s
       interval: 10s
       retries: 5
@@ -30,27 +23,27 @@ services:
     image: 1password/connect-api:latest@sha256:215416a986773b1a238e9c044e9e3e8b5c042742a8c6741d081288dff55a8779
     volumes:
       - "{{ docker_volume_dirs.opconnect[0] }}/1password-credentials.json:/home/opuser/.op/1password-credentials.json"
-      - "data:/home/opuser/.op/data"
+      - data:/home/opuser/.op/data
     ports:
       - "{{ opconnect.api.port }}:{{ opconnect.api.internal_port }}"
-    restart: "always"
+    restart: always
   opconnect_sync:
     image: 1password/connect-sync:latest@sha256:48b3de2a1a1b0eea41f43a6958f7748a6d416e08575f834a09e2fbfdee58800a
     volumes:
       - "{{ docker_volume_dirs.opconnect[0] }}/1password-credentials.json:/home/opuser/.op/1password-credentials.json"
-      - "data:/home/opuser/.op/data"
+      - data:/home/opuser/.op/data
     ports:
       - "{{ opconnect.sync.port }}:{{ opconnect.sync.internal_port }}"
-    restart: "always"
+    restart: always
   promtail:
     image: grafana/promtail:latest@sha256:072527b12cdfa1393d04a08aeba6b0eb42fd6921426ea14eaf8c828953771749
-    restart: "always"
+    restart: always
     volumes:
-      - "/var/log/cloudflared.log:/var/log/cloudflared.log:ro"
-      - "/var/log/journal:/var/log/journal:ro"
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - /var/log/cloudflared.log:/var/log/cloudflared.log:ro
+      - /var/log/journal:/var/log/journal:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
       - "{{ docker_volume_dirs.promtail[0] }}/config.yaml:/etc/promtail/config.yaml"
-    command: "-config.file=/etc/promtail/config.yaml"
+    command: -config.file=/etc/promtail/config.yaml
 
 volumes:
   data:

@@ -1,10 +1,10 @@
 ---
 ghost:
-  url: "https://{{ domain }}"
+  url: https://{{ domain }}
   server:
     port: "{{ compose_project_ports[0] }}"
   github:
     owner: "{{ opconnect_results['ghost'].github_username }}"
     token: "{{ opconnect_results['ghost'].github_token }}"
     repo: "{{ compose_project_name }}-assets"
-    branch: "main"
+    branch: main

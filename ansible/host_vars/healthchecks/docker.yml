@@ -1,8 +1,8 @@
 ---
-compose_project_name: "healthchecks"
+compose_project_name: healthchecks
 compose_project_port: "{{ healthchecks.port }}"
 docker_volume_dirs:
   healthchecks:
-    - "/mnt/{{ compose_project_name }}"
+    - /mnt/{{ compose_project_name }}
   promtail:
-    - "/mnt/{{ compose_project_name }}/promtail/config"
+    - /mnt/{{ compose_project_name }}/promtail/config

@@ -1,4 +1,4 @@
 ---
-service_name: "gaps"
+service_name: gaps
 namespaces:
   - "{{ service_name }}"

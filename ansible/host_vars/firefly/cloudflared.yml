@@ -1,11 +1,11 @@
 ---
 additional_ingress:
-  - hostname: "firefly.{{ domain }}"
-    service: "http://localhost:{{ firefly.port }}"
+  - hostname: firefly.{{ domain }}
+    service: http://localhost:{{ firefly.port }}
     originRequest:
-      httpHostHeader: "firefly.{{ domain }}"
-  - hostname: "firefly-importer.{{ domain }}"
-    service: "http://localhost:{{ data_importer.port }}"
+      httpHostHeader: firefly.{{ domain }}
+  - hostname: firefly-importer.{{ domain }}
+    service: http://localhost:{{ data_importer.port }}
     originRequest:
-      httpHostHeader: "firefly-importer.{{ domain }}"
+      httpHostHeader: firefly-importer.{{ domain }}
       noTLSVerify: true

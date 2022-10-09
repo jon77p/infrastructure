@@ -1,5 +1,5 @@
 ---
-compose_project_name: "pihole"
+compose_project_name: pihole
 compose_project_ports:
   pihole:
     - "8080"
@@ -8,7 +8,7 @@ compose_project_ports:
     - "{{ pihole_exporter.port }}"
 docker_volume_dirs:
   pihole:
-    - "/mnt/{{ compose_project_name }}/config"
-    - "/mnt/{{ compose_project_name }}/dnsmasq.d"
+    - /mnt/{{ compose_project_name }}/config
+    - /mnt/{{ compose_project_name }}/dnsmasq.d
   promtail:
-    - "/mnt/{{ compose_project_name }}/promtail/config"
+    - /mnt/{{ compose_project_name }}/promtail/config

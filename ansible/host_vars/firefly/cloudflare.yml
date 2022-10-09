@@ -1,14 +1,14 @@
 ---
 cloudflare_dns_records:
   - zone: "{{ domain }}"
-    record: "firefly.{{ domain }}"
+    record: firefly.{{ domain }}
     type: CNAME
-    value: "tunnel-{{ ansible_host }}.{{ domain }}"
+    value: tunnel-{{ ansible_host }}.{{ domain }}
     proxied: true
     state: present
   - zone: "{{ domain }}"
-    record: "firefly-importer.{{ domain }}"
+    record: firefly-importer.{{ domain }}
     type: CNAME
-    value: "tunnel-{{ ansible_host }}.{{ domain }}"
+    value: tunnel-{{ ansible_host }}.{{ domain }}
     proxied: true
     state: present

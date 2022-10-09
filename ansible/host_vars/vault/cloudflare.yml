@@ -3,12 +3,12 @@ cloudflare_dns_records:
   - zone: "{{ domain }}"
     record: "{{ compose_project_name }}.{{ domain }}"
     type: CNAME
-    value: "tunnel-{{ ansible_host }}.{{ domain }}"
+    value: tunnel-{{ ansible_host }}.{{ domain }}
     proxied: true
     state: present
   - zone: "{{ domain }}"
-    record: "opconnect.{{ domain }}"
+    record: opconnect.{{ domain }}
     type: CNAME
-    value: "tunnel-{{ ansible_host }}.{{ domain }}"
+    value: tunnel-{{ ansible_host }}.{{ domain }}
     proxied: true
     state: present

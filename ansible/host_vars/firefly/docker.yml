@@ -1,18 +1,18 @@
 ---
-compose_project_name: "firefly"
+compose_project_name: firefly
 docker_volume_dirs:
   firefly:
-    - "/mnt/{{ compose_project_name }}/upload"
+    - /mnt/{{ compose_project_name }}/upload
   fireflydb:
-    - "/mnt/{{ compose_project_name }}/db"
+    - /mnt/{{ compose_project_name }}/db
   plaid:
-    - "/mnt/{{ compose_project_name }}/plaid"
+    - /mnt/{{ compose_project_name }}/plaid
   promtail:
-    - "/mnt/{{ compose_project_name }}/promtail/config"
+    - /mnt/{{ compose_project_name }}/promtail/config
 compose_network_names:
-  - name: "firefly"
-    attachable: yes
-    internal: yes
-  - name: "web"
-    attachable: yes
-    internal: no
+  - name: firefly
+    attachable: true
+    internal: true
+  - name: web
+    attachable: true
+    internal: false
