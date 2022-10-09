@@ -18,7 +18,7 @@
 
 - name: Setup helm deployment
   when: helm != None and helm != ''
-  include_tasks: helm.yml
+  ansible.builtin.include_tasks: helm.yml
 
 - name: Create the {{ item.metadata.name }} deployment
   loop: "{{ deployments }}"
@@ -48,5 +48,5 @@
 - name: Create any additional records
   vars:
     cloudflare_dns_records: "{{ hostvars[servicename].cloudflare_dns_records | default([]) }}"
-  include_role:
+  ansible.builtin.include_role:
     name: cloudflare

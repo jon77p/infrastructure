@@ -1,8 +1,8 @@
 ---
 - name: Upgrade all CrowdSec {{ resource_type }}
   become: true
-  shell: cscli {{ resource_type }} upgrade --all
+  ansible.builtin.shell: cscli {{ resource_type }} upgrade --all
 
 - name: Install all CrowdSec {{ resource_type }}
-  include_tasks: specific-resource.yml
+  ansible.builtin.include_tasks: specific-resource.yml
   loop: "{{ crowdsec[resource_type] | default([]) }}"

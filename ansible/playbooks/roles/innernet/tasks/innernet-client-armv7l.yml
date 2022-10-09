@@ -4,4 +4,4 @@
     innernet_binary: innernet
     innernet_program_type: client
     cargo_path: /home/pi/.cargo
-  include_tasks: innernet-install-cargo.yml
+  ansible.builtin.include_tasks: innernet-install-cargo.yml

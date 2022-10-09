@@ -1,18 +1,18 @@
 ---
 - name: Check if docker is installed
-  command: dpkg-query -W docker
+  ansible.builtin.command: dpkg-query -W docker
   register: docker_check_deb
   failed_when: docker_check_deb.rc > 1
   changed_when: docker_check_deb.rc == 1
 
 - name: Ensure docker is installed
   become: true
-  shell: curl -fsSL https://get.docker.com | bash
+  ansible.builtin.shell: curl -fsSL https://get.docker.com | bash
   when: docker_check_deb.rc == 1
 
 - name: Ensure pip is installed
   become: true
-  apt:
+  ansible.builtin.apt:
     name: python3-pip
     state: present
 

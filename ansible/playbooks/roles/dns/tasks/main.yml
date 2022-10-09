@@ -2,7 +2,7 @@
 - name: Update netplan to use nameservers
   become: true
   when: nameservers != []
-  blockinfile:
+  ansible.builtin.blockinfile:
     path: /etc/netplan/50-cloud-init.yaml
     insertafter: "(\\s*)set-name: (\\S+)"
     marker: "            # {mark} ANSIBLE MANAGED BLOCK"
@@ -11,7 +11,7 @@
 
 - name: Apply new netplan
   become: true
-  shell: netplan apply
+  ansible.builtin.shell: netplan apply
   async: 10
   poll: 1
   when: nameservers != []

@@ -1,7 +1,7 @@
 ---
 - name: Create mount directories
   become: true
-  file:
+  ansible.builtin.file:
     path: "{{ path }}"
     recurse: true
     state: directory
@@ -12,6 +12,6 @@
 - name: Create Plaid config file
   become: true
   when: docker_volume_dirs.plaid != []
-  template:
+  ansible.builtin.template:
     src: ../templates/config.toml.j2
     dest: "{{ docker_volume_dirs.plaid[0] }}/config.toml"

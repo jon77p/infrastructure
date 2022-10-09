@@ -6,7 +6,7 @@
     new_result: '{ "{{ item.key }}": {} }'
 
 - name: Get values from 1Password Connect for {{ item.key }}
-  include_tasks: opconnect-fields.yml
+  ansible.builtin.include_tasks: opconnect-fields.yml
   vars:
     opconnect_item_name: "{{ item.key }}"
   loop: "{{ item.value }}"

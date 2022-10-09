@@ -1,21 +1,21 @@
 ---
 - name: Innernet | Check if network has been added for peer
   become: true
-  stat:
+  ansible.builtin.stat:
     path: /etc/innernet/{{ innernet_network }}.conf
   register: innernet_network_check
 
 - name: Innernet | Create /etc/innernet/peers directory
   when: not innernet_network_check.stat.exists
   become: true
-  file:
+  ansible.builtin.file:
     path: /etc/innernet/peers
     state: directory
 
 - name: Innernet | Check that invite has been transferred to peer
   when: not innernet_network_check.stat.exists
   become: true
-  stat:
+  ansible.builtin.stat:
     path: /etc/innernet/peers/invite-{{ peer.name }}-{{ peer.cidr }}.toml
   register: innernet_invite_check
 
@@ -28,12 +28,12 @@
 
 - name: Innernet | add peer
   become: true
-  shell: innernet install --default-name --hosts-path /etc/hosts --delete-invite /etc/innernet/peers/invite-{{ peer.name }}-{{ peer.cidr }}.toml
+  ansible.builtin.shell: innernet install --default-name --hosts-path /etc/hosts --delete-invite /etc/innernet/peers/invite-{{ peer.name }}-{{ peer.cidr }}.toml
   when: not innernet_network_check.stat.exists
 
 - name: Innernet | Enable new network
   become: true
-  systemd:
+  ansible.builtin.systemd:
     name: innernet@{{ innernet_network }}
     state: restarted
     enabled: true
@@ -41,8 +41,8 @@
 
 - name: Innernet | Take down wireguard interface (part 1/2 of /etc/hosts refresh)
   become: true
-  shell: innernet down {{ innernet_network }}
+  ansible.builtin.shell: innernet down {{ innernet_network }}
 
 - name: Innernet | Bring back up wireguard interface (part 2/2 of /etc/hosts refresh)
   become: true
-  shell: innernet up {{ innernet_network }}
+  ansible.builtin.shell: innernet up {{ innernet_network }}

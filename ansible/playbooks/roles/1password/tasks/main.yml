@@ -5,7 +5,7 @@
 
 - name: Get items from 1Password Connect
   when: inventory_hostname == 'localhost'
-  include_tasks: opconnect-items.yml
+  ansible.builtin.include_tasks: opconnect-items.yml
   loop: "{{ opconnect_items | dict2items }}"
 
 - name: Update output dict

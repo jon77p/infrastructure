@@ -1,5 +1,5 @@
 ---
-- include_tasks: volume-mounts-list.yml
+- ansible.builtin.include_tasks: volume-mounts-list.yml
   vars:
     directories: "{{ item.value }}"
   loop: "{{ docker_volume_dirs | dict2items }}"

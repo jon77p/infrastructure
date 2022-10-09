@@ -1,7 +1,7 @@
 ---
 - name: Create mount directories
   become: true
-  file:
+  ansible.builtin.file:
     path: "{{ path }}"
     recurse: true
     owner: "{{ docker_user_id.grafana }}"
@@ -14,11 +14,11 @@
 - name: Create config file
   become: true
   when: docker_volume_dirs.grafana != []
-  template:
+  ansible.builtin.template:
     src: ../templates/grafana.ini.j2
     dest: "{{ docker_volume_dirs.grafana[0] }}/grafana.ini"
 
 - name: Create Provisioning files
-  include_tasks: provisioning.yml
+  ansible.builtin.include_tasks: provisioning.yml
   when: grafana.provisioning is defined
   loop: "{{ grafana.provisioning | dict2items }}"

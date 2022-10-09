@@ -6,5 +6,5 @@
 
 - name: Install cloudflared
   become: true
-  apt:
+  ansible.builtin.apt:
     deb: /tmp/cloudflared_arm64.deb

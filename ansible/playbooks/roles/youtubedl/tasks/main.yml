@@ -1,7 +1,7 @@
 ---
 - name: Create configuration directories
   become: true
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: directory
   loop: "{{ docker_volume_dirs }}"
@@ -9,6 +9,6 @@
 - name: Create config file
   become: true
   when: docker_volume_dirs != []
-  template:
+  ansible.builtin.template:
     src: ../templates/config.yml.j2
     dest: "{{ docker_volume_dirs[0] }}/config.yml"

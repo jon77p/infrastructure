@@ -3,52 +3,52 @@
 
 - name: Check if cloudflared is installed
   become: true
-  command: dpkg-query -W cloudflared
+  ansible.builtin.command: dpkg-query -W cloudflared
   register: cloudflared_install_check
   failed_when: cloudflared_install_check.rc > 1
   changed_when: cloudflared_install_check.rc == 1
 
 - name: Install cloudflared
   when: cloudflared_install_check.rc == 1
-  include_tasks: install.yml
+  ansible.builtin.include_tasks: install.yml
 
 - name: Check if cloudflared has initial setup
   become: true
-  stat:
+  ansible.builtin.stat:
     path: /etc/cloudflared/config.yml
   register: cloudflared_setup_check
 
 - name: Setup cloudflared
   when: not cloudflared_setup_check.stat.exists
-  include_tasks: setup.yml
+  ansible.builtin.include_tasks: setup.yml
 
 - name: Get required cloudflared values
   become: true
-  shell: cat /root/.cloudflared/config.yml | head -n 1 | awk '{print $2}'
+  ansible.builtin.shell: cat /root/.cloudflared/config.yml | head -n 1 | awk '{print $2}'
   register: tunnel_output
 
-- debug:
+- ansible.builtin.debug:
     var: tunnel_output
 
-- debug:
+- ansible.builtin.debug:
     var: additional_ingress
 
 - name: Create updated cloudflared config file
   become: true
   vars:
     cf_tunnel_id: "{{ tunnel_output.stdout }}"
-  template:
+  ansible.builtin.template:
     src: ../templates/config.yml.j2
     dest: /tmp/cloudflared-config.yml
 
 - name: Validate updated config ingress rules
   become: true
-  shell: cloudflared --config /tmp/cloudflared-config.yml --no-autoupdate tunnel ingress validate
+  ansible.builtin.shell: cloudflared --config /tmp/cloudflared-config.yml --no-autoupdate tunnel ingress validate
   register: validation_check
 
 - name: Diff updated config with current cloudflared config
   become: true
-  shell: diff /tmp/cloudflared-config.yml /etc/cloudflared/config.yml
+  ansible.builtin.shell: diff /tmp/cloudflared-config.yml /etc/cloudflared/config.yml
   ignore_errors: true
   when: validation_check.rc == 0
   register: diff_result
@@ -56,12 +56,12 @@
 - name: Copy updated cloudflared config file to /etc/cloudflared
   become: true
   when: validation_check.rc == 0 and diff_result.rc != 0
-  shell:
+  ansible.builtin.shell:
     cmd: cp /tmp/cloudflared-config.yml /etc/cloudflared/config.yml
 
 - name: Restart cloudflared service
   become: true
-  systemd:
+  ansible.builtin.systemd:
     name: cloudflared
     state: restarted
     no_block: true

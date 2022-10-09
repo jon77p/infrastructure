@@ -1,22 +1,22 @@
 ---
 - name: Install innernet-server
-  include_tasks: innernet-server-install.yml
+  ansible.builtin.include_tasks: innernet-server-install.yml
 
 - name: Check if innernet network is created
   become: true
-  stat:
+  ansible.builtin.stat:
     path: /etc/innernet-server/{{ innernet_network }}.conf
   register: innernet_server_check_network
 
 - name: Create new network
   become: true
-  shell: innernet-server new --network-name {{ innernet_network }} --network-cidr {{ innernet_network_cidr }} --auto-external-endpoint --listen-port {{ innernet_server_port
+  ansible.builtin.shell: innernet-server new --network-name {{ innernet_network }} --network-cidr {{ innernet_network_cidr }} --auto-external-endpoint --listen-port {{ innernet_server_port
     }}
   when: not innernet_server_check_network.stat.exists
 
 - name: Add additional CIDRs
   become: true
-  shell: innernet-server add-cidr --name {{ item.network_name }} --cidr {{ item.network_cidr }} --parent {{ item.network_parent }} --yes {{ innernet_network }}
+  ansible.builtin.shell: innernet-server add-cidr --name {{ item.network_name }} --cidr {{ item.network_cidr }} --parent {{ item.network_parent }} --yes {{ innernet_network }}
   register: result
   changed_when: result.rc == 0
   ignore_errors: true # no easy way to check if CIDR already exists
@@ -24,7 +24,7 @@
 
 - name: Enable new network
   become: true
-  systemd:
+  ansible.builtin.systemd:
     name: innernet-server@{{ innernet_network }}
     state: restarted
     daemon-reload: true

@@ -2,11 +2,11 @@
 - name: Innernet | remove {{ innernet_network }} configuration from innernet-server
   vars:
     innernet_program: innernet-server
-  include_tasks: innernet.yml
+  ansible.builtin.include_tasks: innernet.yml
   when: inventory_hostname == 'innernet'
 
 - name: Innernet | remove {{ innernet_network }} configuration from peers
   vars:
     innernet_program: innernet
-  include_tasks: innernet.yml
+  ansible.builtin.include_tasks: innernet.yml
   when: inventory_hostname != 'innernet'

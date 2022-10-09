@@ -1,6 +1,6 @@
 ---
 - name: Ansible Architecture
-  debug:
+  ansible.builtin.debug:
     var: ansible_architecture
 
 - name: install cloudflared ARM

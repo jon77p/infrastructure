@@ -1,13 +1,13 @@
 ---
 - name: Create /root/.cloudflared directory
   become: true
-  file:
+  ansible.builtin.file:
     path: /root/.cloudflared
     state: directory
 
 - name: Create JSON credentials file
   become: true
-  template:
+  ansible.builtin.template:
     src: ../templates/cert.json.j2
     dest: /root/.cloudflared/cert.json
 
@@ -15,25 +15,25 @@
   become: true
   vars:
     additional_ingress: []
-  template:
+  ansible.builtin.template:
     src: ../templates/config.yml.j2
     dest: /root/.cloudflared/config.yml
 
 - name: Install the cloudflared service
   become: true
-  shell: cloudflared service install
+  ansible.builtin.shell: cloudflared service install
 
 - name: Copy the credentials file manually
   become: true
-  shell: cp -va /root/.cloudflared/cert.json /etc/cloudflared/
+  ansible.builtin.shell: cp -va /root/.cloudflared/cert.json /etc/cloudflared/
 
 - name: Copy the config file manually
   become: true
-  shell: cp -va /root/.cloudflared/config.yml /etc/cloudflared/
+  ansible.builtin.shell: cp -va /root/.cloudflared/config.yml /etc/cloudflared/
 
 - name: Enable and start the tunnel
   become: true
-  systemd:
+  ansible.builtin.systemd:
     name: cloudflared
     state: started
     enabled: true

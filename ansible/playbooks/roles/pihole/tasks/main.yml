@@ -1,15 +1,15 @@
 ---
 - name: Disable stub resolver
   become: true
-  replace:
+  ansible.builtin.replace:
     path: /etc/systemd/resolved.conf
     regexp: "#?DNSStubListener=yes"
-    replace: DNSStubListener=no
+    ansible.builtin.replace: DNSStubListener=no
   register: stubdisable
 
 - name: Update /etc/resolv.conf symlink
   become: true
-  file:
+  ansible.builtin.file:
     src: /run/systemd/resolve/resolv.conf
     dest: /etc/resolv.conf
     state: link
@@ -17,14 +17,14 @@
 
 - name: Restart systemd-resolved
   become: true
-  systemd:
+  ansible.builtin.systemd:
     name: systemd-resolved
     state: restarted
   when: stubdisable.changed or resolvsymlink.changed
 
 - name: Update netplan to 127.0.0.1 nameserver
   become: true
-  blockinfile:
+  ansible.builtin.blockinfile:
     path: /etc/netplan/50-cloud-init.yaml
     insertafter: "(\\s*)set-name: (\\S+)"
     marker: "            # {mark} ANSIBLE MANAGED BLOCK"
@@ -33,7 +33,7 @@
 
 - name: Apply new netplan
   become: true
-  shell: netplan try
+  ansible.builtin.shell: netplan try
   async: 5
   poll: 1
   when: netplan.changed

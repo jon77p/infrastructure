@@ -1,7 +1,7 @@
 ---
 - name: Create all volume mounts
   become: true
-  file:
+  ansible.builtin.file:
     path: "{{ path }}"
     recurse: true
     state: directory

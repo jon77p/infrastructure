@@ -7,7 +7,7 @@
   import_tasks: docker-compose.yml
 
 - name: Docker | verify swarm services
-  include_tasks: verify-services.yml
+  ansible.builtin.include_tasks: verify-services.yml
   loop: "{{ servicelist }}"
   loop_control:
     loop_var: service_name

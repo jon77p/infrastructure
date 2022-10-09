@@ -20,7 +20,7 @@
     vault: "{{ hostvars['localhost'].op_connect_vault_id }}"
   register: opconnect_output_item
 
-- debug:
+- ansible.builtin.debug:
     msg: "{{ opconnect_output_item }}"
   when: opconnect_output is failed
 

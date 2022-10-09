@@ -23,6 +23,6 @@
   register: innernet_service
 
 - name: Reload systemd for new service
-  systemd:
+  ansible.builtin.systemd:
     daemon_reload: true
   when: innernet_service.changed

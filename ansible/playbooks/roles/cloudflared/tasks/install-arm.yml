@@ -6,9 +6,9 @@
 
 - name: Add arm architecture to dpkg
   become: true
-  shell: dpkg --add-architecture arm
+  ansible.builtin.shell: dpkg --add-architecture arm
 
 - name: Install cloudflared
   become: true
-  apt:
+  ansible.builtin.apt:
     deb: /tmp/cloudflared_arm.deb

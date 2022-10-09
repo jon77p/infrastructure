@@ -3,7 +3,7 @@
 
 - name: Check if k3s is installed
   become: true
-  stat:
+  ansible.builtin.stat:
     path: /usr/local/bin/k3s
   register: k3s_check
 
@@ -14,5 +14,5 @@
 - name: Install k3s
   when: not k3s_check.stat.exists
   become: true
-  # shell: curl -sfL https://get.k3s.io | K3S_URL=https://{{ manager }}.{{ innernet_network }}.wg:6443 K3S_TOKEN={{ k3s_token }} sh
-  shell: curl -sfL https://get.k3s.io | K3S_URL=https://{{ manager }}:6443 K3S_TOKEN={{ k3s_token }} sh
+  # ansible.builtin.shell: curl -sfL https://get.k3s.io | K3S_URL=https://{{ manager }}.{{ innernet_network }}.wg:6443 K3S_TOKEN={{ k3s_token }} sh
+  ansible.builtin.shell: curl -sfL https://get.k3s.io | K3S_URL=https://{{ manager }}:6443 K3S_TOKEN={{ k3s_token }} sh

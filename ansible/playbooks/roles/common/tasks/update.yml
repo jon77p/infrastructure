@@ -1,23 +1,23 @@
 ---
 - name: Update apt cache
-  apt:
+  ansible.builtin.apt:
     update_cache: true
 
 - name: Update all packages to their latest version
-  apt:
+  ansible.builtin.apt:
     name: "*"
     state: latest
 
 - name: Upgrade the OS
-  apt:
+  ansible.builtin.apt:
     upgrade: dist
 
 - name: Remove unneeded dependencies
-  apt:
+  ansible.builtin.apt:
     autoremove: true
 
 - name: Check if reboot required
-  stat:
+  ansible.builtin.stat:
     path: /var/run/reboot-required
   register: reboot_required_file
 

@@ -1,7 +1,7 @@
 ---
 - name: Create Provisioning Directory {{ item.key }}
   become: true
-  file:
+  ansible.builtin.file:
     path: "{{ docker_volume_dirs.grafana[3] }}/{{ item.key }}"
     state: directory
 

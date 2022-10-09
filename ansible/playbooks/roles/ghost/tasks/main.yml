@@ -1,7 +1,7 @@
 ---
 - name: Create mount directories
   become: true
-  file:
+  ansible.builtin.file:
     path: "{{ path }}"
     recurse: true
     state: directory
@@ -12,9 +12,9 @@
 - name: Create config file
   become: true
   when: docker_volume_dirs.ghost != []
-  template:
+  ansible.builtin.template:
     src: ../templates/config.production.json.j2
     dest: "{{ docker_volume_dirs.ghost[0] }}/config.production.json"
 
 - name: Install ghost-storage-github storage adapter
-  include_tasks: ghost-storage-github-adapter.yml
+  ansible.builtin.include_tasks: ghost-storage-github-adapter.yml

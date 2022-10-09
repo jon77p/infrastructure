@@ -1,7 +1,7 @@
 ---
 - name: Create mountpoint directory at {{ rclone_mount_dir }}
   become: true
-  file:
+  ansible.builtin.file:
     path: "{{ rclone_mount_dir }}"
     state: directory
     owner: "{{ rclone_mount_user }}"
@@ -9,12 +9,12 @@
     mode: "{{ rclone_mount_mode }}"
 
 - name: Create rclone systemd service file
-  template:
+  ansible.builtin.template:
     src: templates/rclone.service.j2
     dest: /lib/systemd/system/rclone.service
 
 - name: Start rclone service
-  systemd:
+  ansible.builtin.systemd:
     name: rclone
     state: started
     enabled: true

@@ -4,7 +4,7 @@
 
 - name: Create {{ docker_volume_dirs.ghost[1] }}/adapters/storage directory
   become: true
-  file:
+  ansible.builtin.file:
     path: "{{ docker_volume_dirs.ghost[1] }}/adapters/storage"
     recurse: true
     owner: "{{ docker_user_id.ghost }}"
@@ -13,7 +13,7 @@
 
 - name: Create {{ docker_volume_dirs.ghost[2] }} directory
   become: true
-  file:
+  ansible.builtin.file:
     path: "{{ docker_volume_dirs.ghost[2] }}"
     recurse: true
     owner: "{{ docker_user_id.ghost }}"
@@ -22,16 +22,16 @@
 
 - name: Check if ghost-storage-github adapter exists
   become: true
-  stat:
+  ansible.builtin.stat:
     path: "{{ docker_volume_dirs.ghost[1] }}/adapters/storage/ghost-storage-github"
   register: ghost_storage_github_check
 
 - name: Install adapter inside of ghost container
   become: true
   when: ghost_storage_github_check.stat.isdir is not defined
-  shell: docker run -v {{ docker_volume_dirs.ghost[2] }}:/var/lib/ghost/node_modules ghost:latest npm install ghost-storage-github
+  ansible.builtin.shell: docker run -v {{ docker_volume_dirs.ghost[2] }}:/var/lib/ghost/node_modules ghost:latest npm install ghost-storage-github
 
 - name: Copy ghost-storage-github to content/adapters/storage
   become: true
   when: ghost_storage_github_check.stat.isdir is not defined
-  shell: cp -r {{ docker_volume_dirs.ghost[2] }}/ghost-storage-github {{ docker_volume_dirs.ghost[1] }}/adapters/storage/ghost-storage-github
+  ansible.builtin.shell: cp -r {{ docker_volume_dirs.ghost[2] }}/ghost-storage-github {{ docker_volume_dirs.ghost[1] }}/adapters/storage/ghost-storage-github
