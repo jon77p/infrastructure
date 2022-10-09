@@ -70,7 +70,7 @@
   poll: 1
 
 - name: Reset connection
-  meta: reset_connection
+  ansible.builtin.meta: reset_connection
 
 - name: Wait for the cloudflared service to reload
   when: diff_result.rc != 0 and validation_check.rc == 0

@@ -39,4 +39,4 @@
   when: netplan.changed
 
 - name: Reset connection
-  meta: reset_connection
+  ansible.builtin.meta: reset_connection
