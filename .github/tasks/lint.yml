@@ -25,5 +25,5 @@ tasks:
 
   ansible:
     cmds:
-      - ansible-lint -c '.ansible-lint.yml' .
+      - ansible-lint -c '.ansible-lint.yml'
     ignore_error: true
