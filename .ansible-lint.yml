@@ -7,7 +7,10 @@ exclude_paths:
   - .github/**/*
   - .pre-commit-config.yaml
   - migrate-todo/**/*
-  - ansible/**/*
+  - volume-mounts-AnsibleUndefined.yml
+  - ansible/**/vault*.yml
+  - ansible/host_vars/youtubedl/healthcheck.yml
+
 # parseable: true
 # quiet: true
 # verbosity: 1
@@ -54,8 +57,8 @@ warn_list:
 # By default it will run all transforms (effectively `write_list: ["all"]`).
 # You can disable running transforms by setting `write_list: ["none"]`.
 # Or only enable a subset of rule transforms by listing rules/tags here.
-# write_list:
-#   - all
+write_list:
+  - all
 
 # Offline mode disables installation of requirements.yml
 offline: false
