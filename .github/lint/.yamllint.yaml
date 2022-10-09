@@ -2,6 +2,7 @@
 ignore: |
   .venv/
   node_modules/
+  migrate-todo/
 extends: default
 rules:
   truthy:
