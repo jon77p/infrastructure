@@ -1,0 +1,12 @@
+{
+  "language": "typescript",
+  "app": "npx ts-node main.ts",
+  "projectId": "ws-V5gxjePJpgWgsGj6",
+  "sendCrashReports": "false",
+  "terraformProviders": ["oracle/oci@4.96.0"],
+  "terraformModules": ["oracle-terraform-modules/vcn/oci@3.5.2"],
+  "context": {
+    "excludeStackIdFromLogicalIds": "true",
+    "allowSepCharsInLogicalIds": "true"
+  }
+}
