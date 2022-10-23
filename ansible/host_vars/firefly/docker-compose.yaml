@@ -51,7 +51,7 @@ services:
     networks:
       - firefly
   data_importer:
-    image: fireflyiii/data-importer:latest@sha256:6e5652fb9709ff537db16306a3dd58685257c92a9654fe23240f2b06c86250f0
+    image: fireflyiii/data-importer:latest@sha256:2024b428fbba4885848e6a67f3e4fb39c279ec80bcde887ec0718a5ba6219d42
     environment:
       FIREFLY_III_ACCESS_TOKEN: "{{ data_importer.firefly_access_token }}"
       FIREFLY_III_URL: http://firefly:{{ firefly.port }}
