@@ -12,6 +12,9 @@
             "cidr": "10.0.1.0/24"
           }
         }
+      },
+      "security": {
+        "ingress": []
       }
     },
     "instances": {}
@@ -29,6 +32,59 @@
             "cidr": "10.0.1.0/24"
           }
         }
+      },
+      "security": {
+        "ingress": [
+          {
+            "name": "timemachine",
+            "entries": [
+              {
+                "description": "allow timemachine TCP/445 inbound",
+                "protocol": 6,
+                "source": "0.0.0.0/0",
+                "source_type": "CIDR_BLOCK",
+                "stateless": false,
+                "tcp_options": [
+                  {
+                    "max": 445,
+                    "min": 445
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "innernet",
+            "entries": [
+              {
+                "description": "allow innernet TCP/51820 inbound",
+                "protocol": 6,
+                "source": "0.0.0.0/0",
+                "source_type": "CIDR_BLOCK",
+                "stateless": false,
+                "tcp_options": [
+                  {
+                    "max": 51820,
+                    "min": 51820
+                  }
+                ]
+              },
+              {
+                "description": "allow innernet UDP/51820 inbound",
+                "protocol": 17,
+                "source": "0.0.0.0/0",
+                "source_type": "CIDR_BLOCK",
+                "stateless": false,
+                "tcp_options": [
+                  {
+                    "max": 51820,
+                    "min": 51820
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
     },
     "instances": {
@@ -58,6 +114,9 @@
             "cidr": "10.0.1.0/24"
           }
         }
+      },
+      "security": {
+        "ingress": []
       }
     },
     "instances": {

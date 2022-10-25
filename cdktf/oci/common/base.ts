@@ -4,32 +4,33 @@ import * as Vcn from "../../.gen/modules/oracle-terraform-modules/oci/vcn"
 
 import { Construct } from "constructs"
 
-export interface CIDRConfig {
-  vcn: string
-  subnets: {
-    public: string
-    private: string
+export interface SubnetConfig {
+  cidr: string
+}
+
+export interface NetworkingConfig {
+  vcn: {
+    cidr: string
+    subnets: {
+      public: SubnetConfig
+      private: SubnetConfig
+    }
+  }
+  security: {
+    ingress: AdditionalIngressConfig[]
   }
 }
 
 export interface AdditionalIngressConfig {
   name: string
-  entries: {
-    description: string
-    stateless: boolean
-    protocol: number
-    source: string
-    source_type: string
-    tcp_options: {}
-  }[]
+  entries: oci.coreSecurityList.CoreSecurityListIngressSecurityRules[]
 }
 
-interface BaseStackConfig {
+interface BaseStackProps {
   tenancyId: string
   profile: string
   region: string
-  cidrs: CIDRConfig
-  additionalIngress: AdditionalIngressConfig[]
+  networking: NetworkingConfig
 }
 
 export class Base extends Construct {
@@ -40,16 +41,16 @@ export class Base extends Construct {
   public readonly privateSubnet: oci.coreSubnet.CoreSubnet
   public readonly publicSubnet: oci.coreSubnet.CoreSubnet
 
-  constructor(scope: Construct, name: string, config: BaseStackConfig) {
+  constructor(scope: Construct, name: string, props: BaseStackProps) {
     super(scope, name)
 
-    const { tenancyId, profile, region, cidrs } = config
+    const { tenancyId, profile, region, networking } = props
 
     const allProtocols = "all"
     const anywhere = "0.0.0.0/0"
-    const icmpProtocol = 1
+    const icmpProtocol = "1"
     const sshPort = 22
-    const tcpProtocol = 6
+    const tcpProtocol = "6"
 
     this.identityCompartment = new oci.identityCompartment.IdentityCompartment(
       this,
@@ -75,9 +76,52 @@ export class Base extends Construct {
       createNatGateway: false,
       createServiceGateway: false,
       region: region,
-      vcnCidrs: [cidrs.vcn],
+      vcnCidrs: [networking.vcn.cidr],
       vcnDnsLabel: profile,
       vcnName: "terraform",
+    })
+
+    let ingressRules: oci.coreSecurityList.CoreSecurityListIngressSecurityRules[] =
+      [
+        {
+          description: "Allows all TCP traffic for all ports for VCN subnet",
+          protocol: tcpProtocol,
+          source: `\${\${${this.vcn.vcnAllAttributesOutput}.cidrBlocks.fqn}[0]}`,
+        },
+        {
+          description: "Allow SSH inbound",
+          protocol: tcpProtocol,
+          source: anywhere,
+          tcpOptions: {
+            max: sshPort,
+            min: sshPort,
+          },
+        },
+        {
+          description:
+            "ICMP traffic for: 3, 4 Destination Unreachable: Fragmentation Needed and Don't Fragment was Set",
+          protocol: icmpProtocol,
+          source: `\${\${${this.vcn.vcnAllAttributesOutput}.cidrBlocks.fqn}[0]}`,
+          sourceType: "CIDR_BLOCK",
+          icmpOptions: {
+            code: 4,
+            type: 3,
+          },
+        },
+        {
+          description: "ICMP traffic for: 3 Destination Unreachable",
+          protocol: icmpProtocol,
+          source: `\${\${${this.vcn.vcnAllAttributesOutput}.cidrBlocks.fqn}[0]}`,
+          sourceType: "CIDR_BLOCK",
+          icmpOptions: {
+            type: 3,
+          },
+        },
+      ]
+
+    // Add additional ingress rules to the default rules
+    networking.security.ingress.forEach((ingress) => {
+      ingressRules = ingressRules.concat(ingress.entries)
     })
 
     this.securityList = new oci.coreSecurityList.CoreSecurityList(
@@ -93,40 +137,7 @@ export class Base extends Construct {
             protocol: allProtocols,
           },
         ],
-        ingressSecurityRules: [
-          {
-            description: "Allows all TCP traffic for all ports for VCN subnet",
-            protocol: tcpProtocol.toString(),
-            source: `\${\${${this.vcn.vcnAllAttributesOutput}.cidrBlocks.fqn}[0]}`,
-          },
-          {
-            description: "Allow SSH inbound",
-            protocol: tcpProtocol.toString(),
-            source: anywhere,
-            tcpOptions: {
-              max: sshPort,
-              min: sshPort,
-            },
-          },
-          {
-            description:
-              "ICMP traffic for: 3, 4 Destination Unreachable: Fragmentation Needed and Don't Fragment was Set",
-            icmpOptions: {
-              code: 4,
-              type: 3,
-            },
-            protocol: icmpProtocol.toString(),
-            source: `\${\${${this.vcn.vcnAllAttributesOutput}.cidrBlocks.fqn}[0]}`,
-          },
-          {
-            description: "ICMP traffic for: 3 Destination Unreachable",
-            icmpOptions: {
-              type: 3,
-            },
-            protocol: icmpProtocol.toString(),
-            source: `\${\${${this.vcn.vcnAllAttributesOutput}.cidrBlocks.fqn}[0]}`,
-          },
-        ],
+        ingressSecurityRules: ingressRules,
         vcnId: this.vcn.vcnIdOutput,
       }
     )
@@ -135,7 +146,7 @@ export class Base extends Construct {
     this.securityList.overrideLogicalId("terraform")
 
     this.privateSubnet = new oci.coreSubnet.CoreSubnet(this, "private", {
-      cidrBlock: cidrs.subnets.private,
+      cidrBlock: networking.vcn.subnets.private.cidr,
       compartmentId: this.identityCompartment.id,
       displayName: "private",
       dnsLabel: "private",
@@ -147,7 +158,7 @@ export class Base extends Construct {
     })
 
     this.publicSubnet = new oci.coreSubnet.CoreSubnet(this, "public", {
-      cidrBlock: cidrs.subnets.public,
+      cidrBlock: networking.vcn.subnets.public.cidr,
       compartmentId: this.identityCompartment.id,
       displayName: "public",
       dnsLabel: "public",

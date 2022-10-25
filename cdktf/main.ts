@@ -4,19 +4,18 @@ import * as OCI from "./oci/main"
 
 import { Construct } from "constructs"
 import { App, TerraformStack } from "cdktf"
-import { InstanceConfig } from "./oci/main"
-import { AdditionalIngressConfig, CIDRConfig } from "./oci/common/base"
+import { OCIAuthConfig, OCIConfig } from "./oci/main"
+
+import path = require("path")
 
 class MultiRegionOCIStack extends TerraformStack {
   constructor(
     scope: Construct,
     name: string,
-    config: {
+    props: {
       name: string
       config: OCI.OCIConfig
-      instances: { instances: Map<string, InstanceConfig> }
       ociAuthPrivateKey: string
-      additionalIngress: AdditionalIngressConfig[]
       cfAccountId: string
       cfAdminGroupId: string
       cfAdminServiceTokenId: string
@@ -25,53 +24,64 @@ class MultiRegionOCIStack extends TerraformStack {
       cfSshPassword: string
       cfSshUsername: string
       terraformSshPublicKey: string
-      cidrs: CIDRConfig
     }
   ) {
     super(scope, name)
 
-    // Iterate number of region times to create a provider for each region
-    for (let i = 0; i < config.config.regions.length; i++) {
-      let region = config.config.regions[i]
+    // new cdktf.RemoteBackend(this, {
+    //   organization: "jon77p-xyz",
+    //   workspaces: [
+    //     {
+    //       name: "infrastructure",
+    //     },
+    //   ],
+    // });
 
-      let regionConfig: OCI.OCIConfig = {
-        ...config.config,
+    new cdktf.CloudBackend(this, {
+      hostname: "app.terraform.io",
+      organization: "jon77p-xyz",
+      workspaces: new cdktf.NamedCloudWorkspace("infrastructure"),
+    })
+
+    const authConfigVar = new cdktf.TerraformVariable(this, "oci", {
+      description: "map containing OCI authentication information",
+      default: Map<string, OCIAuthConfig>,
+      // type: "map(object({alias = string, user_ocid = string, fingerprint = string, tenancy_ocid = string, regions = list(string)}))",
+      // type: cdktf.VariableType.map(cdktf.VariableType.object(OCIAuthConfig)),
+    })
+
+    let allAuthConfig = authConfigVar.value as Map<string, OCIAuthConfig>
+
+    let authConfig = allAuthConfig.get(props.name) as OCIAuthConfig
+
+    // Iterate number of region times to create a provider for each region
+    for (let i = 0; i < authConfig.regions.length; i++) {
+      let region = authConfig.regions[i]
+
+      let regionConfig: OCI.OCIAuthConfig = {
+        ...authConfig,
         alias: `${
-          config.config.regions.length > 1
-            ? `${config.name}-region${i}`
-            : config.name
+          authConfig.regions.length > 1
+            ? `${props.name}-region${i}`
+            : props.name
         }`,
       }
 
-      let regionInstances = config.instances.instances
-
-      if (config.config.regions.length > 1) {
-        regionInstances = new Map<string, InstanceConfig>()
-
-        for (let [key, value] of config.instances.instances) {
-          if (value.region === region) {
-            regionInstances.set(key, value)
-          }
-        }
-      }
-
-      new OCI.OCI(this, config.name, {
+      new OCI.OCI(this, props.name, {
         providerConfig: {
           config: regionConfig,
-          privateKey: config.ociAuthPrivateKey,
+          privateKey: props.ociAuthPrivateKey,
         },
-        additionalIngress: config.additionalIngress,
-        cfAccountId: config.cfAccountId,
-        cfAdminGroupId: config.cfAdminGroupId,
-        cfAdminServiceTokenId: config.cfAdminServiceTokenId,
-        cfAllowedIdpIds: config.cfAllowedIdpIds,
-        cfEmail: config.cfEmail,
-        cfSshPassword: config.cfSshPassword,
-        cfSshUsername: config.cfSshUsername,
-        cidrs: config.cidrs,
-        instances: regionInstances,
+        ociConfig: props.config,
+        cfAccountId: props.cfAccountId,
+        cfAdminGroupId: props.cfAdminGroupId,
+        cfAdminServiceTokenId: props.cfAdminServiceTokenId,
+        cfAllowedIdpIds: props.cfAllowedIdpIds,
+        cfEmail: props.cfEmail,
+        cfSshPassword: props.cfSshPassword,
+        cfSshUsername: props.cfSshUsername,
         region: region,
-        terraformSshPublicKey: config.terraformSshPublicKey,
+        terraformSshPublicKey: props.terraformSshPublicKey,
       })
     }
   }
@@ -147,61 +157,6 @@ class MyStack extends TerraformStack {
         "Username for sshing with Cloudflare short-lived certificates",
       type: "string",
     })
-    const cidrs = new cdktf.TerraformVariable(this, "cidrs", {
-      default: {
-        subnets: {
-          private: "",
-          public: "",
-        },
-        vcn: "",
-      },
-      description:
-        "object containing CIDR blocks for VCN and public + private subnets",
-      type: "map(object({ subnets = object({ private = string, public = string }), vcn = string }))",
-    })
-    const instancesVar = new cdktf.TerraformVariable(this, "instances", {
-      description:
-        "map containing instance information for all configured OCI providers",
-      default: {
-        instances: {},
-      },
-      // type: "map(object({instances = object({name = string, domain = string, is_subdomain = bool, ad_number = number, region = string, image_id = string, shape = string, memory = number, ocpus = number})}))",
-      type: cdktf.VariableType.map(
-        cdktf.VariableType.object({
-          instances: cdktf.VariableType.object({
-            name: cdktf.VariableType.STRING,
-            domain: cdktf.VariableType.STRING,
-            is_subdomain: cdktf.VariableType.BOOL,
-            ad_number: cdktf.VariableType.NUMBER,
-            region: cdktf.VariableType.STRING,
-            image_id: cdktf.VariableType.STRING,
-            shape: cdktf.VariableType.STRING,
-            memory: cdktf.VariableType.NUMBER,
-            ocpus: cdktf.VariableType.NUMBER,
-          }),
-        })
-      ),
-    })
-    const ociConfig = new cdktf.TerraformVariable(this, "oci", {
-      description: "map containing OCI authentication information",
-      default: {
-        alias: "",
-        user_ocid: "",
-        fingerprint: "",
-        tenancy_ocid: "",
-        regions: [],
-      },
-      // type: "map(object({alias = string, user_ocid = string, fingerprint = string, tenancy_ocid = string, regions = list(string)}))",
-      type: cdktf.VariableType.map(
-        cdktf.VariableType.object({
-          alias: cdktf.VariableType.STRING,
-          user_ocid: cdktf.VariableType.STRING,
-          fingerprint: cdktf.VariableType.STRING,
-          tenancy_ocid: cdktf.VariableType.STRING,
-          regions: cdktf.VariableType.list(cdktf.VariableType.STRING),
-        })
-      ),
-    })
     const ociAuthPrivateKey = new cdktf.TerraformVariable(
       this,
       "oci_auth_private_key",
@@ -221,88 +176,35 @@ class MyStack extends TerraformStack {
       }
     )
 
-    // Local Vars
-    let additionalIngress: Map<string, AdditionalIngressConfig[]> = new Map()
-    additionalIngress.set("oci0", [])
-    additionalIngress.set("oci1", [
-      {
-        name: "timemachine",
-        entries: [
-          {
-            description: "allow timemachine TCP/445 inbound",
-            protocol: 6,
-            source: "0.0.0.0/0",
-            source_type: "CIDR_BLOCK",
-            stateless: false,
-            tcp_options: [
-              {
-                max: 445,
-                min: 445,
-              },
-            ],
-          },
-        ],
-      },
-      {
-        name: "innernet",
-        entries: [
-          {
-            description: "allow innernet TCP/51820 inbound",
-            protocol: 6,
-            source: "0.0.0.0/0",
-            source_type: "CIDR_BLOCK",
-            stateless: false,
-            tcp_options: [
-              {
-                max: 51820,
-                min: 51820,
-              },
-            ],
-          },
-          {
-            description: "allow innernet UDP/51820 inbound",
-            protocol: 17,
-            source: "0.0.0.0/0",
-            source_type: "CIDR_BLOCK",
-            stateless: false,
-            tcp_options: [
-              {
-                max: 51820,
-                min: 51820,
-              },
-            ],
-          },
-        ],
-      },
-    ])
-    additionalIngress.set("oci2", [])
-
     // Providers
     new cloudflare.provider.CloudflareProvider(this, "cloudflare", {
       apiToken: cfApiToken.value,
     })
 
+    // Read infrastructure config from local file
+    let ociConfig: Map<string, OCIConfig> = require(path.join(
+      __dirname,
+      "infrastructure.json"
+    ))
+
     // Resources
 
-    // Iterate over instances and create OCI stacks
-    const ociStack = new MultiRegionOCIStack(this, "ociStack", {
-      name: "${each.key}",
-      config: ociConfig.value["${each.key}"] || ociConfig.default,
-      instances: instancesVar.value["${each.key}"] || instancesVar.default,
-      ociAuthPrivateKey: ociAuthPrivateKey.value,
-      additionalIngress: additionalIngress.get("${each.key}") || [],
-      cfAccountId: cfAccountId.value,
-      cfAdminGroupId: cfAdminGroupId.value,
-      cfAdminServiceTokenId: cfAdminServiceTokenId.value,
-      cfAllowedIdpIds: cfAllowedIdpIds.value,
-      cfEmail: cfEmail.value,
-      cfSshPassword: cfSshPassword.value,
-      cfSshUsername: cfSshUsername.value,
-      terraformSshPublicKey: terraformSshPublicKey.value,
-      cidrs: cidrs.value || cidrs.default,
-    })
-
-    ociStack.addOverride("for_each", instancesVar.value)
+    // Iterate over ociConfig and create OCI stacks
+    for (let [name, config] of ociConfig) {
+      new MultiRegionOCIStack(this, name, {
+        name: name,
+        config: config,
+        ociAuthPrivateKey: ociAuthPrivateKey.value,
+        cfAccountId: cfAccountId.value,
+        cfAdminGroupId: cfAdminGroupId.value,
+        cfAdminServiceTokenId: cfAdminServiceTokenId.value,
+        cfAllowedIdpIds: cfAllowedIdpIds.value,
+        cfEmail: cfEmail.value,
+        cfSshPassword: cfSshPassword.value,
+        cfSshUsername: cfSshUsername.value,
+        terraformSshPublicKey: terraformSshPublicKey.value,
+      })
+    }
 
     // Outputs
     /*

@@ -1,14 +1,14 @@
 import * as cloudflare from "@cdktf/provider-cloudflare"
 import * as oci from "../.gen/providers/oci"
 
-import * as Base from "./common/base"
+import { Base, NetworkingConfig } from "./common/base"
 import * as Compute from "./compute/main"
 import * as Tunnel from "./tunnel/main"
 
 import { Construct } from "constructs"
 import { TerraformStack } from "cdktf"
 
-export interface OCIConfig {
+export interface OCIAuthConfig {
   alias: string
   userOcid: string
   fingerprint: string
@@ -28,8 +28,15 @@ export interface InstanceConfig {
   ocpus: number
 }
 
-interface OCIStackConfig {
-  providerConfig: { config: OCIConfig; privateKey: string }
+export interface OCIConfig {
+  regions: string[]
+  networking: NetworkingConfig
+  instances: Map<string, InstanceConfig>
+}
+
+interface OCIStackProps {
+  ociConfig: OCIConfig
+  providerConfig: { config: OCIAuthConfig; privateKey: string }
   region: string
   cfAccountId: string
   cfEmail: string
@@ -39,16 +46,14 @@ interface OCIStackConfig {
   cfSshUsername: string
   cfSshPassword: string
   terraformSshPublicKey: string
-  instances: Map<string, InstanceConfig>
-  cidrs: Base.CIDRConfig
-  additionalIngress: Base.AdditionalIngressConfig[]
 }
 
 export class OCI extends TerraformStack {
-  constructor(scope: Construct, name: string, config: OCIStackConfig) {
+  constructor(scope: Construct, name: string, props: OCIStackProps) {
     super(scope, name)
 
     const {
+      ociConfig,
       providerConfig,
       region,
       cfAccountId,
@@ -58,10 +63,7 @@ export class OCI extends TerraformStack {
       cfSshUsername,
       cfSshPassword,
       terraformSshPublicKey,
-      instances,
-      cidrs,
-      additionalIngress,
-    } = config
+    } = props
 
     let ociProvider = new oci.provider.OciProvider(this, `provider_${name}`, {
       ...providerConfig.config,
@@ -73,16 +75,24 @@ export class OCI extends TerraformStack {
     let profile = ociProvider.alias ? ociProvider.alias : "missing"
     let tenancyId = providerConfig.config.tenancyOcid
 
-    const base = new Base.Base(this, "base", {
-      additionalIngress: additionalIngress,
-      cidrs: cidrs,
+    // Restrict instances to the current region
+    let instances = new Map<string, InstanceConfig>()
+    for (let [name, instance] of ociConfig.instances) {
+      if (instance.region === region) {
+        instances.set(name, instance)
+      }
+    }
+
+    // Create base infrastructure
+    const base = new Base(this, "base", {
+      networking: ociConfig.networking,
       profile: profile,
       region: region,
       tenancyId: tenancyId,
     })
 
-    // Create a record for each instance
-    for (const [name, instance] of instances) {
+    for (let [name, instance] of instances) {
+      // Create a tunnel for each instance
       let tunnel = new Tunnel.Tunnel(this, "tunnel", {
         cfAccountId: cfAccountId,
         cfAdminGroupId: cfAdminGroupId,
@@ -91,6 +101,7 @@ export class OCI extends TerraformStack {
         instance: { name, instance },
       })
 
+      // Create each instance
       const compute = new Compute.Compute(this, "compute", {
         cfAccountId: cfAccountId,
         cfSshCertificate: tunnel.sshCertificate,
@@ -105,6 +116,7 @@ export class OCI extends TerraformStack {
         terraformSshPublicKey: terraformSshPublicKey,
       })
 
+      // Create a record pointing to the instance
       new cloudflare.record.Record(this, "instance_record", {
         name: `${instance.name}.${profile}.${instance.domain}`,
         proxied: false,
