@@ -30,4 +30,5 @@ exclude-entropy-patterns = [
   { path-pattern = '.terraform.lock.hcl$', pattern = '("h1:[a-zA-Z0-9+/=]{44}"|"zh:[a-fA-F0-9]{64}")', reason = 'hashes in Terraform lock files' },
   { path-pattern = 'README\.md$', pattern = 'https://healthchecks.(thepi.cloud|jon77p.xyz)/badge/.+/.+[.]svg', reason = 'Healthchecks Badges' },
   { path-pattern = 'docs/', pattern = 'https://(avatars|raw).githubusercontent.com/.+(.png|.svg)', reason = 'Github-hosted links to images' },
+  { path-pattern = 'cdktf/infrastructure.json', pattern = '"image_id": "ocid1\.image\.oc1\.[^\.]+\.[a-zA-Z0-9]{60}"', reason = 'unique identifiers in OCI image_ids'}
 ]

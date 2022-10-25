@@ -1,0 +1,99 @@
+{
+  "oci0": {
+    "regions": ["us-sanjose-1"],
+    "networking": {
+      "vcn": {
+        "cidr": "10.0.0.0/16",
+        "subnets": {
+          "public": {
+            "cidr": "10.0.0.0/24"
+          },
+          "private": {
+            "cidr": "10.0.1.0/24"
+          }
+        }
+      }
+    },
+    "instances": {}
+  },
+  "oci1": {
+    "regions": ["us-sanjose-1"],
+    "networking": {
+      "vcn": {
+        "cidr": "10.0.0.0/16",
+        "subnets": {
+          "public": {
+            "cidr": "10.0.0.0/24"
+          },
+          "private": {
+            "cidr": "10.0.1.0/24"
+          }
+        }
+      }
+    },
+    "instances": {
+      "innernet": {
+        "name": "innernet",
+        "domain": "jon77p.xyz",
+        "is_subdomain": true,
+        "ad_number": 1,
+        "region": "us-sanjose-1",
+        "image_id": "ocid1.image.oc1.us-sanjose-1.aaaaaaaadq3dxjoqeckwgas733dxmrfsdconukiq357m6sjhb2xyhfpi4ica",
+        "shape": "VM.Standard.E2.1.Micro",
+        "memory": 1,
+        "ocpus": 1
+      }
+    }
+  },
+  "oci2": {
+    "regions": ["us-sanjose-1", "us-phoenix-1"],
+    "networking": {
+      "vcn": {
+        "cidr": "10.0.0.0/16",
+        "subnets": {
+          "public": {
+            "cidr": "10.0.0.0/24"
+          },
+          "private": {
+            "cidr": "10.0.1.0/24"
+          }
+        }
+      }
+    },
+    "instances": {
+      "healthchecks": {
+        "name": "healthchecks",
+        "domain": "jon77p.xyz",
+        "is_subdomain": true,
+        "ad_number": 1,
+        "region": "us-sanjose-1",
+        "image_id": "ocid1.image.oc1.us-sanjose-1.aaaaaaaadq3dxjoqeckwgas733dxmrfsdconukiq357m6sjhb2xyhfpi4ica",
+        "shape": "VM.Standard.E2.1.Micro",
+        "memory": 1,
+        "ocpus": 1
+      },
+      "vault": {
+        "name": "vault",
+        "domain": "jon77p.xyz",
+        "is_subdomain": true,
+        "ad_number": 1,
+        "region": "us-sanjose-1",
+        "image_id": "ocid1.image.oc1.us-sanjose-1.aaaaaaaadq3dxjoqeckwgas733dxmrfsdconukiq357m6sjhb2xyhfpi4ica",
+        "shape": "VM.Standard.E2.1.Micro",
+        "memory": 1,
+        "ocpus": 1
+      },
+      "runners": {
+        "name": "runners",
+        "domain": "jon77p.xyz",
+        "is_subdomain": true,
+        "ad_number": 1,
+        "region": "us-phoenix-1",
+        "image_id": "ocid1.image.oc1.phx.aaaaaaaamxqzlywdvqrefc2ziz66ntasx7qi3gcgrw54ordkejuffzctibsa",
+        "shape": "VM.Standard.A1.Flex",
+        "memory": 24,
+        "ocpus": 4
+      }
+    }
+  }
+}
