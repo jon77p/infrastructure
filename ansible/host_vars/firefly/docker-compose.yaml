@@ -40,7 +40,7 @@ services:
       interval: 10s
       retries: 5
   fireflydb:
-    image: mariadb:latest@sha256:70d4bbcfa752c0be04b859471685dbc1678b999054f4aff73d9b30fac93feed4
+    image: mariadb:latest@sha256:f1cbf0d1c094c0193579b0a34e12c2853a71a356735f05d29244365f4d82aacb
     environment:
       MYSQL_RANDOM_ROOT_PASSWORD: "yes"
       MYSQL_USER: "{{ fireflydb.username }}"
