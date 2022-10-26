@@ -26,7 +26,7 @@ services:
         traefik.http.services.tasks.loadbalancer.server.port: 3333
 
   taskcafe-postgres:
-    image: postgres:15.0-alpine@sha256:162ece254c2ed16362999971340ab523bd8e085c5175b3aff91201ebd32f21bd
+    image: postgres:15.0-alpine@sha256:09d57b502063c77d8896683ff5126187025d7b2e2b4378a896b90dced36bc083
     volumes:
       - /mnt/taskcafe/postgres:/var/lib/postgresql/data
     env_file: secrets-postgres.env
