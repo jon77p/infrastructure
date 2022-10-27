@@ -50,9 +50,20 @@ class MultiRegionOCIStack extends TerraformStack {
       // type: cdktf.VariableType.map(cdktf.VariableType.object(OCIAuthConfig)),
     })
 
-    let allAuthConfig = authConfigVar.value as Map<string, OCIAuthConfig>
+    const authConfigValue = authConfigVar.value as Map<string, OCIAuthConfig>
+    let allAuthConfig = new Map<string, OCIAuthConfig>()
 
-    let authConfig = allAuthConfig.get(props.name) as OCIAuthConfig
+    authConfigValue.forEach((value, key) => {
+      allAuthConfig.set(key, value)
+    })
+
+    let authConfig = allAuthConfig.get(props.name) || {
+      alias: "",
+      user_ocid: "",
+      fingerprint: "",
+      tenancy_ocid: "",
+      regions: []
+    }
 
     // Iterate number of region times to create a provider for each region
     for (let i = 0; i < authConfig.regions.length; i++) {
@@ -189,8 +200,8 @@ class MyStack extends TerraformStack {
 
     // Resources
 
-    // Iterate over ociConfig and create OCI stacks
-    for (let [name, config] of ociConfig) {
+    // Iterate over ociConfig map and create OCI stacks
+    for (let [name, config] of Object.entries(ociConfig)) {
       new MultiRegionOCIStack(this, name, {
         name: name,
         config: config,

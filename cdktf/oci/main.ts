@@ -10,9 +10,9 @@ import { TerraformStack } from "cdktf"
 
 export interface OCIAuthConfig {
   alias: string
-  userOcid: string
+  user_ocid: string
   fingerprint: string
-  tenancyOcid: string
+  tenancy_ocid: string
   regions: string[]
 }
 
@@ -73,7 +73,7 @@ export class OCI extends TerraformStack {
     })
 
     let profile = ociProvider.alias ? ociProvider.alias : "missing"
-    let tenancyId = providerConfig.config.tenancyOcid
+    let tenancyId = providerConfig.config.tenancy_ocid
 
     // Restrict instances to the current region
     let instances = new Map<string, InstanceConfig>()
