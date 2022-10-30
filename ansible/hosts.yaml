@@ -4,6 +4,9 @@ all:
     ansible_become_pass: "{{ user_password }}"
   children:
     cluster:
+      hosts:
+        localhost:
+          ansible_host: localhost
       children:
         k8s:
           hosts:
