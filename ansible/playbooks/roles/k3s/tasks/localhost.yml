@@ -5,6 +5,6 @@
 
 - name: Create all nested services
   ansible.builtin.include_tasks: service.yml
-  loop: "{{ k3s | dict2items }}"
+  loop: "{{ hostvars[manager].k3s | dict2items }}"
   loop_control:
     loop_var: obj
