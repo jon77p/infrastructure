@@ -1,0 +1,10 @@
+---
+- name: Set the 'manager' variable
+  ansible.builtin.set_fact:
+    manager: "{{ groups.manager[0] }}"
+
+- name: Create all nested services
+  ansible.builtin.include_tasks: service.yml
+  loop: "{{ k3s | dict2items }}"
+  loop_control:
+    loop_var: obj

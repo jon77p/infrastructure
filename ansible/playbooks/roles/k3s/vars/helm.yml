@@ -1,2 +1,2 @@
 ---
-helm: "{{ hostvars[servicename].helm | default(None) }}"
+helm: "{{ obj.value.helm | default(None) }}"
