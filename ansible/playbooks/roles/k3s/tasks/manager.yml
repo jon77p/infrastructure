@@ -6,7 +6,7 @@
 
 - name: Install k3s
   when: not k3s_check.stat.exists
-  ansible.builtin.command: curl -sfL https://get.k3s.io | sh -
+  ansible.builtin.shell: curl -sfL https://get.k3s.io | sh -
 
 - name: Get absolute path for repository
   delegate_to: localhost
