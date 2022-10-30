@@ -4,7 +4,7 @@
   ansible.builtin.replace:
     path: /etc/systemd/resolved.conf
     regexp: "#?DNSStubListener=yes"
-    ansible.builtin.replace: DNSStubListener=no
+    replace: DNSStubListener=no
   register: stubdisable
 
 - name: Update /etc/resolv.conf symlink
