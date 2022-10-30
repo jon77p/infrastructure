@@ -1,5 +1,5 @@
 ---
-- name: Setup k8s on manager
+- name: Setup k3s on manager
   hosts: manager
   become: true
   roles:
@@ -7,9 +7,9 @@
     - cloudflared
     - cloudflare
     # - cron
-    - k8s
+    - k3s
 
-- name: Setup k8s on nodes
+- name: Setup k3s on nodes
   hosts: nodes
   become: true
   roles:
@@ -17,9 +17,9 @@
     - cloudflared
     - cloudflare
     - cron
-    - k8s
+    - k3s
 
-- name: Setup k8s on localhost
+- name: Setup k3s on localhost
   hosts: localhost
   gather_facts: false
   connection: local
