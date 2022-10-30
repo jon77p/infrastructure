@@ -23,13 +23,5 @@
   hosts: localhost
   gather_facts: false
   connection: local
-  tasks:
-    - name: Get absolute path for repository
-      run_once: true
-      ansible.builtin.command: git rev-parse --show-toplevel
-      register: repo_abs_path
-    # - name: Replace 'pi1' with IP
-    #   ansible.builtin.replace:
-    #     path: "{{ repo_abs_path.stdout }}/ansible/kubeconfig"
-    #     regexp: pi1
-    #     replace: 192.168.1.101
+  roles:
+    - k3s
