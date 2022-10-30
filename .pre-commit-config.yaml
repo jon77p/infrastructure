@@ -42,7 +42,13 @@ repos:
     hooks:
       - id: prettier
         stages: [commit]
-        args: [--config, .github/lint/.prettierrc.yaml]
+        args:
+          [
+            --config,
+            .github/lint/.prettierrc.yaml,
+            --ignore-path,
+            .github/lint/.prettierignore,
+          ]
   - repo: https://github.com/adrienverge/yamllint
     rev: 9cce2940414e9560ae4c8518ddaee2ac1863a4d2 # frozen: v1.28.0
     hooks:

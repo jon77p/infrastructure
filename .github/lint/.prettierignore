@@ -3,3 +3,4 @@ node_modules/
 .vscode/
 migrate-todo/
 ansible/
+**/vault_*.yml
