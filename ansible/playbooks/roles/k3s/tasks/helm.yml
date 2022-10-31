@@ -19,7 +19,7 @@
     var: helm
 
 - name: Deploy helm chart
-  when: helm.git is not defined
+  when: helm.name is defined and helm.git is not defined
   kubernetes.core.helm:
     update_repo_cache: true
     name: "{{ helm.name }}"

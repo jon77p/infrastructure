@@ -1,3 +1,4 @@
+---
 apiVersion: helm.cattle.io/v1
 kind: HelmChartConfig
 metadata:
@@ -5,18 +6,22 @@ metadata:
   namespace: kube-system
 spec:
   valuesContent: |-
-    pilot:
-      enabled: true
-      token: "{{ pilot_token }}"
-      dashboard: true
     ingressRoute:
       dashboard:
         enabled: true
         annotations:
           kubernetes.io/ingress.class: traefik
           cert-manager.io/cluster-issuer: cloudflare-issuer
+    api:
+      dashboard: true
     metrics:
-      prometheus: {}
+      prometheus:
+        addRouterLabels: true
+    hub:
+      enabled: true
+    logs:
+      access:
+        enabled: true
     ports:
       traefik:
         expose: true

@@ -2,12 +2,12 @@
 k3s:
   cert-manager:
     helm:
-      name: &servicename "cert-manager"
+      name: "cert-manager"
       repo:
         name: "jetstack"
         url: "https://charts.jetstack.io"
       chart: "jetstack/cert-manager"
-      namespace: *servicename
+      namespace: "cert-manager"
       create_namespace: true
       chart_values:
         installCRDs: true
@@ -16,7 +16,7 @@ k3s:
         kind: ClusterIssuer
         metadata:
           name: cloudflare-issuer
-          namespace: cert-manager
+          namespace: "cert-manager"
         spec:
           acme:
             email: "{{ cf_email }}"
@@ -33,3 +33,86 @@ k3s:
                 selector:
                   dnsZones:
                     - "{{ domain }}"
+  whoami:
+    namespaces:
+      - "whoami"
+    services:
+      - apiVersion: v1
+        kind: Service
+        metadata:
+          name: "whoami"
+          namespace: "whoami"
+        spec:
+          ports:
+            - name: "whoami"
+              port: 80
+              protocol: TCP
+              targetPort: 80
+          selector:
+            app: "whoami"
+    deployments:
+      - kind: Deployment
+        apiVersion: apps/v1
+        metadata:
+          labels:
+            app: "whoami"
+          name: "whoami"
+          namespace: "whoami"
+        spec:
+          replicas: 1
+          selector:
+            matchLabels:
+              app: "whoami"
+          template:
+            metadata:
+              labels:
+                app: "whoami"
+            spec:
+              containers:
+                - name: "whoami"
+                  image: traefik/whoami
+                  ports:
+                    - name: web
+                      containerPort: 80
+    ingress:
+      - apiVersion: traefik.containo.us/v1alpha1
+        kind: IngressRoute
+        metadata:
+          name: traefik
+          namespace: kube-system
+          annotations:
+            cert-manager.io/cluster-issuer: cloudflare-issuer
+        spec:
+          entryPoints:
+            - websecure
+          routes:
+          - match: Host(`traefik.{{ domain }}`)
+            kind: Rule
+            services:
+              - name: api@internal
+                kind: TraefikService
+      - apiVersion: networking.k8s.io/v1
+        kind: Ingress
+        metadata:
+          name: "whoami"
+          namespace: "whoami"
+          annotations:
+            kubernetes.io/ingress.class: traefik
+            traefik.ingress.kubernetes.io/router.entrypoints: websecure
+            cert-manager.io/cluster-issuer: cloudflare-issuer
+        spec:
+          tls:
+            - secretName: "whoami-tls"
+              hosts:
+                - "whoami.{{ domain }}"
+          rules:
+            - host: "whoami.{{ domain }}"
+              http:
+                paths:
+                  - path: /
+                    pathType: Prefix
+                    backend:
+                      service:
+                        name: "whoami"
+                        port:
+                          number: 80
