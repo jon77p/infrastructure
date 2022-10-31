@@ -1,6 +1,7 @@
 ---
-- name: Include variables
-  ansible.builtin.include_vars: helm.yml
+- name: Debug helm
+  ansible.builtin.debug:
+    var: helm
 
 - name: Add helm chart repo
   when: helm.repo is defined
@@ -13,10 +14,6 @@
   ansible.builtin.git:
     repo: "{{ helm.git.repo }}"
     dest: "{{ helm.git.dest }}"
-
-- name: Debug helm
-  ansible.builtin.debug:
-    var: helm
 
 - name: Deploy helm chart
   when: helm.name is defined and helm.git is not defined

@@ -1,0 +1,26 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: "whoami"
+  namespace: "whoami"
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    cert-manager.io/cluster-issuer: cloudflare-issuer
+spec:
+  tls:
+    - secretName: "whoami-tls"
+      hosts:
+        - "whoami.{{ domain }}"
+  rules:
+    - host: "whoami.{{ domain }}"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: "whoami"
+                port:
+                  number: 80

@@ -3,8 +3,16 @@
   ansible.builtin.set_fact:
     manager: "{{ groups.manager[0] }}"
 
+# Todo: replace with a less-hardcoded method
+- name: Set cluster-based facts on {{ ansible_host }}
+  ansible.builtin.set_fact:
+    "{{ item }}": "{{ hostvars[manager][item] }}"
+  loop:
+    - domain
+    - cf_email
+
 - name: Create all nested services
   ansible.builtin.include_tasks: service.yml
-  loop: "{{ hostvars[manager].k3s | dict2items }}"
+  loop: "{{ hostvars[manager].k3s }}"
   loop_control:
     loop_var: obj

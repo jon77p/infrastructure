@@ -1,2 +1,0 @@
----
-helm: "{{ obj.value.helm | default(None) }}"

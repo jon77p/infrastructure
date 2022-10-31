@@ -1,0 +1,10 @@
+---
+name: "{{ servicename }}"
+repo:
+  name: "jetstack"
+  url: "https://charts.jetstack.io"
+chart: "jetstack/cert-manager"
+namespace: "{{ servicename }}"
+create_namespace: true
+chart_values:
+  installCRDs: true

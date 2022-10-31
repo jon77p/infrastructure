@@ -1,65 +1,54 @@
 ---
-- name: Include service variables
+- name: Include variables for {{ obj }}
   ansible.builtin.include_vars: service.yml
-- name: Include helm variables
-  ansible.builtin.include_vars: helm.yml
 
-- name: Create the namespace {{ k8s_namespace }}
-  loop: "{{ namespaces }}"
-  loop_control:
-    loop_var: k8s_namespace
+- name: Create namespace(s) for {{ obj }}
+  when: namespace != ""
   kubernetes.core.k8s:
     state: present
-    name: "{{ k8s_namespace }}"
-    api_version: v1
-    kind: Namespace
+    definition: "{{ namespace }}"
 
-- name: Create the secrets {{ k8s_secret.metadata.name }}
-  loop: "{{ secrets }}"
-  loop_control:
-    loop_var: k8s_secret
+- name: Create secret(s) for {{ obj }}
+  when: secret != ""
   kubernetes.core.k8s:
     state: present
-    definition: "{{ k8s_secret }}"
+    definition: "{{ secret }}"
 
-- name: Setup helm deployment
-  when: helm != None and helm is defined
+- name: Setup helm deployment for {{ obj }}
+  when: helm != ""
   ansible.builtin.include_tasks: helm.yml
 
-- name: Create the deployment {{ k8s_deployment.metadata.name }}
-  loop: "{{ deployments }}"
-  loop_control:
-    loop_var: k8s_deployment
+- name: Create deployment(s) for {{ obj }}
+  when: deployment != ""
   kubernetes.core.k8s:
     state: present
-    definition: "{{ k8s_deployment }}"
+    definition: "{{ deployment }}"
 
-- name: Create the service {{ k8s_service.metadata.name }}
-  loop: "{{ services }}"
-  loop_control:
-    loop_var: k8s_service
+- name: Create service(s) for {{ obj }}
+  when: service != ""
   kubernetes.core.k8s:
     state: present
-    definition: "{{ k8s_service }}"
+    definition: "{{ service }}"
 
-- name: Create the ingress {{ k8s_ingress.metadata.name }}
-  loop: "{{ ingress }}"
-  loop_control:
-    loop_var: k8s_ingress
+- debug:
+    msg: "{{ ingress }}"
+  when: ingress != ""
+
+- name: Create ingress for {{ obj }}
+  when: ingress != ""
   kubernetes.core.k8s:
     state: present
-    definition: "{{ k8s_ingress }}"
+    definition: "{{ ingress }}"
 
-- name: Create the resource {{ k8s_resource.metadata.name ~ " " ~ k8s_resource.kind }}
-  loop: "{{ additional_resources }}"
-  loop_control:
-    loop_var: k8s_resource
+- name: Create additional resources for {{ obj }}
+  when: resources != ""
   kubernetes.core.k8s:
     state: present
-    definition: "{{ k8s_resource }}"
+    definition: "{{ resources }}"
 
-- name: Create any additional records
+- name: Create any additional records for {{ obj }}
+  when: dns_records != ""
   vars:
-    cloudflare_dns_records: "{{ hostvars[servicename].cloudflare_dns_records | default([]) }}"
+    cloudflare_dns_records: "{{ dns_records }}"
   ansible.builtin.include_role:
     name: cloudflare
