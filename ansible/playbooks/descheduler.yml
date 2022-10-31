@@ -1,9 +1,0 @@
----
-- name: Setup descheduler
-  hosts: localhost
-  vars:
-    servicename: descheduler
-  gather_facts: false
-  connection: local
-  roles:
-    - k8s
