@@ -2,15 +2,15 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: "whoami"
-  namespace: "whoami"
+  name: "{{ service_name }}"
+  namespace: "{{ service_name }}"
   annotations:
     kubernetes.io/ingress.class: traefik
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
     cert-manager.io/cluster-issuer: cloudflare-issuer
 spec:
   tls:
-    - secretName: "whoami-tls"
+    - secretName: "{{ service_name }}-tls"
       hosts:
         - "whoami.{{ domain }}"
   rules:
@@ -21,6 +21,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: "whoami"
+                name: "{{ service_name }}"
                 port:
                   number: 80
