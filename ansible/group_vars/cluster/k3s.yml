@@ -33,6 +33,24 @@ k3s:
                 selector:
                   dnsZones:
                     - "{{ domain }}"
+  traefik:
+    ingress:
+      - apiVersion: traefik.containo.us/v1alpha1
+        kind: IngressRoute
+        metadata:
+          name: traefik
+          namespace: kube-system
+          annotations:
+            cert-manager.io/cluster-issuer: cloudflare-issuer
+        spec:
+          entryPoints:
+            - websecure
+          routes:
+          - match: Host(`traefik.{{ domain }}`)
+            kind: Rule
+            services:
+              - name: api@internal
+                kind: TraefikService
   whoami:
     namespaces:
       - "whoami"
@@ -75,22 +93,6 @@ k3s:
                     - name: web
                       containerPort: 80
     ingress:
-      - apiVersion: traefik.containo.us/v1alpha1
-        kind: IngressRoute
-        metadata:
-          name: traefik
-          namespace: kube-system
-          annotations:
-            cert-manager.io/cluster-issuer: cloudflare-issuer
-        spec:
-          entryPoints:
-            - websecure
-          routes:
-          - match: Host(`traefik.{{ domain }}`)
-            kind: Rule
-            services:
-              - name: api@internal
-                kind: TraefikService
       - apiVersion: networking.k8s.io/v1
         kind: Ingress
         metadata:
