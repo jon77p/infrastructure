@@ -1,5 +1,5 @@
 ---
-servicename: "{{ obj }}"
+service_name: "{{ obj }}"
 helm: "{{ lookup('ansible.builtin.template', '../vars/{{ obj }}/helm.yml', errors='ignore') | from_yaml | default() }}"
 namespace: "{{ lookup('ansible.builtin.template', '../vars/{{ obj }}/namespace.yml', errors='ignore') | from_yaml | default() }}"
 ingress: "{{ lookup('ansible.builtin.template', '../vars/{{ obj }}/ingress.yml', errors='ignore') | from_yaml | default() }}"

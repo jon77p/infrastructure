@@ -3,7 +3,7 @@ apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
   name: cloudflare-issuer
-  namespace: "{{ servicename }}"
+  namespace: "{{ service_name }}"
 spec:
   acme:
     email: "{{ cf_email }}"
