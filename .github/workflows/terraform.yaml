@@ -18,7 +18,7 @@ jobs:
         with:
           fetch-depth: 1
       - name: Terraform Setup
-        uses: hashicorp/setup-terraform@17d4c9b8043b238f6f35641cdd8433da1e6f3867 # tag=v2
+        uses: hashicorp/setup-terraform@633666f66e0061ca3b725c73b2ec20cd13a8fdd1 # tag=v2
         with:
           cli_config_credentials_token: ${{ secrets.TERRAFORM_API_TOKEN }}
       - name: Terraform Format
