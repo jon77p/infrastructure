@@ -15,7 +15,7 @@ services:
       interval: 10s
       retries: 5
   loki:
-    image: grafana/loki:latest@sha256:1ee60f980950b00e505bd564b40f720132a0653b110e993043bb5940673d060a
+    image: grafana/loki:latest@sha256:aff07ff548294b4ab8f82641646dbbec1b9cd80199b45331d3f7cf8e704b6197
     restart: always
     volumes:
       - "{{ docker_volume_dirs.loki[0] }}/local-config.yaml:/etc/loki/local-config.yaml"
