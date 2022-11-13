@@ -50,7 +50,7 @@ services:
       interval: 10s
       retries: 5
   promtail:
-    image: grafana/promtail:latest@sha256:072527b12cdfa1393d04a08aeba6b0eb42fd6921426ea14eaf8c828953771749
+    image: grafana/promtail:latest@sha256:c16c710f7333411a1a788842ec9967e26577053ff0c0dff41a8d9a6ea0b95c2b
     restart: always
     volumes:
       - /var/log/cloudflared.log:/var/log/cloudflared.log:ro
