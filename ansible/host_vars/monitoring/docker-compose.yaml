@@ -64,7 +64,7 @@ services:
       interval: 10s
       retries: 5
   grafana:
-    image: grafana/grafana-oss:latest@sha256:057896e2344319c9aee702bd5f127dd9a9e7e0e4fe735ece2214384137a7da3a
+    image: grafana/grafana-oss:latest@sha256:a70d516522f4a379f3fdd906417086c173f1d123f5ca43e27c382ab30d84da90
     restart: always
     volumes:
       - "{{ docker_volume_dirs.grafana[0] }}/grafana.ini:/etc/grafana/grafana.ini"
