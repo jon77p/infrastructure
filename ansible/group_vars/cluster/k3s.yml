@@ -4,3 +4,4 @@ k3s:
   - cert-manager
   - traefik
   - whoami
+  - grafana

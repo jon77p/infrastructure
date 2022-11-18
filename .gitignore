@@ -31,7 +31,7 @@ venv/
 Thumbs.db
 
 **/secrets*.env
-secrets*
+secrets*/
 !.github/tasks/secrets
 Brewfile.lock.json
 .config.env
