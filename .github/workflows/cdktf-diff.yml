@@ -1,0 +1,58 @@
+---
+name: CDKTF Diff
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  diff:
+    name: "Terraform CDK Diff"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.1.7
+          terraform_wrapper: false
+          cli_config_credentials_token: ${{ secrets.TERRAFORM_CLOUD_TOKEN }}
+      - name: Setup yarn
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16.13"
+          cache: yarn
+          cache-dependency-path: ./cdktf/yarn.lock
+      # Change working directory to the directory where the CDKTF code is
+      - name: Install dependencies
+        working-directory: ./cdktf
+        run: yarn install --frozen-lockfile --immutable
+      # CDKTF runs the plan here
+      - name: plan
+        working-directory: ./cdktf
+        run: |
+          yarn get && yarn diff
+        env:
+          TERRAFORM_CLOUD_TOKEN: ${{ secrets.TERRAFORM_CLOUD_TOKEN }}
+        continue-on-error: true # We want to see the plan output even if the plan fails
+
+      # Replace this step with any workflow you like, e.g. posting a message in a slack channel.
+      - uses: actions/github-script@0.9.0
+        if: github.event_name == 'pull_request'
+        env:
+          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}" # CDKTF gets the output from the last step
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }} # Create a secret with a GitHub token that can comment on PRs
+          script: |
+            const output = `#### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+            <details><summary>Show Plan</summary>
+            \`\`\`${process.env.PLAN}\`\`\`
+            </details>
+            *Pusher:* @${{ github.actor }}, *Action:* \`${{ github.event_name }}\`, *Working Directory:* \`${{ env.tf_actions_working_dir }}\`, *Workflow:* \`${{ github.workflow }}\``;
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
