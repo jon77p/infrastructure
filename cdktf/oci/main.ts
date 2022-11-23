@@ -48,7 +48,7 @@ interface OCIStackProps {
   terraformSshPublicKey: string
 }
 
-export class OCI extends TerraformStack {
+export class OCI extends Construct {
   constructor(scope: Construct, name: string, props: OCIStackProps) {
     super(scope, name)
 
@@ -65,9 +65,8 @@ export class OCI extends TerraformStack {
       terraformSshPublicKey,
     } = props
 
-    const ociProvider = new oci.provider.OciProvider(this, `provider_${name}`, {
+    const ociProvider = new oci.provider.OciProvider(this, providerConfig.config.alias, {
       ...providerConfig.config,
-      alias: name,
       privateKey: providerConfig.privateKey,
       region: region,
     })
