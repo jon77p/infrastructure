@@ -5,6 +5,7 @@ import { Base, NetworkingConfig } from "./common/base"
 import * as Compute from "./compute/main"
 import * as Tunnel from "./tunnel/main"
 
+import { TerraformStack } from "cdktf"
 import { Construct } from "constructs"
 
 export interface OCIAuthConfig {
@@ -47,7 +48,7 @@ interface OCIStackProps {
   terraformSshPublicKey: string
 }
 
-export class OCI extends Construct {
+export class OCI extends TerraformStack {
   constructor(scope: Construct, name: string, props: OCIStackProps) {
     super(scope, name)
 
@@ -64,11 +65,15 @@ export class OCI extends Construct {
       terraformSshPublicKey,
     } = props
 
-    const ociProvider = new oci.provider.OciProvider(this, `provider-${providerConfig.config.alias}`, {
-      ...providerConfig.config,
-      privateKey: providerConfig.privateKey,
-      region: region,
-    })
+    const ociProvider = new oci.provider.OciProvider(
+      this,
+      `provider-${providerConfig.config.alias}`,
+      {
+        ...providerConfig.config,
+        privateKey: providerConfig.privateKey,
+        region: region,
+      }
+    )
 
     const profile = ociProvider.alias ? ociProvider.alias : "missing"
     const tenancyId = providerConfig.config.tenancy_ocid
