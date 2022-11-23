@@ -1,0 +1,36 @@
+name: CDKTF Deployment
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    name: "Terraform CDK Deploy"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: "npm"
+      - name: Install CDKTF CLI
+        run: npm install -g cdktf-cli
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.1.7
+          cli_config_credentials_token: ${{ secrets.TERRAFORM_CLOUD_TOKEN }}
+      - name: Install dependencies
+        run: npm ci
+      # If you use providers or modules that are not pre-built, you can install them here
+      - name: Generate bindings for providers and modules
+        run: cdktf get
+      - name: Run Tests
+        run: npm test
+      - name: Deploy
+        run: cdktf deploy --auto-approve '*' # Deploys all stacks
+        env:
+          TERRAFORM_CLOUD_TOKEN: ${{ secrets.TERRAFORM_CLOUD_TOKEN }}

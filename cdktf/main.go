@@ -21,7 +21,7 @@ func main() {
 	cdktf.NewRemoteBackend(stack, &cdktf.RemoteBackendProps{
 		Hostname:     jsii.String("app.terraform.io"),
 		Organization: jsii.String("jon77p-xyz"),
-		Workspaces:   cdktf.NewNamedRemoteWorkspace(jsii.String("infrastructure-cdktf")),
+		Workspaces:   cdktf.NewNamedRemoteWorkspace(jsii.String("infrastructure")),
 	})
 
 	app.Synth()
