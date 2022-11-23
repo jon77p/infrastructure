@@ -10,6 +10,7 @@
     "build": "tsc",
     "synth": "cdktf synth",
     "list": "cdktf list",
+    "plan": "cdktf plan cdktf",
     "diff": "cdktf diff cdktf",
     "compile": "tsc --pretty",
     "watch": "tsc -w",
