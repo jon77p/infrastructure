@@ -18,13 +18,9 @@ jobs:
         with:
           terraform_version: 1.1.7
           cli_config_credentials_token: ${{ secrets.TERRAFORM_CLOUD_TOKEN }}
-      - name: Install dependencies
-        run: npm ci
       # If you use providers or modules that are not pre-built, you can install them here
       - name: Generate bindings for providers and modules
         run: cdktf get
-      - name: Run Tests
-        run: npm test
       - name: Deploy
         run: cdktf deploy --auto-approve '*' # Deploys all stacks
         env:
