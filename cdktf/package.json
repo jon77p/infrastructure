@@ -9,6 +9,7 @@
     "get": "cdktf get",
     "build": "tsc",
     "synth": "cdktf synth",
+    "diff": "cdktf diff",
     "compile": "tsc --pretty",
     "watch": "tsc -w",
     "test": "jest",
