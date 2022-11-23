@@ -64,7 +64,7 @@ export class OCI extends Construct {
       terraformSshPublicKey,
     } = props
 
-    const ociProvider = new oci.provider.OciProvider(this, providerConfig.config.alias, {
+    const ociProvider = new oci.provider.OciProvider(this, `provider-${providerConfig.config.alias}`, {
       ...providerConfig.config,
       privateKey: providerConfig.privateKey,
       region: region,
