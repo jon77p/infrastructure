@@ -45,20 +45,30 @@ class MultiRegionOCIStack extends TerraformStack {
 
     const authConfigVar = new cdktf.TerraformVariable(this, "oci", {
       description: "map containing OCI authentication information",
-      default: Map<string, OCIAuthConfig>,
+      type: cdktf.VariableType.map(
+        cdktf.VariableType.object({
+          alias: cdktf.VariableType.STRING,
+          user_ocid: cdktf.VariableType.STRING,
+          fingerprint: cdktf.VariableType.STRING,
+          tenancy_ocid: cdktf.VariableType.STRING,
+          regions: cdktf.VariableType.list(cdktf.VariableType.STRING),
+        })
+      ),
+      default: cdktf.VariableType.map(
+        cdktf.VariableType.object({
+          alias: cdktf.VariableType.STRING,
+          user_ocid: cdktf.VariableType.STRING,
+          fingerprint: cdktf.VariableType.STRING,
+          tenancy_ocid: cdktf.VariableType.STRING,
+          regions: cdktf.VariableType.list(cdktf.VariableType.STRING),
+        })
+      ),
       // type: "map(object({alias = string, user_ocid = string, fingerprint = string, tenancy_ocid = string, regions = list(string)}))",
       // type: cdktf.VariableType.map(cdktf.VariableType.object(OCIAuthConfig)),
     })
 
-    // Convert Terraform variable to a map of OCIAuthConfig objects
-    const authConfigValue = authConfigVar.value as Map<string, OCIAuthConfig>
-    const allAuthConfig: Map<string, OCIAuthConfig> = new Map()
-    authConfigValue.forEach((value, key) => {
-      allAuthConfig.set(key, value)
-    })
-
     // Get the auth config for the current name
-    const authConfig: OCIAuthConfig = allAuthConfig.get(props.name) || {
+    const authConfig: OCIAuthConfig = authConfigVar.value.get(props.name) || {
       alias: "",
       user_ocid: "",
       fingerprint: "",
