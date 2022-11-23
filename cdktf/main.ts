@@ -67,8 +67,13 @@ class MultiRegionOCIStack extends TerraformStack {
       // type: cdktf.VariableType.map(cdktf.VariableType.object(OCIAuthConfig)),
     })
 
+    // Get Map from authConfigVar
+    const authConfigValue = authConfigVar.value as {
+      [key: string]: OCIAuthConfig
+    }
+
     // Get the auth config for the current name
-    const authConfig: OCIAuthConfig = authConfigVar.value.get(props.name) || {
+    const authConfig: OCIAuthConfig = authConfigValue[props.name] || {
       alias: "",
       user_ocid: "",
       fingerprint: "",
