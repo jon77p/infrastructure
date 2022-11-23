@@ -6,7 +6,6 @@ import * as Compute from "./compute/main"
 import * as Tunnel from "./tunnel/main"
 
 import { Construct } from "constructs"
-import { TerraformStack } from "cdktf"
 
 export interface OCIAuthConfig {
   alias: string
