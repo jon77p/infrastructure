@@ -65,19 +65,19 @@ export class OCI extends TerraformStack {
       terraformSshPublicKey,
     } = props
 
-    let ociProvider = new oci.provider.OciProvider(this, `provider_${name}`, {
+    const ociProvider = new oci.provider.OciProvider(this, `provider_${name}`, {
       ...providerConfig.config,
       alias: name,
       privateKey: providerConfig.privateKey,
       region: region,
     })
 
-    let profile = ociProvider.alias ? ociProvider.alias : "missing"
-    let tenancyId = providerConfig.config.tenancy_ocid
+    const profile = ociProvider.alias ? ociProvider.alias : "missing"
+    const tenancyId = providerConfig.config.tenancy_ocid
 
     // Restrict instances to the current region
-    let instances = new Map<string, InstanceConfig>()
-    for (let [name, instance] of ociConfig.instances) {
+    const instances = new Map<string, InstanceConfig>()
+    for (const [name, instance] of ociConfig.instances) {
       if (instance.region === region) {
         instances.set(name, instance)
       }
@@ -91,9 +91,9 @@ export class OCI extends TerraformStack {
       tenancyId: tenancyId,
     })
 
-    for (let [name, instance] of instances) {
+    for (const [name, instance] of instances) {
       // Create a tunnel for each instance
-      let tunnel = new Tunnel.Tunnel(this, "tunnel", {
+      const tunnel = new Tunnel.Tunnel(this, "tunnel", {
         cfAccountId: cfAccountId,
         cfAdminGroupId: cfAdminGroupId,
         cfAdminServiceTokenId: cfAdminServiceTokenId,

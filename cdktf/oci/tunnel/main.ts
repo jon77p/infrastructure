@@ -45,13 +45,13 @@ export class Tunnel extends Construct {
         },
       })
 
-    let sshDomain = `${
+    const sshDomain = `${
       instance.instance.isSubdomain
         ? `ssh-${instance.name}.${instance.instance.domain}`
         : `ssh.${instance.instance.domain}`
     }`
 
-    let sshApp = new cloudflare.accessApplication.AccessApplication(
+    const sshApp = new cloudflare.accessApplication.AccessApplication(
       this,
       "ssh_app",
       {
@@ -108,7 +108,7 @@ export class Tunnel extends Construct {
       secret: this.tunnelSecret.b64Std,
     })
 
-    let tunnelDomain = `${
+    const tunnelDomain = `${
       instance.instance.isSubdomain
         ? `tunnel-${instance.name}.${instance.instance.domain}`
         : `tunnel.${instance.instance.domain}`

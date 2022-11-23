@@ -84,12 +84,12 @@ export class Compute extends Construct {
       },
     })
 
-    let sourceId = `${
+    const sourceId = `${
       this.bootVolumes.count == 1
         ? this.bootVolumes.bootVolumes.get(0).id
         : instance.instance.imageId
     }`
-    let sourceType = `${this.bootVolumes.count == 1 ? "bootVolume" : "image"}`
+    const sourceType = `${this.bootVolumes.count == 1 ? "bootVolume" : "image"}`
 
     this.coreInstance = new oci.coreInstance.CoreInstance(
       this,
