@@ -88,8 +88,8 @@
       }
     },
     "instances": {
-      "innernet": {
-        "name": "innernet",
+      "pihole": {
+        "name": "pihole",
         "domain": "jon77p.xyz",
         "is_subdomain": true,
         "ad_number": 1,
@@ -142,8 +142,8 @@
         "memory": 1,
         "ocpus": 1
       },
-      "runners": {
-        "name": "runners",
+      "gaming": {
+        "name": "gaming",
         "domain": "jon77p.xyz",
         "is_subdomain": true,
         "ad_number": 1,
