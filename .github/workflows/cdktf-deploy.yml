@@ -5,24 +5,45 @@ on:
   push:
     branches: [main]
 
+permissions:
+  contents: read
+  pull-requests: write
+  issues: read
+
 jobs:
-  deploy:
+  terraform:
     name: "Terraform CDK Deploy"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Install CDKTF CLI
-        run: npm install -g cdktf-cli
       - name: Install Terraform
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.1.7
+          terraform_wrapper: false
           cli_config_credentials_token: ${{ secrets.TERRAFORM_CLOUD_TOKEN }}
-      # If you use providers or modules that are not pre-built, you can install them here
-      - name: Generate bindings for providers and modules
-        run: cdktf get
-      - name: Deploy
-        run: cdktf deploy --auto-approve '*' # Deploys all stacks
+      - name: Setup yarn
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16.13"
+          cache: yarn
+          cache-dependency-path: ./cdktf/yarn.lock
+      - name: Install dependencies
+        working-directory: ./cdktf
+        run: yarn install --frozen-lockfile --immutable
+      - name: Generate module and provider bindings
+        working-directory: ./cdktf
         env:
           TERRAFORM_CLOUD_TOKEN: ${{ secrets.TERRAFORM_CLOUD_TOKEN }}
+        run: yarn get
+      - name: Run Terraform CDK
+        uses: hashicorp/terraform-cdk-action@v0.1.0
+        with:
+          terraformVersion: 1.3.0
+          cdktfVersion: 0.12.2
+          workingDirectory: ./cdktf
+          stackName: cdktf
+          mode: auto-approve-apply
+          terraformCloudToken: ${{ secrets.TERRAFORM_CLOUD_TOKEN }}
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
