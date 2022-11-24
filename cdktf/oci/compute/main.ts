@@ -6,21 +6,20 @@ import { TerraformAsset, Fn } from "cdktf"
 import * as path from "path"
 
 import { InstanceConfig } from "../main"
+import { CFConfig } from "../tunnel/main"
 
-interface ComputeStackConfig {
+interface ComputeProps {
   compartmentId: string
   region: string
   terraformSshPublicKey: string
   instance: { name: string; instance: InstanceConfig }
   subnetId: string
-  cfAccountId: string
+  cfConfig: CFConfig
   cfTunnel: {
     id: string
     name: string
+    secret: string
   }
-  cfTunnelSecret: string
-  cfSshUsername: string
-  cfSshPassword: string
   cfSshCertificate: {
     id: string
     aud: string
@@ -34,7 +33,7 @@ export class Compute extends Construct {
   public readonly bootVolumes: oci.dataOciCoreBootVolumes.DataOciCoreBootVolumes
   public readonly coreInstance: oci.coreInstance.CoreInstance
 
-  constructor(scope: Construct, name: string, config: ComputeStackConfig) {
+  constructor(scope: Construct, name: string, props: ComputeProps) {
     super(scope, name)
 
     const {
@@ -42,14 +41,11 @@ export class Compute extends Construct {
       terraformSshPublicKey,
       instance,
       subnetId,
-      cfAccountId,
+      cfConfig,
       cfTunnel,
-      cfTunnelSecret,
-      cfSshUsername,
-      cfSshPassword,
       cfSshCertificate,
       ociProvider,
-    } = config
+    } = props
 
     this.availabilityDomain =
       new oci.dataOciIdentityAvailabilityDomain.DataOciIdentityAvailabilityDomain(
@@ -115,13 +111,13 @@ export class Compute extends Construct {
           ssh_authorized_keys: `ssh-rsa ${terraformSshPublicKey} terraform`,
           user_data: Fn.base64gzip(
             Fn.templatefile(templateFile.path, {
-              cf_account: cfAccountId,
+              cf_account: cfConfig.accountId,
               cf_tunnel_id: cfTunnel.id,
               cf_tunnel_name: cfTunnel.name,
-              cf_tunnel_secret: cfTunnelSecret,
+              cf_tunnel_secret: cfTunnel.secret,
               cf_ssh_certificate: cfSshCertificate.publicKey,
-              cf_ssh_username: cfSshUsername,
-              cf_ssh_password: cfSshPassword,
+              cf_ssh_username: cfConfig.sshUsername,
+              cf_ssh_password: cfConfig.sshPassword,
               hostname: instance.name,
               ssh_subdomain: `${
                 instance.instance.isSubdomain

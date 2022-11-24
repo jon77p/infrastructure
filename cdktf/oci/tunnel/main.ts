@@ -5,11 +5,18 @@ import { Construct } from "constructs"
 
 import { InstanceConfig } from "../main"
 
-interface TunnelStackConfig {
-  cfAccountId: string
-  cfAllowedIdpIds: string[]
-  cfAdminGroupId: string
-  cfAdminServiceTokenId: string
+export interface CFConfig {
+  accountId: string
+  email: string
+  allowedIdpIds: string[]
+  adminGroupId: string
+  adminServiceTokenId: string
+  sshUsername: string
+  sshPassword: string
+}
+
+interface TunnelProps {
+  config: CFConfig
   instance: { name: string; instance: InstanceConfig }
 }
 
@@ -19,16 +26,10 @@ export class Tunnel extends Construct {
   public readonly sshCertificate: cloudflare.accessCaCertificate.AccessCaCertificate
   public readonly tunnel: cloudflare.argoTunnel.ArgoTunnel
 
-  constructor(scope: Construct, name: string, config: TunnelStackConfig) {
+  constructor(scope: Construct, name: string, props: TunnelProps) {
     super(scope, name)
 
-    const {
-      cfAccountId,
-      cfAllowedIdpIds,
-      cfAdminGroupId,
-      cfAdminServiceTokenId,
-      instance,
-    } = config
+    const { config, instance } = props
 
     // Create a random string for the tunnel secret
     this.tunnelSecret = new random.id.Id(this, "tunnel_secret", {
@@ -38,7 +39,7 @@ export class Tunnel extends Construct {
     this.cloudflareZones =
       new cloudflare.dataCloudflareZones.DataCloudflareZones(this, "cf_zones", {
         filter: {
-          accountId: cfAccountId,
+          accountId: config.accountId,
           lookupType: "exact",
           name: instance.instance.domain,
           status: "active",
@@ -55,7 +56,7 @@ export class Tunnel extends Construct {
       this,
       "ssh_app",
       {
-        allowedIdps: cfAllowedIdpIds,
+        allowedIdps: config.allowedIdpIds,
         appLauncherVisible: false,
         autoRedirectToIdentity: true,
         domain: sshDomain,
@@ -81,7 +82,7 @@ export class Tunnel extends Construct {
       decision: "allow",
       include: [
         {
-          group: [cfAdminGroupId],
+          group: [config.adminGroupId],
         },
       ],
       name: `Policy for ${sshDomain}`,
@@ -94,7 +95,7 @@ export class Tunnel extends Construct {
       decision: "non_identity",
       include: [
         {
-          serviceToken: [cfAdminServiceTokenId],
+          serviceToken: [config.adminServiceTokenId],
         },
       ],
       name: `Service Token Auth Policy for ${sshDomain}`,
@@ -103,7 +104,7 @@ export class Tunnel extends Construct {
     })
 
     this.tunnel = new cloudflare.argoTunnel.ArgoTunnel(this, `tunnel_${name}`, {
-      accountId: cfAccountId,
+      accountId: config.accountId,
       name: name,
       secret: this.tunnelSecret.b64Std,
     })

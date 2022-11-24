@@ -3,7 +3,7 @@ import * as oci from "../.gen/providers/oci"
 
 import { Base, NetworkingConfig } from "./common/base"
 import * as Compute from "./compute/main"
-import * as Tunnel from "./tunnel/main"
+import { Tunnel, CFConfig } from "./tunnel/main"
 
 import { Construct } from "constructs"
 import { Token, TerraformOutput } from "cdktf"
@@ -34,36 +34,20 @@ export interface OCIConfig {
   instances: Map<string, InstanceConfig>
 }
 
-interface OCIStackProps {
+interface OCIProps {
   config: OCIConfig
   providerConfig: { config: oci.provider.OciProviderConfig; privateKey: string }
   region: string
-  cfAccountId: string
-  cfEmail: string
-  cfAllowedIdpIds: string[]
-  cfAdminGroupId: string
-  cfAdminServiceTokenId: string
-  cfSshUsername: string
-  cfSshPassword: string
+  cfConfig: CFConfig
   terraformSshPublicKey: string
 }
 
 export class OCI extends Construct {
-  constructor(scope: Construct, name: string, props: OCIStackProps) {
+  constructor(scope: Construct, name: string, props: OCIProps) {
     super(scope, name)
 
-    const {
-      config,
-      providerConfig,
-      region,
-      cfAccountId,
-      cfAllowedIdpIds,
-      cfAdminGroupId,
-      cfAdminServiceTokenId,
-      cfSshUsername,
-      cfSshPassword,
-      terraformSshPublicKey,
-    } = props
+    const { config, providerConfig, region, cfConfig, terraformSshPublicKey } =
+      props
 
     const profile = providerConfig.config.alias
       ? providerConfig.config.alias
@@ -101,11 +85,8 @@ export class OCI extends Construct {
       }
 
       // Create a tunnel for each instance
-      const tunnel = new Tunnel.Tunnel(this, `${name}-${instanceName}-tunnel`, {
-        cfAccountId: cfAccountId,
-        cfAdminGroupId: cfAdminGroupId,
-        cfAdminServiceTokenId: cfAdminServiceTokenId,
-        cfAllowedIdpIds: cfAllowedIdpIds,
+      const tunnel = new Tunnel(this, `${name}-${instanceName}-tunnel`, {
+        config: cfConfig,
         instance: { name: instanceName, instance },
       })
 
@@ -114,12 +95,13 @@ export class OCI extends Construct {
         this,
         `${name}-${instanceName}-compute`,
         {
-          cfAccountId: cfAccountId,
+          cfConfig,
           cfSshCertificate: tunnel.sshCertificate,
-          cfSshPassword: cfSshPassword,
-          cfSshUsername: cfSshUsername,
-          cfTunnelSecret: tunnel.tunnelSecret.toString(),
-          cfTunnel: tunnel.tunnel,
+          cfTunnel: {
+            name: tunnel.tunnel.name,
+            id: tunnel.tunnel.id,
+            secret: tunnel.tunnelSecret.toString(),
+          },
           compartmentId: base.identityCompartment.id,
           instance: { name: instanceName, instance },
           region: region,

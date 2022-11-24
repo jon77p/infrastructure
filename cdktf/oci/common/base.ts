@@ -27,7 +27,7 @@ export interface AdditionalIngressConfig {
   entries: oci.coreSecurityList.CoreSecurityListIngressSecurityRules[]
 }
 
-interface BaseStackProps {
+interface BaseProps {
   tenancyId: string
   profile: string
   region: string
@@ -43,7 +43,7 @@ export class Base extends Construct {
   public readonly privateSubnet: oci.coreSubnet.CoreSubnet
   public readonly publicSubnet: oci.coreSubnet.CoreSubnet
 
-  constructor(scope: Construct, name: string, props: BaseStackProps) {
+  constructor(scope: Construct, name: string, props: BaseProps) {
     super(scope, name)
 
     const { tenancyId, profile, region, networking, ociProvider } = props

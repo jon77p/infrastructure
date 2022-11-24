@@ -1,7 +1,9 @@
 import * as cdktf from "cdktf"
 import * as cloudflare from "@cdktf/provider-cloudflare"
+import path = require("path")
 import * as random from "@cdktf/provider-random"
 import * as OCI from "./oci/main"
+import { CFConfig } from "./oci/tunnel/main"
 
 import { Construct } from "constructs"
 import {
@@ -16,25 +18,17 @@ import { OCIConfig } from "./oci/main"
 
 import { OciProviderConfig } from "./.gen/providers/oci/provider"
 
-import path = require("path")
-
-class MultiRegionOCIStack extends Construct {
+class MultiRegionOCI extends Construct {
   constructor(
     scope: Construct,
     name: string,
     props: {
       name: string
       config: OCIConfig
-      ociAuthPrivateKey: string
-      cfAccountId: string
-      cfAdminGroupId: string
-      cfAdminServiceTokenId: string
-      cfAllowedIdpIds: string[]
-      cfEmail: string
-      cfSshPassword: string
-      cfSshUsername: string
-      terraformSshPublicKey: string
       authConfig: TerraformVariable
+      ociAuthPrivateKey: string
+      cfConfig: CFConfig
+      terraformSshPublicKey: string
     }
   ) {
     super(scope, name)
@@ -65,13 +59,7 @@ class MultiRegionOCIStack extends Construct {
           privateKey: props.ociAuthPrivateKey,
         },
         config: props.config,
-        cfAccountId: props.cfAccountId,
-        cfAdminGroupId: props.cfAdminGroupId,
-        cfAdminServiceTokenId: props.cfAdminServiceTokenId,
-        cfAllowedIdpIds: props.cfAllowedIdpIds,
-        cfEmail: props.cfEmail,
-        cfSshPassword: props.cfSshPassword,
-        cfSshUsername: props.cfSshUsername,
+        cfConfig: props.cfConfig,
         region: region,
         terraformSshPublicKey: props.terraformSshPublicKey,
       })
@@ -209,19 +197,21 @@ class MyStack extends TerraformStack {
 
     // Iterate over ociConfig map and create OCI stacks
     for (const [name, config] of Object.entries(ociConfig)) {
-      new MultiRegionOCIStack(this, name, {
+      new MultiRegionOCI(this, name, {
         name: name,
         config: config,
-        ociAuthPrivateKey: ociAuthPrivateKey.value,
-        cfAccountId: cfAccountId.value,
-        cfAdminGroupId: cfAdminGroupId.value,
-        cfAdminServiceTokenId: cfAdminServiceTokenId.value,
-        cfAllowedIdpIds: cfAllowedIdpIds.value,
-        cfEmail: cfEmail.value,
-        cfSshPassword: cfSshPassword.value,
-        cfSshUsername: cfSshUsername.value,
-        terraformSshPublicKey: terraformSshPublicKey.value,
         authConfig: authConfig,
+        ociAuthPrivateKey: ociAuthPrivateKey.value,
+        cfConfig: {
+          accountId: cfAccountId.value,
+          adminGroupId: cfAdminGroupId.value,
+          adminServiceTokenId: cfAdminServiceTokenId.value,
+          allowedIdpIds: cfAllowedIdpIds.value,
+          email: cfEmail.value,
+          sshPassword: cfSshPassword.value,
+          sshUsername: cfSshUsername.value,
+        },
+        terraformSshPublicKey: terraformSshPublicKey.value,
       })
 
       // Outputs
