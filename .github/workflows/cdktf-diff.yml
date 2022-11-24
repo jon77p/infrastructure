@@ -12,7 +12,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  diff:
+  terraform:
     name: "Terraform CDK Diff"
     runs-on: ubuntu-latest
     steps:
@@ -30,16 +30,14 @@ jobs:
           node-version: "16.13"
           cache: yarn
           cache-dependency-path: ./cdktf/yarn.lock
-      # Change working directory to the directory where the CDKTF code is
       - name: Install dependencies
         working-directory: ./cdktf
         run: yarn install --frozen-lockfile --immutable
       - name: Generate module and provider bindings
         working-directory: ./cdktf
-        run: |
-          yarn get
         env:
           TERRAFORM_CLOUD_TOKEN: ${{ secrets.TERRAFORM_CLOUD_TOKEN }}
+        run: yarn get
       - name: Run Terraform CDK
         uses: hashicorp/terraform-cdk-action@v0.1.0
         with:
