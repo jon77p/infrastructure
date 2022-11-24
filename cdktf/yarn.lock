@@ -297,16 +297,16 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@cdktf/hcl2cdk@0.13.3":
-  version "0.13.3"
-  resolved "https://registry.yarnpkg.com/@cdktf/hcl2cdk/-/hcl2cdk-0.13.3.tgz#482d0165f4af9df8895f9169e76ac616382526ce"
-  integrity sha512-pGCylbXGR0V5koS14VCRgfPTJmL7glFJz8ZYmkmm2kCqRMoHrbUb9pJLpIotJd8zULEvmF/LSxCBUK8nhhgo8w==
+"@cdktf/hcl2cdk@0.14.1":
+  version "0.14.1"
+  resolved "https://registry.yarnpkg.com/@cdktf/hcl2cdk/-/hcl2cdk-0.14.1.tgz#b9854832fc85b2ca37f30e33826b0c6ce62c6480"
+  integrity sha512-28J0Qh+jBSy5ocAxQY26zDw4o2zdrq0R/hEJHxjrvtJ0lOCgDp3NCNOnxZyMgt7j2widrRyX8w9+lKvFpigpPw==
   dependencies:
     "@babel/generator" "^7.19.0"
     "@babel/template" "^7.18.10"
     "@babel/types" "^7.19.0"
-    "@cdktf/hcl2json" "0.13.3"
-    "@cdktf/provider-generator" "0.13.3"
+    "@cdktf/hcl2json" "0.14.1"
+    "@cdktf/provider-generator" "0.14.1"
     camelcase "^6.3.0"
     glob "7.2.3"
     graphology "^0.25.0"
@@ -316,10 +316,10 @@
     reserved-words "^0.1.2"
     zod "^1.11.17"
 
-"@cdktf/hcl2json@0.13.3":
-  version "0.13.3"
-  resolved "https://registry.yarnpkg.com/@cdktf/hcl2json/-/hcl2json-0.13.3.tgz#b0bb84db12beec25b4d4ff4cda75062f9ed57e27"
-  integrity sha512-h6k4hNUhzADf+l9dyAzLQVAORedOadI66Lg4NnLejyXxLdomDeVcGxNWWkctqCZFQmWxzci85XZq8fjsL9N+sQ==
+"@cdktf/hcl2json@0.14.1":
+  version "0.14.1"
+  resolved "https://registry.yarnpkg.com/@cdktf/hcl2json/-/hcl2json-0.14.1.tgz#7345a94f03fcd19300c462d22da40193142113c1"
+  integrity sha512-nzhZbXlBQsq8/gGBCc0FR/CtMd+CkoylF1zatPNh45W7pTmlFQVrKeuk3sim+J4L9NzhtTz1GY3YR8KC8JJesA==
   dependencies:
     "@types/node-fetch" "^2.6.2"
     fs-extra "^8.1.0"
@@ -330,12 +330,12 @@
   resolved "https://registry.yarnpkg.com/@cdktf/provider-cloudflare/-/provider-cloudflare-3.0.15.tgz#786b2d6e9e067984a5826cd47dbbb66527f1246b"
   integrity sha512-Yv/EU+MJIkIvsmVaq1aXkO+TXk2fFLzT2lbBw30KUUainn/wjvjpi44zBVEDCUvzJIi0I/z+bOsGV54ovL7msg==
 
-"@cdktf/provider-generator@0.13.3":
-  version "0.13.3"
-  resolved "https://registry.yarnpkg.com/@cdktf/provider-generator/-/provider-generator-0.13.3.tgz#cf80f66a05c887e60937183c4b3fd619f59a304b"
-  integrity sha512-vTtJp0KmaBYVwypaINLJzSddtfzhWAJIVLfhUU0LVUG+fkWQmN7110reqTHVVewkAW3AR4ZAOpjGd15tlIbp7Q==
+"@cdktf/provider-generator@0.14.1":
+  version "0.14.1"
+  resolved "https://registry.yarnpkg.com/@cdktf/provider-generator/-/provider-generator-0.14.1.tgz#78c262b1d12323d7417a8d8a205d9157aa4d5297"
+  integrity sha512-dewzav9FH0NH6Uu5tellgz/lL+aDCjndMhEeGoydOLPZdVMIBsFa6cRQw+RrefMVAR9EFM6zfdck5xZPWy/PMg==
   dependencies:
-    "@cdktf/hcl2json" "0.13.3"
+    "@cdktf/hcl2json" "0.14.1"
     codemaker "^1.68.0"
     deepmerge "^4.2.2"
     fs-extra "^8.1.0"
@@ -1153,16 +1153,16 @@ case@^1.6.3:
   resolved "https://registry.yarnpkg.com/case/-/case-1.6.3.tgz#0a4386e3e9825351ca2e6216c60467ff5f1ea1c9"
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
-cdktf-cli@^0.13.1:
-  version "0.13.3"
-  resolved "https://registry.yarnpkg.com/cdktf-cli/-/cdktf-cli-0.13.3.tgz#f162a8efa63794614c5490e7fa412ac5819080d1"
-  integrity sha512-2gq6oltc1m+0R4Hv0VUqNWQ5Paimg5JytQ6VK1jptHEkEuLxrN2ZIJpTAs79fqDvHt1gCxxFvXfCn361BBNBTw==
+cdktf-cli@^0.14.0:
+  version "0.14.1"
+  resolved "https://registry.yarnpkg.com/cdktf-cli/-/cdktf-cli-0.14.1.tgz#e3ebd7c5c1261121e7d72ca9da45daa184f80099"
+  integrity sha512-qecXoSJ4KrOTAWmCzKiwYDs8gxbw/eqtORIWslIEBvtxKeBDFN2q9AjHaaRhH1DCBCOIfa6hpMAm4y5RP5S9Ig==
   dependencies:
-    "@cdktf/hcl2cdk" "0.13.3"
-    "@cdktf/hcl2json" "0.13.3"
+    "@cdktf/hcl2cdk" "0.14.1"
+    "@cdktf/hcl2json" "0.14.1"
     "@sentry/node" "^6.19.7"
     "@types/yargs" "^17.0.13"
-    cdktf "0.13.3"
+    cdktf "0.14.1"
     codemaker "^1.68.0"
     constructs "^10.0.25"
     cross-spawn "^7.0.3"
@@ -1177,8 +1177,18 @@ cdktf-cli@^0.13.1:
     xml-js "^1.6.11"
     yargs "^17.5"
     yoga-layout-prebuilt "^1.10.0"
+    zod "^1.11.17"
 
-cdktf@0.13.3, cdktf@^0.13.1:
+cdktf@0.14.1:
+  version "0.14.1"
+  resolved "https://registry.yarnpkg.com/cdktf/-/cdktf-0.14.1.tgz#5cb1ea44b566d34aa6ccf28241ecaba780cb2906"
+  integrity sha512-pehl8Q3Q96pGMRfoNGKFvEGeQnleh/4HQ19d5K8Wht7F4U+eguuP/Z/0fzJZrgzbBCB4PRZUcHp4G8I5+ITVNg==
+  dependencies:
+    archiver "5.3.1"
+    json-stable-stringify "^1.0.1"
+    semver "^7.3.7"
+
+cdktf@^0.13.1:
   version "0.13.3"
   resolved "https://registry.yarnpkg.com/cdktf/-/cdktf-0.13.3.tgz#ee632dc211cb40af60f7fbb6c71bcd2cd74a90d8"
   integrity sha512-uDNW+vKtJRZY+NaM3vsQX8lIVOkjC6AxMgx2HI3zvTCb60wI1DfEHr5ET/UCzZfrY1vQXY8ZYNhP4rxeCzW6AA==
