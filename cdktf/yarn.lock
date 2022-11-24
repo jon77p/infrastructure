@@ -1153,7 +1153,7 @@ case@^1.6.3:
   resolved "https://registry.yarnpkg.com/case/-/case-1.6.3.tgz#0a4386e3e9825351ca2e6216c60467ff5f1ea1c9"
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
-cdktf-cli@^0.14.0:
+cdktf-cli@^0.14.1:
   version "0.14.1"
   resolved "https://registry.yarnpkg.com/cdktf-cli/-/cdktf-cli-0.14.1.tgz#e3ebd7c5c1261121e7d72ca9da45daa184f80099"
   integrity sha512-qecXoSJ4KrOTAWmCzKiwYDs8gxbw/eqtORIWslIEBvtxKeBDFN2q9AjHaaRhH1DCBCOIfa6hpMAm4y5RP5S9Ig==
@@ -1179,19 +1179,10 @@ cdktf-cli@^0.14.0:
     yoga-layout-prebuilt "^1.10.0"
     zod "^1.11.17"
 
-cdktf@0.14.1:
+cdktf@0.14.1, cdktf@^0.14.1:
   version "0.14.1"
   resolved "https://registry.yarnpkg.com/cdktf/-/cdktf-0.14.1.tgz#5cb1ea44b566d34aa6ccf28241ecaba780cb2906"
   integrity sha512-pehl8Q3Q96pGMRfoNGKFvEGeQnleh/4HQ19d5K8Wht7F4U+eguuP/Z/0fzJZrgzbBCB4PRZUcHp4G8I5+ITVNg==
-  dependencies:
-    archiver "5.3.1"
-    json-stable-stringify "^1.0.1"
-    semver "^7.3.7"
-
-cdktf@^0.13.1:
-  version "0.13.3"
-  resolved "https://registry.yarnpkg.com/cdktf/-/cdktf-0.13.3.tgz#ee632dc211cb40af60f7fbb6c71bcd2cd74a90d8"
-  integrity sha512-uDNW+vKtJRZY+NaM3vsQX8lIVOkjC6AxMgx2HI3zvTCb60wI1DfEHr5ET/UCzZfrY1vQXY8ZYNhP4rxeCzW6AA==
   dependencies:
     archiver "5.3.1"
     json-stable-stringify "^1.0.1"
