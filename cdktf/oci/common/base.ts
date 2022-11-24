@@ -74,7 +74,8 @@ export class Base extends Construct {
       createServiceGateway: false,
       region: region,
       vcnCidrs: [networking.vcn.cidr],
-      vcnDnsLabel: profile,
+      // Remove all '-' characters from profile for vcnDnsLabel
+      vcnDnsLabel: profile.replace(/-/g, ""),
       vcnName: "terraform",
     })
 
