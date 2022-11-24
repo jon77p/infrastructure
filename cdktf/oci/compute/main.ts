@@ -2,7 +2,7 @@ import * as oci from "../../.gen/providers/oci"
 
 import { Construct } from "constructs"
 
-import { TerraformAsset, Fn } from "cdktf"
+import { TerraformAsset, Fn, TerraformOutput } from "cdktf"
 import * as path from "path"
 
 import { InstanceConfig } from "../main"
@@ -144,5 +144,22 @@ export class Compute extends Construct {
         },
       }
     )
+
+    // Outputs
+    new TerraformOutput(this, "boot-volumes", {
+      value: this.bootVolumes,
+    })
+    new TerraformOutput(this, "instance-OCID", {
+      value: this.coreInstance.id,
+    })
+    new TerraformOutput(this, "instance-boot-volume", {
+      value: this.coreInstance.bootVolumeId,
+    })
+    new TerraformOutput(this, "instance-name", {
+      value: this.coreInstance.displayName,
+    })
+    new TerraformOutput(this, "instance-public-ip", {
+      value: this.coreInstance.publicIp,
+    })
   }
 }

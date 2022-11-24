@@ -55,11 +55,7 @@ export class OCI extends Construct {
       : "missing"
     const tenancyId = Token.asString(providerConfig.config.tenancyOcid)
 
-    // Providers
-    new TerraformOutput(this, `${name}-provider-config`, {
-      value: providerConfig.config,
-    })
-
+    // OCI Provider
     let ociProvider = new oci.provider.OciProvider(this, `${name}-oci`, {
       tenancyOcid: providerConfig.config.tenancyOcid,
       userOcid: providerConfig.config.userOcid,
@@ -121,67 +117,6 @@ export class OCI extends Construct {
         zoneId: tunnel.cloudflareZones.zones.get(0).id,
       })
     }
-
-    // Outputs
-    /*
-    new cdktf.TerraformOutput(this, "compartment-id", {
-      value: base.compartmentIdOutput,
-    });
-    new cdktf.TerraformOutput(this, "compartment-name", {
-      value: base.compartmentNameOutput,
-    });
-    new cdktf.TerraformOutput(this, "private-subnet-dns_label", {
-      value: base.privateSubnetDnsLabelOutput,
-    });
-    new cdktf.TerraformOutput(this, "private-subnet-id", {
-      value: base.privateSubnetIdOutput,
-    });
-    new cdktf.TerraformOutput(this, "private-subnet-name", {
-      value: base.privateSubnetNameOutput,
-    });
-    new cdktf.TerraformOutput(this, "private-subnet-subnet_domain_name", {
-      value: base.privateSubnetSubnetDomainNameOutput,
-    });
-    new cdktf.TerraformOutput(this, "public-subnet-dns_label", {
-      value: base.publicSubnetDnsLabelOutput,
-    });
-    new cdktf.TerraformOutput(this, "public-subnet-id", {
-      value: base.publicSubnetIdOutput,
-    });
-    new cdktf.TerraformOutput(this, "public-subnet-name", {
-      value: base.publicSubnetNameOutput,
-    });
-    new cdktf.TerraformOutput(this, "public-subnet-subnet_domain_name", {
-      value: base.publicSubnetSubnetDomainNameOutput,
-    });
-    new cdktf.TerraformOutput(this, "vcn-dns_label", {
-      value: base.vcnDnsLabelOutput,
-    });
-    new cdktf.TerraformOutput(this, "vcn-domain_name", {
-      value: base.vcnDomainNameOutput,
-    });
-    new cdktf.TerraformOutput(this, "vcn-id", {
-      value: base.vcnIdOutput,
-    });
-    new cdktf.TerraformOutput(this, "vcn-name", {
-      value: base.vcnNameOutput,
-    });
-    new cdktf.TerraformOutput(this, "boot-volumes", {
-      value: compute.bootVolumesOutput,
-    });
-    new cdktf.TerraformOutput(this, "instance-OCID", {
-      value: compute.instanceOcidOutput,
-    });
-    new cdktf.TerraformOutput(this, "instance-boot-volume", {
-      value: compute.instanceBootVolumeOutput,
-    });
-    new cdktf.TerraformOutput(this, "instance-name", {
-      value: compute.instanceNameOutput,
-    });
-    new cdktf.TerraformOutput(this, "instance-public-ip", {
-      value: compute.instancePublicIpOutput,
-    });
-    */
   }
 }
 
