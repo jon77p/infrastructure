@@ -45,7 +45,7 @@ jobs:
         with:
           terraformVersion: 1.3.0
           cdktfVersion: 0.12.2
-          working-directory: ./cdktf
+          workingDirectory: ./cdktf
           stackName: cdktf
           mode: plan-only
           terraformCloudToken: ${{ secrets.TERRAFORM_CLOUD_TOKEN }}
