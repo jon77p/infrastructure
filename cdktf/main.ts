@@ -78,6 +78,16 @@ class MultiRegionOCIStack extends Construct {
   }
 
   getAuthConfig(authConfig: TerraformVariable, name: string) {
+    // This is one solution that matches what was used in the original terraform code
+    /*
+    return {
+      tenancyOcid: `\${var.oci[\"${name}\"].tenancy_ocid}`,
+      userOcid: `\${var.oci[\"${name}\"].user_ocid}`,
+      fingerprint: `\${var.oci[\"${name}\"].fingerprint}`,
+    }
+    */
+
+    // Below is WORKING for output values, but rendered cdk.tf.json is different than terraform
     let authConfigName = Fn.lookup(authConfig.value, name, {
       alias: "",
       user_ocid: "",
