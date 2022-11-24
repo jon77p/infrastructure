@@ -573,9 +573,9 @@ concat-map@0.0.1:
   integrity sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==
 
 constructs@^10.0.25:
-  version "10.1.168"
-  resolved "https://registry.yarnpkg.com/constructs/-/constructs-10.1.168.tgz#46b8578acfba2083bfc4f260b7e51a2519a50b02"
-  integrity sha512-tVFGDyqy6g1r+4/teAdBQayzy/UmkA1xm+eKvZ+h/Qs5P/C+IKUiwiwFNXCEFvinwuE1k2Oe6EvNjASjnYw9Zw==
+  version "10.1.169"
+  resolved "https://registry.yarnpkg.com/constructs/-/constructs-10.1.169.tgz#6136bd5e7ff977c0c5272a6d013896069d66a974"
+  integrity sha512-tFZhYBFZr7yg/HX0FT8iyQZvuGdcrSwXgSh7+JkdSkqbNDQylWJuAfIjg+CsfPR7J2JxwUDClN07Sc3LMDtSGQ==
 
 cookie@^0.4.1:
   version "0.4.2"
