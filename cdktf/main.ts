@@ -181,8 +181,7 @@ class MyStack extends TerraformStack {
           regions: VariableType.LIST_STRING,
         })
       ),
-      // type: "map(object({alias = string, user_ocid = string, fingerprint = string, tenancy_ocid = string, regions = list(string)}))",
-      // type: VariableType.map(VariableType.object(OCIAuthConfig)),
+      default: {},
     })
 
     // Providers
