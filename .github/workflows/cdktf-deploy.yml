@@ -20,7 +20,7 @@ jobs:
       - name: Install Terraform
         uses: hashicorp/setup-terraform@v2
         with:
-          terraform_version: 1.1.7
+          terraform_version: 1.3.5
           terraform_wrapper: false
           cli_config_credentials_token: ${{ secrets.TERRAFORM_CLOUD_TOKEN }}
       - name: Setup yarn
@@ -40,8 +40,8 @@ jobs:
       - name: Run Terraform CDK
         uses: hashicorp/terraform-cdk-action@a8a5602e61be63e21ac0b6f60520b5dafa04e2ab # v0.1.5
         with:
-          terraformVersion: 1.3.0
-          cdktfVersion: 0.12.2
+          terraformVersion: 1.3.5
+          cdktfVersion: 0.14.1
           workingDirectory: ./cdktf
           stackName: cdktf
           mode: auto-approve-apply
