@@ -26,6 +26,7 @@ interface ComputeStackConfig {
     aud: string
     publicKey: string
   }
+  ociProvider: oci.provider.OciProvider
 }
 
 export class Compute extends Construct {
@@ -47,6 +48,7 @@ export class Compute extends Construct {
       cfSshUsername,
       cfSshPassword,
       cfSshCertificate,
+      ociProvider,
     } = config
 
     this.availabilityDomain =
@@ -54,8 +56,9 @@ export class Compute extends Construct {
         this,
         "ads",
         {
-          adNumber: instance.instance.adNumber,
           compartmentId: compartmentId,
+          provider: ociProvider,
+          adNumber: instance.instance.adNumber,
         }
       )
 
@@ -63,8 +66,9 @@ export class Compute extends Construct {
       this,
       "all_boot_volumes",
       {
-        availabilityDomain: this.availabilityDomain.name,
         compartmentId: compartmentId,
+        provider: ociProvider,
+        availabilityDomain: this.availabilityDomain.name,
       }
     )
 
@@ -97,8 +101,9 @@ export class Compute extends Construct {
       this,
       "ubuntu_instance",
       {
-        availabilityDomain: this.availabilityDomain.name,
         compartmentId: compartmentId,
+        provider: ociProvider,
+        availabilityDomain: this.availabilityDomain.name,
         createVnicDetails: {
           assignPrivateDnsRecord: true,
           assignPublicIp: "true",

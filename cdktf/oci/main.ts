@@ -6,7 +6,7 @@ import * as Compute from "./compute/main"
 import * as Tunnel from "./tunnel/main"
 
 import { Construct } from "constructs"
-import { Token } from "cdktf"
+import { Token, TerraformOutput } from "cdktf"
 
 export interface OCIAuthConfig {
   alias: string
@@ -65,18 +65,24 @@ export class OCI extends Construct {
       terraformSshPublicKey,
     } = props
 
-    const ociProvider = new oci.provider.OciProvider(
-      this,
-      `provider-${providerConfig.config.alias}`,
-      {
-        ...providerConfig.config,
-        privateKey: providerConfig.privateKey,
-        region: region,
-      }
-    )
-
-    const profile = ociProvider.alias ? ociProvider.alias : "missing"
+    const profile = providerConfig.config.alias
+      ? providerConfig.config.alias
+      : "missing"
     const tenancyId = Token.asString(providerConfig.config.tenancyOcid)
+
+    // Providers
+    new TerraformOutput(this, `${name}-provider-config`, {
+      value: providerConfig.config,
+    })
+
+    let ociProvider = new oci.provider.OciProvider(this, `${name}-oci`, {
+      tenancyOcid: providerConfig.config.tenancyOcid,
+      userOcid: providerConfig.config.userOcid,
+      fingerprint: providerConfig.config.fingerprint,
+      privateKey: providerConfig.privateKey,
+      region: region,
+      alias: providerConfig.config.alias,
+    })
 
     // Create base infrastructure
     const base = new Base(this, `${name}-base`, {
@@ -84,6 +90,7 @@ export class OCI extends Construct {
       profile: profile,
       region: region,
       tenancyId: tenancyId,
+      ociProvider,
     })
 
     // Iterate over instances and create compute and tunnel resources
@@ -118,6 +125,7 @@ export class OCI extends Construct {
           region: region,
           subnetId: base.publicSubnet.id,
           terraformSshPublicKey: terraformSshPublicKey,
+          ociProvider,
         }
       )
 

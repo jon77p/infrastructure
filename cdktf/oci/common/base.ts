@@ -32,6 +32,7 @@ interface BaseStackProps {
   profile: string
   region: string
   networking: NetworkingConfig
+  ociProvider: oci.provider.OciProvider
 }
 
 export class Base extends Construct {
@@ -45,7 +46,7 @@ export class Base extends Construct {
   constructor(scope: Construct, name: string, props: BaseStackProps) {
     super(scope, name)
 
-    const { tenancyId, profile, region, networking } = props
+    const { tenancyId, profile, region, networking, ociProvider } = props
 
     const allProtocols = "all"
     const anywhere = "0.0.0.0/0"
@@ -58,6 +59,7 @@ export class Base extends Construct {
       "terraform",
       {
         compartmentId: tenancyId,
+        provider: ociProvider,
         description: "Compartment for Terraform resources.",
         name: "terraform",
       }
@@ -65,11 +67,13 @@ export class Base extends Construct {
 
     this.coreVcns = new oci.dataOciCoreVcns.DataOciCoreVcns(this, "core_vcn", {
       compartmentId: this.identityCompartment.id,
+      provider: ociProvider,
       displayName: "terraform",
     })
 
     this.vcn = new Vcn.Vcn(this, "vcn", {
       compartmentId: this.identityCompartment.id,
+      providers: [ociProvider],
       createInternetGateway: true,
       createNatGateway: false,
       createServiceGateway: false,
@@ -131,6 +135,7 @@ export class Base extends Construct {
       "security_list",
       {
         compartmentId: this.identityCompartment.id,
+        provider: ociProvider,
         displayName: "terraform",
         egressSecurityRules: [
           {
@@ -145,9 +150,10 @@ export class Base extends Construct {
     )
 
     this.privateSubnet = new oci.coreSubnet.CoreSubnet(this, "private", {
-      cidrBlock: networking.vcn.subnets.private.cidr,
       compartmentId: this.identityCompartment.id,
+      provider: ociProvider,
       displayName: "private",
+      cidrBlock: networking.vcn.subnets.private.cidr,
       dnsLabel: "private",
       prohibitInternetIngress: true,
       prohibitPublicIpOnVnic: true,
@@ -157,9 +163,10 @@ export class Base extends Construct {
     })
 
     this.publicSubnet = new oci.coreSubnet.CoreSubnet(this, "public", {
-      cidrBlock: networking.vcn.subnets.public.cidr,
       compartmentId: this.identityCompartment.id,
+      provider: ociProvider,
       displayName: "public",
+      cidrBlock: networking.vcn.subnets.public.cidr,
       dnsLabel: "public",
       prohibitInternetIngress: false,
       prohibitPublicIpOnVnic: false,
