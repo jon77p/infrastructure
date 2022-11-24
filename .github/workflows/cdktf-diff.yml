@@ -31,7 +31,8 @@ jobs:
         working-directory: ./cdktf
         run: yarn install --frozen-lockfile --immutable
       # CDKTF runs the plan here
-      - name: plan
+      - name: CDKTF Diff
+        id: cdktf-diff
         working-directory: ./cdktf
         run: |
           yarn get && yarn diff
@@ -42,16 +43,17 @@ jobs:
       # Replace this step with any workflow you like, e.g. posting a message in a slack channel.
       - uses: actions/github-script@0.9.0
         if: github.event_name == 'pull_request'
-        env:
-          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}" # CDKTF gets the output from the last step
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }} # Create a secret with a GitHub token that can comment on PRs
           script: |
             const output = `#### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
             <details><summary>Show Plan</summary>
-            \`\`\`${process.env.PLAN}\`\`\`
+            \`\`\`
+            terraform
+            ${{ steps.cdktf-diff.outputs.stdout }}
+            \`\`\`
             </details>
-            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ env.tf_actions_working_dir }}\`, Workflow: \`${{ github.workflow }}\`*`;
+            **Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ env.tf_actions_working_dir }}\`, Workflow: \`${{ github.workflow }}\`**`;
             github.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
