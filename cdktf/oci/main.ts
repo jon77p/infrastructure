@@ -20,10 +20,10 @@ export interface OCIAuthConfig {
 export interface InstanceConfig {
   name: string
   domain: string
-  isSubdomain: boolean
-  adNumber: number
+  is_subdomain: boolean
+  ad_number: number
   region: string
-  imageId: string
+  image_id: string
   shape: string
   memory: number
   ocpus: number
