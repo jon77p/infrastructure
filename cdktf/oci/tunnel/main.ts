@@ -31,7 +31,9 @@ export class Tunnel extends Construct {
     } = config
 
     // Initialize random provider
-    new random.provider.RandomProvider(this, "random")
+    new random.provider.RandomProvider(this, `${name}-random`, {
+      alias: `${name}-random`,
+    })
 
     // Create a random string for the tunnel secret
     this.tunnelSecret = new random.id.Id(this, "tunnel_secret", {
