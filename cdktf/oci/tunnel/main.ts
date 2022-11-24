@@ -105,7 +105,7 @@ export class Tunnel extends Construct {
 
     this.tunnel = new cloudflare.argoTunnel.ArgoTunnel(this, `tunnel_${name}`, {
       accountId: config.accountId,
-      name: name,
+      name: instance.name,
       secret: this.tunnelSecret.b64Std,
     })
 
