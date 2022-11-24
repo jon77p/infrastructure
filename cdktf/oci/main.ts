@@ -7,7 +7,7 @@ import * as Compute from "./compute/main"
 import { Tunnel, CFConfig } from "./tunnel/main"
 
 import { Construct } from "constructs"
-import { Token, TerraformOutput, TerraformVariable, Fn } from "cdktf"
+import { Token, TerraformVariable, Fn } from "cdktf"
 
 export interface OCIAuthConfig {
   alias: string
@@ -56,7 +56,7 @@ export class OCI extends Construct {
     const tenancyId = Token.asString(providerConfig.config.tenancyOcid)
 
     // OCI Provider
-    let ociProvider = new oci.provider.OciProvider(this, `${name}-oci`, {
+    const ociProvider = new oci.provider.OciProvider(this, `${name}-oci`, {
       tenancyOcid: providerConfig.config.tenancyOcid,
       userOcid: providerConfig.config.userOcid,
       fingerprint: providerConfig.config.fingerprint,
@@ -136,14 +136,14 @@ export class MultiRegionOCI extends Construct {
     super(scope, name)
 
     // Get the auth config for the current name
-    let { tenancyOcid, userOcid, fingerprint } = this.getAuthConfig(
+    const { tenancyOcid, userOcid, fingerprint } = this.getAuthConfig(
       props.authConfig,
       props.name
     )
 
     // Iterate number of region times to create a provider for each configured region
     for (const region of props.config.regions) {
-      let regionConfig: OciProviderConfig = {
+      const regionConfig: OciProviderConfig = {
         alias: `${
           props.config.regions.length > 1
             ? `${props.name}-${region}`
@@ -179,7 +179,7 @@ export class MultiRegionOCI extends Construct {
     */
 
     // Below is WORKING for output values, but rendered cdk.tf.json is different than terraform
-    let authConfigName = Fn.lookup(authConfig.value, name, {
+    const authConfigName = Fn.lookup(authConfig.value, name, {
       alias: "",
       user_ocid: "",
       fingerprint: "",
@@ -188,13 +188,13 @@ export class MultiRegionOCI extends Construct {
     })
 
     // Get tenancy_ocid from authConfig as Token
-    let tenancyOcid = Fn.lookup(authConfigName, "tenancy_ocid", "")
+    const tenancyOcid = Fn.lookup(authConfigName, "tenancy_ocid", "")
 
     // Get user_ocid from authConfig as Token
-    let userOcid = Fn.lookup(authConfigName, "user_ocid", "")
+    const userOcid = Fn.lookup(authConfigName, "user_ocid", "")
 
     // Get fingerprint from authConfig as Token
-    let fingerprint = Fn.lookup(authConfigName, "fingerprint", "")
+    const fingerprint = Fn.lookup(authConfigName, "fingerprint", "")
 
     return { tenancyOcid, userOcid, fingerprint }
   }
