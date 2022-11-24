@@ -67,9 +67,6 @@ export class Base extends Construct {
       displayName: "terraform",
     })
 
-    /*This allows the Terraform resource name to match the original name. You can remove the call if you don't need them to match.*/
-    this.coreVcns.overrideLogicalId("terraform")
-
     this.vcn = new Vcn.Vcn(this, "vcn", {
       compartmentId: this.identityCompartment.id,
       createInternetGateway: true,
@@ -141,9 +138,6 @@ export class Base extends Construct {
         vcnId: this.vcn.vcnIdOutput,
       }
     )
-
-    /*This allows the Terraform resource name to match the original name. You can remove the call if you don't need them to match.*/
-    this.securityList.overrideLogicalId("terraform")
 
     this.privateSubnet = new oci.coreSubnet.CoreSubnet(this, "private", {
       cidrBlock: networking.vcn.subnets.private.cidr,

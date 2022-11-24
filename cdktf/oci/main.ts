@@ -5,7 +5,6 @@ import { Base, NetworkingConfig } from "./common/base"
 import * as Compute from "./compute/main"
 import * as Tunnel from "./tunnel/main"
 
-import { TerraformStack } from "cdktf"
 import { Construct } from "constructs"
 
 export interface OCIAuthConfig {
@@ -35,7 +34,7 @@ export interface OCIConfig {
 }
 
 interface OCIStackProps {
-  ociConfig: OCIConfig
+  config: OCIConfig
   providerConfig: { config: OCIAuthConfig; privateKey: string }
   region: string
   cfAccountId: string
@@ -48,12 +47,12 @@ interface OCIStackProps {
   terraformSshPublicKey: string
 }
 
-export class OCI extends TerraformStack {
+export class OCI extends Construct {
   constructor(scope: Construct, name: string, props: OCIStackProps) {
     super(scope, name)
 
     const {
-      ociConfig,
+      config,
       providerConfig,
       region,
       cfAccountId,
@@ -78,49 +77,51 @@ export class OCI extends TerraformStack {
     const profile = ociProvider.alias ? ociProvider.alias : "missing"
     const tenancyId = providerConfig.config.tenancy_ocid
 
-    // Restrict instances to the current region
-    const instances = new Map<string, InstanceConfig>()
-    for (const [name, instance] of ociConfig.instances) {
-      if (instance.region === region) {
-        instances.set(name, instance)
-      }
-    }
-
     // Create base infrastructure
-    const base = new Base(this, "base", {
-      networking: ociConfig.networking,
+    const base = new Base(this, `${name}-base`, {
+      networking: config.networking,
       profile: profile,
       region: region,
       tenancyId: tenancyId,
     })
 
-    for (const [name, instance] of instances) {
+    // Iterate over instances and create compute and tunnel resources
+    for (const [instanceName, instance] of Object.entries(config.instances)) {
+      // Skip if the instance is not in the current region
+      if (instance.region !== region) {
+        continue
+      }
+
       // Create a tunnel for each instance
-      const tunnel = new Tunnel.Tunnel(this, "tunnel", {
+      const tunnel = new Tunnel.Tunnel(this, `${name}-${instanceName}-tunnel`, {
         cfAccountId: cfAccountId,
         cfAdminGroupId: cfAdminGroupId,
         cfAdminServiceTokenId: cfAdminServiceTokenId,
         cfAllowedIdpIds: cfAllowedIdpIds,
-        instance: { name, instance },
+        instance: { name: instanceName, instance },
       })
 
       // Create each instance
-      const compute = new Compute.Compute(this, "compute", {
-        cfAccountId: cfAccountId,
-        cfSshCertificate: tunnel.sshCertificate,
-        cfSshPassword: cfSshPassword,
-        cfSshUsername: cfSshUsername,
-        cfTunnelSecret: tunnel.tunnelSecret.toString(),
-        cfTunnel: tunnel.tunnel,
-        compartmentId: base.identityCompartment.id,
-        instance: { name, instance },
-        region: region,
-        subnetId: base.publicSubnet.id,
-        terraformSshPublicKey: terraformSshPublicKey,
-      })
+      const compute = new Compute.Compute(
+        this,
+        `${name}-${instanceName}-compute`,
+        {
+          cfAccountId: cfAccountId,
+          cfSshCertificate: tunnel.sshCertificate,
+          cfSshPassword: cfSshPassword,
+          cfSshUsername: cfSshUsername,
+          cfTunnelSecret: tunnel.tunnelSecret.toString(),
+          cfTunnel: tunnel.tunnel,
+          compartmentId: base.identityCompartment.id,
+          instance: { name: instanceName, instance },
+          region: region,
+          subnetId: base.publicSubnet.id,
+          terraformSshPublicKey: terraformSshPublicKey,
+        }
+      )
 
       // Create a record pointing to the instance
-      new cloudflare.record.Record(this, "instance_record", {
+      new cloudflare.record.Record(this, `${name}-${instanceName}-record`, {
         name: `${instance.name}.${profile}.${instance.domain}`,
         proxied: false,
         type: "A",

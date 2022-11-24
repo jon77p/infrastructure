@@ -30,6 +30,9 @@ export class Tunnel extends Construct {
       instance,
     } = config
 
+    // Initialize random provider
+    new random.provider.RandomProvider(this, "random")
+
     // Create a random string for the tunnel secret
     this.tunnelSecret = new random.id.Id(this, "tunnel_secret", {
       byteLength: 35,
@@ -120,7 +123,7 @@ export class Tunnel extends Construct {
       type: "CNAME",
       value: tunnelDomain,
       zoneId: this.cloudflareZones.zones.get(0).id,
-    }).overrideLogicalId("ssh_app")
+    })
 
     new cloudflare.record.Record(this, `tunnel_app_${name}`, {
       name: `${

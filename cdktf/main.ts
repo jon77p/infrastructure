@@ -3,18 +3,24 @@ import * as cloudflare from "@cdktf/provider-cloudflare"
 import * as OCI from "./oci/main"
 
 import { Construct } from "constructs"
-import { App, TerraformStack } from "cdktf"
+import {
+  App,
+  TerraformStack,
+  TerraformOutput,
+  TerraformVariable,
+  VariableType,
+} from "cdktf"
 import { OCIAuthConfig, OCIConfig } from "./oci/main"
 
 import path = require("path")
 
-class MultiRegionOCIStack extends TerraformStack {
+class MultiRegionOCIStack extends Construct {
   constructor(
     scope: Construct,
     name: string,
     props: {
       name: string
-      config: OCI.OCIConfig
+      config: OCIConfig
       ociAuthPrivateKey: string
       cfAccountId: string
       cfAdminGroupId: string
@@ -24,82 +30,35 @@ class MultiRegionOCIStack extends TerraformStack {
       cfSshPassword: string
       cfSshUsername: string
       terraformSshPublicKey: string
+      authConfig: string
     }
   ) {
     super(scope, name)
 
-    // new cdktf.RemoteBackend(this, {
-    //   organization: "jon77p-xyz",
-    //   workspaces: [
-    //     {
-    //       name: "infrastructure",
-    //     },
-    //   ],
-    // });
-
-    new cdktf.CloudBackend(this, {
-      hostname: "app.terraform.io",
-      organization: "jon77p-xyz",
-      workspaces: new cdktf.NamedCloudWorkspace("infrastructure"),
+    new TerraformOutput(this, `${name}-config`, {
+      value: props.config,
     })
-
-    const authConfigVar = new cdktf.TerraformVariable(this, "oci", {
-      description: "map containing OCI authentication information",
-      type: cdktf.VariableType.map(
-        cdktf.VariableType.object({
-          alias: cdktf.VariableType.STRING,
-          user_ocid: cdktf.VariableType.STRING,
-          fingerprint: cdktf.VariableType.STRING,
-          tenancy_ocid: cdktf.VariableType.STRING,
-          regions: cdktf.VariableType.list(cdktf.VariableType.STRING),
-        })
-      ),
-      default: cdktf.VariableType.map(
-        cdktf.VariableType.object({
-          alias: cdktf.VariableType.STRING,
-          user_ocid: cdktf.VariableType.STRING,
-          fingerprint: cdktf.VariableType.STRING,
-          tenancy_ocid: cdktf.VariableType.STRING,
-          regions: cdktf.VariableType.list(cdktf.VariableType.STRING),
-        })
-      ),
-      // type: "map(object({alias = string, user_ocid = string, fingerprint = string, tenancy_ocid = string, regions = list(string)}))",
-      // type: cdktf.VariableType.map(cdktf.VariableType.object(OCIAuthConfig)),
-    })
-
-    // Get Map from authConfigVar
-    const authConfigValue = authConfigVar.value as {
-      [key: string]: OCIAuthConfig
-    }
 
     // Get the auth config for the current name
-    const authConfig: OCIAuthConfig = authConfigValue[props.name] || {
-      alias: "",
-      user_ocid: "",
-      fingerprint: "",
-      tenancy_ocid: "",
-      regions: [],
-    }
+    let authConfig = this.getAuthConfig(props.authConfig, props.name)
 
-    // Iterate number of region times to create a provider for each region
-    for (let i = 0; i < authConfig.regions.length; i++) {
-      const region = authConfig.regions[i]
-
-      const regionConfig: OCI.OCIAuthConfig = {
+    // Iterate number of region times to create a provider for each configured region
+    for (const region of props.config.regions) {
+      let regionConfig: OCIAuthConfig = {
         ...authConfig,
         alias: `${
-          authConfig.regions.length > 1
-            ? `${props.name}-region${i}`
+          props.config.regions.length > 1
+            ? `${props.name}-${region}`
             : props.name
         }`,
       }
 
-      new OCI.OCI(this, props.name, {
+      new OCI.OCI(this, regionConfig.alias, {
         providerConfig: {
           config: regionConfig,
           privateKey: props.ociAuthPrivateKey,
         },
-        ociConfig: props.config,
+        config: props.config,
         cfAccountId: props.cfAccountId,
         cfAdminGroupId: props.cfAdminGroupId,
         cfAdminServiceTokenId: props.cfAdminServiceTokenId,
@@ -112,20 +71,17 @@ class MultiRegionOCIStack extends TerraformStack {
       })
     }
   }
+
+  getAuthConfig(authConfig: any, name: string): OCIAuthConfig {
+    let authConfigMap = cdktf.Token.asAnyMap(authConfig)
+
+    return authConfigMap[name] as OCIAuthConfig
+  }
 }
 
 class MyStack extends TerraformStack {
   constructor(scope: Construct, name: string) {
     super(scope, name)
-
-    // new cdktf.RemoteBackend(this, {
-    //   organization: "jon77p-xyz",
-    //   workspaces: [
-    //     {
-    //       name: "infrastructure",
-    //     },
-    //   ],
-    // });
 
     new cdktf.CloudBackend(this, {
       hostname: "app.terraform.io",
@@ -134,20 +90,16 @@ class MyStack extends TerraformStack {
     })
 
     // Terraform Vars
-    const cfAccountId = new cdktf.TerraformVariable(this, "cf_account_id", {
+    const cfAccountId = new TerraformVariable(this, "cf_account_id", {
       description: "The Cloudflare UUID for the Account the Zone lives in.",
       sensitive: true,
       type: "string",
     })
-    const cfAdminGroupId = new cdktf.TerraformVariable(
-      this,
-      "cf_admin_group_id",
-      {
-        description: "Id of administrator Cloudflare group",
-        type: "string",
-      }
-    )
-    const cfAdminServiceTokenId = new cdktf.TerraformVariable(
+    const cfAdminGroupId = new TerraformVariable(this, "cf_admin_group_id", {
+      description: "Id of administrator Cloudflare group",
+      type: "string",
+    })
+    const cfAdminServiceTokenId = new TerraformVariable(
       this,
       "cf_admin_service_token_id",
       {
@@ -155,36 +107,32 @@ class MyStack extends TerraformStack {
         type: "string",
       }
     )
-    const cfAllowedIdpIds = new cdktf.TerraformVariable(
-      this,
-      "cf_allowed_idp_ids",
-      {
-        default: [],
-        description: "list of allowed Cloudflare IDP ids",
-        type: "list(string)",
-      }
-    )
-    const cfApiToken = new cdktf.TerraformVariable(this, "cf_api_token", {
+    const cfAllowedIdpIds = new TerraformVariable(this, "cf_allowed_idp_ids", {
+      default: [],
+      description: "list of allowed Cloudflare IDP ids",
+      type: "list(string)",
+    })
+    const cfApiToken = new TerraformVariable(this, "cf_api_token", {
       description: "Cloudflare API token",
       sensitive: true,
       type: "string",
     })
-    const cfEmail = new cdktf.TerraformVariable(this, "cf_email", {
+    const cfEmail = new TerraformVariable(this, "cf_email", {
       description: "Cloudflare email",
       type: "string",
     })
-    const cfSshPassword = new cdktf.TerraformVariable(this, "cf_ssh_password", {
+    const cfSshPassword = new TerraformVariable(this, "cf_ssh_password", {
       description:
         "Password for user for sshing with Cloudflare short-lived certificates",
       sensitive: true,
       type: "string",
     })
-    const cfSshUsername = new cdktf.TerraformVariable(this, "cf_ssh_username", {
+    const cfSshUsername = new TerraformVariable(this, "cf_ssh_username", {
       description:
         "Username for sshing with Cloudflare short-lived certificates",
       type: "string",
     })
-    const ociAuthPrivateKey = new cdktf.TerraformVariable(
+    const ociAuthPrivateKey = new TerraformVariable(
       this,
       "oci_auth_private_key",
       {
@@ -193,7 +141,7 @@ class MyStack extends TerraformStack {
         type: "string",
       }
     )
-    const terraformSshPublicKey = new cdktf.TerraformVariable(
+    const terraformSshPublicKey = new TerraformVariable(
       this,
       "terraform_ssh_public_key",
       {
@@ -202,6 +150,20 @@ class MyStack extends TerraformStack {
         type: "string",
       }
     )
+    const authConfig = new TerraformVariable(this, "oci", {
+      description: "map containing OCI authentication information",
+      type: VariableType.map(
+        VariableType.object({
+          alias: VariableType.STRING,
+          user_ocid: VariableType.STRING,
+          fingerprint: VariableType.STRING,
+          tenancy_ocid: VariableType.STRING,
+          regions: VariableType.LIST_STRING,
+        })
+      ),
+      // type: "map(object({alias = string, user_ocid = string, fingerprint = string, tenancy_ocid = string, regions = list(string)}))",
+      // type: VariableType.map(VariableType.object(OCIAuthConfig)),
+    })
 
     // Providers
     new cloudflare.provider.CloudflareProvider(this, "cloudflare", {
@@ -213,6 +175,10 @@ class MyStack extends TerraformStack {
       __dirname,
       "infrastructure.json"
     ))
+
+    new TerraformOutput(this, "infrastructure-config", {
+      value: ociConfig,
+    })
 
     // Resources
 
@@ -230,240 +196,70 @@ class MyStack extends TerraformStack {
         cfSshPassword: cfSshPassword.value,
         cfSshUsername: cfSshUsername.value,
         terraformSshPublicKey: terraformSshPublicKey.value,
+        authConfig: authConfig.value,
       })
-    }
 
-    // Outputs
-    /*
-    new cdktf.TerraformOutput(this, "oci0-boot-volumes", {
-      value: oci0Stack.bootVolumesOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci0-compartment-id", {
-      value: oci0Stack.compartmentIdOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci0-compartment-name", {
-      value: oci0Stack.compartmentNameOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci0-instance-OCID", {
-      value: oci0Stack.instanceOcidOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci0-instance-boot-volume", {
-      value: oci0Stack.instanceBootVolumeOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci0-instance-name", {
-      value: oci0Stack.instanceNameOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci0-instance-public-ip", {
-      value: oci0Stack.instancePublicIpOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci0-private-subnet-dns_label", {
-      value: oci0Stack.privateSubnetDnsLabelOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci0-private-subnet-id", {
-      value: oci0Stack.privateSubnetIdOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci0-private-subnet-name", {
-      value: oci0Stack.privateSubnetNameOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci0-private-subnet-subnet_domain_name", {
-      value: oci0Stack.privateSubnetSubnetDomainNameOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci0-public-subnet-dns_label", {
-      value: oci0Stack.publicSubnetDnsLabelOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci0-public-subnet-id", {
-      value: oci0Stack.publicSubnetIdOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci0-public-subnet-name", {
-      value: oci0Stack.publicSubnetNameOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci0-public-subnet-subnet_domain_name", {
-      value: oci0Stack.publicSubnetSubnetDomainNameOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci0-vcn-dns_label", {
-      value: oci0Stack.vcnDnsLabelOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci0-vcn-domain_name", {
-      value: oci0Stack.vcnDomainNameOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci0-vcn-id", {
-      value: oci0Stack.vcnIdOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci0-vcn-name", {
-      value: oci0Stack.vcnNameOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci1-boot-volumes", {
-      value: moduleOci1.bootVolumesOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci1-compartment-id", {
-      value: moduleOci1.compartmentIdOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci1-compartment-name", {
-      value: moduleOci1.compartmentNameOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci1-instance-OCID", {
-      value: moduleOci1.instanceOcidOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci1-instance-boot-volume", {
-      value: moduleOci1.instanceBootVolumeOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci1-instance-name", {
-      value: moduleOci1.instanceNameOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci1-instance-public-ip", {
-      value: moduleOci1.instancePublicIpOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci1-private-subnet-dns_label", {
-      value: moduleOci1.privateSubnetDnsLabelOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci1-private-subnet-id", {
-      value: moduleOci1.privateSubnetIdOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci1-private-subnet-name", {
-      value: moduleOci1.privateSubnetNameOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci1-private-subnet-subnet_domain_name", {
-      value: moduleOci1.privateSubnetSubnetDomainNameOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci1-public-subnet-dns_label", {
-      value: moduleOci1.publicSubnetDnsLabelOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci1-public-subnet-id", {
-      value: moduleOci1.publicSubnetIdOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci1-public-subnet-name", {
-      value: moduleOci1.publicSubnetNameOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci1-public-subnet-subnet_domain_name", {
-      value: moduleOci1.publicSubnetSubnetDomainNameOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci1-vcn-dns_label", {
-      value: moduleOci1.vcnDnsLabelOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci1-vcn-domain_name", {
-      value: moduleOci1.vcnDomainNameOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci1-vcn-id", {
-      value: moduleOci1.vcnIdOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci1-vcn-name", {
-      value: moduleOci1.vcnNameOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci2-region0-boot-volumes", {
-      value: moduleOci2Region0.bootVolumesOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci2-region0-compartment-id", {
-      value: moduleOci2Region0.compartmentIdOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci2-region0-compartment-name", {
-      value: moduleOci2Region0.compartmentNameOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci2-region0-instance-OCID", {
-      value: moduleOci2Region0.instanceOcidOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci2-region0-instance-boot-volume", {
-      value: moduleOci2Region0.instanceBootVolumeOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci2-region0-instance-name", {
-      value: moduleOci2Region0.instanceNameOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci2-region0-instance-public-ip", {
-      value: moduleOci2Region0.instancePublicIpOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci2-region0-private-subnet-dns_label", {
-      value: moduleOci2Region0.privateSubnetDnsLabelOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci2-region0-private-subnet-id", {
-      value: moduleOci2Region0.privateSubnetIdOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci2-region0-private-subnet-name", {
-      value: moduleOci2Region0.privateSubnetNameOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci2-region0-private-subnet-subnet_domain_name", {
-      value: moduleOci2Region0.privateSubnetSubnetDomainNameOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci2-region0-public-subnet-dns_label", {
-      value: moduleOci2Region0.publicSubnetDnsLabelOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci2-region0-public-subnet-id", {
-      value: moduleOci2Region0.publicSubnetIdOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci2-region0-public-subnet-name", {
-      value: moduleOci2Region0.publicSubnetNameOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci2-region0-public-subnet-subnet_domain_name", {
-      value: moduleOci2Region0.publicSubnetSubnetDomainNameOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci2-region0-vcn-dns_label", {
-      value: moduleOci2Region0.vcnDnsLabelOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci2-region0-vcn-domain_name", {
-      value: moduleOci2Region0.vcnDomainNameOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci2-region0-vcn-id", {
-      value: moduleOci2Region0.vcnIdOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci2-region0-vcn-name", {
-      value: moduleOci2Region0.vcnNameOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci2-region1-boot-volumes", {
-      value: moduleOci2Region1.bootVolumesOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci2-region1-compartment-id", {
-      value: moduleOci2Region1.compartmentIdOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci2-region1-compartment-name", {
-      value: moduleOci2Region1.compartmentNameOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci2-region1-instance-OCID", {
-      value: moduleOci2Region1.instanceOcidOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci2-region1-instance-boot-volume", {
-      value: moduleOci2Region1.instanceBootVolumeOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci2-region1-instance-name", {
-      value: moduleOci2Region1.instanceNameOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci2-region1-instance-public-ip", {
-      value: moduleOci2Region1.instancePublicIpOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci2-region1-private-subnet-dns_label", {
-      value: moduleOci2Region1.privateSubnetDnsLabelOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci2-region1-private-subnet-id", {
-      value: moduleOci2Region1.privateSubnetIdOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci2-region1-private-subnet-name", {
-      value: moduleOci2Region1.privateSubnetNameOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci2-region1-private-subnet-subnet_domain_name", {
-      value: moduleOci2Region1.privateSubnetSubnetDomainNameOutput,
-  });
-    new cdktf.TerraformOutput(this, "oci2-region1-public-subnet-dns_label", {
-      value: moduleOci2Region1.publicSubnetDnsLabelOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci2-region1-public-subnet-id", {
-      value: moduleOci2Region1.publicSubnetIdOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci2-region1-public-subnet-name", {
-      value: moduleOci2Region1.publicSubnetNameOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci2-region1-public-subnet-subnet_domain_name", {
-      value: moduleOci2Region1.publicSubnetSubnetDomainNameOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci2-region1-vcn-dns_label", {
-      value: moduleOci2Region1.vcnDnsLabelOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci2-region1-vcn-domain_name", {
-      value: moduleOci2Region1.vcnDomainNameOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci2-region1-vcn-id", {
-      value: moduleOci2Region1.vcnIdOutput,
-    });
-    new cdktf.TerraformOutput(this, "oci2-region1-vcn-name", {
-      value: moduleOci2Region1.vcnNameOutput,
-    });
-    */
+      // Outputs
+      /*
+      new TerraformOutput(this, `${name}-boot-volumes`, {
+        value: oci0Stack.bootVolumesOutput,
+      });
+      new TerraformOutput(this, `${name}-compartment-id`, {
+        value: oci0Stack.compartmentIdOutput,
+      });
+      new TerraformOutput(this, `${name}-compartment-name`, {
+        value: oci0Stack.compartmentNameOutput,
+      });
+      new TerraformOutput(this, `${name}-instance-OCID`, {
+        value: oci0Stack.instanceOcidOutput,
+      });
+      new TerraformOutput(this, `${name}-instance-boot-volume`, {
+        value: oci0Stack.instanceBootVolumeOutput,
+      });
+      new TerraformOutput(this, `${name}-instance-name`, {
+        value: oci0Stack.instanceNameOutput,
+      });
+      new TerraformOutput(this, `${name}-instance-public-ip`, {
+        value: oci0Stack.instancePublicIpOutput,
+      });
+      new TerraformOutput(this, `${name}-private-subnet-dns_label`, {
+        value: oci0Stack.privateSubnetDnsLabelOutput,
+      });
+      new TerraformOutput(this, `${name}-private-subnet-id`, {
+        value: oci0Stack.privateSubnetIdOutput,
+      });
+      new TerraformOutput(this, `${name}-private-subnet-name`, {
+        value: oci0Stack.privateSubnetNameOutput,
+      });
+      new TerraformOutput(this, `${name}-private-subnet-subnet_domain_name`, {
+        value: oci0Stack.privateSubnetSubnetDomainNameOutput,
+      });
+      new TerraformOutput(this, `${name}-public-subnet-dns_label`, {
+        value: oci0Stack.publicSubnetDnsLabelOutput,
+      });
+      new TerraformOutput(this, `${name}-public-subnet-id`, {
+        value: oci0Stack.publicSubnetIdOutput,
+      });
+      new TerraformOutput(this, `${name}-public-subnet-name`, {
+        value: oci0Stack.publicSubnetNameOutput,
+      });
+      new TerraformOutput(this, `${name}-public-subnet-subnet_domain_name`, {
+        value: oci0Stack.publicSubnetSubnetDomainNameOutput,
+      });
+      new TerraformOutput(this, `${name}-vcn-dns_label`, {
+        value: oci0Stack.vcnDnsLabelOutput,
+      });
+      new TerraformOutput(this, `${name}-vcn-domain_name`, {
+        value: oci0Stack.vcnDomainNameOutput,
+      });
+      new TerraformOutput(this, `${name}-vcn-id`, {
+        value: oci0Stack.vcnIdOutput,
+      });
+      new TerraformOutput(this, `${name}-vcn-name`, {
+        value: oci0Stack.vcnNameOutput,
+      });
+      */
+    }
   }
 }
 
