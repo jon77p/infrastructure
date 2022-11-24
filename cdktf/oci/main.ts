@@ -6,6 +6,7 @@ import * as Compute from "./compute/main"
 import * as Tunnel from "./tunnel/main"
 
 import { Construct } from "constructs"
+import { Token } from "cdktf"
 
 export interface OCIAuthConfig {
   alias: string
@@ -35,7 +36,7 @@ export interface OCIConfig {
 
 interface OCIStackProps {
   config: OCIConfig
-  providerConfig: { config: OCIAuthConfig; privateKey: string }
+  providerConfig: { config: oci.provider.OciProviderConfig; privateKey: string }
   region: string
   cfAccountId: string
   cfEmail: string
@@ -75,7 +76,7 @@ export class OCI extends Construct {
     )
 
     const profile = ociProvider.alias ? ociProvider.alias : "missing"
-    const tenancyId = providerConfig.config.tenancy_ocid
+    const tenancyId = Token.asString(providerConfig.config.tenancyOcid)
 
     // Create base infrastructure
     const base = new Base(this, `${name}-base`, {

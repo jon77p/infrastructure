@@ -8,9 +8,13 @@ import {
   TerraformStack,
   TerraformOutput,
   TerraformVariable,
+  Token,
   VariableType,
+  Fn,
 } from "cdktf"
-import { OCIAuthConfig, OCIConfig } from "./oci/main"
+import { OCIConfig } from "./oci/main"
+
+import { OciProviderConfig } from "./.gen/providers/oci/provider"
 
 import path = require("path")
 
@@ -30,30 +34,32 @@ class MultiRegionOCIStack extends Construct {
       cfSshPassword: string
       cfSshUsername: string
       terraformSshPublicKey: string
-      authConfig: string
+      authConfig: TerraformVariable
     }
   ) {
     super(scope, name)
 
-    new TerraformOutput(this, `${name}-config`, {
-      value: props.config,
-    })
-
     // Get the auth config for the current name
-    let authConfig = this.getAuthConfig(props.authConfig, props.name)
+    let { tenancyOcid, userOcid, fingerprint } = this.getAuthConfig(
+      props.authConfig,
+      props.name
+    )
 
     // Iterate number of region times to create a provider for each configured region
     for (const region of props.config.regions) {
-      let regionConfig: OCIAuthConfig = {
-        ...authConfig,
+      let regionConfig: OciProviderConfig = {
         alias: `${
           props.config.regions.length > 1
             ? `${props.name}-${region}`
             : props.name
         }`,
+        tenancyOcid,
+        userOcid,
+        fingerprint,
+        region,
       }
 
-      new OCI.OCI(this, regionConfig.alias, {
+      new OCI.OCI(this, Token.asString(regionConfig.alias), {
         providerConfig: {
           config: regionConfig,
           privateKey: props.ociAuthPrivateKey,
@@ -72,10 +78,25 @@ class MultiRegionOCIStack extends Construct {
     }
   }
 
-  getAuthConfig(authConfig: any, name: string): OCIAuthConfig {
-    let authConfigMap = cdktf.Token.asAnyMap(authConfig)
+  getAuthConfig(authConfig: TerraformVariable, name: string) {
+    let authConfigName = Fn.lookup(authConfig.value, name, {
+      alias: "",
+      user_ocid: "",
+      fingerprint: "",
+      tenancy_ocid: "",
+      regions: [""],
+    })
 
-    return authConfigMap[name] as OCIAuthConfig
+    // Get tenancy_ocid from authConfig as Token
+    let tenancyOcid = Fn.lookup(authConfigName, "tenancy_ocid", "")
+
+    // Get user_ocid from authConfig as Token
+    let userOcid = Fn.lookup(authConfigName, "user_ocid", "")
+
+    // Get fingerprint from authConfig as Token
+    let fingerprint = Fn.lookup(authConfigName, "fingerprint", "")
+
+    return { tenancyOcid, userOcid, fingerprint }
   }
 }
 
@@ -176,10 +197,6 @@ class MyStack extends TerraformStack {
       "infrastructure.json"
     ))
 
-    new TerraformOutput(this, "infrastructure-config", {
-      value: ociConfig,
-    })
-
     // Resources
 
     // Iterate over ociConfig map and create OCI stacks
@@ -196,7 +213,7 @@ class MyStack extends TerraformStack {
         cfSshPassword: cfSshPassword.value,
         cfSshUsername: cfSshUsername.value,
         terraformSshPublicKey: terraformSshPublicKey.value,
-        authConfig: authConfig.value,
+        authConfig: authConfig,
       })
 
       // Outputs
