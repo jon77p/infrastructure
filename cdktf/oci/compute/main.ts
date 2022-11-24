@@ -74,15 +74,17 @@ export class Compute extends Construct {
     })
 
     // Filter to match on boot volumes that start with the instance name and are in the available state
-    this.bootVolumes.addOverride("filter", {
-      "display-name": {
+    this.bootVolumes.addOverride("filter", [
+      {
+        name: "display-name",
         regex: true,
         values: [instance.name],
       },
-      state: {
+      {
+        name: "state",
         values: ["AVAILABLE"],
       },
-    })
+    ])
 
     const sourceId = `${
       this.bootVolumes.count == 1
