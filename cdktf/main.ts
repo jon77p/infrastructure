@@ -6,7 +6,6 @@ import { Construct } from "constructs"
 import {
   App,
   TerraformStack,
-  TerraformOutput,
   TerraformVariable,
   Token,
   VariableType,
