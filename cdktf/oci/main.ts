@@ -1,12 +1,13 @@
 import * as cloudflare from "@cdktf/provider-cloudflare"
 import * as oci from "../.gen/providers/oci"
+import { OciProviderConfig } from "../.gen/providers/oci/provider"
 
 import { Base, NetworkingConfig } from "./common/base"
 import * as Compute from "./compute/main"
 import { Tunnel, CFConfig } from "./tunnel/main"
 
 import { Construct } from "constructs"
-import { Token, TerraformOutput } from "cdktf"
+import { Token, TerraformOutput, TerraformVariable, Fn } from "cdktf"
 
 export interface OCIAuthConfig {
   alias: string
@@ -181,6 +182,86 @@ export class OCI extends Construct {
       value: compute.instancePublicIpOutput,
     });
     */
+  }
+}
+
+export class MultiRegionOCI extends Construct {
+  constructor(
+    scope: Construct,
+    name: string,
+    props: {
+      name: string
+      config: OCIConfig
+      authConfig: TerraformVariable
+      ociAuthPrivateKey: string
+      cfConfig: CFConfig
+      terraformSshPublicKey: string
+    }
+  ) {
+    super(scope, name)
+
+    // Get the auth config for the current name
+    let { tenancyOcid, userOcid, fingerprint } = this.getAuthConfig(
+      props.authConfig,
+      props.name
+    )
+
+    // Iterate number of region times to create a provider for each configured region
+    for (const region of props.config.regions) {
+      let regionConfig: OciProviderConfig = {
+        alias: `${
+          props.config.regions.length > 1
+            ? `${props.name}-${region}`
+            : props.name
+        }`,
+        tenancyOcid,
+        userOcid,
+        fingerprint,
+        region,
+      }
+
+      new OCI(this, Token.asString(regionConfig.alias), {
+        providerConfig: {
+          config: regionConfig,
+          privateKey: props.ociAuthPrivateKey,
+        },
+        config: props.config,
+        cfConfig: props.cfConfig,
+        region: region,
+        terraformSshPublicKey: props.terraformSshPublicKey,
+      })
+    }
+  }
+
+  getAuthConfig(authConfig: TerraformVariable, name: string) {
+    // This is one solution that matches what was used in the original terraform code
+    /*
+    return {
+      tenancyOcid: `\${var.oci[\"${name}\"].tenancy_ocid}`,
+      userOcid: `\${var.oci[\"${name}\"].user_ocid}`,
+      fingerprint: `\${var.oci[\"${name}\"].fingerprint}`,
+    }
+    */
+
+    // Below is WORKING for output values, but rendered cdk.tf.json is different than terraform
+    let authConfigName = Fn.lookup(authConfig.value, name, {
+      alias: "",
+      user_ocid: "",
+      fingerprint: "",
+      tenancy_ocid: "",
+      regions: [""],
+    })
+
+    // Get tenancy_ocid from authConfig as Token
+    let tenancyOcid = Fn.lookup(authConfigName, "tenancy_ocid", "")
+
+    // Get user_ocid from authConfig as Token
+    let userOcid = Fn.lookup(authConfigName, "user_ocid", "")
+
+    // Get fingerprint from authConfig as Token
+    let fingerprint = Fn.lookup(authConfigName, "fingerprint", "")
+
+    return { tenancyOcid, userOcid, fingerprint }
   }
 }
 
