@@ -41,14 +41,21 @@ interface OCIProps {
   region: string
   cfConfig: CFConfig
   terraformSshPublicKey: string
+  tailscale_auth_key: string
 }
 
 export class OCI extends Construct {
   constructor(scope: Construct, name: string, props: OCIProps) {
     super(scope, name)
 
-    const { config, providerConfig, region, cfConfig, terraformSshPublicKey } =
-      props
+    const {
+      config,
+      providerConfig,
+      region,
+      cfConfig,
+      terraformSshPublicKey,
+      tailscale_auth_key,
+    } = props
 
     const profile = providerConfig.config.alias
       ? providerConfig.config.alias
@@ -105,6 +112,7 @@ export class OCI extends Construct {
           subnetId: base.publicSubnet.id,
           terraformSshPublicKey: terraformSshPublicKey,
           ociProvider,
+          tailscale_auth_key,
         }
       )
 
@@ -131,6 +139,7 @@ export class MultiRegionOCI extends Construct {
       ociAuthPrivateKey: string
       cfConfig: CFConfig
       terraformSshPublicKey: string
+      tailscale_auth_key: string
     }
   ) {
     super(scope, name)
@@ -164,6 +173,7 @@ export class MultiRegionOCI extends Construct {
         cfConfig: props.cfConfig,
         region: region,
         terraformSshPublicKey: props.terraformSshPublicKey,
+        tailscale_auth_key: props.tailscale_auth_key,
       })
     }
   }

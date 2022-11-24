@@ -79,6 +79,16 @@ class InfrastructureStack extends TerraformStack {
         type: "string",
       }
     )
+    const tailscale_auth_key = new TerraformVariable(
+      this,
+      "tailscale_auth_key",
+      {
+        description: "Tailscale auth key",
+        sensitive: true,
+        type: "string",
+      }
+    )
+
     const authConfig = new TerraformVariable(this, "oci", {
       description: "map containing OCI authentication information",
       type: VariableType.map(
@@ -122,6 +132,7 @@ class InfrastructureStack extends TerraformStack {
           sshUsername: cfSshUsername.value,
         },
         terraformSshPublicKey: terraformSshPublicKey.value,
+        tailscale_auth_key: tailscale_auth_key.value,
       })
     }
   }

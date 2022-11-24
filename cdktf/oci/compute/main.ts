@@ -26,6 +26,7 @@ interface ComputeProps {
     publicKey: string
   }
   ociProvider: oci.provider.OciProvider
+  tailscale_auth_key: string
 }
 
 export class Compute extends Construct {
@@ -38,13 +39,14 @@ export class Compute extends Construct {
 
     const {
       compartmentId,
+      ociProvider,
       terraformSshPublicKey,
       instance,
       subnetId,
       cfConfig,
       cfTunnel,
       cfSshCertificate,
-      ociProvider,
+      tailscale_auth_key,
     } = props
 
     this.availabilityDomain =
@@ -124,6 +126,7 @@ export class Compute extends Construct {
                   ? `ssh-${instance.instance.name}.${instance.instance.domain}`
                   : `ssh.${instance.instance.domain}`
               }`,
+              tailscale_auth_key: tailscale_auth_key,
               tunnel_subdomain: `${
                 instance.instance.isSubdomain
                   ? `tunnel-${instance.instance.name}.${instance.instance.domain}`
