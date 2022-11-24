@@ -207,16 +207,16 @@ export class Base extends Construct {
       value: this.publicSubnet.subnetDomainName,
     })
     new cdktf.TerraformOutput(this, "vcn-dns_label", {
-      value: `${this.vcn.vcnAllAttributesOutput}.dnsLabel`,
+      value: `\${${this.vcn.vcnAllAttributesOutput}.dnsLabel}`,
     })
     new cdktf.TerraformOutput(this, "vcn-domain_name", {
-      value: `${this.vcn.vcnAllAttributesOutput}.dnsLabel`,
+      value: `\${${this.vcn.vcnAllAttributesOutput}.dnsLabel}`,
     })
     new cdktf.TerraformOutput(this, "vcn-id", {
       value: this.vcn.vcnIdOutput,
     })
     new cdktf.TerraformOutput(this, "vcn-name", {
-      value: `${this.vcn.vcnAllAttributesOutput}.displayName`,
+      value: `\${${this.vcn.vcnAllAttributesOutput}.displayName}`,
     })
   }
 }
