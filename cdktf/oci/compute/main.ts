@@ -56,7 +56,7 @@ export class Compute extends Construct {
         {
           compartmentId: compartmentId,
           provider: ociProvider,
-          adNumber: instance.instance.adNumber,
+          adNumber: instance.instance.ad_number,
         }
       )
 
@@ -91,7 +91,7 @@ export class Compute extends Construct {
     const sourceId = `${
       this.bootVolumes.count == 1
         ? this.bootVolumes.bootVolumes.get(0).id
-        : instance.instance.imageId
+        : instance.instance.image_id
     }`
     const sourceType = `${this.bootVolumes.count == 1 ? "bootVolume" : "image"}`
 
@@ -122,13 +122,13 @@ export class Compute extends Construct {
               cf_ssh_password: cfConfig.sshPassword,
               hostname: instance.name,
               ssh_subdomain: `${
-                instance.instance.isSubdomain
+                instance.instance.is_subdomain
                   ? `ssh-${instance.instance.name}.${instance.instance.domain}`
                   : `ssh.${instance.instance.domain}`
               }`,
               tailscale_auth_key: tailscale_auth_key,
               tunnel_subdomain: `${
-                instance.instance.isSubdomain
+                instance.instance.is_subdomain
                   ? `tunnel-${instance.instance.name}.${instance.instance.domain}`
                   : `tunnel.${instance.instance.domain}`
               }`,

@@ -47,7 +47,7 @@ export class Tunnel extends Construct {
       })
 
     const sshDomain = `${
-      instance.instance.isSubdomain
+      instance.instance.is_subdomain
         ? `ssh-${instance.name}.${instance.instance.domain}`
         : `ssh.${instance.instance.domain}`
     }`
@@ -110,13 +110,15 @@ export class Tunnel extends Construct {
     })
 
     const tunnelDomain = `${
-      instance.instance.isSubdomain
+      instance.instance.is_subdomain
         ? `tunnel-${instance.name}.${instance.instance.domain}`
         : `tunnel.${instance.instance.domain}`
     }`
 
     new cloudflare.record.Record(this, `ssh_app_${name}`, {
-      name: `${instance.instance.isSubdomain ? `ssh-${instance.name}` : "ssh"}`,
+      name: `${
+        instance.instance.is_subdomain ? `ssh-${instance.name}` : "ssh"
+      }`,
       proxied: true,
       type: "CNAME",
       value: tunnelDomain,
@@ -125,7 +127,7 @@ export class Tunnel extends Construct {
 
     new cloudflare.record.Record(this, `tunnel_app_${name}`, {
       name: `${
-        instance.instance.isSubdomain ? `tunnel-${instance.name}` : "tunnel"
+        instance.instance.is_subdomain ? `tunnel-${instance.name}` : "tunnel"
       }`,
       proxied: true,
       type: "CNAME",

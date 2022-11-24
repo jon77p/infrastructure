@@ -115,6 +115,7 @@ repos:
     hooks:
       - id: ansible-lint
         args: [-c, .ansible-lint.yml]
+        files: "^ansible/"
   # Docker-related hooks
   - repo: https://github.com/hadolint/hadolint
     rev: 0269c965ba799e7f79da826d9589eaca46eacb9a # frozen: v2.10.0
