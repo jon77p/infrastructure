@@ -325,10 +325,10 @@
     fs-extra "^8.1.0"
     node-fetch "^2.6.7"
 
-"@cdktf/provider-cloudflare@^3.0.12":
-  version "3.0.15"
-  resolved "https://registry.yarnpkg.com/@cdktf/provider-cloudflare/-/provider-cloudflare-3.0.15.tgz#786b2d6e9e067984a5826cd47dbbb66527f1246b"
-  integrity sha512-Yv/EU+MJIkIvsmVaq1aXkO+TXk2fFLzT2lbBw30KUUainn/wjvjpi44zBVEDCUvzJIi0I/z+bOsGV54ovL7msg==
+"@cdktf/provider-cloudflare@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@cdktf/provider-cloudflare/-/provider-cloudflare-4.0.0.tgz#9543d4ae969fa115d562cbe15c65138d58967045"
+  integrity sha512-azXufK4s7xN6gCKPE06/mkzg5Y3aHbTh+MFK6+0nci3A2MW3IuDwOM/r0GHtAy4JQ0in5IjteYZ5CTcPzCV9eA==
 
 "@cdktf/provider-generator@0.14.1":
   version "0.14.1"
@@ -342,15 +342,15 @@
     is-valid-domain "^0.1.6"
     jsii-srcmak "^0.1.686"
 
-"@cdktf/provider-random@^3.0.11":
-  version "3.0.11"
-  resolved "https://registry.yarnpkg.com/@cdktf/provider-random/-/provider-random-3.0.11.tgz#bfb13c5689afc859e1486a16924afc38aa1de3ac"
-  integrity sha512-HiNv/3cRZWaakx8c0YI1o8oHcFWdOEQf2epIVUu3Ntol+enx3ecpj5Zcoy9LOQ+/wJn1sRZkQAN1o4A/BMhzFA==
+"@cdktf/provider-random@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@cdktf/provider-random/-/provider-random-4.0.0.tgz#4576fe9e37fc4c0aae982b4f2615c1270e77e2fb"
+  integrity sha512-kbMgVfNR+61+7RGLHRYmx9ons2SpE+oFddzSSxzTmK0tljHQGVhlofzFOcqJYmrq4v0u9vz9/Aw3N3zibVaeuQ==
 
-"@cdktf/provider-template@^3.0.11":
-  version "3.0.11"
-  resolved "https://registry.yarnpkg.com/@cdktf/provider-template/-/provider-template-3.0.11.tgz#e3bab21e0250e74f6f30271f449f83e772ece9f0"
-  integrity sha512-WI3pvJ9Cxfv6u5S89Fi0mnPzu4r6PHTX/W2FDiWv0HFHk+qMwvIppy/xtNH2pcmnebtQaF5tFgY7FQb3G/Arbg==
+"@cdktf/provider-template@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@cdktf/provider-template/-/provider-template-4.0.0.tgz#983e0c6bc792feded3548d498adb35d306bbf9c8"
+  integrity sha512-rLDVrLSfvbykUW4T7vJcBRaQleyUF9a4aEVM2dEmupZ/4/tJ+0TXskeTYeFoBbiqH/IeuWQRkkLTBuGi24P7DQ==
 
 "@cspotcode/source-map-support@^0.8.0":
   version "0.8.1"

@@ -22,9 +22,9 @@
     "node": ">=14.0"
   },
   "dependencies": {
-    "@cdktf/provider-cloudflare": "^3.0.12",
-    "@cdktf/provider-random": "^3.0.11",
-    "@cdktf/provider-template": "^3.0.11",
+    "@cdktf/provider-cloudflare": "^4.0.0",
+    "@cdktf/provider-random": "^4.0.0",
+    "@cdktf/provider-template": "^4.0.0",
     "cdktf": "^0.14.1",
     "constructs": "^10.1.136"
   },
