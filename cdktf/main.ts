@@ -1,5 +1,6 @@
 import * as cdktf from "cdktf"
 import * as cloudflare from "@cdktf/provider-cloudflare"
+import * as random from "@cdktf/provider-random"
 import * as OCI from "./oci/main"
 
 import { Construct } from "constructs"
@@ -194,18 +195,17 @@ class MyStack extends TerraformStack {
       default: {},
     })
 
-    // Providers
-    new cloudflare.provider.CloudflareProvider(this, "cloudflare", {
-      apiToken: cfApiToken.value,
-    })
-
     // Read infrastructure config from local file
     const ociConfig: Map<string, OCIConfig> = require(path.join(
       __dirname,
       "infrastructure.json"
     ))
 
-    // Resources
+    // Providers
+    new cloudflare.provider.CloudflareProvider(this, "cloudflare", {
+      apiToken: cfApiToken.value,
+    })
+    new random.provider.RandomProvider(this, "random")
 
     // Iterate over ociConfig map and create OCI stacks
     for (const [name, config] of Object.entries(ociConfig)) {
