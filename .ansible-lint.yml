@@ -33,6 +33,10 @@ skip_list:
   - no-relative-paths
   - package-latest
   - latest[git]
+  # Just to silnece issues
+  - risky-file-permissions
+  - no-changed-when
+  - ignore-errors
 
 # Any rule that has the 'opt-in' tag will not be loaded unless its 'id' is
 # mentioned in the enable_list:

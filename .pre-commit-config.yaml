@@ -54,11 +54,6 @@ repos:
     hooks:
       - id: ggshield
         args: [secret, scan, pre-commit]
-  - repo: https://github.com/thoughtworks/talisman
-    rev: 63126f50cafcf5e30832252ac2802ff671b6289a # frozen: v1.29.1
-    hooks:
-      - id: talisman-commit
-        entry: cmd --githook pre-commit
   - repo: https://github.com/sirwart/ripsecrets
     rev: bffab8f67a008e845108f037eb9bf7e9c52da54f # frozen: v0.1.5
     hooks:
@@ -73,10 +68,14 @@ repos:
       - id: tartufo
         args: [pre-commit]
   # Python-related hooks
-  - repo: https://github.com/pycqa/pylint
-    rev: 403dac602ee01e317a22800e0d63bdeb0c2faa7e # frozen: v2.15.3
+  - repo: local
     hooks:
       - id: pylint
+        name: pylint
+        entry: pylint
+        language: system
+        types: [python]
+        args: ["-rn", "-sn", "--rcfile=.github/lint/.pylintrc"]
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: 33f4a30be4e66513c51a857712fc732e1a9ddd78 # frozen: v0.982
     hooks:

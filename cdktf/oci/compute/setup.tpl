@@ -8,7 +8,7 @@ if [ $ARCH = "aarch64" ]; then
   sudo apt install -y /tmp/init-cloudflared_arm64.deb
 else
   # Install and setup Cloudflare Tunnel from repo
-  echo 'deb http://pkg.cloudflare.com/ focal main' | sudo tee /etc/apt/sources.list.d/cloudflare-main.list
+  echo "deb http://pkg.cloudflare.com/ $(lsb_release -c | awk '{ print $2}') main" | sudo tee /etc/apt/sources.list.d/cloudflare-main.list
   curl -C - https://pkg.cloudflare.com/pubkey.gpg | sudo apt-key add -
   sudo apt-get update -y
   sudo apt install -y cloudflared
@@ -88,3 +88,9 @@ sudo sed -i 's/[#]\w*PubkeyAuthentication yes/PubkeyAuthentication yes\nTrustedU
 
 # Restart sshd to force server to have modified SSHD configuration
 sudo systemctl restart sshd
+
+# Install tailscale
+curl -fsSL https://tailscale.com/install.sh | sh
+
+# Register node with tailscale
+sudo tailscale up --authkey "${tailscale_auth_key}"

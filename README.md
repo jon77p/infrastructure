@@ -6,6 +6,8 @@
 ![Local Status](https://healthchecks.thepi.cloud/badge/e465366a-14f0-4ef1-b81a-6abc40/3iKjcFGj-2/Local.svg)
 ![Monitoring Status](https://healthchecks.thepi.cloud/badge/e465366a-14f0-4ef1-b81a-6abc40/NSLui28U/Monitoring.svg)
 
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new)
+
 ## Getting Started: [Minimal Setup]
 
 1. `docker swarm init` on manager node
