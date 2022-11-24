@@ -3,6 +3,7 @@ import * as oci from "../../.gen/providers/oci"
 import * as Vcn from "../../.gen/modules/oracle-terraform-modules/oci/vcn"
 
 import { Construct } from "constructs"
+import { Token } from "cdktf"
 
 export interface SubnetConfig {
   cidr: string
@@ -79,12 +80,15 @@ export class Base extends Construct {
       vcnName: "terraform",
     })
 
+    // Get the first vcn cidr
+    let vcnCidrFQN = Token.asString(this.vcn.vcnCidrs?.at(0))
+
     let ingressRules: oci.coreSecurityList.CoreSecurityListIngressSecurityRules[] =
       [
         {
           description: "Allows all TCP traffic for all ports for VCN subnet",
           protocol: tcpProtocol,
-          source: `\${\${${this.vcn.vcnAllAttributesOutput}.cidrBlocks.fqn}[0]}`,
+          source: vcnCidrFQN,
         },
         {
           description: "Allow SSH inbound",
@@ -99,7 +103,7 @@ export class Base extends Construct {
           description:
             "ICMP traffic for: 3, 4 Destination Unreachable: Fragmentation Needed and Don't Fragment was Set",
           protocol: icmpProtocol,
-          source: `\${\${${this.vcn.vcnAllAttributesOutput}.cidrBlocks.fqn}[0]}`,
+          source: vcnCidrFQN,
           sourceType: "CIDR_BLOCK",
           icmpOptions: {
             code: 4,
@@ -109,7 +113,7 @@ export class Base extends Construct {
         {
           description: "ICMP traffic for: 3 Destination Unreachable",
           protocol: icmpProtocol,
-          source: `\${\${${this.vcn.vcnAllAttributesOutput}.cidrBlocks.fqn}[0]}`,
+          source: vcnCidrFQN,
           sourceType: "CIDR_BLOCK",
           icmpOptions: {
             type: 3,
