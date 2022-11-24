@@ -54,6 +54,8 @@ export class Base extends Construct {
     const sshPort = 22
     const tcpProtocol = "6"
 
+    // Create a compartment for the resources
+    // Note: the compartment can only be created by a provider in the home region
     this.identityCompartment = new oci.identityCompartment.IdentityCompartment(
       this,
       "terraform",
