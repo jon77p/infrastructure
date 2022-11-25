@@ -31,8 +31,6 @@ interface ComputeProps {
 }
 
 export class Compute extends Construct {
-  public readonly availabilityDomain: oci.dataOciIdentityAvailabilityDomain.DataOciIdentityAvailabilityDomain
-  public readonly bootVolumes: oci.dataOciCoreBootVolumes.DataOciCoreBootVolumes
   public readonly coreInstance: oci.coreInstance.CoreInstance
 
   constructor(scope: Construct, name: string, props: ComputeProps) {
@@ -51,7 +49,7 @@ export class Compute extends Construct {
       tailscale_auth_key,
     } = props
 
-    this.availabilityDomain =
+    const availabilityDomain =
       new oci.dataOciIdentityAvailabilityDomain.DataOciIdentityAvailabilityDomain(
         this,
         "ads",
@@ -62,13 +60,13 @@ export class Compute extends Construct {
         }
       )
 
-    this.bootVolumes = new oci.dataOciCoreBootVolumes.DataOciCoreBootVolumes(
+    const bootVolumes = new oci.dataOciCoreBootVolumes.DataOciCoreBootVolumes(
       this,
       "all_boot_volumes",
       {
         compartmentId: compartmentId,
         provider: ociProvider,
-        availabilityDomain: this.availabilityDomain.name,
+        availabilityDomain: availabilityDomain.name,
         filter: [
           {
             name: "display_name",
@@ -85,13 +83,13 @@ export class Compute extends Construct {
 
     // Use the boot volume from the previous run if it exists, otherwise use the instance image
     const sourceType = `${
-      Token.asNumber(Fn.lengthOf(this.bootVolumes.bootVolumes)) > 0
+      Token.asNumber(Fn.lengthOf(bootVolumes.bootVolumes)) > 0
         ? "bootVolume"
         : "image"
     }`
     const sourceId = `${
-      Token.asNumber(Fn.lengthOf(this.bootVolumes.bootVolumes)) > 0
-        ? this.bootVolumes.bootVolumes.get(0).id
+      Token.asNumber(Fn.lengthOf(bootVolumes.bootVolumes)) > 0
+        ? bootVolumes.bootVolumes.get(0).id
         : instance.instance.image_id
     }`
 
@@ -113,7 +111,7 @@ export class Compute extends Construct {
       {
         compartmentId: compartmentId,
         provider: ociProvider,
-        availabilityDomain: this.availabilityDomain.name,
+        availabilityDomain: availabilityDomain.name,
         createVnicDetails: {
           assignPrivateDnsRecord: true,
           assignPublicIp: "true",
@@ -176,7 +174,7 @@ export class Compute extends Construct {
       value: this.coreInstance.bootVolumeId,
     })
     new TerraformOutput(this, "boot-volumes", {
-      value: this.bootVolumes,
+      value: bootVolumes,
     })
   }
 }
