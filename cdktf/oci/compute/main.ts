@@ -110,7 +110,6 @@ export class Compute extends Construct {
         },
         displayName: instance.instance.name,
         metadata: {
-          ssh_authorized_keys: `ssh-rsa ${terraformSshPublicKey} terraform`,
           user_data: Fn.base64gzip(
             Fn.templatefile(templateFile.path, {
               cf_account: cfConfig.accountId,
