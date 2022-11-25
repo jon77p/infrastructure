@@ -98,6 +98,7 @@ class InfrastructureStack extends TerraformStack {
           fingerprint: VariableType.STRING,
           tenancy_ocid: VariableType.STRING,
           regions: VariableType.LIST_STRING,
+          home_region: VariableType.STRING,
         })
       ),
       default: {},
