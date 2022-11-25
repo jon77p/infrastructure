@@ -4,20 +4,12 @@ ARCH="$(uname -m)"
 
 if [ $ARCH = "aarch64" ]; then
   # Install and setup Cloudflare Tunnel for ARM
-  curl https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64.deb -L -o /tmp/init-cloudflared_arm64.deb
-  sudo apt install -y /tmp/init-cloudflared_arm64.deb
+  curl https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64.deb -L -o /tmp/init-cloudflared.deb
 else
-  # Install and setup Cloudflare Tunnel from repo
-  # Add cloudflare gpg key
-  sudo mkdir -p --mode=0755 /usr/share/keyrings
-  curl -fsSL https://pkg.cloudflare.com/cloudflare-main.gpg | sudo tee /usr/share/keyrings/cloudflare-main.gpg >/dev/null
-
-  # Add cloudflare repo to apt repositories
-  echo "deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared $(lsb_release -c | awk '{ print $2}') main" | sudo tee /etc/apt/sources.list.d/cloudflared.list
-
-  sudo apt-get update -y
-  sudo apt install -y cloudflared
+  curl https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb -L -o /tmp/init-cloudflared.deb
 fi
+
+sudo dpkg -i /tmp/init-cloudflared.deb
 
 # A root directory is first created before we can install the tunnel as a system service
 cd /root
