@@ -131,7 +131,7 @@ export class Tunnel extends Construct {
       }`,
       proxied: true,
       type: "CNAME",
-      value: `${this.tunnel.cname}.cfargotunnel.com`,
+      value: this.tunnel.cname,
       zoneId: this.cloudflareZones.zones.get(0).id,
     })
   }
