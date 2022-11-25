@@ -8,8 +8,13 @@ if [ $ARCH = "aarch64" ]; then
   sudo apt install -y /tmp/init-cloudflared_arm64.deb
 else
   # Install and setup Cloudflare Tunnel from repo
-  echo "deb http://pkg.cloudflare.com/ $(lsb_release -c | awk '{ print $2}') main" | sudo tee /etc/apt/sources.list.d/cloudflare-main.list
-  curl -C - https://pkg.cloudflare.com/pubkey.gpg | sudo apt-key add -
+  # Add cloudflare gpg key
+  sudo mkdir -p --mode=0755 /usr/share/keyrings
+  curl -fsSL https://pkg.cloudflare.com/cloudflare-main.gpg | sudo tee /usr/share/keyrings/cloudflare-main.gpg >/dev/null
+
+  # Add cloudflare repo to apt repositories
+  echo "deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared $(lsb_release -c | awk '{ print $2}') main" | sudo tee /etc/apt/sources.list.d/cloudflared.list
+
   sudo apt-get update -y
   sudo apt install -y cloudflared
 fi
