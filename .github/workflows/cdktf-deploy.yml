@@ -53,6 +53,7 @@ jobs:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
       - name: Store generated CDKTF
         uses: actions/upload-artifact@v3
+        if: always()
         with:
           name: cdktf
           path: cdktf/cdktf.out/
