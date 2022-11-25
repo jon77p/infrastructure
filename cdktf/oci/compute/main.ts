@@ -2,7 +2,7 @@ import * as oci from "../../.gen/providers/oci"
 
 import { Construct } from "constructs"
 
-import { TerraformAsset, Fn, TerraformOutput } from "cdktf"
+import { TerraformAsset, Fn, TerraformOutput, Token } from "cdktf"
 import * as path from "path"
 
 import { InstanceConfig, GrafanaConfig } from "../main"
@@ -83,14 +83,14 @@ export class Compute extends Construct {
       }
     )
 
+    let sourceType = "image"
+    let sourceId = instance.instance.image_id
+
     // Use the boot volume from the previous run if it exists
-    const sourceId = `${
-      this.bootVolumes.count == 1
-        ? this.bootVolumes.bootVolumes.get(0).id
-        : instance.instance.image_id
-    }`
-    // Set the source type based on whether we're using a boot volume or an image
-    const sourceType = `${this.bootVolumes.count == 1 ? "bootVolume" : "image"}`
+    if (Token.asNumber(this.bootVolumes.count) === 1) {
+      sourceType = "bootVolume"
+      sourceId = this.bootVolumes.bootVolumes.get(0).id
+    }
 
     // Load setup script
     const templateFile = new TerraformAsset(this, "setup-script", {
@@ -157,7 +157,7 @@ export class Compute extends Construct {
       value: this.coreInstance.displayName,
     })
     new TerraformOutput(this, "instance-hostname", {
-      value: this.coreInstance.hostnameLabel,
+      value: this.coreInstance.createVnicDetails.hostnameLabel,
     })
     new TerraformOutput(this, "instance-source-details", {
       value: this.coreInstance.sourceDetails,
