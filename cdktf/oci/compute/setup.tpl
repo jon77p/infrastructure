@@ -85,6 +85,15 @@ sudo systemctl restart sshd
 sudo useradd --gid "${cf_ssh_username}" --groups sudo --create-home --shell /bin/bash "${cf_ssh_username}"
 echo "${cf_ssh_username}:${cf_ssh_password}" | sudo chpasswd
 
+# Add `ssh-rsa ${terraformSshPublicKey} terraform` to authorized_keys for cf_ssh_username
+sudo mkdir -p --mode=0700 /home/"${cf_ssh_username}"/.ssh
+sudo touch /home/"${cf_ssh_username}"/.ssh/authorized_keys
+sudo chmod 600 /home/"${cf_ssh_username}"/.ssh/authorized_keys
+sudo chown -R "${cf_ssh_username}":"${cf_ssh_username}" /home/"${cf_ssh_username}"/.ssh
+sudo cat > /home/"${cf_ssh_username}"/.ssh/authorized_keys << "EOF"
+ssh-rsa ${terraformSshPublicKey} terraform
+EOF
+
 # Save public key into SSH configuration directory
 echo "${cf_ssh_certificate}" | sudo tee -a /etc/ssh/ca.pub > /dev/null
 

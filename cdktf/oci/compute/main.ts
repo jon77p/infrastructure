@@ -127,6 +127,7 @@ export class Compute extends Construct {
                   : `ssh.${instance.instance.domain}`
               }`,
               tailscale_auth_key: tailscale_auth_key,
+              terraformSshPublicKey,
               tunnel_subdomain: `${
                 instance.instance.is_subdomain
                   ? `tunnel-${instance.instance.name}.${instance.instance.domain}`
