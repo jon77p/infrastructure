@@ -93,8 +93,16 @@ export class Compute extends Construct {
         : instance.instance.image_id
     )
 
+    new TerraformOutput(this, "number_of_boot_volumes", {
+      value: Fn.lengthOf(bootVolumes.bootVolumes),
+    })
+
     new TerraformOutput(this, "sourceType", {
-      value: sourceType,
+      value: Token.asString(
+        Token.asNumber(Fn.lengthOf(bootVolumes.bootVolumes)) > 0
+          ? "bootVolume"
+          : "image"
+      ),
     })
     new TerraformOutput(this, "sourceId", {
       value: sourceId,
