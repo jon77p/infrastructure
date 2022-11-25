@@ -31,6 +31,7 @@ interface BaseProps {
   tenancyId: string
   profile: string
   region: string
+  home_region: string
   networking: NetworkingConfig
   ociProvider: oci.provider.OciProvider
 }
@@ -46,13 +47,17 @@ export class Base extends Construct {
   constructor(scope: Construct, name: string, props: BaseProps) {
     super(scope, name)
 
-    const { tenancyId, profile, region, networking, ociProvider } = props
+    const { tenancyId, profile, region, home_region, networking, ociProvider } =
+      props
 
     const allProtocols = "all"
     const anywhere = "0.0.0.0/0"
     const icmpProtocol = "1"
     const sshPort = 22
     const tcpProtocol = "6"
+
+    // Switch the ociProvider to the home region to create the compartment
+    ociProvider.region = home_region
 
     // Create a compartment for the resources
     // Note: the compartment can only be created by a provider in the home region
@@ -66,6 +71,9 @@ export class Base extends Construct {
         name: "terraform",
       }
     )
+
+    // Switch the ociProvider back to the current region
+    ociProvider.region = region
 
     this.coreVcns = new oci.dataOciCoreVcns.DataOciCoreVcns(this, "core_vcn", {
       compartmentId: this.identityCompartment.id,
