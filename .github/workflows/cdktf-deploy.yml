@@ -3,7 +3,10 @@ name: CDKTF Deployment
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+    paths:
+      - cdktf/
   workflow_dispatch:
 
 permissions:
