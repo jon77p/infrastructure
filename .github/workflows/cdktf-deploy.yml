@@ -6,7 +6,7 @@ on:
     branches:
       - main
     paths:
-      - cdktf/
+      - cdktf/**
   workflow_dispatch:
 
 permissions:
