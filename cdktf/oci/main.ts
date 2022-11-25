@@ -140,7 +140,7 @@ export class MultiRegionOCI extends Construct {
         props.config.regions.length > 1 ? `${props.name}-${region}` : props.name
       }`
 
-      let ociProvider = new oci.provider.OciProvider(this, `${alias}-oci`, {
+      const ociProvider = new oci.provider.OciProvider(this, `${alias}-oci`, {
         tenancyOcid,
         userOcid,
         fingerprint,
