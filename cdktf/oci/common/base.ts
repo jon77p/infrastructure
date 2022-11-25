@@ -28,16 +28,14 @@ export interface AdditionalIngressConfig {
 }
 
 interface BaseProps {
-  tenancyId: string
+  compartmentId: string
   profile: string
   region: string
-  home_region: string
   networking: NetworkingConfig
   ociProvider: oci.provider.OciProvider
 }
 
 export class Base extends Construct {
-  public readonly identityCompartment: oci.identityCompartment.IdentityCompartment
   public readonly coreVcns: oci.dataOciCoreVcns.DataOciCoreVcns
   public readonly vcn: Vcn.Vcn
   public readonly securityList: oci.coreSecurityList.CoreSecurityList
@@ -47,8 +45,7 @@ export class Base extends Construct {
   constructor(scope: Construct, name: string, props: BaseProps) {
     super(scope, name)
 
-    const { tenancyId, profile, region, home_region, networking, ociProvider } =
-      props
+    const { compartmentId, profile, region, networking, ociProvider } = props
 
     const allProtocols = "all"
     const anywhere = "0.0.0.0/0"
@@ -56,33 +53,14 @@ export class Base extends Construct {
     const sshPort = 22
     const tcpProtocol = "6"
 
-    // Switch the ociProvider to the home region to create the compartment
-    ociProvider.region = home_region
-
-    // Create a compartment for the resources
-    // Note: the compartment can only be created by a provider in the home region
-    this.identityCompartment = new oci.identityCompartment.IdentityCompartment(
-      this,
-      "terraform",
-      {
-        compartmentId: tenancyId,
-        provider: ociProvider,
-        description: "Compartment for Terraform resources.",
-        name: "terraform",
-      }
-    )
-
-    // Switch the ociProvider back to the current region
-    ociProvider.region = region
-
     this.coreVcns = new oci.dataOciCoreVcns.DataOciCoreVcns(this, "core_vcn", {
-      compartmentId: this.identityCompartment.id,
+      compartmentId,
       provider: ociProvider,
       displayName: "terraform",
     })
 
     this.vcn = new Vcn.Vcn(this, "vcn", {
-      compartmentId: this.identityCompartment.id,
+      compartmentId,
       providers: [ociProvider],
       createInternetGateway: true,
       createNatGateway: false,
@@ -144,7 +122,7 @@ export class Base extends Construct {
       this,
       "security_list",
       {
-        compartmentId: this.identityCompartment.id,
+        compartmentId,
         provider: ociProvider,
         displayName: "terraform",
         egressSecurityRules: [
@@ -160,7 +138,7 @@ export class Base extends Construct {
     )
 
     this.privateSubnet = new oci.coreSubnet.CoreSubnet(this, "private", {
-      compartmentId: this.identityCompartment.id,
+      compartmentId,
       provider: ociProvider,
       displayName: "private",
       cidrBlock: networking.vcn.subnets.private.cidr,
@@ -173,7 +151,7 @@ export class Base extends Construct {
     })
 
     this.publicSubnet = new oci.coreSubnet.CoreSubnet(this, "public", {
-      compartmentId: this.identityCompartment.id,
+      compartmentId,
       provider: ociProvider,
       displayName: "public",
       cidrBlock: networking.vcn.subnets.public.cidr,
@@ -186,12 +164,6 @@ export class Base extends Construct {
     })
 
     // Outputs
-    new cdktf.TerraformOutput(this, "compartment-id", {
-      value: this.identityCompartment.id,
-    })
-    new cdktf.TerraformOutput(this, "compartment-name", {
-      value: this.identityCompartment.name,
-    })
     new cdktf.TerraformOutput(this, "private-subnet-dns_label", {
       value: this.privateSubnet.dnsLabel,
     })

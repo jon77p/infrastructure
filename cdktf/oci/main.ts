@@ -1,22 +1,12 @@
 import * as cloudflare from "@cdktf/provider-cloudflare"
 import * as oci from "../.gen/providers/oci"
-import { OciProviderConfig } from "../.gen/providers/oci/provider"
 
 import { Base, NetworkingConfig } from "./common/base"
 import * as Compute from "./compute/main"
 import { Tunnel, CFConfig } from "./tunnel/main"
 
 import { Construct } from "constructs"
-import { Token, TerraformVariable, Fn } from "cdktf"
-
-export interface OCIAuthConfig {
-  alias: string
-  user_ocid: string
-  fingerprint: string
-  tenancy_ocid: string
-  regions: string[]
-  home_region: string
-}
+import { Token, TerraformVariable, Fn, TerraformOutput } from "cdktf"
 
 export interface InstanceConfig {
   name: string
@@ -32,18 +22,16 @@ export interface InstanceConfig {
 
 export interface OCIConfig {
   regions: string[]
+  home_region: string
   networking: NetworkingConfig
   instances: Map<string, InstanceConfig>
 }
 
 interface OCIProps {
   config: OCIConfig
-  providerConfig: {
-    config: oci.provider.OciProviderConfig
-    privateKey: string
-    home_region: string
-  }
+  ociProvider: oci.provider.OciProvider
   region: string
+  compartmentId: string
   cfConfig: CFConfig
   terraformSshPublicKey: string
   tailscale_auth_key: string
@@ -55,37 +43,23 @@ export class OCI extends Construct {
 
     const {
       config,
-      providerConfig,
+      ociProvider,
       region,
+      compartmentId,
       cfConfig,
       terraformSshPublicKey,
       tailscale_auth_key,
     } = props
 
-    const profile = providerConfig.config.alias
-      ? providerConfig.config.alias
-      : "missing"
-    const tenancyId = Token.asString(providerConfig.config.tenancyOcid)
-    const home_region = providerConfig.home_region
-
-    // OCI Provider
-    const ociProvider = new oci.provider.OciProvider(this, `${name}-oci`, {
-      tenancyOcid: providerConfig.config.tenancyOcid,
-      userOcid: providerConfig.config.userOcid,
-      fingerprint: providerConfig.config.fingerprint,
-      privateKey: providerConfig.privateKey,
-      region: region,
-      alias: providerConfig.config.alias,
-    })
+    const profile = Token.asString(ociProvider.alias)
 
     // Create base infrastructure
     const base = new Base(this, `${name}-base`, {
       networking: config.networking,
       profile: profile,
       region: region,
-      home_region,
-      tenancyId: tenancyId,
       ociProvider,
+      compartmentId,
     })
 
     // Iterate over instances and create compute and tunnel resources
@@ -113,7 +87,7 @@ export class OCI extends Construct {
             id: tunnel.tunnel.id,
             secret: tunnel.tunnelSecret.b64Std,
           },
-          compartmentId: base.identityCompartment.id,
+          compartmentId,
           instance: { name: instanceName, instance },
           region: region,
           subnetId: base.publicSubnet.id,
@@ -152,32 +126,65 @@ export class MultiRegionOCI extends Construct {
     super(scope, name)
 
     // Get the auth config for the current name
-    const { tenancyOcid, userOcid, fingerprint, home_region } =
-      this.getAuthConfig(props.authConfig, props.name)
+    const { tenancyOcid, userOcid, fingerprint } = this.getAuthConfig(
+      props.authConfig,
+      props.name
+    )
 
-    // Iterate number of region times to create a provider for each configured region
+    // Create record store for providers
+    const ociProviders: Record<string, oci.provider.OciProvider> = {}
+
+    // Create providers for all regions
     for (const region of props.config.regions) {
-      const regionConfig: OciProviderConfig = {
-        alias: `${
-          props.config.regions.length > 1
-            ? `${props.name}-${region}`
-            : props.name
-        }`,
+      const alias = `${
+        props.config.regions.length > 1 ? `${props.name}-${region}` : props.name
+      }`
+
+      const ociProvider = new oci.provider.OciProvider(this, `${alias}-oci`, {
         tenancyOcid,
         userOcid,
         fingerprint,
+        privateKey: props.ociAuthPrivateKey,
         region,
-      }
+        alias,
+      })
 
-      new OCI(this, Token.asString(regionConfig.alias), {
-        providerConfig: {
-          config: regionConfig,
-          privateKey: props.ociAuthPrivateKey,
-          home_region,
-        },
+      ociProviders[region] = ociProvider
+    }
+
+    // Create a compartment for the resources
+    // Note: the compartment can only be created by a provider in the home region
+    // And the compartment is unique across all regions
+    const identityCompartment = new oci.identityCompartment.IdentityCompartment(
+      this,
+      "terraform",
+      {
+        compartmentId: tenancyOcid,
+        provider: ociProviders[props.config.home_region],
+        description: "Compartment for Terraform resources.",
+        name: "terraform",
+      }
+    )
+
+    new TerraformOutput(this, "compartment-id", {
+      value: identityCompartment.id,
+    })
+    new TerraformOutput(this, "compartment-name", {
+      value: identityCompartment.name,
+    })
+
+    // Iterate number of region times to create a provider for each configured region
+    for (const region of props.config.regions) {
+      const alias = `${
+        props.config.regions.length > 1 ? `${props.name}-${region}` : props.name
+      }`
+
+      new OCI(this, Token.asString(alias), {
         config: props.config,
         cfConfig: props.cfConfig,
-        region: region,
+        ociProvider: ociProviders[region],
+        compartmentId: identityCompartment.id,
+        region,
         terraformSshPublicKey: props.terraformSshPublicKey,
         tailscale_auth_key: props.tailscale_auth_key,
       })
@@ -196,12 +203,9 @@ export class MultiRegionOCI extends Construct {
 
     // Below is WORKING for output values, but rendered cdk.tf.json is different than terraform
     const authConfigName = Fn.lookup(authConfig.value, name, {
-      alias: "",
       user_ocid: "",
       fingerprint: "",
       tenancy_ocid: "",
-      regions: [""],
-      home_region: "",
     })
 
     // Get tenancy_ocid from authConfig as Token
@@ -213,16 +217,7 @@ export class MultiRegionOCI extends Construct {
     // Get fingerprint from authConfig as Token
     const fingerprint = Fn.lookup(authConfigName, "fingerprint", "")
 
-    // Get alias from authConfig as Token
-    const alias = Fn.lookup(authConfigName, "alias", "")
-
-    // Get regions from authConfig as Token
-    const regions = Fn.lookup(authConfigName, "regions", [""])
-
-    // Get home_region from authConfig as Token
-    const home_region = Fn.lookup(authConfigName, "home_region", "")
-
-    return { alias, tenancyOcid, userOcid, fingerprint, regions, home_region }
+    return { tenancyOcid, userOcid, fingerprint }
   }
 }
 

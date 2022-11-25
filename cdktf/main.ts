@@ -93,12 +93,9 @@ class InfrastructureStack extends TerraformStack {
       description: "map containing OCI authentication information",
       type: VariableType.map(
         VariableType.object({
-          alias: VariableType.STRING,
           user_ocid: VariableType.STRING,
           fingerprint: VariableType.STRING,
           tenancy_ocid: VariableType.STRING,
-          regions: VariableType.LIST_STRING,
-          home_region: VariableType.STRING,
         })
       ),
       default: {},
