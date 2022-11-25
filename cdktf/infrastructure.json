@@ -63,7 +63,7 @@
         "is_subdomain": true,
         "ad_number": 1,
         "region": "us-sanjose-1",
-        "image_id": "ocid1.image.oc1.us-sanjose-1.aaaaaaaadq3dxjoqeckwgas733dxmrfsdconukiq357m6sjhb2xyhfpi4ica",
+        "image_id": "ocid1.image.oc1.us-sanjose-1.aaaaaaaaudhtosvzok3k6csi2cnhsee7gfezgnkd7gq742gsoe4xjaxiaoja",
         "shape": "VM.Standard.E2.1.Micro",
         "memory": 1,
         "ocpus": 1
@@ -95,7 +95,7 @@
         "is_subdomain": true,
         "ad_number": 1,
         "region": "us-sanjose-1",
-        "image_id": "ocid1.image.oc1.us-sanjose-1.aaaaaaaadq3dxjoqeckwgas733dxmrfsdconukiq357m6sjhb2xyhfpi4ica",
+        "image_id": "ocid1.image.oc1.us-sanjose-1.aaaaaaaaudhtosvzok3k6csi2cnhsee7gfezgnkd7gq742gsoe4xjaxiaoja",
         "shape": "VM.Standard.E2.1.Micro",
         "memory": 1,
         "ocpus": 1
@@ -106,7 +106,7 @@
         "is_subdomain": true,
         "ad_number": 1,
         "region": "us-sanjose-1",
-        "image_id": "ocid1.image.oc1.us-sanjose-1.aaaaaaaadq3dxjoqeckwgas733dxmrfsdconukiq357m6sjhb2xyhfpi4ica",
+        "image_id": "ocid1.image.oc1.us-sanjose-1.aaaaaaaaudhtosvzok3k6csi2cnhsee7gfezgnkd7gq742gsoe4xjaxiaoja",
         "shape": "VM.Standard.E2.1.Micro",
         "memory": 1,
         "ocpus": 1
@@ -117,7 +117,7 @@
         "is_subdomain": true,
         "ad_number": 1,
         "region": "us-phoenix-1",
-        "image_id": "ocid1.image.oc1.phx.aaaaaaaamxqzlywdvqrefc2ziz66ntasx7qi3gcgrw54ordkejuffzctibsa",
+        "image_id": "ocid1.image.oc1.phx.aaaaaaaanyjs4d76ax5anv254rnscizcnrkfdqmvwxw7bnwpdxh2z5b2n2ia",
         "shape": "VM.Standard.A1.Flex",
         "memory": 24,
         "ocpus": 4
