@@ -71,8 +71,9 @@ export class Compute extends Construct {
         availabilityDomain: this.availabilityDomain.name,
         filter: [
           {
-            name: "display-name",
+            name: "display_name",
             values: [instance.name],
+            regex: true,
           },
           {
             name: "state",
