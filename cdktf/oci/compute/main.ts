@@ -153,20 +153,20 @@ export class Compute extends Construct {
     )
 
     // Outputs
-    new TerraformOutput(this, "boot-volumes", {
-      value: this.bootVolumes,
+    new TerraformOutput(this, "instance-display-name", {
+      value: this.coreInstance.displayName,
     })
-    new TerraformOutput(this, "instance-OCID", {
-      value: this.coreInstance.id,
+    new TerraformOutput(this, "instance-hostname", {
+      value: this.coreInstance.hostnameLabel,
+    })
+    new TerraformOutput(this, "instance-source-details", {
+      value: this.coreInstance.sourceDetails,
     })
     new TerraformOutput(this, "instance-boot-volume", {
       value: this.coreInstance.bootVolumeId,
     })
-    new TerraformOutput(this, "instance-name", {
-      value: this.coreInstance.displayName,
-    })
-    new TerraformOutput(this, "instance-public-ip", {
-      value: this.coreInstance.publicIp,
+    new TerraformOutput(this, "boot-volumes", {
+      value: this.bootVolumes,
     })
   }
 }
