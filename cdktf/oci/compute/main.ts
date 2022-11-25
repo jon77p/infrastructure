@@ -94,7 +94,7 @@ export class Compute extends Construct {
     )
 
     new TerraformOutput(this, "number_of_boot_volumes", {
-      value: Fn.lengthOf(bootVolumes.bootVolumes),
+      value: `${Fn.lengthOf(Token.asList(bootVolumes.bootVolumes))}`,
     })
 
     new TerraformOutput(this, "sourceType", {
