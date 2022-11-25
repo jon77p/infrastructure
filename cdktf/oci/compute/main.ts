@@ -84,12 +84,13 @@ export class Compute extends Construct {
     )
 
     // Get the number of boot volumes
-    const bootVolumeCount = Fn.lengthOf(this.bootVolumes.bootVolumes)
+    const bootVolumeCount = Fn.lengthOf(
+      Token.asList(this.bootVolumes.bootVolumes)
+    )
 
     // Use the boot volume from the previous run if it exists, otherwise use the instance image
-    const sourceType = `${Token.asString(
-      Fn.lengthOf(this.bootVolumes.bootVolumes) > 0 ? "bootVolume" : "image"
-    )}`
+    const sourceType =
+      "${" + bootVolumeCount + ` > 0 ? "bootVolume" : "image")}`
     const sourceId = `${
       bootVolumeCount > 0
         ? this.bootVolumes.bootVolumes.get(0).id
