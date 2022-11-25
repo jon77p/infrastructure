@@ -104,7 +104,7 @@ export class OCI extends Construct {
           cfTunnel: {
             name: tunnel.tunnel.name,
             id: tunnel.tunnel.id,
-            secret: tunnel.tunnelSecret.id,
+            secret: tunnel.tunnelSecret.b64Std,
           },
           compartmentId: base.identityCompartment.id,
           instance: { name: instanceName, instance },
