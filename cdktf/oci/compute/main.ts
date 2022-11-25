@@ -67,33 +67,32 @@ export class Compute extends Construct {
         compartmentId: compartmentId,
         provider: ociProvider,
         availabilityDomain: this.availabilityDomain.name,
+        filter: [
+          {
+            name: "display-name",
+            values: [instance.name],
+          },
+          {
+            name: "state",
+            values: ["AVAILABLE"],
+          },
+        ],
       }
     )
 
-    // Load setup script
-    const templateFile = new TerraformAsset(this, "setup-script", {
-      path: path.resolve(__dirname, "setup.tpl"),
-    })
-
-    // Filter to match on boot volumes that start with the instance name and are in the available state
-    this.bootVolumes.addOverride("filter", [
-      {
-        name: "display-name",
-        regex: true,
-        values: [instance.name],
-      },
-      {
-        name: "state",
-        values: ["AVAILABLE"],
-      },
-    ])
-
+    // Use the boot volume from the previous run if it exists
     const sourceId = `${
       this.bootVolumes.count == 1
         ? this.bootVolumes.bootVolumes.get(0).id
         : instance.instance.image_id
     }`
+    // Set the source type based on whether we're using a boot volume or an image
     const sourceType = `${this.bootVolumes.count == 1 ? "bootVolume" : "image"}`
+
+    // Load setup script
+    const templateFile = new TerraformAsset(this, "setup-script", {
+      path: path.resolve(__dirname, "setup.tpl"),
+    })
 
     this.coreInstance = new oci.coreInstance.CoreInstance(
       this,
