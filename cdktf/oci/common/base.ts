@@ -57,7 +57,10 @@ export class Base extends Construct {
     const tcpProtocol = "6"
 
     // Switch the ociProvider to the home region to create the compartment
-    ociProvider.region = home_region
+    // Only if the region is not the home region
+    if (region !== home_region) {
+      ociProvider.region = home_region
+    }
 
     // Create a compartment for the resources
     // Note: the compartment can only be created by a provider in the home region
@@ -73,7 +76,10 @@ export class Base extends Construct {
     )
 
     // Switch the ociProvider back to the current region
-    ociProvider.region = region
+    // Only if the region is not the home region
+    if (region !== home_region) {
+      ociProvider.region = region
+    }
 
     this.coreVcns = new oci.dataOciCoreVcns.DataOciCoreVcns(this, "core_vcn", {
       compartmentId: this.identityCompartment.id,
