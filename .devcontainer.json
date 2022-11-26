@@ -2,17 +2,28 @@
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.236.0/containers/ubuntu
 {
   "name": "Template",
-  "build": {
-    "dockerfile": ".devcontainer/Dockerfile",
-    // Update 'VARIANT' to pick an Ubuntu version: jammy / ubuntu-22.04, focal / ubuntu-20.04, bionic /ubuntu-18.04
-    // Use ubuntu-22.04 or ubuntu-18.04 on local arm64/Apple Silicon.
-    "args": { "VARIANT": "ubuntu-22.04" }
-  },
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  // "build": {
+  //   "dockerfile": ".devcontainer/Dockerfile",
+  //   // Update 'VARIANT' to pick an Ubuntu version: jammy / ubuntu-22.04, focal / ubuntu-20.04, bionic /ubuntu-18.04
+  //   // Use ubuntu-22.04 or ubuntu-18.04 on local arm64/Apple Silicon.
+  //   "args": { "VARIANT": "ubuntu-22.04" }
+  // },
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   // "forwardPorts": [],
 
-  "postStartCommand": "task setup",
+  "postStartCommand": [
+    "sudo groupadd ssh",
+    " && curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb -o /tmp/cloudflared-linux-amd64.deb",
+    " && sudo dpkg -i /tmp/cloudflared-linux-amd64.deb",
+    " && curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg",
+    " && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg",
+    " && echo \"deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main\" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null",
+    " && sudo apt-get update && export DEBIAN_FRONTEND=noninteractive",
+    " && sudo apt-get -y install --no-install-recommends cloudflared",
+    " && sh -c \"$(curl --location https://taskfile.dev/install.sh)\" -- -d -b /usr/local/bin"
+  ],
 
   // Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
   "remoteUser": "vscode",
@@ -33,12 +44,6 @@
       "version": "latest"
     },
     "ghcr.io/devcontainers/features/node:1": {
-      "version": "latest"
-    },
-    "ghcr.io/devcontainers/features/python:1": {
-      "version": "latest"
-    },
-    "ghcr.io/devcontainers/features/ruby:1": {
       "version": "latest"
     },
     "ghcr.io/devcontainers/features/rust:1": {
