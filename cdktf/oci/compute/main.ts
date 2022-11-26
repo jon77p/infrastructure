@@ -135,12 +135,14 @@ export class Compute extends Construct {
           ocpus: instance.instance.ocpus,
         },
         sourceDetails: {
+          /*eslint-disable no-useless-escape */
           sourceType: `\${\"${Fn.lengthOf(
             bootVolumes.bootVolumes
           )}\" == 1 ? "bootVolume" : "image"}`,
           sourceId: `\${\"${Fn.lengthOf(bootVolumes.bootVolumes)}\" == 1 ? "${
             bootVolumes.bootVolumes.get(0).id
           }" : "${instance.instance.image_id}"}`,
+          /*eslint-enable no-useless-escape */
         },
       }
     )
