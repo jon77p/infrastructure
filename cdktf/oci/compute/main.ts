@@ -135,8 +135,8 @@ export class Compute extends Construct {
           ocpus: instance.instance.ocpus,
         },
         sourceDetails: {
-          sourceType: `\${length(${bootVolumes.bootVolumes}) == 1 ? "bootVolume" : "image"}`,
-          sourceId: `\${length(${bootVolumes.bootVolumes}) == 1 ? ${bootVolumes.bootVolumes}[0].id : ${instance.instance.image_id}}`,
+          sourceType: `\${length(\"${bootVolumes.bootVolumes}\") == 1 ? "bootVolume" : "image"}`,
+          sourceId: `\${length(\"${bootVolumes.bootVolumes}\`) == 1 ? ${bootVolumes.bootVolumes}[0].id : ${instance.instance.image_id}}`,
         },
       }
     )
