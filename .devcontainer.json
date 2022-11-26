@@ -57,6 +57,8 @@
     "redhat.telemetry.enabled": false,
     "debug.javascript.autoAttachFilter": "smart",
     "git.autofetch": true,
+    "git.autoStash": true,
+    "git.branchProtection": ["main"],
     "files.associations": {
       "*.yml": "yaml"
     },
