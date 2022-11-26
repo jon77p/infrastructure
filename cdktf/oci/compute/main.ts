@@ -83,12 +83,12 @@ export class Compute extends Construct {
 
     // Use the boot volume from the previous run if it exists, otherwise use the instance image
     const sourceType = Token.asString(
-      Token.asNumber(Fn.lengthOf(bootVolumes.bootVolumes)) > 0
+      Token.asNumber(Fn.lengthOf(Token.asList(bootVolumes.bootVolumes))) > 0
         ? "bootVolume"
         : "image"
     )
     const sourceId = Token.asString(
-      Token.asNumber(Fn.lengthOf(bootVolumes.bootVolumes)) > 0
+      Token.asNumber(Fn.lengthOf(Token.asList(bootVolumes.bootVolumes))) > 0
         ? bootVolumes.bootVolumes.get(0).id
         : instance.instance.image_id
     )
