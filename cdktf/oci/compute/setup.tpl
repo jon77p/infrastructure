@@ -9,7 +9,7 @@ else
 fi
 
 # Download cloudflared deb
-curl "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-${ARCH}.deb" -L -o /tmp/init-cloudflared.deb
+curl "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-$ARCH.deb" -L -o /tmp/init-cloudflared.deb
 
 sudo dpkg -i /tmp/init-cloudflared.deb
 
