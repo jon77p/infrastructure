@@ -82,12 +82,12 @@ export class Compute extends Construct {
     )
 
     // Use the boot volume from the previous run if it exists, otherwise use the instance image
-    const sourceType = `\${${Fn.lengthOf(
-      bootVolumes.bootVolumes.fqn
-    )} > 0 ? "bootVolume" : "image"}`
-    const sourceId = `\${(${Fn.lengthOf(bootVolumes.bootVolumes.fqn)} > 0 ? ${
-      bootVolumes.bootVolumes.get(0).id
-    } : ${instance.instance.image_id}}`
+    const sourceType = `\${${Fn.can(
+      Fn.lengthOf(bootVolumes.bootVolumes.fqn) > 0
+    )} ? "bootVolume" : "image"}`
+    const sourceId = `\${${Fn.can(
+      Fn.lengthOf(bootVolumes.bootVolumes.fqn) > 0
+    )} ? ${bootVolumes.bootVolumes.get(0).id} : ${instance.instance.image_id}}`
 
     new TerraformOutput(this, "sourceType", {
       value: sourceType,
