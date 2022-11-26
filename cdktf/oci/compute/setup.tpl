@@ -1,12 +1,6 @@
 #!/bin/sh
 
-ARCH="$(uname -m)"
-
-if [ $ARCH = "aarch64" ]; then
-  ARCH=arm64
-else
-  ARCH=amd64
-fi
+ARCH=$(dpkg --print-architecture)
 
 # Download cloudflared deb
 curl "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-$ARCH.deb" -L -o /tmp/init-cloudflared.deb
