@@ -7,35 +7,31 @@ includes:
 
 tasks:
   setup:
-    deps:
-      - pip
-      - yarn
     cmds:
+      - task: pip
+      - task: yarn
+      - task: githubcli
+      - task: cloudflared
       - task: direnv:setup
       - task: secrets:setup
       - task: pre-commit
       - task: ansible
   virtualenv:
     cmds:
-      - python3 -m venv .venv
+      - virtualenv .venv
     generates:
       - .venv/bin/activate
     status:
       - test -d .venv
+      - test -f .venv/bin/activate
   pip:
-    deps:
-      - virtualenv
     cmds:
-      - >-
-        source .venv/bin/activate &&
-        pip install -q -r requirements.dev.txt
+      - task: virtualenv
+      - .venv/bin/python3 -m pip install -r requirements.dev.txt
   pre-commit:
-    deps:
-      - pip
     cmds:
-      - >-
-        source .venv/bin/activate &&
-        pre-commit install -f
+      - task: pip
+      - .venv/bin/pre-commit install -f
   yarn:
     cmds:
       - yarn install
@@ -44,10 +40,29 @@ tasks:
     status:
       - test -d node_modules
   ansible:
-    deps:
-      - pip
+    cmds:
+      - task: pip
+      - >-
+        .venv/bin/ansible-galaxy role install -r requirements.yml &&
+        .venv/bin/ansible-galaxy collection install -r requirements.yml
+  githubcli:
+    generates:
+      - /usr/share/keyrings/githubcli-archive-keyring.gpg
+      - /etc/apt/sources.list.d/github-cli.list
+    status:
+      - test -f /usr/share/keyrings/githubcli-archive-keyring.gpg
+      - test -f /etc/apt/sources.list.d/github-cli.list
     cmds:
       - >-
-        source .venv/bin/activate &&
-        ansible-galaxy role install -r requirements.yml &&
-        ansible-galaxy collection install -r requirements.yml
+        curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg &&
+        sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg &&
+        echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+  cloudflared:
+    generates:
+      - /usr/local/bin/cloudflared
+    status:
+      - test -f /usr/local/bin/cloudflared
+    cmds:
+      - >-
+        curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb -o /tmp/cloudflared-linux-amd64.deb &&
+        sudo dpkg -i /tmp/cloudflared-linux-amd64.deb

@@ -48,5 +48,5 @@ tasks:
 
   ansible:
     cmds:
-      - ansible-lint -c '.ansible-lint.yml' --write
+      - .venv/bin/ansible-lint -c '.ansible-lint.yml' --write
     ignore_error: true

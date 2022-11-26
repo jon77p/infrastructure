@@ -10,18 +10,18 @@ includes:
 
 tasks:
   setup:
-    deps:
-      - update:os:update
-      - setup:setup
+    cmds:
+      - task: update:os:update
+      - task: setup:setup
   update:
-    deps:
-      - update:update
+    cmds:
+      - task: update:update
   lint:
-    deps:
-      - lint:all
+    cmds:
+      - task: lint:all
   format:
-    deps:
-      - format:all
+    cmds:
+      - task: format:all
   scan:
-    deps:
-      - scan:scan
+    cmds:
+      - task: scan:scan
