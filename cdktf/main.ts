@@ -4,6 +4,8 @@ import path = require("path")
 import * as random from "@cdktf/provider-random"
 import { MultiRegionOCI } from "./oci/main"
 
+import * as tailscale from "./.gen/providers/tailscale"
+
 import { Construct } from "constructs"
 import { App, TerraformStack, TerraformVariable, VariableType } from "cdktf"
 import { OCIConfig } from "./oci/main"
@@ -79,15 +81,15 @@ class InfrastructureStack extends TerraformStack {
         type: "string",
       }
     )
-    const tailscale_auth_key = new TerraformVariable(
-      this,
-      "tailscale_auth_key",
-      {
-        description: "Tailscale auth key",
-        sensitive: true,
-        type: "string",
-      }
-    )
+    const tailscale_tailnet = new TerraformVariable(this, "tailscale_tailnet", {
+      description: "Tailscale tailnet",
+      type: "string",
+    })
+    const tailscale_api_key = new TerraformVariable(this, "tailscale_api_key", {
+      description: "Tailscale api key",
+      sensitive: true,
+      type: "string",
+    })
     const gfCloudStackId = new TerraformVariable(
       this,
       "grafana_cloud_stack_id",
@@ -125,6 +127,21 @@ class InfrastructureStack extends TerraformStack {
       apiToken: cfApiToken.value,
     })
     new random.provider.RandomProvider(this, "random")
+    new tailscale.provider.TailscaleProvider(this, "tailscale", {
+      apiKey: tailscale_api_key.value,
+      tailnet: tailscale_tailnet.value,
+    })
+
+    // Create pre-authentication tailscale key
+    const tailscale_auth_key = new tailscale.tailnetKey.TailnetKey(
+      this,
+      "tailscale_auth_key",
+      {
+        reusable: true,
+        ephemeral: false,
+        preauthorized: true,
+      }
+    )
 
     // Iterate over ociConfig map and create OCI constructs
     for (const [name, config] of Object.entries(ociConfig)) {
@@ -147,7 +164,7 @@ class InfrastructureStack extends TerraformStack {
           apiKey: gfCloudApiKey.value,
         },
         terraformSshPublicKey: terraformSshPublicKey.value,
-        tailscale_auth_key: tailscale_auth_key.value,
+        tailscale_auth_key: tailscale_auth_key.key,
       })
     }
   }
