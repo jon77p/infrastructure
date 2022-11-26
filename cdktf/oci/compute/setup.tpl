@@ -1,13 +1,9 @@
 #!/bin/sh
 
-ARCH="$(uname -m)"
+ARCH=$(dpkg --print-architecture)
 
-if [ $ARCH = "aarch64" ]; then
-  # Install and setup Cloudflare Tunnel for ARM
-  curl https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64.deb -L -o /tmp/init-cloudflared.deb
-else
-  curl https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb -L -o /tmp/init-cloudflared.deb
-fi
+# Download cloudflared deb
+curl "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-$ARCH.deb" -L -o /tmp/init-cloudflared.deb
 
 sudo dpkg -i /tmp/init-cloudflared.deb
 
@@ -100,3 +96,6 @@ curl -fsSL https://tailscale.com/install.sh | sh
 
 # Register node with tailscale
 sudo tailscale up --authkey "${tailscale_auth_key}"
+
+# Install Grafana Cloud Agent
+sudo ARCH="$(dpkg --print-architecture)" GCLOUD_STACK_ID="${grafana_cloud_stack_id}" GCLOUD_API_KEY="${grafana_cloud_api_key}" GCLOUD_API_URL="https://integrations-api-us-central.grafana.net" /bin/sh -c "$(curl -fsSL https://raw.githubusercontent.com/grafana/agent/release/production/grafanacloud-install.sh)"

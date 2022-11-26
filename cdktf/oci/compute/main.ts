@@ -5,7 +5,7 @@ import { Construct } from "constructs"
 import { TerraformAsset, Fn, TerraformOutput } from "cdktf"
 import * as path from "path"
 
-import { InstanceConfig } from "../main"
+import { InstanceConfig, GrafanaConfig } from "../main"
 import { CFConfig } from "../tunnel/main"
 
 interface ComputeProps {
@@ -25,6 +25,7 @@ interface ComputeProps {
     aud: string
     publicKey: string
   }
+  grafanaConfig: GrafanaConfig
   ociProvider: oci.provider.OciProvider
   tailscale_auth_key: string
 }
@@ -46,6 +47,7 @@ export class Compute extends Construct {
       cfConfig,
       cfTunnel,
       cfSshCertificate,
+      grafanaConfig,
       tailscale_auth_key,
     } = props
 
@@ -118,6 +120,8 @@ export class Compute extends Construct {
               cf_ssh_certificate: cfSshCertificate.publicKey,
               cf_ssh_username: cfConfig.sshUsername,
               cf_ssh_password: cfConfig.sshPassword,
+              grafana_cloud_stack_id: grafanaConfig.stackId,
+              grafana_cloud_api_key: grafanaConfig.apiKey,
               hostname: instance.name,
               ssh_subdomain: `${
                 instance.instance.is_subdomain

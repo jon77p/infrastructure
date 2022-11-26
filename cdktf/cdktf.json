@@ -3,7 +3,7 @@
   "app": "npx ts-node main.ts",
   "projectId": "ws-V5gxjePJpgWgsGj6",
   "sendCrashReports": "false",
-  "terraformProviders": ["oracle/oci@4.100.0"],
+  "terraformProviders": ["oracle/oci@4.100.0", "tailscale/tailscale@0.13.5"],
   "terraformModules": ["oracle-terraform-modules/vcn/oci@3.5.3"],
   "context": {
     "excludeStackIdFromLogicalIds": "true",
