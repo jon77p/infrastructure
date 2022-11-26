@@ -98,4 +98,4 @@ curl -fsSL https://tailscale.com/install.sh | sh
 sudo tailscale up --authkey "${tailscale_auth_key}"
 
 # Install Grafana Cloud Agent
-sudo GCLOUD_STACK_ID="${grafana_cloud_stack_id}" GCLOUD_API_KEY="${grafana_cloud_api_key}" GCLOUD_API_URL="https://integrations-api-us-central.grafana.net" /bin/sh -c "$(curl -fsSL https://raw.githubusercontent.com/grafana/agent/release/production/grafanacloud-install.sh)"
+sudo ARCH="$(dpkg --print-architecture)" GCLOUD_STACK_ID="${grafana_cloud_stack_id}" GCLOUD_API_KEY="${grafana_cloud_api_key}" GCLOUD_API_URL="https://integrations-api-us-central.grafana.net" /bin/sh -c "$(curl -fsSL https://raw.githubusercontent.com/grafana/agent/release/production/grafanacloud-install.sh)"
