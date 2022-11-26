@@ -83,7 +83,13 @@ ssh-rsa ${terraformSshPublicKey} terraform
 EOF
 
 # Save public key into SSH configuration directory
-echo "${cf_ssh_certificate}" | sudo tee -a /etc/ssh/ca.pub > /dev/null
+# Only if the public key does not already exist in /etc/ssh/ca.pub
+if grep -Fxq "${cf_ssh_certificate}" /etc/ssh/ca.pub; then
+  echo "Public key already exists in /etc/ssh/ca.pub"
+else
+  echo "Public key does not exist in /etc/ssh/ca.pub"
+  echo "${cf_ssh_certificate}" | sudo tee -a /etc/ssh/ca.pub > /dev/null
+fi
 
 # Modify SSHD config to accept PubkeyAuthentication and add /etc/ssh/ca.pub to TrustedUserCAKeys
 sudo sed -i 's/[#]\w*PubkeyAuthentication yes/PubkeyAuthentication yes\nTrustedUserCAKeys \/etc\/ssh\/ca.pub/' /etc/ssh/sshd_config
