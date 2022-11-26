@@ -88,6 +88,19 @@ class InfrastructureStack extends TerraformStack {
         type: "string",
       }
     )
+    const gfCloudStackId = new TerraformVariable(
+      this,
+      "grafana_cloud_stack_id",
+      {
+        description: "Grafana Cloud Stack Id",
+        type: "string",
+      }
+    )
+    const gfCloudApiKey = new TerraformVariable(this, "grafana_cloud_api_key", {
+      description: "Grafana Cloud API key",
+      sensitive: true,
+      type: "string",
+    })
 
     const authConfig = new TerraformVariable(this, "oci", {
       description: "map containing OCI authentication information",
@@ -128,6 +141,10 @@ class InfrastructureStack extends TerraformStack {
           email: cfEmail.value,
           sshPassword: cfSshPassword.value,
           sshUsername: cfSshUsername.value,
+        },
+        grafanaConfig: {
+          stackId: gfCloudStackId.value,
+          apiKey: gfCloudApiKey.value,
         },
         terraformSshPublicKey: terraformSshPublicKey.value,
         tailscale_auth_key: tailscale_auth_key.value,

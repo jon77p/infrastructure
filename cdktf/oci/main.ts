@@ -20,6 +20,11 @@ export interface InstanceConfig {
   ocpus: number
 }
 
+export interface GrafanaConfig {
+  stackId: string
+  apiKey: string
+}
+
 export interface OCIConfig {
   regions: string[]
   home_region: string
@@ -33,6 +38,7 @@ interface OCIProps {
   region: string
   compartmentId: string
   cfConfig: CFConfig
+  grafanaConfig: GrafanaConfig
   terraformSshPublicKey: string
   tailscale_auth_key: string
 }
@@ -47,6 +53,7 @@ export class OCI extends Construct {
       region,
       compartmentId,
       cfConfig,
+      grafanaConfig,
       terraformSshPublicKey,
       tailscale_auth_key,
     } = props
@@ -93,6 +100,7 @@ export class OCI extends Construct {
           subnetId: base.publicSubnet.id,
           terraformSshPublicKey: terraformSshPublicKey,
           ociProvider,
+          grafanaConfig,
           tailscale_auth_key,
         }
       )
@@ -119,6 +127,7 @@ export class MultiRegionOCI extends Construct {
       authConfig: TerraformVariable
       ociAuthPrivateKey: string
       cfConfig: CFConfig
+      grafanaConfig: GrafanaConfig
       terraformSshPublicKey: string
       tailscale_auth_key: string
     }
@@ -182,6 +191,7 @@ export class MultiRegionOCI extends Construct {
       new OCI(this, Token.asString(alias), {
         config: props.config,
         cfConfig: props.cfConfig,
+        grafanaConfig: props.grafanaConfig,
         ociProvider: ociProviders[region],
         compartmentId: identityCompartment.id,
         region,
