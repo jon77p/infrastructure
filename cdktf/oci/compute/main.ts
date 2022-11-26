@@ -2,7 +2,7 @@ import * as oci from "../../.gen/providers/oci"
 
 import { Construct } from "constructs"
 
-import { TerraformAsset, Fn, TerraformOutput } from "cdktf"
+import { TerraformAsset, Fn, TerraformOutput, Token } from "cdktf"
 import * as path from "path"
 
 import { InstanceConfig, GrafanaConfig } from "../main"
@@ -81,13 +81,15 @@ export class Compute extends Construct {
       }
     )
 
+    const lengthString = Fn.lengthOf(Token.asList(bootVolumes.bootVolumes))
+
     // Use the boot volume from the previous run if it exists, otherwise use the instance image
-    const sourceType = `\${${Fn.can(
-      Fn.lengthOf(bootVolumes.bootVolumes.fqn) > 0
-    )} ? "bootVolume" : "image"}`
-    const sourceId = `\${${Fn.can(
-      Fn.lengthOf(bootVolumes.bootVolumes.fqn) > 0
-    )} ? ${bootVolumes.bootVolumes.get(0).id} : ${instance.instance.image_id}}`
+    const sourceType = Token.asString(lengthString > 0 ? "bootVolume" : "image")
+    const sourceId = Token.asString(
+      lengthString > 0
+        ? bootVolumes.bootVolumes.get(0).id
+        : instance.instance.image_id
+    )
 
     new TerraformOutput(this, "sourceType", {
       value: sourceType,
