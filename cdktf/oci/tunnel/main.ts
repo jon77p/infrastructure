@@ -63,6 +63,7 @@ export class Tunnel extends Construct {
         name: sshDomain,
         sessionDuration: "24h",
         type: "ssh",
+        skipInterstitial: true,
         zoneId: this.cloudflareZones.zones.get(0).id,
       }
     )
