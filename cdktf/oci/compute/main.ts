@@ -31,8 +31,6 @@ interface ComputeProps {
 }
 
 export class Compute extends Construct {
-  public readonly availabilityDomain: oci.dataOciIdentityAvailabilityDomain.DataOciIdentityAvailabilityDomain
-  public readonly bootVolumes: oci.dataOciCoreBootVolumes.DataOciCoreBootVolumes
   public readonly coreInstance: oci.coreInstance.CoreInstance
 
   constructor(scope: Construct, name: string, props: ComputeProps) {
@@ -51,7 +49,7 @@ export class Compute extends Construct {
       tailscale_auth_key,
     } = props
 
-    this.availabilityDomain =
+    const availabilityDomain =
       new oci.dataOciIdentityAvailabilityDomain.DataOciIdentityAvailabilityDomain(
         this,
         "ads",
@@ -62,17 +60,18 @@ export class Compute extends Construct {
         }
       )
 
-    this.bootVolumes = new oci.dataOciCoreBootVolumes.DataOciCoreBootVolumes(
+    const bootVolumes = new oci.dataOciCoreBootVolumes.DataOciCoreBootVolumes(
       this,
       "all_boot_volumes",
       {
         compartmentId: compartmentId,
         provider: ociProvider,
-        availabilityDomain: this.availabilityDomain.name,
+        availabilityDomain: availabilityDomain.name,
         filter: [
           {
-            name: "display-name",
+            name: "display_name",
             values: [instance.name],
+            regex: true,
           },
           {
             name: "state",
@@ -81,15 +80,6 @@ export class Compute extends Construct {
         ],
       }
     )
-
-    // Use the boot volume from the previous run if it exists
-    const sourceId = `${
-      this.bootVolumes.count == 1
-        ? this.bootVolumes.bootVolumes.get(0).id
-        : instance.instance.image_id
-    }`
-    // Set the source type based on whether we're using a boot volume or an image
-    const sourceType = `${this.bootVolumes.count == 1 ? "bootVolume" : "image"}`
 
     // Load setup script
     const templateFile = new TerraformAsset(this, "setup-script", {
@@ -102,7 +92,7 @@ export class Compute extends Construct {
       {
         compartmentId: compartmentId,
         provider: ociProvider,
-        availabilityDomain: this.availabilityDomain.name,
+        availabilityDomain: availabilityDomain.name,
         createVnicDetails: {
           assignPrivateDnsRecord: true,
           assignPublicIp: "true",
@@ -145,27 +135,40 @@ export class Compute extends Construct {
           ocpus: instance.instance.ocpus,
         },
         sourceDetails: {
-          sourceId: sourceId,
-          sourceType: sourceType,
+          /*eslint-disable no-useless-escape */
+          sourceType: `\${\"${Fn.lengthOf(
+            bootVolumes.bootVolumes
+          )}\" == 1 ? "bootVolume" : "image"}`,
+          sourceId: `\${\"${Fn.lengthOf(bootVolumes.bootVolumes)}\" == 1 ? "${
+            bootVolumes.bootVolumes.get(0).id
+          }" : "${instance.instance.image_id}"}`,
+          /*eslint-enable no-useless-escape */
         },
       }
     )
 
+    // Switch to using the boot volume from the previous run if it exists
+    if (Fn.lengthOf(bootVolumes.bootVolumes) > 0) {
+      this.coreInstance.sourceDetails.sourceType = "bootVolume"
+      this.coreInstance.sourceDetails.sourceId =
+        bootVolumes.bootVolumes.get(0).id
+    }
+
     // Outputs
-    new TerraformOutput(this, "boot-volumes", {
-      value: this.bootVolumes,
+    new TerraformOutput(this, "instance-display-name", {
+      value: this.coreInstance.displayName,
     })
-    new TerraformOutput(this, "instance-OCID", {
-      value: this.coreInstance.id,
+    new TerraformOutput(this, "instance-hostname", {
+      value: this.coreInstance.createVnicDetails.hostnameLabel,
+    })
+    new TerraformOutput(this, "instance-source-details", {
+      value: this.coreInstance.sourceDetails,
     })
     new TerraformOutput(this, "instance-boot-volume", {
       value: this.coreInstance.bootVolumeId,
     })
-    new TerraformOutput(this, "instance-name", {
-      value: this.coreInstance.displayName,
-    })
-    new TerraformOutput(this, "instance-public-ip", {
-      value: this.coreInstance.publicIp,
+    new TerraformOutput(this, "boot-volumes", {
+      value: bootVolumes,
     })
   }
 }
