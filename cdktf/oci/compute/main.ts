@@ -136,7 +136,7 @@ export class Compute extends Construct {
         },
         sourceDetails: {
           sourceType: `\${length(\"${bootVolumes.bootVolumes}\") == 1 ? "bootVolume" : "image"}`,
-          sourceId: `\${length(\"${bootVolumes.bootVolumes}\`) == 1 ? ${bootVolumes.bootVolumes}[0].id : ${instance.instance.image_id}}`,
+          sourceId: `\${length(\"${bootVolumes.bootVolumes}\") == 1 ? ${bootVolumes.bootVolumes}[0].id : ${instance.instance.image_id}}`,
         },
       }
     )
