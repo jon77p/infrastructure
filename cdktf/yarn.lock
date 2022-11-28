@@ -1328,9 +1328,9 @@ concat-map@0.0.1:
   integrity sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==
 
 constructs@^10.0.25, constructs@^10.1.136:
-  version "10.1.169"
-  resolved "https://registry.yarnpkg.com/constructs/-/constructs-10.1.169.tgz#6136bd5e7ff977c0c5272a6d013896069d66a974"
-  integrity sha512-tFZhYBFZr7yg/HX0FT8iyQZvuGdcrSwXgSh7+JkdSkqbNDQylWJuAfIjg+CsfPR7J2JxwUDClN07Sc3LMDtSGQ==
+  version "10.1.172"
+  resolved "https://registry.yarnpkg.com/constructs/-/constructs-10.1.172.tgz#b01899e70d9518d4ce20320e66d3f7732c7bfa71"
+  integrity sha512-D8ZLeRzRGsZ3YM+utjaCsk/EubzxfGXUdyxVDqj/JRu+t/hppwtqegg02ouhzRbrv/ykDkV4YIYu8gYNKkNhbA==
 
 convert-source-map@^1.6.0, convert-source-map@^1.7.0:
   version "1.9.0"
@@ -2323,9 +2323,9 @@ jsii-rosetta@^1.68.0, jsii-rosetta@^1.71.0:
     yargs "^16.2.0"
 
 jsii-srcmak@^0.1.686:
-  version "0.1.742"
-  resolved "https://registry.yarnpkg.com/jsii-srcmak/-/jsii-srcmak-0.1.742.tgz#96326fed60c05889fe57008f3db4a9d18b7b4555"
-  integrity sha512-oj4ZgfipzFrr1zMyGj+uOvJh5kf1Tq0rIOlf+yDGEtGfHgDZwh/ofEiGwmyzStm0vSC/jQXMQkqzFP65IHyuuw==
+  version "0.1.745"
+  resolved "https://registry.yarnpkg.com/jsii-srcmak/-/jsii-srcmak-0.1.745.tgz#435f4a79d0959e6c76f7d73d13a0564ba3d57d65"
+  integrity sha512-iTX8+kYI2DB+GfYla01UgNRP1THI8P0Yb5B7j5tDR1Jwj8pHSJn1D3Q1/2/LE7S3wjMwL2EizhqSXBmDIh2LqQ==
   dependencies:
     fs-extra "^9.1.0"
     jsii "^1.71.0"
