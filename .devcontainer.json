@@ -21,6 +21,9 @@
     },
     "ghcr.io/devcontainers/features/terraform:1": {
       "version": "latest"
+    },
+    "ghcr.io/jon77p/codespaces/features/tailscale:latest": {
+      "version": "latest"
     }
   },
 
