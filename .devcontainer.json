@@ -7,7 +7,7 @@
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   // "forwardPorts": [],
 
-  "postStartCommand": "sudo /bin/bash -c \"$(curl --location https://taskfile.dev/install.sh)\" -- -d -b /usr/local/bin && task setup",
+  "postStartCommand": "task setup",
 
   "features": {
     "ghcr.io/devcontainers/features/aws-cli:1": {
@@ -23,6 +23,9 @@
       "version": "latest"
     },
     "ghcr.io/jon77p/codespaces/features/tailscale:latest": {
+      "version": "latest"
+    },
+    "ghcr.io/jon77p/codespaces/features/taskfile:latest": {
       "version": "latest"
     }
   },
