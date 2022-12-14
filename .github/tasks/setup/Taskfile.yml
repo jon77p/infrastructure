@@ -4,10 +4,12 @@ version: "3"
 includes:
   secrets: ../secrets
   direnv: direnv/Taskfile_{{OS}}.yml
+  basics: basics/Taskfile_{{OS}}.yml
 
 tasks:
   setup:
     cmds:
+      - task: basics:setup
       - task: pip
       - task: yarn
       - task: githubcli
@@ -45,24 +47,54 @@ tasks:
       - >-
         .venv/bin/ansible-galaxy role install -r requirements.yml &&
         .venv/bin/ansible-galaxy collection install -r requirements.yml
-  githubcli:
+  githubcli-apt:
+    ignore_error: true
     generates:
       - /usr/share/keyrings/githubcli-archive-keyring.gpg
       - /etc/apt/sources.list.d/github-cli.list
     status:
       - test -f /usr/share/keyrings/githubcli-archive-keyring.gpg
       - test -f /etc/apt/sources.list.d/github-cli.list
+      - which gh
     cmds:
       - >-
+        which apt &&
         curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg &&
         sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg &&
-        echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+        echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null &&
+        sudo apt install -qq -o=Dpkg::Use-Pty=0 -y gh
+  githubcli-yum:
+    ignore_error: true
+    cmds:
+      - >-
+        which yum &&
+        sudo yum config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo &&
+        sudo yum install -q -y gh
+  githubcli:
+    cmds:
+      - task: githubcli-apt
+      - task: githubcli-yum
+    status:
+      - which gh
+  cloudflared-dpkg:
+    ignore_error: true
+    cmds:
+      - >-
+        which dpkg &&
+        curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb -o /tmp/cloudflared-linux-amd64.deb &&
+        sudo dpkg -i /tmp/cloudflared-linux-amd64.deb
+  cloudflared-rpm:
+    ignore_error: true
+    cmds:
+      - >-
+        which rpm &&
+        curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-x86_64.rpm -o /tmp/cloudflared-linux-x86_64.rpm &&
+        sudo rpm -i /tmp/cloudflared-linux-x86_64.rpm
   cloudflared:
     generates:
       - /usr/local/bin/cloudflared
     status:
       - test -f /usr/local/bin/cloudflared
     cmds:
-      - >-
-        curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb -o /tmp/cloudflared-linux-amd64.deb &&
-        sudo dpkg -i /tmp/cloudflared-linux-amd64.deb
+      - task: cloudflared-dpkg
+      - task: cloudflared-rpm

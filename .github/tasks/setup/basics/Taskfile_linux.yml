@@ -1,0 +1,120 @@
+---
+version: "3"
+tasks:
+  python3-apt:
+    ignore_error: true
+    cmds:
+      - >-
+        which apt &&
+        sudo apt install -qq -o=Dpkg::Use-Pty=0 -y python3
+  python3-yum:
+    ignore_error: true
+    cmds:
+      - >-
+        which yum &&
+        sudo yum -q install -y python3
+  python3:
+    cmds:
+      - task: python3-apt
+      - task: python3-yum
+    status:
+      - which python3
+  pip-apt:
+    ignore_error: true
+    cmds:
+      - >-
+        which apt &&
+        sudo apt install -qq -o=Dpkg::Use-Pty=0 -y python3-pip
+  pip-yum:
+    ignore_error: true
+    cmds:
+      - >-
+        which yum &&
+        sudo yum -q install -y python3-pip
+  pip:
+    cmds:
+      - task: pip-apt
+      - task: pip-yum
+    status:
+      - which pip
+  virtualenv-apt:
+    ignore_error: true
+    cmds:
+      - >-
+        which apt &&
+        sudo apt install -qq -o=Dpkg::Use-Pty=0 -y virtualenv
+  virtualenv-yum:
+    ignore_error: true
+    cmds:
+      - >-
+        which yum &&
+        sudo yum -q install -y virtualenv
+  virtualenv:
+    cmds:
+      - task: virtualenv-apt
+      - task: virtualenv-yum
+    status:
+      - which virtualenv
+  npm-snap:
+    ignore_error: true
+    cmds:
+      - >-
+        which snap &&
+        sudo snap install node --classic
+  npm-yum:
+    ignore_error: true
+    cmds:
+      - >-
+        which yum &&
+        sudo yum -q install -y nodejs
+  npm:
+    cmds:
+      - task: npm-snap
+      - task: npm-yum
+    status:
+      - which npm
+  corepack:
+    cmds:
+      - sudo npm install -g corepack
+    status:
+      - which corepack
+  yarn:
+    cmds:
+      - task: npm
+      - task: corepack
+      - sudo corepack enable
+      - sudo corepack prepare --activate yarn@v3.3.0
+    status:
+      - which yarn
+  ruby-apt:
+    ignore_error: true
+    cmds:
+      - >-
+        which apt &&
+        sudo apt install -qq -o=Dpkg::Use-Pty=0 -y ruby-full
+  ruby-yum:
+    ignore_error: true
+    cmds:
+      - >-
+        which yum &&
+        sudo yum -q install -y ruby
+  ruby:
+    cmds:
+      - task: ruby-apt
+      - task: ruby-yum
+    status:
+      - which ruby
+  cargo:
+    cmds:
+      - curl https://sh.rustup.rs -sSf | sh -s -- --quiet -y
+      - source ~/.cargo/env
+    status:
+      - which cargo
+  setup:
+    cmds:
+      - task: python3
+      - task: pip
+      - task: virtualenv
+      - task: yarn
+      - task: ruby
+      - task: cargo
