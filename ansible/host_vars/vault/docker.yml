@@ -8,5 +8,3 @@ docker_volume_dirs:
     - "/mnt/{{ compose_project_name }}/plugins"
   opconnect:
     - "/mnt/op-connect"
-  promtail:
-    - "/mnt/{{ compose_project_name }}/promtail/config"

@@ -5,8 +5,6 @@
     opconnect_items:
       vault:
         - healthcheck
-      crowdsec:
-        - key
   roles:
     - opconnect
 
@@ -17,10 +15,6 @@
     - common
     - cloudflared
     - cloudflare
-    - iptables
-    - crowdsec
-    - dns
-    - node_exporter
+    # - dns
     - vault
-    - promtail
     - docker
