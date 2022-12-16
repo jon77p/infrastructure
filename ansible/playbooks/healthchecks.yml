@@ -9,8 +9,6 @@
         - password
         - smtp_username
         - smtp_password
-      crowdsec:
-        - key
   roles:
     - opconnect
 
@@ -21,9 +19,6 @@
     - common
     - cloudflared
     - cloudflare
-    - crowdsec
     - iptables
-    - dns
-    - node_exporter
-    - promtail
+    # - dns
     - docker

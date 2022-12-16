@@ -4,24 +4,6 @@ iptables_rules:
     chain: INPUT
     rule_num: 6
     ctstate: NEW
-    destination_port: "{{ crowdsec.prometheus.port }}"
-    protocol: tcp
-    state: present
-    jump: ACCEPT
-    comment: Accept new connections to TCP/{{ crowdsec.prometheus.port }}
-  - action: insert
-    chain: INPUT
-    rule_num: 7
-    ctstate: NEW
-    destination_port: "{{ node_exporter.port }}"
-    protocol: tcp
-    state: present
-    jump: ACCEPT
-    comment: Accept new connections to TCP/{{ node_exporter.port }}
-  - action: insert
-    chain: INPUT
-    rule_num: 8
-    ctstate: NEW
     destination_port: "{{ healthchecks.port }}"
     protocol: tcp
     state: present
