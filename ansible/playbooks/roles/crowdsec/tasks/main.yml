@@ -1,7 +1,7 @@
 ---
 - name: Install CrowdSec repositories
   become: true
-  ansible.builtin.command: curl -s https://packagecloud.io/install/repositories/crowdsec/crowdsec/script.deb.sh | bash
+  ansible.builtin.shell: curl -s https://packagecloud.io/install/repositories/crowdsec/crowdsec/script.deb.sh | bash
 
 - name: Install crowdsec
   ansible.builtin.apt:

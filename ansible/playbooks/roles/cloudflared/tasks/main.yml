@@ -25,7 +25,7 @@
 
 - name: Get required cloudflared values
   become: true
-  ansible.builtin.command: cat /root/.cloudflared/config.yml | head -n 1 | awk '{print $2}'
+  ansible.builtin.shell: cat /root/.cloudflared/config.yml | head -n 1 | awk '{print $2}'
   register: tunnel_output
 
 - name: Debug tunnel_output

@@ -18,7 +18,7 @@
 
 - name: Install cargo
   become: true
-  ansible.builtin.command: curl https://sh.rustup.rs -sSf | sh -s -- -y
+  ansible.builtin.shell: curl https://sh.rustup.rs -sSf | sh -s -- -y
   when: not cargo_check.stat.exists
 
 - name: Check if innernet is installed
