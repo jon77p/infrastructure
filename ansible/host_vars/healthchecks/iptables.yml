@@ -1,11 +1,2 @@
 ---
-iptables_rules:
-  - action: insert
-    chain: INPUT
-    rule_num: 6
-    ctstate: NEW
-    destination_port: "{{ healthchecks.port }}"
-    protocol: tcp
-    state: present
-    jump: ACCEPT
-    comment: Accept new connections to TCP/{{ healthchecks.port }}
+iptables_rules: []
