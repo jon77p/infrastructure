@@ -24,30 +24,16 @@ all:
       children:
         services:
           hosts:
-            firefly:
-              ansible_host: firefly
             stash:
               ansible_host: stash
-            timemachine:
-              ansible_host: timemachine
             healthchecks:
               ansible_host: healthchecks
-            nextcloud:
-              ansible_host: nextcloud
-            monitoring:
-              ansible_host: monitoring
             pihole:
               ansible_host: pihole
             vault:
               ansible_host: vault
             codeserver:
               ansible_host: codeserver
-            innernet:
-              ansible_host: innernet
-            allaboutsecurity:
-              ansible_host: allaboutsecurity
-            securemylife:
-              ansible_host: securemylife
       vars:
         ansible_ssh_user: ubuntu
     deployments:
