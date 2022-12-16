@@ -1,0 +1,27 @@
+---
+- name: Get 1Password secrets
+  hosts: localhost,gaming
+  vars:
+    opconnect_items:
+      mineos:
+        - healthcheck
+        - username
+        - password
+      crowdsec:
+        - key
+  roles:
+    - opconnect
+
+- name: Setup gaming
+  hosts: gaming
+  become: true
+  roles:
+    - common
+    - cloudflared
+    - cloudflare
+    - crowdsec
+    - iptables
+    - dns
+    - node_exporter
+    - promtail
+    - docker

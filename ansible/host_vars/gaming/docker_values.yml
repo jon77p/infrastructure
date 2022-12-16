@@ -1,0 +1,9 @@
+---
+gaming:
+  mineos:
+    port: "8000"
+    minecraft:
+      ports: 25565-25570
+    username: "{{ opconnect_results['mineos'].username }}"
+    password: "{{ opconnect_results['mineos'].password }}"
+    healthcheck: "{{ opconnect_results['mineos'].healthcheck }}"

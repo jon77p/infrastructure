@@ -1,0 +1,81 @@
+---
+version: "3"
+
+services:
+  mineos:
+    image: hexparrot/mineos:latest
+    container_name: mineos_server
+    networks:
+      - mineos
+    restart: always
+
+    # Adjust as needed; if this is too short, stopping the container
+    #  may corrupt map data
+    stop_grace_period: 10m
+
+    volumes:
+      # Using a bind mapping is preferrable here due to how docker
+      # stores names volumes by default in /var/lib/docker/volumes
+      # with permissions that prevent normal users from accessing
+      # the folder structure.
+      - "{{ docker_volume_dirs.mineos[0] }}:/var/games/minecraft"
+
+    environment:
+      # Should the web interface use HTTPS or HTTP?
+      # Valid entries are "true" and "false" (with quotes)
+      USE_HTTPS: "true"
+
+      # What port should the web interface listen on?
+      # This is independant of the USE_HTTPS setting.
+      SERVER_PORT: "{{ gaming.mineos.port }}"
+
+      # On startup, mineos will check if an account of this name exists.
+      # If it does not exist, one will be created. This account, and
+      # any other created with this variable will be permitted to login
+      # to the web interface.
+      USER_NAME: "{{ gaming.mineos.username }}"
+
+      # If the account listed above does not already exist, when mineos
+      # creates it, it will do so with UID. If an account with this UID
+      # already exists, account creation will be aborted.
+      USER_UID: 1000
+
+      # If the account is being created, it will use either the password
+      # set below, or a random, 20 character password will generated for
+      # you and displayed in the console log. After first launch, you
+      # should check the log.
+      USER_PASSWORD: "{{ gaming.mineos.password }}"
+
+    ports:
+      # HTTPS port for web interface. If you change the SERVER_PORT
+      # variable, also change this mapping.
+      - "{{ gaming.mineos.port }}:{{ gaming.mineos.port }}/tcp"
+
+      # Minecraft server ports. 25565 is the default, but is you plan
+      # on running multiple servers at the same time, each will need
+      # a unique port unless you are using bungiecord.
+      # Expand this range as needed.
+      - "{{ gaming.mineos.minecraft.ports }}:{{ gaming.mineos.minecraft.ports }}/tcp"
+      - "{{ gaming.mineos.minecraft.ports }}:{{ gaming.mineos.minecraft.ports }}/udp"
+    healthcheck:
+      test:
+        [
+          CMD,
+          curl,
+          "https://healthchecks.{{ domain }}/ping/{{ gaming.mineos.healthcheck }}",
+        ]
+      timeout: 45s
+      interval: 10s
+      retries: 5
+  promtail:
+    image: grafana/promtail:latest@sha256:aa77333bb912b1017d35f16bd5d7f6d191963d6cee78bc0bd0df0a56990a3e42
+    restart: always
+    volumes:
+      - /var/log/cloudflared.log:/var/log/cloudflared.log:ro
+      - /var/log/journal:/var/log/journal:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - "{{ docker_volume_dirs.promtail[0] }}/config.yaml:/etc/promtail/config.yaml"
+    command: -config.file=/etc/promtail/config.yaml
+
+networks:
+  mineos:
