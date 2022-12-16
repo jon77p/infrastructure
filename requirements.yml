@@ -3,6 +3,7 @@ collections:
   - name: community.general
   - name: community.docker
   - name: kubernetes.core
+  - name: onepassword.connect
   - name: oracle.oci
 roles:
   - name: stefangweichinger.ansible_rclone
