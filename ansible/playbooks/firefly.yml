@@ -33,7 +33,6 @@
     - cloudflare
     - crowdsec
     - iptables
-    - innernet
     - dns
     - node_exporter
     - firefly

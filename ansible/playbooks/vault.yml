@@ -19,7 +19,6 @@
     - cloudflare
     - iptables
     - crowdsec
-    - innernet
     - dns
     - node_exporter
     - vault
