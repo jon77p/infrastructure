@@ -3,8 +3,8 @@
   hosts: localhost,vault
   vars:
     opconnect_items:
-      vault:
-        - healthcheck
+      healthchecks:
+        - apikey
   roles:
     - opconnect
 
@@ -16,5 +16,6 @@
     - cloudflared
     - cloudflare
     # - dns
+    - healthchecks
     - vault
     - docker

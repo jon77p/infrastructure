@@ -1,0 +1,26 @@
+---
+- name: Create/Get healthcheck
+  ansible.builtin.uri:
+    url: "https://{{ healthchecks_domain }}/api/v1/checks/"
+    method: POST
+    headers:
+      X-Api-Key: "{{ opconnect_results.healthchecks.apikey }}"
+    body_format: "json"
+    body: {
+        "name": "{{ inventory_hostname }}",
+        # Join 'ansible' and hostvars[inventory_hostname].group_names with spaces
+        "tags": "ansible {{ hostvars[inventory_hostname].group_names | join(' ') }}",
+        "timeout": 60, # seconds
+        "grace": 60, # seconds
+        "unique": ["name"],
+      }
+    status_code:
+      - 200
+      - 201
+  register: healthchecks_create
+
+- name: Update healthcheck
+  ansible.builtin.set_fact:
+    healthchecks:
+      healthcheck: "{{ healthchecks_create.json.ping_url }}"
+  when: healthchecks_create.json.ping_url is defined

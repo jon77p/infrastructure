@@ -1,0 +1,30 @@
+---
+- name: Compute healthchecks domain
+  when: inventory_hostname != 'healthchecks'
+  ansible.builtin.set_fact:
+    healthchecks_domain: "healthchecks.{{ domain }}"
+
+- name: Compute healthchecks domain
+  when: inventory_hostname == 'healthchecks'
+  ansible.builtin.set_fact:
+    healthchecks_domain: "healthchecks.io"
+
+- name: Determine if healthchecks server is online
+  ansible.builtin.uri:
+    url: "https://{{ healthchecks_domain }}"
+    status_code: 200
+  register: healthchecks_online
+  until: healthchecks_online.status == 200
+  retries: 3
+  delay: 5
+  ignore_errors: true
+
+- name: Initialize empty healthcheck fact
+  ansible.builtin.set_fact:
+    healthchecks:
+      domain: "{{ healthchecks_domain }}"
+      healthcheck: ""
+
+- name: Include healthchecks tasks
+  ansible.builtin.include_tasks: "healthchecks.yml"
+  when: healthchecks_online.status == 200
