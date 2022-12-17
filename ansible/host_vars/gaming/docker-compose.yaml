@@ -4,7 +4,6 @@ version: "3"
 services:
   mineos:
     image: ghcr.io/jon77p/mineos-node:latest
-    container_name: mineos_server
     networks:
       - mineos
     restart: always
