@@ -4,11 +4,10 @@
   vars:
     opconnect_items:
       mineos:
-        - healthcheck
         - username
         - password
-      crowdsec:
-        - key
+      healthchecks:
+        - apikey
   roles:
     - opconnect
 
@@ -19,9 +18,7 @@
     - common
     - cloudflared
     - cloudflare
-    - crowdsec
     - iptables
     - dns
-    - node_exporter
-    - promtail
+    - healthchecks
     - docker

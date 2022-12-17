@@ -26,6 +26,8 @@ all:
           hosts:
             stash:
               ansible_host: stash
+            gaming:
+              ansible_host: gaming
             healthchecks:
               ansible_host: healthchecks
             pihole:

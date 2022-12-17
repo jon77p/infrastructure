@@ -4,5 +4,3 @@ compose_project_port: "{{ gaming.mineos.port }}"
 docker_volume_dirs:
   mineos:
     - /mnt/{{ compose_project_name }}/mineos
-  promtail:
-    - /mnt/{{ compose_project_name }}/promtail/config
