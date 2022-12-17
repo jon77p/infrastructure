@@ -4,3 +4,5 @@ compose_project_port: "{{ gaming.mineos.port }}"
 docker_volume_dirs:
   mineos:
     - /mnt/{{ compose_project_name }}/mineos
+  smo_online_server:
+    - /mnt/{{ compose_project_name }}/smoo

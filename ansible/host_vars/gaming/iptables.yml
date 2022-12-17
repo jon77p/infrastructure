@@ -18,3 +18,12 @@ iptables_rules:
     state: present
     jump: ACCEPT
     comment: Accept new connections to UDP/25565
+  - action: insert
+    chain: INPUT
+    rule_num: 8
+    ctstate: NEW
+    destination_port: "{{ gaming.smo_online_server.port }}"
+    protocol: tcp
+    state: present
+    jump: ACCEPT
+    comment: "Accept new connections to TCP/{{ gaming.smo_online_server.port }}"

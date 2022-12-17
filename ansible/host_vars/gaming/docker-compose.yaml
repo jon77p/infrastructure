@@ -62,5 +62,23 @@ services:
       interval: 10s
       retries: 5
 
+  smo_online_server:
+    image: ghcr.io/sanae6/smo-online-server:latest
+    restart: always
+
+    #user: 1000:1000
+
+    volumes:
+      - "{{ docker_volume_dirs.smo_online_server[0] }}:/data"
+
+    stdin_open: true
+    ports:
+      - "{{ gaming.smo_online_server.port }}:1027"
+    healthcheck:
+      test: [CMD, curl, "{{ healthchecks.healthcheck }}"]
+      timeout: 45s
+      interval: 10s
+      retries: 5
+
 networks:
   mineos:
