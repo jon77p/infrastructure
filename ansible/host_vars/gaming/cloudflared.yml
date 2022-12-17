@@ -1,0 +1,4 @@
+---
+additional_ingress:
+  - hostname: mineos.{{ domain }}
+    service: http://localhost:{{ gaming.mineos.port }}

@@ -9,4 +9,3 @@ opconnect:
 vault:
   port: "8200"
   internal_port: "8200"
-  healthcheck: "{{ opconnect_results['vault'].healthcheck }}"

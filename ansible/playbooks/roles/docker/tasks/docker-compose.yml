@@ -6,7 +6,7 @@
 
 - name: Load project definition for host
   ansible.builtin.include_vars:
-    ansible.builtin.file: ../../../../host_vars/{{ inventory_hostname }}/docker-compose.yaml
+    file: ../../../../host_vars/{{ inventory_hostname }}/docker-compose.yaml
     name: compose_definition
 
 - name: Take down project {{ compose_project_name }}
@@ -16,6 +16,11 @@
     remove_orphans: true
     remove_images: all
     state: absent
+
+- name: Restart docker systemd service
+  ansible.builtin.systemd:
+    name: docker
+    state: restarted
 
 - name: Create any referenced Compose networks
   community.docker.docker_network:

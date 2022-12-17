@@ -1,7 +1,7 @@
 ---
 - name: Check if has installed {{ crowdsec_resource ~ " " ~ resource_type }}
   become: true
-  ansible.builtin.command: cscli {{ resource_type }} list -o raw | grep {{ crowdsec_resource }}
+  ansible.builtin.shell: cscli {{ resource_type }} list -o raw | grep {{ crowdsec_resource }}
   register: resource_installed
   ignore_errors: true
 

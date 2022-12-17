@@ -1,18 +1,18 @@
 ---
 - name: Get 1Password secrets
-  hosts: localhost,pihole
+  hosts: localhost,gaming
   vars:
     opconnect_items:
-      pihole:
-        - email
+      mineos:
+        - username
         - password
       healthchecks:
         - apikey
   roles:
     - opconnect
 
-- name: Setup pihole
-  hosts: pihole
+- name: Setup gaming
+  hosts: gaming
   become: true
   roles:
     - common
@@ -21,5 +21,4 @@
     - iptables
     - dns
     - healthchecks
-    - pihole
     - docker

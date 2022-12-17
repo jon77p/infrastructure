@@ -10,5 +10,3 @@ docker_volume_dirs:
   pihole:
     - /mnt/{{ compose_project_name }}/config
     - /mnt/{{ compose_project_name }}/dnsmasq.d
-  promtail:
-    - /mnt/{{ compose_project_name }}/promtail/config

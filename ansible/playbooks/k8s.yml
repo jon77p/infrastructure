@@ -34,7 +34,7 @@
       ansible.builtin.replace:
         path: "{{ repo_abs_path.stdout }}/ansible/kubeconfig"
         regexp: pi1
-        ansible.builtin.replace: 192.168.1.101
+        replace: 192.168.1.101
     - name: Create the flux-system namespace
       kubernetes.core.k8s:
         state: present

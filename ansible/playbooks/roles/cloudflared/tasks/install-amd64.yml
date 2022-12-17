@@ -1,11 +1,11 @@
 ---
 - name: Add Cloudflare package URL to sources list
   become: true
-  ansible.builtin.command: echo 'deb http://pkg.cloudflare.com/ buster main' | sudo tee /etc/apt/sources.list.d/cloudflare-main.list
+  ansible.builtin.shell: echo 'deb http://pkg.cloudflare.com/ buster main' | sudo tee /etc/apt/sources.list.d/cloudflare-main.list
 
 - name: Add Cloudflare GPG key
   become: true
-  ansible.builtin.command: curl -C - https://pkg.cloudflare.com/pubkey.gpg | sudo apt-key add -
+  ansible.builtin.shell: curl -C - https://pkg.cloudflare.com/pubkey.gpg | sudo apt-key add -
 
 - name: Update apt cache
   become: true

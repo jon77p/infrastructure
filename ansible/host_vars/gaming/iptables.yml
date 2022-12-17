@@ -1,0 +1,29 @@
+---
+iptables_rules:
+  - action: insert
+    chain: INPUT
+    rule_num: 6
+    ctstate: NEW
+    destination_port: "25565"
+    protocol: tcp
+    state: present
+    jump: ACCEPT
+    comment: Accept new connections to TCP/25565
+  - action: insert
+    chain: INPUT
+    rule_num: 7
+    ctstate: NEW
+    destination_port: "25565"
+    protocol: udp
+    state: present
+    jump: ACCEPT
+    comment: Accept new connections to UDP/25565
+  - action: insert
+    chain: INPUT
+    rule_num: 8
+    ctstate: NEW
+    destination_port: "{{ gaming.smo_online_server.port }}"
+    protocol: tcp
+    state: present
+    jump: ACCEPT
+    comment: "Accept new connections to TCP/{{ gaming.smo_online_server.port }}"

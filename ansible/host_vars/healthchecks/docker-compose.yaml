@@ -21,16 +21,14 @@ services:
       SUPERUSER_PASSWORD: "{{ healthchecks.superuser.password }}"
     restart: always
     healthcheck:
-      test: [CMD, wget, "https://hc-ping.com/{{ healthchecks.healthcheck }}", -O, /dev/null]
+      test:
+        [
+          CMD,
+          wget,
+          "https://hc-ping.com/{{ healthchecks.healthcheck }}",
+          -O,
+          /dev/null,
+        ]
       timeout: 45s
       interval: 10s
       retries: 5
-  promtail:
-    image: grafana/promtail:latest@sha256:aa77333bb912b1017d35f16bd5d7f6d191963d6cee78bc0bd0df0a56990a3e42
-    restart: always
-    volumes:
-      - /var/log/cloudflared.log:/var/log/cloudflared.log:ro
-      - /var/log/journal:/var/log/journal:ro
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - "{{ docker_volume_dirs.promtail[0] }}/config.yaml:/etc/promtail/config.yaml"
-    command: -config.file=/etc/promtail/config.yaml

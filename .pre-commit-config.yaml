@@ -109,13 +109,6 @@ repos:
     rev: aaaae87de1e5b94adc6c6e84a70592e6d763c799 # frozen: v1.28.0
     hooks:
       - id: tfsec
-  # Ansible-related hooks
-  - repo: https://github.com/ansible-community/ansible-lint.git
-    rev: 445aa28e7d83e72e21b94273f56b86440edb3909 # frozen: v6.8.0
-    hooks:
-      - id: ansible-lint
-        args: [-c, .ansible-lint.yml]
-        files: "^ansible/"
   # Docker-related hooks
   - repo: https://github.com/hadolint/hadolint
     rev: 0269c965ba799e7f79da826d9589eaca46eacb9a # frozen: v2.10.0
