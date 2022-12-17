@@ -66,7 +66,7 @@ services:
     image: ghcr.io/sanae6/smo-online-server:latest
     restart: always
 
-    #user: 1000:1000
+    # user: 1000:1000
 
     volumes:
       - "{{ docker_volume_dirs.smo_online_server[0] }}:/data"
