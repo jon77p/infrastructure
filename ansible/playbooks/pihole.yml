@@ -4,10 +4,10 @@
   vars:
     opconnect_items:
       pihole:
-        - healthcheck
+        - email
         - password
-      crowdsec:
-        - key
+      healthchecks:
+        - apikey
   roles:
     - opconnect
 
@@ -18,10 +18,8 @@
     - common
     - cloudflared
     - cloudflare
-    - crowdsec
     - iptables
     - dns
-    - node_exporter
+    - healthchecks
     - pihole
-    - promtail
     - docker
