@@ -49,14 +49,14 @@ services:
     ports:
       # HTTPS port for web interface. If you change the SERVER_PORT
       # variable, also change this mapping.
-      - "{{ gaming.mineos.port }}:{{ gaming.mineos.port }}/tcp"
+      - "{{ gaming.mineos.port }}:8000/tcp"
 
       # Minecraft server ports. 25565 is the default, but is you plan
       # on running multiple servers at the same time, each will need
       # a unique port unless you are using bungiecord.
       # Expand this range as needed.
-      - "{{ gaming.mineos.minecraft.ports }}:{{ gaming.mineos.minecraft.ports }}/tcp"
-      - "{{ gaming.mineos.minecraft.ports }}:{{ gaming.mineos.minecraft.ports }}/udp"
+      - "{{ gaming.mineos.minecraft.ports }}:25565-25570/tcp"
+      - "{{ gaming.mineos.minecraft.ports }}:25565-25570/udp"
     healthcheck:
       test: [CMD, curl, "{{ healthchecks.healthcheck }}"]
       timeout: 45s
