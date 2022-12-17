@@ -22,7 +22,7 @@ services:
     environment:
       # Should the web interface use HTTPS or HTTP?
       # Valid entries are "true" and "false" (with quotes)
-      USE_HTTPS: "true"
+      USE_HTTPS: "false"
 
       # What port should the web interface listen on?
       # This is independant of the USE_HTTPS setting.
