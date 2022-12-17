@@ -48,4 +48,4 @@
   ansible.builtin.replace:
     path: "{{ repo_abs_path.stdout }}/ansible/kubeconfig"
     regexp: https://127.0.0.1:6443
-    ansible.builtin.replace: https://{{ ansible_hostname }}:6443
+    replace: https://{{ ansible_hostname }}:6443
