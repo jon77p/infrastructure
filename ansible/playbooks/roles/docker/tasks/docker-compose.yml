@@ -17,6 +17,11 @@
     remove_images: all
     state: absent
 
+- name: Restart docker systemd service
+  ansible.builtin.systemd:
+    name: docker
+    state: restarted
+
 - name: Create any referenced Compose networks
   community.docker.docker_network:
     name: "{{ docker_network.name }}"
