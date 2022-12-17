@@ -6,6 +6,7 @@
     headers:
       X-Api-Key: "{{ opconnect_results.healthchecks.apikey }}"
     body_format: "json"
+    # yamllint disable rule:indentation
     body: {
         "name": "{{ inventory_hostname }}",
         # Join 'ansible' and hostvars[inventory_hostname].group_names with spaces
@@ -14,6 +15,7 @@
         "grace": 60, # seconds
         "unique": ["name"],
       }
+    # yamllint enable rule:indentation
     status_code:
       - 200
       - 201
