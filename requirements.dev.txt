@@ -6,3 +6,4 @@ ansible-lint==6.8.0
 jmespath==1.0.1
 pylint-venv==2.3.0
 cdktf==0.13.0
+dnspython==2.2.1

@@ -1,0 +1,11 @@
+---
+# If nameserver is not an IP address, resolve it using dig lookup plugin
+- name: Set nameserver to IP address
+  ansible.builtin.set_fact:
+    normalized_nameservers: "{{ normalized_nameservers + [lookup('community.general.dig', nameserver, qtype='A')] }}"
+  when: nameserver is not ansible.utils.ip_address
+
+- name: Add IP nameserver to normalized nameservers list
+  ansible.builtin.set_fact:
+    normalized_nameservers: "{{ normalized_nameservers + [nameserver] }}"
+  when: nameserver is ansible.utils.ip_address

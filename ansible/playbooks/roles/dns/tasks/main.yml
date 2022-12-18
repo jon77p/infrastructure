@@ -1,12 +1,27 @@
 ---
+- name: Set empty normalized nameservers list
+  ansible.builtin.set_fact:
+    normalized_nameservers: []
+
+- name: Normalize nameservers
+  include_tasks: normalize_nameservers.yml
+  loop: "{{ nameservers }}"
+  loop_control:
+    loop_var: nameserver
+  when: nameservers != []
+
+- name: Print normalized nameservers
+  ansible.builtin.debug:
+    msg: "Normalized nameservers: {{ normalized_nameservers | to_json }}"
+
 - name: Update netplan to use nameservers
   become: true
-  when: nameservers != []
+  when: normalized_nameservers != []
   ansible.builtin.blockinfile:
     path: /etc/netplan/50-cloud-init.yaml
     insertafter: "(\\s*)set-name: (\\S+)"
     marker: "            # {mark} ANSIBLE MANAGED BLOCK"
-    block: "            nameservers:\n                addresses: {{ nameservers | to_json }}\n"
+    block: "            nameservers:\n                addresses: {{ normalized_nameservers | to_json }}\n"
   register: netplan
 
 - name: Apply new netplan
@@ -14,7 +29,7 @@
   ansible.builtin.command: netplan apply
   async: 10
   poll: 1
-  when: nameservers != []
+  when: normalized_nameservers != []
 
 - name: Reset connection
   ansible.builtin.meta: reset_connection
