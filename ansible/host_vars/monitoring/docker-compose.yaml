@@ -38,7 +38,7 @@ services:
       - "{{ docker_volume_dirs.promtail[0] }}/config.yaml:/etc/promtail/config.yaml"
     command: -config.file=/etc/promtail/config.yaml
   influxdb:
-    image: influxdb:2.6@sha256:9b83673da4e4cff8ac7d6113787eba122e2512191511f0ed1b2d1e62ea076f56
+    image: influxdb:2.6@sha256:67f83def1b55d135e9092271775ee851d7a1a6233f2dad796204abeeb3ac4f48
     restart: always
     volumes:
       - "{{ docker_volume_dirs.influxdb[0] }}:/var/lib/influxdb"
