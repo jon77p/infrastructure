@@ -1,0 +1,143 @@
+---
+name: Ansible CI/CD
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'ansible/host_vars/**'
+      - '.github/workflows/ansible-cicd.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'ansible/host_vars/**'
+      - '.github/workflows/ansible-cicd.yml'
+  workflow_dispatch:
+    host:
+      description: 'Host to run Ansible against'
+      required: true
+      choices:
+        - "allaboutsecurity"
+        - "codeserver"
+        - "firefly"
+        - "gaming"
+        - "gaps"
+        - "healthchecks"
+        - "innernet"
+        - "monitoring"
+        - "nextcloud"
+        - "nodered"
+        - "pihole"
+        - "securemylife"
+        - "timemachine"
+        - "vault"
+        - "youtubedl"
+    dry_run:
+      description: 'Dry run'
+      required: true
+      choices:
+        - "true"
+        - "false"
+      default: "true"
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      host: ${{ steps.set-host.outputs.host }}
+      dry_run: ${{ steps.set-dry-run.outputs.dry_run }}
+    steps:
+      - name: Set host (workflow_dispatch)
+        id: set-host
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        run: echo "HOST=${{ github.event.inputs.host }}" >> $GITHUB_OUTPUT
+      - name: Set host (pull_request)
+        id: set-host
+        if: ${{ github.event_name == 'pull_request' }}
+        run: |
+          # Get list of subdirectories in ansible/host_vars that have changed
+          CHANGED_HOSTS=$(git diff --name-only origin/main | grep -oP 'ansible/host_vars/\K[^/]+')
+          # Set host to list of changed hosts
+          echo "HOST=${CHANGED_HOSTS}" >> $GITHUB_OUTPUT
+
+      - name: Set dry run (workflow_dispatch)
+        id: set-dry-run
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        run: echo "DRY_RUN=${{ github.event.inputs.dry_run }}" >> $GITHUB_OUTPUT
+      - name: Set dry run (pull_request)
+        id: set-dry-run
+        if: ${{ github.event_name == 'pull_request' }}
+        run: echo "DRY_RUN=true" >> $GITHUB_OUTPUT
+      - name: Set dry run (push)
+        id: set-dry-run
+        if: ${{ github.event_name == 'push' }}
+        run: echo "DRY_RUN=false" >> $GITHUB_OUTPUT
+      - name: Summary
+        run: |
+          echo "# Inputs Summary" >> $GITHUB_STEP_SUMMARY
+          echo "**Host:** ${{ steps.set-host.outputs.host }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Dry run:** ${{ steps.set-dry-run.outputs.dry_run }}" >> $GITHUB_STEP_SUMMARY
+
+  ansible:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Tailscale
+        uses: tailscale/github-action@v1
+        with:
+          authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
+      - name: Setup Taskfile
+        uses: arduino/setup-task@v1
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Setup CICD
+        run: task setup-cicd
+      # Loop through hosts
+      - name: Run Ansible
+        run: |
+          echo "# Ansible Summary" >> $GITHUB_STEP_SUMMARY
+          echo "| Host | Status |" >> $GITHUB_STEP_SUMMARY
+
+          FINAL_STATUS=0
+
+          for host in ${{ needs.setup.outputs.host }}; do
+            STATUS_EMOJI=""
+
+            if ! ansible --list-hosts all | grep -q $host; then
+              echo "$host is not an available host, skipping"
+              continue
+            fi
+
+            echo ::group::Pinging $host
+            HOST=$host task ansible-ping
+            STATUS_PING=$?
+            echo ::endgroup::
+
+            if [ $STATUS_PING -ne 0 ]; then
+              STATUS_EMOJI=":warning:"
+              echo "$host is unreachable, skipping"
+            else
+              echo ::group::Running Ansible for $host
+              HOST=$host DRY_RUN=${{ needs.setup.outputs.dry_run }} task ansible
+              STATUS=$?
+              echo ::endgroup::
+
+              if [ $STATUS -ne 0 ]; then
+                FINAL_STATUS=$STATUS
+              fi
+
+              if [ $STATUS -eq 0 ]; then
+                STATUS_EMOJI=":white_check_mark:"
+              else
+                STATUS_EMOJI=":x:"
+              fi
+            fi
+
+            echo "| $host | $STATUS_EMOJI |" >> $GITHUB_STEP_SUMMARY
+          done
+
+          exit $FINAL_STATUS
