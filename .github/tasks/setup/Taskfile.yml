@@ -18,6 +18,12 @@ tasks:
       - task: secrets:setup
       - task: pre-commit
       - task: ansible
+  cicd:
+    cmds:
+      - task: pip
+      - task: cloudflared
+      - task: direnv:setup
+      - task: ansible
   virtualenv:
     cmds:
       - virtualenv .venv
