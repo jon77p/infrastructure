@@ -1,0 +1,12 @@
+---
+version: "3"
+
+tasks:
+  virtualenv:
+    cmds:
+      - brew install virtualenv # macOS only
+    status:
+      - which virtualenv
+  setup:
+    cmds:
+      - task: virtualenv

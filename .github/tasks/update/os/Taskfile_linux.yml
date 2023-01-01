@@ -2,9 +2,23 @@
 version: "3"
 
 tasks:
-  update:
+  apt:
+    ignore_error: true
     cmds:
       - >-
+        which apt &&
         sudo apt -qq update &&
         sudo apt -qq -o=Dpkg::Use-Pty=0 -y upgrade &&
         sudo apt -qq -o=Dpkg::Use-Pty=0 -y autoremove
+  update:
+    cmds:
+      - task: apt
+      - task: yum
+  yum:
+    ignore_error: true
+    cmds:
+      - >-
+        which yum &&
+        sudo yum -q -y update &&
+        sudo yum -q -y upgrade &&
+        sudo yum -q -y autoremove

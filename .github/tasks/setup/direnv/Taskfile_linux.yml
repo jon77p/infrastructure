@@ -4,9 +4,22 @@ version: "3"
 tasks:
   install:
     cmds:
-      - sudo apt install -qq -o=Dpkg::Use-Pty=0 -y direnv
+      - task: apt
+      - task: yum
     status:
       - which direnv
+  apt:
+    ignore_error: true
+    cmds:
+      - >-
+        which apt &&
+        sudo apt install -qq -o=Dpkg::Use-Pty=0 -y direnv
+  yum:
+    ignore_error: true
+    cmds:
+      - >-
+        which yum &&
+        curl -sfL https://direnv.net/install.sh | sudo bash
   setup:
     deps:
       - install
