@@ -1,21 +1,105 @@
 ---
-- name: Install Code-Server
-  ansible.builtin.shell: curl -fsSL https://code-server.dev/install.sh | sh
+- name: Check if code is installed
+  become_user: "{{ ansible_ssh_user }}"
+  ansible.builtin.command: code --version
+  register: code_status
+  ignore_errors: true
 
-- name: Create necessary config directories
-  ansible.builtin.file:
-    path: /home/{{ ansible_ssh_user }}/.config/code-server
-    state: directory
-    recurse: true
+- name: Install VS Code
+  include_tasks: install.yml
+  when: code_status.rc != 0
 
-- name: Create config file
-  ansible.builtin.template:
-    src: ../templates/config.yaml.j2
-    dest: /home/{{ ansible_ssh_user }}/.config/code-server/config.yaml
+- name: Check if code-tunnel is logged in
+  become_user: "{{ ansible_ssh_user }}"
+  ansible.builtin.command: code tunnel user show
+  register: tunnel_status
 
-- name: Start Code-Server
-  become: true
-  ansible.builtin.systemd:
-    name: code-server@{{ ansible_ssh_user }}
-    state: restarted
-    enabled: true
+- name: Login to code tunnel and wait for user approval
+  become_user: "{{ ansible_ssh_user }}"
+  when: tunnel_status.stdout == "not logged in"
+  async: 300
+  poll: 0
+  ansible.builtin.shell: code tunnel user login --provider github 2>&1 | tee /tmp/code-tunnel-login.log
+  register: login_progress
+
+- name: Wait 10 seconds for code-tunnel login to start
+  when: tunnel_status.stdout == "not logged in"
+  ansible.builtin.wait_for:
+    timeout: 10
+
+- name: Get code-tunnel output
+  become_user: "{{ ansible_ssh_user }}"
+  when: tunnel_status.stdout == "not logged in"
+  ansible.builtin.shell: cat /tmp/code-tunnel-login.log
+  delay: 10
+  register: tunnel_login_output
+
+- name: Print code-tunnel output
+  ansible.builtin.debug:
+    msg: "{{ tunnel_login_output.stdout }}"
+  when: tunnel_status.stdout == "not logged in"
+
+- name: Wait for login to complete
+  become_user: "{{ ansible_ssh_user }}"
+  when: tunnel_status.stdout == "not logged in"
+  ansible.builtin.async_status:
+    jid: "{{ login_progress.ansible_job_id }}"
+  register: login_status
+  until: login_status.finished
+  retries: 10
+  delay: 10
+
+- name: Verify code-tunnel is now logged in
+  become_user: "{{ ansible_ssh_user }}"
+  ansible.builtin.command: code tunnel user show
+  register: verify_tunnel_status
+  failed_when: verify_tunnel_status.stdout == "not logged in"
+  when: tunnel_status.stdout == "not logged in"
+
+- name: Create license_consent.json file
+  ansible.builtin.copy:
+    content: '{"consented":true}'
+    dest: /home/{{ ansible_ssh_user }}/.vscode-cli/license_consent.json
+    owner: "{{ ansible_ssh_user }}"
+    group: "{{ ansible_ssh_user }}"
+    mode: 0644
+
+- name: Check if tunnel has been named correctly
+  become_user: "{{ ansible_ssh_user }}"
+  # Line is in format of "name":"<tunnel-name>" in ~/.vscode-cli/code_tunnel.json
+  ansible.builtin.shell: grep -q '"name":"{{ codeserver.tunnel }}"' ~/.vscode-cli/code_tunnel.json
+  ignore_errors: true
+  register: tunnel_name_status
+
+- name: Rename tunnel
+  become_user: "{{ ansible_ssh_user }}"
+  when: tunnel_name_status.rc != 0
+  ansible.builtin.shell: code tunnel rename {{ codeserver.tunnel }}
+  register: tunnel_rename_status
+
+- name: Verify tunnel has been named correctly
+  become_user: "{{ ansible_ssh_user }}"
+  # Line is in format of "name":"<tunnel-name>" in ~/.vscode-cli/code_tunnel.json
+  ansible.builtin.shell: grep -q '"name":"{{ codeserver.tunnel }}"' ~/.vscode-cli/code_tunnel.json
+  register: verify_tunnel_name_status
+  failed_when: verify_tunnel_name_status.rc != 0
+
+- name: Install code-tunnel service
+  become_user: "{{ ansible_ssh_user }}"
+  ansible.builtin.shell:
+    cmd: code tunnel service install
+    creates: /home/{{ ansible_ssh_user }}/.config/systemd/user/code-tunnel.service
+
+- name: Enable code-tunnel service
+  become_user: "{{ ansible_ssh_user }}"
+  ansible.builtin.command:
+    cmd: systemctl --user enable --now code-tunnel.service
+    creates: /home/{{ ansible_ssh_user }}/.config/systemd/user/code-tunnel.service
+
+- name: Reload systemd
+  become_user: "{{ ansible_ssh_user }}"
+  ansible.builtin.command: systemctl --user daemon-reload
+
+- name: Restart code-tunnel service
+  become_user: "{{ ansible_ssh_user }}"
+  ansible.builtin.command: systemctl --user restart code-tunnel.service
