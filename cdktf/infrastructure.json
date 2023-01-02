@@ -36,7 +36,7 @@
         "is_subdomain": true,
         "ad_number": 1,
         "region": "us-sanjose-1",
-        "image_id": "ocid1.image.oc1.us-sanjose-1.aaaaaaaaudhtosvzok3k6csi2cnhsee7gfezgnkd7gq742gsoe4xjaxiaoja",
+        "image_id": "ocid1.image.oc1.us-sanjose-1.aaaaaaaaenffdpkvsm43uvyxtcjwd7yx7vynh5jn23a6rpqytj2lta5onaqq",
         "shape": "VM.Standard.A1.Flex",
         "memory": 24,
         "ocpus": 4
