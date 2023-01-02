@@ -95,6 +95,9 @@ jobs:
   ansible:
     runs-on: ubuntu-latest
     needs: setup
+    env:
+      ANSIBLE_ROLES_PATH: ${{ github.workspace }}/ansible/roles
+      ANSIBLE_COLLECTIONS_PATH: ${{ github.workspace }}/ansible/collections
     steps:
       - name: Checkout
         uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b # v3
@@ -112,6 +115,16 @@ jobs:
         with:
           python-version: 3.9
           cache: pip
+      - name: Cache Ansible Roles
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.ANSIBLE_ROLES_PATH }}
+          key: ${{ runner.os }}-ansible-roles-${{ hashFiles('ansible/requirements.yml') }}
+      - name: Cache Ansible Collections
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.ANSIBLE_COLLECTIONS_PATH }}
+          key: ${{ runner.os }}-ansible-collections-${{ hashFiles('ansible/requirements.yml') }}
       - name: Setup CICD
         run: task setup-cicd
       # Loop through hosts
