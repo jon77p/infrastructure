@@ -9,6 +9,18 @@ tasks:
     desc: Setup repo environment
     deps:
       - tasks:setup
+  setup-cicd:
+    desc: Setup repo environment for CI/CD
+    deps:
+      - tasks:setup-cicd
+  ansible:
+    desc: Run ansible playbook
+    deps:
+      - tasks:ansible
+  ansible-ping:
+    desc: Ping ansible hosts
+    deps:
+      - tasks:ansible-ping
   update:
     desc: Run updates
     deps:
