@@ -131,6 +131,7 @@ jobs:
       - name: Run Ansible
         env:
           ANSIBLE_VAULT_PASSWORD: ${{ secrets.ANSIBLE_VAULT_PASSWORD }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "# Ansible CICD Summary" >> $GITHUB_STEP_SUMMARY
           echo "Job: [${{ github.job }}]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/${{ github.run_id }})" >> $GITHUB_STEP_SUMMARY
