@@ -19,8 +19,8 @@
       }
     },
     "instances": {
-      "code": {
-        "name": "code",
+      "oci0-1": {
+        "name": "oci0-1",
         "domain": "jon77p.xyz",
         "is_subdomain": true,
         "ad_number": 1,
@@ -126,6 +126,17 @@
         "memory": 1,
         "ocpus": 1
       },
+      "code": {
+        "name": "code",
+        "domain": "jon77p.xyz",
+        "is_subdomain": true,
+        "ad_number": 1,
+        "region": "us-sanjose-1",
+        "image_id": "ocid1.image.oc1.us-sanjose-1.aaaaaaaaenffdpkvsm43uvyxtcjwd7yx7vynh5jn23a6rpqytj2lta5onaqq",
+        "shape": "VM.Standard.A1.Flex",
+        "memory": 6,
+        "ocpus": 1
+      },
       "gaming": {
         "name": "gaming",
         "domain": "jon77p.xyz",
@@ -134,8 +145,8 @@
         "region": "us-phoenix-1",
         "image_id": "ocid1.image.oc1.phx.aaaaaaaanyjs4d76ax5anv254rnscizcnrkfdqmvwxw7bnwpdxh2z5b2n2ia",
         "shape": "VM.Standard.A1.Flex",
-        "memory": 24,
-        "ocpus": 4
+        "memory": 18,
+        "ocpus": 3
       }
     }
   }
