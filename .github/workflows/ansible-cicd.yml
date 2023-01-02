@@ -61,8 +61,8 @@ jobs:
           if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
             echo "host=${{ github.event.inputs.host }}" >> $GITHUB_OUTPUT
           elif [ "${{ github.event_name }}" == "pull_request" ]; then
-            # Get list of subdirectories in ansible/host_vars that have changed
-            CHANGED_HOSTS=$(git diff --name-only origin/main | grep -oP 'ansible/host_vars/\K[^/]+')
+            # Get list of subdirectories in ansible/host_vars that have changed vs PR base SHA
+            CHANGED_HOSTS=$(git diff --name-only ${{ github.event.pull_request.base.sha }} | grep -oP 'ansible/host_vars/\K[^/]+')
             # Set host to list of changed hosts, using , as a delimiter
             echo "host=$(echo $CHANGED_HOSTS | tr ' ' ',')" >> $GITHUB_OUTPUT
           else
