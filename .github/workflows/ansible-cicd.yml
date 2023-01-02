@@ -183,6 +183,7 @@ jobs:
             gh pr comment ${{ github.event.pull_request.number }} --body "$(cat $GITHUB_STEP_SUMMARY)"
           fi
           
-          tailscale logout
-
           exit $FINAL_STATUS
+      - name: Tailscale Logout
+        if: always()
+        run: tailscale logout
