@@ -52,8 +52,8 @@ tasks:
     cmds:
       - task: pip
       - >-
-        .venv/bin/ansible-galaxy role install -r requirements.yml &&
-        .venv/bin/ansible-galaxy collection install -r requirements.yml
+        .venv/bin/ansible-galaxy role install -r ansible/requirements.yml &&
+        .venv/bin/ansible-galaxy collection install -r ansible/requirements.yml
   githubcli-apt:
     ignore_error: true
     generates:
