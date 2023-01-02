@@ -63,8 +63,8 @@ jobs:
           elif [ "${{ github.event_name }}" == "pull_request" ]; then
             # Get list of subdirectories in ansible/host_vars that have changed
             CHANGED_HOSTS=$(git diff --name-only origin/main | grep -oP 'ansible/host_vars/\K[^/]+')
-            # Set host to list of changed hosts
-            echo "host=${CHANGED_HOSTS}" >> $GITHUB_OUTPUT
+            # Set host to list of changed hosts, using , as a delimiter
+            echo "host=$(echo $CHANGED_HOSTS | tr ' ' ',')" >> $GITHUB_OUTPUT
           else
             echo "Unknown event name: ${{ github.event_name }}"
             exit 1
@@ -126,7 +126,10 @@ jobs:
 
           FINAL_STATUS=0
 
-          for host in ${{ needs.setup.outputs.host }}; do
+          # Create list of hosts to run Ansible for, splitting on ,
+          HOSTS=$(echo ${{ needs.setup.outputs.host }} | tr ',' ' ')
+
+          for host in $HOSTS; do
             STATUS_EMOJI=""
 
             if ! ansible --list-hosts all | grep -q $host; then
