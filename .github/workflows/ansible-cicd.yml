@@ -186,4 +186,4 @@ jobs:
           exit $FINAL_STATUS
       - name: Tailscale Logout
         if: always()
-        run: tailscale logout
+        run: sudo tailscale logout
