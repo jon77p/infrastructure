@@ -119,7 +119,8 @@ jobs:
         env:
           ANSIBLE_VAULT_PASSWORD: ${{ secrets.ANSIBLE_VAULT_PASSWORD }}
         run: |
-          echo "# Ansible Summary" >> $GITHUB_STEP_SUMMARY
+          echo "# Ansible CICD Summary" >> $GITHUB_STEP_SUMMARY
+          echo "Job: [${{ github.job }}]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/${{ github.run_id }})" >> $GITHUB_STEP_SUMMARY
           echo "| Host | Status |" >> $GITHUB_STEP_SUMMARY
           echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
 
@@ -160,5 +161,9 @@ jobs:
 
             echo "| $host | $STATUS_EMOJI |" >> $GITHUB_STEP_SUMMARY
           done
+
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            gh pr comment ${{ github.event.pull_request.number }} --body "$(cat $GITHUB_STEP_SUMMARY)"
+          fi
 
           exit $FINAL_STATUS
