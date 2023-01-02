@@ -182,5 +182,7 @@ jobs:
           if [ "${{ github.event_name }}" == "pull_request" ]; then
             gh pr comment ${{ github.event.pull_request.number }} --body "$(cat $GITHUB_STEP_SUMMARY)"
           fi
+          
+          tailscale logout
 
           exit $FINAL_STATUS
