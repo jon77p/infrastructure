@@ -113,6 +113,7 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.9
+          cache: pip
       - name: Setup CICD
         run: task setup-cicd
       # Loop through hosts
