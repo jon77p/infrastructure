@@ -38,10 +38,6 @@
     timeout: 60
   register: output
 
-- name: Debug output.services
-  ansible.builtin.debug:
-    var: output.services
-
 - name: Wait for services to start
   ansible.builtin.pause:
     seconds: 30
