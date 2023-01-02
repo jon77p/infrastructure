@@ -44,6 +44,7 @@
 
 - name: Check if services are running
   ansible.builtin.assert:
+    quiet: true
     that:
       - output.services.{{ docker_service.key }}.{{ compose_project_name }}_{{ docker_service.key }}_1.state.running
   loop: "{{ compose_definition.services | dict2items }}"
