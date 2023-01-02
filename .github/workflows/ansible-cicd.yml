@@ -1,11 +1,6 @@
 ---
 name: Ansible CI/CD
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'ansible/host_vars/**'
   pull_request:
     branches:
       - main
@@ -65,11 +60,6 @@ jobs:
             CHANGED_HOSTS=$(git diff --name-only origin/main | grep -oP 'ansible/host_vars/\K[^/]+')
             # Set host to list of changed hosts
             echo "host=${CHANGED_HOSTS}" >> $GITHUB_OUTPUT
-          elif [ "${{ github.event_name }}" == "push" ]; then
-            # Get list of subdirectories in ansible/host_vars that have changed
-            CHANGED_HOSTS=$(git diff --name-only origin/main | grep -oP 'ansible/host_vars/\K[^/]+')
-            # Set host to list of changed hosts
-            echo "host=${CHANGED_HOSTS}" >> $GITHUB_OUTPUT
           else
             echo "Unknown event name: ${{ github.event_name }}"
             exit 1
@@ -80,9 +70,11 @@ jobs:
           if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
             echo "dry_run=${{ github.event.inputs.dry_run }}" >> $GITHUB_OUTPUT
           elif [ "${{ github.event_name }}" == "pull_request" ]; then
-            echo "dry_run=true" >> $GITHUB_OUTPUT
-          elif [ "${{ github.event_name }}" == "push" ]; then
-            echo "dry_run=false" >> $GITHUB_OUTPUT
+            if [ "${{ github.event.pull_request.state }}" == "closed" && "${{ github.event.pull_request.merged }}" == "true" ]; then
+              echo "dry_run=false" >> $GITHUB_OUTPUT
+            else
+              echo "dry_run=true" >> $GITHUB_OUTPUT
+            fi
           else
             echo "Unknown event name: ${{ github.event_name }}"
             exit 1
