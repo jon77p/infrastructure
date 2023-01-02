@@ -1,5 +1,6 @@
 ---
 collections:
+  - name: ansible.utils
   - name: community.general
   - name: community.docker
   - name: community.healthchecksio

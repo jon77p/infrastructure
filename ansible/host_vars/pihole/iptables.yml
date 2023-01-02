@@ -9,3 +9,25 @@ iptables_rules:
     state: present
     jump: ACCEPT
     comment: Accept new connections to TCP/{{ pihole_exporter.port }}
+  # iptables -A INPUT -i !tailscale0 -p tcp --destination-port 53 -j DROP
+  - action: insert
+    chain: INPUT
+    rule_num: 7
+    ctstate: NEW
+    destination_port: 53
+    interface: "!tailscale0"
+    protocol: tcp
+    state: present
+    jump: DROP
+    comment: Drop new connections to TCP/53 from non-Tailscale interfaces
+  # iptables -A INPUT -i !tailscale0 -p udp --destination-port 53 -j DROP
+  - action: insert
+    chain: INPUT
+    rule_num: 8
+    ctstate: NEW
+    destination_port: 53
+    interface: "!tailscale0"
+    protocol: udp
+    state: present
+    jump: DROP
+    comment: Drop new connections to UDP/53 from non-Tailscale interfaces
