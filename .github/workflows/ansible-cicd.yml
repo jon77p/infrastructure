@@ -118,6 +118,8 @@ jobs:
         run: task setup-cicd
       # Loop through hosts
       - name: Run Ansible
+        env:
+          ANSIBLE_VAULT_PASSWORD: ${{ secrets.ANSIBLE_VAULT_PASSWORD }}
         run: |
           echo "# Ansible Summary" >> $GITHUB_STEP_SUMMARY
           echo "| Host | Status |" >> $GITHUB_STEP_SUMMARY
