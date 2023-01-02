@@ -52,6 +52,7 @@ tasks:
     cmds:
       - task: pip
       - >-
+        .venv/bin/python3 -m pip install -r ansible/requirements.txt
         .venv/bin/ansible-galaxy role install -r ansible/requirements.yml &&
         .venv/bin/ansible-galaxy collection install -r ansible/requirements.yml
   githubcli-apt:
