@@ -5,6 +5,8 @@
     opconnect_items:
       codeserver:
         - password
+      healthchecks:
+        - apikey
   roles:
     - opconnect
 
