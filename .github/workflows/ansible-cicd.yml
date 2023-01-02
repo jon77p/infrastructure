@@ -124,6 +124,7 @@ jobs:
         run: |
           echo "# Ansible Summary" >> $GITHUB_STEP_SUMMARY
           echo "| Host | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
 
           FINAL_STATUS=0
 
