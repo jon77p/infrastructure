@@ -61,10 +61,10 @@ jobs:
           if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
             echo "host=${{ github.event.inputs.host }}" >> $GITHUB_OUTPUT
           elif [ "${{ github.event_name }}" == "pull_request" ]; then
-            # Get list of subdirectories in ansible/host_vars that have changed
-            CHANGED_HOSTS=$(git diff --name-only origin/main | grep -oP 'ansible/host_vars/\K[^/]+')
-            # Set host to list of changed hosts
-            echo "host=${CHANGED_HOSTS}" >> $GITHUB_OUTPUT
+            # Get list of subdirectories in ansible/host_vars that have changed vs PR base SHA
+            CHANGED_HOSTS=$(git diff --name-only ${{ github.event.pull_request.base.sha }} | grep -oP 'ansible/host_vars/\K[^/]+')
+            # Set host to list of changed hosts, using , as a delimiter
+            echo "host=$(echo $CHANGED_HOSTS | tr ' ' ',')" >> $GITHUB_OUTPUT
           else
             echo "Unknown event name: ${{ github.event_name }}"
             exit 1
@@ -95,6 +95,9 @@ jobs:
   ansible:
     runs-on: ubuntu-latest
     needs: setup
+    env:
+      ANSIBLE_ROLES_PATH: ${{ github.workspace }}/ansible/roles
+      ANSIBLE_COLLECTIONS_PATH: ${{ github.workspace }}/ansible/collections
     steps:
       - name: Checkout
         uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b # v3
@@ -112,6 +115,16 @@ jobs:
         with:
           python-version: 3.9
           cache: pip
+      - name: Cache Ansible Roles
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.ANSIBLE_ROLES_PATH }}
+          key: ${{ runner.os }}-ansible-roles-${{ hashFiles('ansible/requirements.yml') }}
+      - name: Cache Ansible Collections
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.ANSIBLE_COLLECTIONS_PATH }}
+          key: ${{ runner.os }}-ansible-collections-${{ hashFiles('ansible/requirements.yml') }}
       - name: Setup CICD
         run: task setup-cicd
       # Loop through hosts
@@ -119,13 +132,17 @@ jobs:
         env:
           ANSIBLE_VAULT_PASSWORD: ${{ secrets.ANSIBLE_VAULT_PASSWORD }}
         run: |
-          echo "# Ansible Summary" >> $GITHUB_STEP_SUMMARY
+          echo "# Ansible CICD Summary" >> $GITHUB_STEP_SUMMARY
+          echo "Job: [${{ github.job }}]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/${{ github.run_id }})" >> $GITHUB_STEP_SUMMARY
           echo "| Host | Status |" >> $GITHUB_STEP_SUMMARY
           echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
 
           FINAL_STATUS=0
 
-          for host in ${{ needs.setup.outputs.host }}; do
+          # Create list of hosts to run Ansible for, splitting on ,
+          HOSTS=$(echo ${{ needs.setup.outputs.host }} | tr ',' ' ')
+
+          for host in $HOSTS; do
             STATUS_EMOJI=""
 
             if ! ansible --list-hosts all | grep -q $host; then
@@ -160,5 +177,9 @@ jobs:
 
             echo "| $host | $STATUS_EMOJI |" >> $GITHUB_STEP_SUMMARY
           done
+
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            gh pr comment ${{ github.event.pull_request.number }} --body "$(cat $GITHUB_STEP_SUMMARY)"
+          fi
 
           exit $FINAL_STATUS
