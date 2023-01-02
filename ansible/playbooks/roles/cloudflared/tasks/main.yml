@@ -28,10 +28,6 @@
   ansible.builtin.shell: cat /root/.cloudflared/config.yml | head -n 1 | awk '{print $2}'
   register: tunnel_output
 
-- name: Debug tunnel_output
-  ansible.builtin.debug:
-    var: tunnel_output
-
 - name: Debug additional_ingress
   ansible.builtin.debug:
     var: additional_ingress
