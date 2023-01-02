@@ -4,10 +4,7 @@
   vars:
     opconnect_items:
       codeserver:
-        - healthcheck
         - password
-      crowdsec:
-        - key
   roles:
     - opconnect
 
@@ -18,9 +15,8 @@
     - common
     - cloudflared
     - cloudflare
-    - cron
-    - crowdsec
     - iptables
     - dns
-    - node_exporter
+    - healthchecks
+    - cron
     - codeserver
