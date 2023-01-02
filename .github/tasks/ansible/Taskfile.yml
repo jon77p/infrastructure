@@ -5,14 +5,14 @@ tasks:
   ping:
     # Ping ansible hosts passed in via HOST environment variable
     cmds:
-      - ansible -m ping $HOST
+      - .venv/bin/ansible -m ping $HOST
   playbook:
     # Run ansible playbook passed in via PLAYBOOK environment variable
     cmds:
       # If DRY_RUN is set to true, run ansible-playbook in check mode
       - |
         if [ "$DRY_RUN" = "true" ]; then
-          ansible-playbook --syntax-check ansible/playbooks/$HOST.yml
+          .venv/bin/ansible-playbook --syntax-check ansible/playbooks/$HOST.yml
         else
-          ansible-playbook ansible/playbooks/$HOST.yml
+          .venv/bin/ansible-playbook ansible/playbooks/$HOST.yml
         fi
