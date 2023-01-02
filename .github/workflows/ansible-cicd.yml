@@ -6,13 +6,11 @@ on:
       - main
     paths:
       - 'ansible/host_vars/**'
-      - '.github/workflows/ansible-cicd.yml'
   pull_request:
     branches:
       - main
     paths:
       - 'ansible/host_vars/**'
-      - '.github/workflows/ansible-cicd.yml'
   workflow_dispatch:
     host:
       description: 'Host to run Ansible against'
@@ -47,36 +45,55 @@ jobs:
       host: ${{ steps.set-host.outputs.host }}
       dry_run: ${{ steps.set-dry-run.outputs.dry_run }}
     steps:
-      - name: Set host (workflow_dispatch)
+      - name: Checkout (pull_request)
+        uses: actions/checkout@v2
+        if: github.event_name == 'pull_request'
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Checkout (workflow_dispatch || push)
+        uses: actions/checkout@v2
+        if: github.event_name != 'pull_request'
+      - name: Fetch main branch
+        run: git fetch origin main
+      - name: Set host
         id: set-host
-        if: ${{ github.event_name == 'workflow_dispatch' }}
-        run: echo "HOST=${{ github.event.inputs.host }}" >> $GITHUB_OUTPUT
-      - name: Set host (pull_request)
-        id: set-host
-        if: ${{ github.event_name == 'pull_request' }}
         run: |
-          # Get list of subdirectories in ansible/host_vars that have changed
-          CHANGED_HOSTS=$(git diff --name-only origin/main | grep -oP 'ansible/host_vars/\K[^/]+')
-          # Set host to list of changed hosts
-          echo "HOST=${CHANGED_HOSTS}" >> $GITHUB_OUTPUT
-
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            echo "host=${{ github.event.inputs.host }}" >> $GITHUB_OUTPUT
+          elif [ "${{ github.event_name }}" == "pull_request" ]; then
+            # Get list of subdirectories in ansible/host_vars that have changed
+            CHANGED_HOSTS=$(git diff --name-only origin/main | grep -oP 'ansible/host_vars/\K[^/]+')
+            # Set host to list of changed hosts
+            echo "host=${CHANGED_HOSTS}" >> $GITHUB_OUTPUT
+          elif [ "${{ github.event_name }}" == "push" ]; then
+            # Get list of subdirectories in ansible/host_vars that have changed
+            CHANGED_HOSTS=$(git diff --name-only origin/main | grep -oP 'ansible/host_vars/\K[^/]+')
+            # Set host to list of changed hosts
+            echo "host=${CHANGED_HOSTS}" >> $GITHUB_OUTPUT
+          else
+            echo "Unknown event name: ${{ github.event_name }}"
+            exit 1
+          fi
       - name: Set dry run (workflow_dispatch)
         id: set-dry-run
-        if: ${{ github.event_name == 'workflow_dispatch' }}
-        run: echo "DRY_RUN=${{ github.event.inputs.dry_run }}" >> $GITHUB_OUTPUT
-      - name: Set dry run (pull_request)
-        id: set-dry-run
-        if: ${{ github.event_name == 'pull_request' }}
-        run: echo "DRY_RUN=true" >> $GITHUB_OUTPUT
-      - name: Set dry run (push)
-        id: set-dry-run
-        if: ${{ github.event_name == 'push' }}
-        run: echo "DRY_RUN=false" >> $GITHUB_OUTPUT
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            echo "dry_run=${{ github.event.inputs.dry_run }}" >> $GITHUB_OUTPUT
+          elif [ "${{ github.event_name }}" == "pull_request" ]; then
+            echo "dry_run=true" >> $GITHUB_OUTPUT
+          elif [ "${{ github.event_name }}" == "push" ]; then
+            echo "dry_run=false" >> $GITHUB_OUTPUT
+          else
+            echo "Unknown event name: ${{ github.event_name }}"
+            exit 1
+          fi
       - name: Summary
         run: |
           echo "# Inputs Summary" >> $GITHUB_STEP_SUMMARY
-          echo "**Host:** ${{ steps.set-host.outputs.host }}" >> $GITHUB_STEP_SUMMARY
-          echo "**Dry run:** ${{ steps.set-dry-run.outputs.dry_run }}" >> $GITHUB_STEP_SUMMARY
+          echo "| Input | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
+          echo "| host | ${{ steps.set-host.outputs.host }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| dry_run | ${{ steps.set-dry-run.outputs.dry_run }} |" >> $GITHUB_STEP_SUMMARY
 
   ansible:
     runs-on: ubuntu-latest
