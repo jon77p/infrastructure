@@ -20,6 +20,7 @@ tasks:
       - task: ansible
   cicd:
     cmds:
+      - task: basics:virtualenv
       - task: pip
       - task: cloudflared
       - task: direnv:setup
