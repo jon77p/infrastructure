@@ -12,32 +12,32 @@ on:
     paths:
       - 'ansible/host_vars/**'
   workflow_dispatch:
-    host:
-      description: 'Host to run Ansible against'
-      required: true
-      choices:
-        - "allaboutsecurity"
-        - "codeserver"
-        - "firefly"
-        - "gaming"
-        - "gaps"
-        - "healthchecks"
-        - "innernet"
-        - "monitoring"
-        - "nextcloud"
-        - "nodered"
-        - "pihole"
-        - "securemylife"
-        - "timemachine"
-        - "vault"
-        - "youtubedl"
-    dry_run:
-      description: 'Dry run'
-      required: true
-      choices:
-        - "true"
-        - "false"
-      default: "true"
+    inputs:
+      host:
+        description: 'Host to run Ansible against'
+        required: true
+        type: choice
+        options:
+          - "allaboutsecurity"
+          - "codeserver"
+          - "firefly"
+          - "gaming"
+          - "gaps"
+          - "healthchecks"
+          - "innernet"
+          - "monitoring"
+          - "nextcloud"
+          - "nodered"
+          - "pihole"
+          - "securemylife"
+          - "timemachine"
+          - "vault"
+          - "youtubedl"
+      dry_run:
+        description: 'Dry run'
+        required: true
+        type: boolean
+        default: true
 jobs:
   setup:
     runs-on: ubuntu-latest
