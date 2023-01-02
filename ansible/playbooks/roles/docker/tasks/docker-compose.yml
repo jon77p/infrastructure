@@ -47,8 +47,8 @@
     quiet: true
     that:
       - output.services.{{ docker_service.key }}.{{ compose_project_name }}_{{ docker_service.key }}_1.state.running
-    success_msg: "{{ docker_service_key }} is running"
-    fail_msg: "{{ docker_service_key }} is not running"
+    success_msg: "{{ docker_service.key }} is running"
+    fail_msg: "{{ docker_service.key }} is not running"
   loop: "{{ compose_definition.services | dict2items }}"
   loop_control:
     loop_var: docker_service
