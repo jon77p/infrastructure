@@ -67,7 +67,7 @@
 - name: Check if tunnel has been named correctly
   become_user: "{{ ansible_ssh_user }}"
   # Line is in format of "name":"<tunnel-name>" in ~/.vscode-cli/code_tunnel.json
-  ansible.builtin.shell: grep -q '"name":"{{ codeserver.tunnel }}"' ~/.vscode-cli/code_tunnel.json
+  ansible.builtin.shell: grep -q '"name":"{{ codeserver.tunnel }}"' /home/{{ ansible_ssh_user }}/.vscode-cli/code_tunnel.json
   ignore_errors: true
   register: tunnel_name_status
 
@@ -80,7 +80,7 @@
 - name: Verify tunnel has been named correctly
   become_user: "{{ ansible_ssh_user }}"
   # Line is in format of "name":"<tunnel-name>" in ~/.vscode-cli/code_tunnel.json
-  ansible.builtin.shell: grep -q '"name":"{{ codeserver.tunnel }}"' ~/.vscode-cli/code_tunnel.json
+  ansible.builtin.shell: grep -q '"name":"{{ codeserver.tunnel }}"' /home/{{ ansible_ssh_user }}/.vscode-cli/code_tunnel.json
   register: verify_tunnel_name_status
   failed_when: verify_tunnel_name_status.rc != 0
 
@@ -88,7 +88,14 @@
   become_user: "{{ ansible_ssh_user }}"
   ansible.builtin.shell:
     cmd: code tunnel service install
-    creates: /home/{{ ansible_ssh_user }}/.config/systemd/user/code-tunnel.service
+    creates: /home/{{ ansible_ssh_user }}/.vscode-cli/code-tunnel.service
+    
+- name: Modify code-tunnel service to run after user.target
+  become_user: "{{ ansible_ssh_user }}"
+  ansible.builtin.lineinfile:
+    path: /home/{{ ansible_ssh_user }}/.vscode-cli/code-tunnel.service
+    search_string: 'WantedBy=multi-user.target'
+    line: 'WantedBy=user.target'
 
 - name: Enable code-tunnel service
   become_user: "{{ ansible_ssh_user }}"
