@@ -95,6 +95,26 @@
     cmd: ln -s /home/{{ ansible_ssh_user }}/.vscode-cli/code-tunnel.service /etc/systemd/system/code-tunnel.service
     creates: /etc/systemd/system/code-tunnel.service
 
+- name: Update code-tunnel service to run as user
+  # The User line does not exist in the default service file
+  ansible.builtin.lineinfile:
+    path: /etc/systemd/system/code-tunnel.service
+    regexp: "^User="
+    line: "User={{ ansible_ssh_user }}"
+    insertafter: "^ExecStart="
+    state: present
+    create: yes
+
+- name: Update code-tunnel service to run as group
+  # The Group line does not exist in the default service file
+  ansible.builtin.lineinfile:
+    path: /etc/systemd/system/code-tunnel.service
+    regexp: "^Group="
+    line: "Group={{ ansible_ssh_user }}"
+    insertafter: "^User="
+    state: present
+    create: yes
+
 - name: Enable code-tunnel service
   ansible.builtin.systemd:
     name: code-tunnel
