@@ -98,7 +98,7 @@
 - name: Enable code-tunnel service
   ansible.builtin.systemd:
     name: code-tunnel
-    enable: true
+    enabled: true
     daemon_reload: true
 
 - name: Restart code-tunnel service
