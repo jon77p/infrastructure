@@ -89,24 +89,19 @@
   ansible.builtin.shell:
     cmd: code tunnel service install
     creates: /home/{{ ansible_ssh_user }}/.vscode-cli/code-tunnel.service
-    
-- name: Modify code-tunnel service to run after user.target
-  become_user: "{{ ansible_ssh_user }}"
-  ansible.builtin.lineinfile:
-    path: /home/{{ ansible_ssh_user }}/.vscode-cli/code-tunnel.service
-    search_string: 'WantedBy=multi-user.target'
-    line: 'WantedBy=user.target'
+
+- name: Create code-tunnel service in /etc/systemd/system
+  ansible.builtin.command:
+    cmd: ln -s /home/{{ ansible_ssh_user }}/.vscode-cli/code-tunnel.service /etc/systemd/system/code-tunnel.service
+    creates: /etc/systemd/system/code-tunnel.service
 
 - name: Enable code-tunnel service
-  become_user: "{{ ansible_ssh_user }}"
-  ansible.builtin.command:
-    cmd: systemctl --user enable --now code-tunnel.service
-    creates: /home/{{ ansible_ssh_user }}/.config/systemd/user/code-tunnel.service
-
-- name: Reload systemd
-  become_user: "{{ ansible_ssh_user }}"
-  ansible.builtin.command: systemctl --user daemon-reload
+  ansible.builtin.systemd:
+    name: code-tunnel
+    enable: true
+    daemon_reload: true
 
 - name: Restart code-tunnel service
-  become_user: "{{ ansible_ssh_user }}"
-  ansible.builtin.command: systemctl --user restart code-tunnel.service
+  ansible.builtin.systemd:
+    name: code-tunnel.service
+    state: restarted
