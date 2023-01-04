@@ -36,6 +36,8 @@ all:
               ansible_host: vault
             codeserver:
               ansible_host: codeserver
+            monitoring:
+              ansible_host: monitoring
       vars:
         ansible_ssh_user: ubuntu
     deployments:
