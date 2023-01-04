@@ -8,6 +8,7 @@
         - password
         - smtp_username
         - smtp_password
+        - cloud_service_account_token
       influxdb:
         - username
         - password
