@@ -37,10 +37,10 @@
     - common
     - cloudflared
     - cloudflare
-    - cron
     - iptables
     - dns
     - healthchecks
+    - cron
     - prometheus
     - grafana
     - varken
