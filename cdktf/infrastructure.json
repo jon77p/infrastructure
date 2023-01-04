@@ -19,8 +19,8 @@
       }
     },
     "instances": {
-      "oci0-1": {
-        "name": "oci0-1",
+      "monitoring": {
+        "name": "monitoring",
         "domain": "jon77p.xyz",
         "is_subdomain": true,
         "ad_number": 1,
