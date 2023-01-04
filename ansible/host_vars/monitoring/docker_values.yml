@@ -3,7 +3,6 @@ prometheus:
   host: prometheus
   port: "9000"
   internal_port: "9090"
-  healthcheck: "{{ opconnect_results['prometheus'].healthcheck }}"
   cloudflared:
     - firefly.{{ domain }}
     - firefly-importer.{{ domain }}
@@ -21,7 +20,6 @@ prometheus:
 loki:
   host: loki
   port: "3100"
-  healthcheck: "{{ opconnect_results['loki'].healthcheck }}"
 grafana:
   port: "3000"
   plugins: grafana-piechart-panel,grafana-worldmap-panel,grafana-clock-panel
@@ -135,11 +133,9 @@ influxdb:
   host: influxdb
   port: "8087"
   internal_port: "8086"
-  healthcheck: "{{ opconnect_results['influxdb'].healthcheck }}"
   username: "{{ opconnect_results['influxdb'].username }}"
   password: "{{ opconnect_results['influxdb'].password }}"
 varken:
-  healthcheck: "{{ opconnect_results['mediaserver'].healthcheck }}"
   maxmind:
     license_key: "{{ opconnect_results['mediaserver'].maxmind_license_key }}"
   tautulli:
