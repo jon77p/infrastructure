@@ -3,23 +3,15 @@
   hosts: localhost,monitoring
   vars:
     opconnect_items:
-      monitoring:
-        - healthcheck
       grafana:
         - username
         - password
         - smtp_username
         - smtp_password
       influxdb:
-        - healthcheck
         - username
         - password
-      prometheus:
-        - healthcheck
-      loki:
-        - healthcheck
       mediaserver:
-        - healthcheck
         - tautulli_url
         - tautulli_apikey
         - sonarr_url
@@ -34,8 +26,7 @@
       healthchecks:
         - project_id
         - readonly_apikey
-      crowdsec:
-        - key
+        - apikey
   roles:
     - opconnect
 
@@ -47,13 +38,10 @@
     - cloudflared
     - cloudflare
     - cron
-    - crowdsec
     - iptables
     - dns
-    - node_exporter
+    - healthchecks
     - prometheus
-    - loki
-    - promtail
     - grafana
     - varken
     - docker

@@ -10,7 +10,7 @@ services:
     ports:
       - "{{ compose_project_ports.prometheus[0] }}:{{ prometheus.internal_port }}"
     healthcheck:
-      test: [CMD, wget, "https://healthchecks.{{ domain }}/ping/{{ prometheus.healthcheck }}", -O, /dev/null]
+      test: [CMD, wget, "{{ healthchecks.healthcheck }}", -O, /dev/null]
       timeout: 45s
       interval: 10s
       retries: 5
@@ -22,21 +22,10 @@ services:
     ports:
       - "{{ compose_project_ports.loki[0] }}:3100"
     healthcheck:
-      test: [CMD, wget, "https://healthchecks.{{ domain }}/ping/{{ loki.healthcheck }}", -O, /dev/null]
+      test: [CMD, wget, "{{ healthchecks.healthcheck }}", -O, /dev/null]
       timeout: 45s
       interval: 10s
       retries: 5
-  promtail:
-    image: grafana/promtail:latest@sha256:aa77333bb912b1017d35f16bd5d7f6d191963d6cee78bc0bd0df0a56990a3e42
-    restart: always
-    depends_on:
-      - loki
-    volumes:
-      - /var/log/cloudflared.log:/var/log/cloudflared.log:ro
-      - /var/log/journal:/var/log/journal:ro
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - "{{ docker_volume_dirs.promtail[0] }}/config.yaml:/etc/promtail/config.yaml"
-    command: -config.file=/etc/promtail/config.yaml
   influxdb:
     image: influxdb:2.6@sha256:d7c48214e57f77b8eba4e29d0c9b2a0c10393e7a9f9ee5d015da2d75b845faca
     restart: always
@@ -45,7 +34,7 @@ services:
     ports:
       - "{{ compose_project_ports.influxdb[0] }}:{{ influxdb.internal_port }}"
     healthcheck:
-      test: [CMD, curl, "https://healthchecks.{{ domain }}/ping/{{ influxdb.healthcheck }}"]
+      test: [CMD, curl, "{{ healthchecks.healthcheck }}"]
       timeout: 45s
       interval: 10s
       retries: 5
@@ -59,7 +48,7 @@ services:
     environment:
       - TZ=America/Los_Angeles
     healthcheck:
-      test: [CMD, wget, "https://healthchecks.{{ domain }}/ping/{{ varken.healthcheck }}", -O, /dev/null]
+      test: [CMD, wget, "{{ healthchecks.healthcheck }}", -O, /dev/null]
       timeout: 45s
       interval: 10s
       retries: 5

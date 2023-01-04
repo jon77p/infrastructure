@@ -1,19 +1,16 @@
 ---
-node_exporter:
-  host: "{{ monitoring_innernet_address }}"
-  port: "9100"
 prometheus:
-  host: "{{ monitoring_innernet_address }}"
+  host: "monitoring"
   port: "9000"
 influxdb:
-  host: "{{ monitoring_innernet_address }}"
+  host: "monitoring"
   port: "8087"
 loki:
-  host: "{{ monitoring_innernet_address }}"
+  host: "monitoring"
   port: "3100"
 pihole_exporter:
-  host: "{{ pihole_innernet_address }}"
+  host: "pihole"
   port: "9617"
 healthchecks:
-  host: "{{ healthchecks_innernet_address }}"
+  host: "healthchecks"
   port: "8000"
