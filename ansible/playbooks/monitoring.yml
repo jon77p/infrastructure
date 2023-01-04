@@ -41,6 +41,7 @@
     - dns
     - healthchecks
     - cron
+    - loki
     - prometheus
     - grafana
     - varken
