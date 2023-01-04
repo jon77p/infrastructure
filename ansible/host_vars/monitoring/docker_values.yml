@@ -22,6 +22,9 @@ loki:
   port: "3100"
 grafana:
   port: "3000"
+  cloud:
+    enabled: true
+    host: "{{ opconnect_results['grafana'].cloud_tenant_name }}.grafana.net"
   plugins: grafana-piechart-panel,grafana-worldmap-panel,grafana-clock-panel
   admin:
     username: "{{ opconnect_results['grafana'].username }}"
