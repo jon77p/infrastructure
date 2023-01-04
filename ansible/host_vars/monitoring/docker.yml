@@ -21,8 +21,6 @@ docker_volume_dirs:
     - /mnt/{{ compose_project_name }}/prometheus/data
   loki:
     - /mnt/{{ compose_project_name }}/loki/config
-  promtail:
-    - /mnt/{{ compose_project_name }}/promtail/config
   influxdb:
     - /mnt/{{ compose_project_name }}/influxdb/config
   varken:
