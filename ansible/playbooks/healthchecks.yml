@@ -20,5 +20,5 @@
     - cloudflared
     - cloudflare
     - iptables
-    # - dns
+    - dns
     - docker

@@ -1,4 +1,3 @@
 ---
 nameservers:
-  - "{{ cloudflare_dns_ip_addresses.primary }}"
-  - "{{ cloudflare_dns_ip_addresses.secondary }}"
+  - "pihole"

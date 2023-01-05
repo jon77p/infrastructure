@@ -1,15 +1,6 @@
 ---
 - name: Refresh DNS
-  hosts:
-    - pihole
-    - innernet
-    - nextcloud
-    - healthchecks
-    - vault
-    - firefly
-    - monitoring
-    - allaboutsecurity
-    - securemylife
-    - codeserver
+  # Run on all hosts in the OCI group
+  hosts: oci
   roles:
     - dns
