@@ -24,7 +24,27 @@ grafana:
   port: "3000"
   cloud:
     enabled: true
+    org: "{{ opconnect_results['grafana'].cloud_tenant_name }}"
     host: "{{ opconnect_results['grafana'].cloud_tenant_name }}.grafana.net"
+    services:
+      - prefix: am
+        name: "Alertmanager"
+      - prefix: hl
+        name: "Loki"
+      - prefix: hm
+        name: "Metrics"
+        subservices:
+          - prefix: Graphite
+            name: "Graphite"
+          - prefix: Prom
+            name: "Prometheus"
+      - prefix: ht
+        name: "Traces"
+    provisioning:
+      datasources:
+        api_path: "datasources"
+      dashboards:
+        api_path: "dashboards/home"
   plugins: grafana-piechart-panel,grafana-worldmap-panel,grafana-clock-panel
   admin:
     username: "{{ opconnect_results['grafana'].username }}"
