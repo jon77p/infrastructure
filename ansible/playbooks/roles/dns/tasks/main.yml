@@ -14,22 +14,32 @@
   ansible.builtin.debug:
     msg: "Normalized nameservers: {{ normalized_nameservers | to_json }}"
 
-- name: Update netplan to use nameservers
+# Create /etc/systemd/resolved.conf.d if it doesn't exist
+- name: Create /etc/systemd/resolved.conf.d
   become: true
-  when: normalized_nameservers != []
-  ansible.builtin.blockinfile:
-    path: /etc/netplan/50-cloud-init.yaml
-    insertafter: "(\\s*)set-name: (\\S+)"
-    marker: "            # {mark} ANSIBLE MANAGED BLOCK"
-    block: "            nameservers:\n                addresses: {{ normalized_nameservers | to_json }}\n"
-  register: netplan
+  ansible.builtin.file:
+    path: /etc/systemd/resolved.conf.d
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
 
-- name: Apply new netplan
+# Create drop-in file for systemd-resolved to set our nameservers
+- name: Create drop-in file for systemd-resolved
   become: true
-  ansible.builtin.command: netplan apply
-  async: 10
-  poll: 1
-  when: normalized_nameservers != []
+  ansible.builtin.copy:
+    dest: /etc/systemd/resolved.conf.d/10-dns.conf
+    content: |
+      [Resolve]
+      DNS={{ normalized_nameservers | join(' ') }}
+      Domains=~.
+    owner: root
+    group: root
+    mode: 0644
+  register: systemd_resolved_dropin
 
-- name: Reset connection
-  ansible.builtin.meta: reset_connection
+- name: Restart systemd-resolved
+  become: true
+  ansible.builtin.systemd:
+    name: systemd-resolved
+    state: restarted
