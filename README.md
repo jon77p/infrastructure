@@ -1,10 +1,12 @@
 # Infrastructure
 
+![Overall Status](https://healthchecks.thepi.cloud/badge/e4651ff1-7eb9-4a73-ab52-7a41c6/8umX5Vja-2.svg)
 ![Infrastructure Status](https://healthchecks.thepi.cloud/badge/e465366a-14f0-4ef1-b81a-6abc40/dqiPLs8L-2/Infrastructure.svg)
-![OCI Status](https://healthchecks.thepi.cloud/badge/e465366a-14f0-4ef1-b81a-6abc40/Pr9vresC-2/OCI.svg)
-![Services Status](https://healthchecks.thepi.cloud/badge/e465366a-14f0-4ef1-b81a-6abc40/M9e2xSEP-2/Services.svg)
-![Local Status](https://healthchecks.thepi.cloud/badge/e465366a-14f0-4ef1-b81a-6abc40/3iKjcFGj-2/Local.svg)
-![Monitoring Status](https://healthchecks.thepi.cloud/badge/e465366a-14f0-4ef1-b81a-6abc40/NSLui28U/Monitoring.svg)
+![Cluster Status](https://healthchecks.thepi.cloud/badge/e465366a-14f0-4ef1-b81a-6abc40/3iKjcFGj-2/Local.svg)
+![OCI Status](https://healthchecks.thepi.cloud/badge/e4651ff1-7eb9-4a73-ab52-7a41c6/__-7GQXW-2/oci.svg)
+![Services Status](https://healthchecks.thepi.cloud/badge/e4651ff1-7eb9-4a73-ab52-7a41c6/YGeGePrI-2/services.svg)
+![Healthchecks Status](https://healthchecks.thepi.cloud/badge/e4651ff1-7eb9-4a73-ab52-7a41c6/8umX5Vja-2.svg)
+![HomeAssistant Status](https://healthchecks.thepi.cloud/badge/e4651ff1-7eb9-4a73-ab52-7a41c6/Dcg8sgEY-2/hass.svg)
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new)
 
