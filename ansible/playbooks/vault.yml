@@ -15,7 +15,7 @@
     - common
     - cloudflared
     - cloudflare
-    # - dns
+    - dns
     - healthchecks
     - vault
     - docker
