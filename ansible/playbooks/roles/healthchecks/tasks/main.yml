@@ -19,11 +19,27 @@
   delay: 5
   ignore_errors: true
 
+- name:
+    Set healthchecks default fact
+    # Lookup the default healthcheck values from the group_vars/all/healthchecks.yml file
+  ansible.builtin.set_fact:
+    healthchecks_defaults: "{{ lookup('file', '../../../group_vars/all/healthchecks.yml') | from_yaml | json_query('healthchecks') }}"
+
 - name: Initialize empty healthcheck fact
   ansible.builtin.set_fact:
     healthchecks:
       domain: "{{ healthchecks_domain }}"
       healthcheck: ""
+      # Ping should either be values set for the current host or the default values in the 'all' group_vars
+      ping:
+        interval: "{{ healthchecks.ping.interval | default(healthchecks_defaults.ping.interval) | int }}"
+        grace: "{{ healthchecks.ping.grace | default(healthchecks_defaults.ping.grace) | int }}"
+      # Tags should be a YAML list of current host's group names and any default tags
+      # Tags also should be a unique list that is sorted in alphabetical order
+      tags: "{{ (group_names | list | union(healthchecks_defaults.tags)) | unique | sort }}"
+
+- debug:
+    msg: "healthchecks: {{ healthchecks }}"
 
 - name: Include healthchecks tasks
   ansible.builtin.include_tasks: "healthchecks.yml"
