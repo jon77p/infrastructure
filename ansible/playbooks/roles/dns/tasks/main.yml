@@ -1,42 +1,20 @@
 ---
-- name: Set empty normalized nameservers list
-  ansible.builtin.set_fact:
-    normalized_nameservers: []
-
-- name: Normalize nameservers
-  include_tasks: normalize_nameservers.yml
-  loop: "{{ nameservers }}"
-  loop_control:
-    loop_var: nameserver
-  when: nameservers != []
-
-- name: Print normalized nameservers
-  ansible.builtin.debug:
-    msg: "Normalized nameservers: {{ normalized_nameservers | to_json }}"
-
-# Create /etc/systemd/resolved.conf.d if it doesn't exist
-- name: Create /etc/systemd/resolved.conf.d
+# Don't let DHCP4 set DNS servers (by using dhcp4-overrides in netplan)
+- name: Disable DNS overrides
   become: true
-  ansible.builtin.file:
-    path: /etc/systemd/resolved.conf.d
-    state: directory
-    owner: root
-    group: root
-    mode: 0755
+  ansible.builtin.blockinfile:
+    path: /etc/netplan/50-cloud-init.yaml
+    insertafter: "(\\s*)set-name: (\\S+)"
+    marker: "            # {mark} ANSIBLE MANAGED BLOCK"
+    block: "            dhcp4-overrides:\n                use-dns: false\n"
+  register: netplan_dhcp
 
-# Create drop-in file for systemd-resolved to set our nameservers
-- name: Create drop-in file for systemd-resolved
+- name: Apply new netplan
   become: true
-  ansible.builtin.copy:
-    dest: /etc/systemd/resolved.conf.d/10-dns.conf
-    content: |
-      [Resolve]
-      DNS={{ normalized_nameservers | join(' ') }}
-      Domains=~.
-    owner: root
-    group: root
-    mode: 0644
-  register: systemd_resolved_dropin
+  ansible.builtin.command: netplan apply
+  async: 5
+  poll: 1
+  when: netplan_dhcp.changed
 
 - name: Restart systemd-resolved
   become: true
