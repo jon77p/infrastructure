@@ -2,7 +2,7 @@
 healthchecks:
   ping:
     interval: 60 # seconds
-    grace: 150 # seconds
+    grace: 300 # seconds
   tags:
     - ansible
     - infrastructure
