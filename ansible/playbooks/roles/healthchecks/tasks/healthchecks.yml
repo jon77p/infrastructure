@@ -1,4 +1,19 @@
 ---
+- name: Create healthcheck_body fact
+  ansible.builtin.set_fact:
+    healthcheck_body: >-
+      {{
+        (
+          {
+            "name": inventory_hostname,
+            "tags": healthchecks.tags | join(' '),
+            "timeout": healthchecks.ping.interval | int,
+            "grace": healthchecks.ping.grace | int,
+            "unique": ["name"]
+          }
+        ) | to_json
+      }}
+
 - name: Create/Get healthcheck
   ansible.builtin.uri:
     url: "https://{{ healthchecks_domain }}/api/v1/checks/"
@@ -6,16 +21,7 @@
     headers:
       X-Api-Key: "{{ opconnect_results.healthchecks.apikey }}"
     body_format: "json"
-    # yamllint disable rule:indentation
-    body: {
-        "name": "{{ inventory_hostname }}",
-        # Join 'ansible' and hostvars[inventory_hostname].group_names with spaces
-        "tags": "ansible {{ hostvars[inventory_hostname].group_names | join(' ') }}",
-        "timeout": 60, # seconds
-        "grace": 60, # seconds
-        "unique": ["name"],
-      }
-    # yamllint enable rule:indentation
+    body: "{{ healthcheck_body }}"
     status_code:
       - 200
       - 201
