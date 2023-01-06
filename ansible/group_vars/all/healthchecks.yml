@@ -1,0 +1,8 @@
+---
+healthchecks:
+  ping:
+    interval: 60 # seconds
+    grace: 150 # seconds
+  tags:
+    - ansible
+    - infrastructure
