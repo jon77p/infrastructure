@@ -1,42 +1,30 @@
 ---
-- name: Disable stub resolver
-  become: true
-  ansible.builtin.replace:
-    path: /etc/systemd/resolved.conf
-    regexp: "#?DNSStubListener=yes"
-    replace: DNSStubListener=no
-  register: stubdisable
-
-- name: Update /etc/resolv.conf symlink
+# Create /etc/systemd/resolved.conf.d if it doesn't exist
+- name: Create /etc/systemd/resolved.conf.d
   become: true
   ansible.builtin.file:
-    src: /run/systemd/resolve/resolv.conf
-    dest: /etc/resolv.conf
-    state: link
-  register: resolvsymlink
+    path: /etc/systemd/resolved.conf.d
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+# Create drop-in file for systemd-resolved to disable DNSStubListener
+- name: Create drop-in file for systemd-resolved
+  become: true
+  ansible.builtin.copy:
+    dest: /etc/systemd/resolved.conf.d/10-stub-resolver.conf
+    content: |
+      [Resolve]
+      DNSStubListener=no
+      DNS={{ nameservers | join(' ') }}
+      Domains=~.
+    owner: root
+    group: root
+    mode: 0644
 
 - name: Restart systemd-resolved
   become: true
   ansible.builtin.systemd:
     name: systemd-resolved
     state: restarted
-  when: stubdisable.changed or resolvsymlink.changed
-
-- name: Update netplan to 127.0.0.1 nameserver
-  become: true
-  ansible.builtin.blockinfile:
-    path: /etc/netplan/50-cloud-init.yaml
-    insertafter: "(\\s*)set-name: (\\S+)"
-    marker: "            # {mark} ANSIBLE MANAGED BLOCK"
-    block: "            dhcp4-overrides:\n                use-dns: false\n            nameservers:\n                addresses: [1.1.1.1]\n"
-  register: netplan
-
-- name: Apply new netplan
-  become: true
-  ansible.builtin.command: netplan try
-  async: 5
-  poll: 1
-  when: netplan.changed
-
-- name: Reset connection
-  ansible.builtin.meta: reset_connection
