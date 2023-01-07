@@ -26,7 +26,7 @@ services:
     healthcheck:
       test: [CMD, curl, "{{ healthchecks.healthcheck }}"]
       timeout: 45s
-      interval: 10s
+      interval: "{{ healthchecks_defaults.ping.interval }}s"
       retries: 5
   pihole_exporter:
     image: ekofr/pihole-exporter:latest@sha256:65ec4ce466e74c9c59bf7a88a708120bd055a2e021e32badddad3878bd60f752

@@ -6,7 +6,7 @@
     path: /etc/netplan/50-cloud-init.yaml
     insertafter: "(\\s*)set-name: (\\S+)"
     marker: "            # {mark} ANSIBLE MANAGED BLOCK"
-    block: "            dhcp4-overrides:\n                use-dns: false\n"
+    block: "            dhcp4-overrides:\n                use-dns: false\n                use-domains: false\n"
   register: netplan_dhcp
 
 - name: Apply new netplan
@@ -16,20 +16,68 @@
   poll: 1
   when: netplan_dhcp.changed
 
+- name: Normalize nameservers
+  include_tasks: normalize_nameservers.yml
+  loop: "{{ nameservers }}"
+  loop_control:
+    loop_var: nameserver
+
+- name: Get primary network interface
+  become: true
+  ansible.builtin.shell: "ip route | grep default | awk '{print $5}'"
+  register: primary_interface_output
+
+- name: Set primary network interface
+  ansible.builtin.set_fact:
+    primary_interface: "{{ primary_interface_output.stdout }}"
+
+# We want to set the following DNS settings interface:
+- name: Set DNS settings
+  ansible.builtin.set_fact:
+    dns_settings:
+      DNSStubListener: "no"
+      DNS: "{{ normalized_nameservers }}"
+      FallbackDNS: "{{ hostvars['pihole'].nameservers }}"
+      Domain: "~."
+      DNSSEC: "no"
+
+# Create /etc/systemd/resolved.conf.d if it doesn't exist
+- name: Create /etc/systemd/resolved.conf.d
+  become: true
+  ansible.builtin.file:
+    path: /etc/systemd/resolved.conf.d
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+# Create drop-in file for systemd-resolved to set global DNS settings
+- name: Create drop-in file for systemd-resolved for global DNS settings
+  become: true
+  ansible.builtin.copy:
+    dest: /etc/systemd/resolved.conf.d/10-{{ primary_interface }}.conf
+    content: |
+      [Resolve]
+      DNS={{ dns_settings.DNS | join(' ') }}
+      FallbackDNS={{ dns_settings.FallbackDNS | join(' ') }}
+      Domains={{ dns_settings.Domain }}
+      DNSSEC={{ dns_settings.DNSSEC }}
+      DNSStubListener={{ dns_settings.DNSStubListener }}
+    owner: root
+    group: root
+    mode: 0644
+
+# Restart DNS-related services
 - name: Restart systemd-resolved
   become: true
   ansible.builtin.systemd:
     name: systemd-resolved
     state: restarted
 
-# DNSSec needs to be enabled for the tailscale0 interface (using resolvectl)
-- name: Check if DNSSec is enabled for tailscale0
-  become: true
-  ansible.builtin.command: resolvectl dnssec tailscale0
-  register: resolvectl_dnssec
-
-- name: Enable DNSSec for tailscale0
-  # If DNSSec is not enabled, then previous check should end with "no"
-  when: resolvectl_dnssec.stdout | regex_search("no$")
-  become: true
-  ansible.builtin.command: resolvectl dnssec tailscale0 yes
+# Make sure that we can still resolve DNS
+- name: Check DNS resolution
+  ansible.builtin.command: ping -c 1 google.com
+  register: ping_google
+  until: ping_google is succeeded
+  retries: 5
+  delay: 5

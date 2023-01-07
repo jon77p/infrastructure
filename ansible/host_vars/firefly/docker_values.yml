@@ -1,6 +1,5 @@
 ---
 firefly:
-  healthcheck: "{{ opconnect_results['firefly'].healthcheck }}"
   port: "8080"
   site_owner: "{{ opconnect_results['firefly'].site_owner }}"
   app_key: "{{ opconnect_results['firefly'].app_key }}"
@@ -19,11 +18,9 @@ fireflydb:
   username: "{{ opconnect_results['firefly'].db_username }}"
   password: "{{ opconnect_results['firefly'].db_password }}"
 data_importer:
-  healthcheck: "{{ opconnect_results['firefly-importer'].healthcheck }}"
   port: "8081"
   firefly_access_token: "{{ opconnect_results['firefly-importer'].firefly_access_token }}"
 plaid:
-  healthcheck: "{{ opconnect_results['plaid'].healthcheck }}"
   client_id: "{{ opconnect_results['plaid'].plaid_client_id }}"
   secret: "{{ opconnect_results['plaid'].plaid_client_secret }}"
   firefly:

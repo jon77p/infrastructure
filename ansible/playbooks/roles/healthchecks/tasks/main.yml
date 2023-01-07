@@ -23,7 +23,8 @@
     Set healthchecks default fact
     # Lookup the default healthcheck values from the group_vars/all/healthchecks.yml file
   ansible.builtin.set_fact:
-    healthchecks_defaults: "{{ lookup('file', '../../../group_vars/all/healthchecks.yml') | from_yaml | json_query('healthchecks') }}"
+    healthchecks_defaults: "{{ lookup('file', '../../../group_vars/all/healthchecks.yml') | from_yaml | json_query('healthchecks_defaults') }}"
+  when: healthchecks_defaults is not defined
 
 - name: Initialize empty healthcheck fact
   ansible.builtin.set_fact:

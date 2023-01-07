@@ -35,9 +35,9 @@ services:
       - "{{ firefly.port }}:8080"
     restart: always
     healthcheck:
-      test: [CMD, curl, "https://healthchecks.{{ domain }}/ping/{{ firefly.healthcheck }}"]
+      test: [CMD, curl, "{{ healthchecks.healthcheck }}"]
       timeout: 45s
-      interval: 10s
+      interval: "{{ healthchecks_defaults.ping.interval }}s"
       retries: 5
   fireflydb:
     image: mariadb:latest@sha256:8c15c3def7ae1bb408c96d322a3cc0346dba9921964d8f9897312fe17e127b90
@@ -67,9 +67,9 @@ services:
       - "{{ data_importer.port }}:8080"
     restart: always
     healthcheck:
-      test: [CMD, curl, "https://healthchecks.{{ domain }}/ping/{{ data_importer.healthcheck }}"]
+      test: [CMD, curl, "{{ healthchecks.healthcheck }}"]
       timeout: 45s
-      interval: 10s
+      interval: "{{ healthchecks_defaults.ping.interval }}s"
       retries: 5
   plaid_connector:
     image: registry.gitlab.com/georgehahn/firefly-plaid-connector:latest@sha256:325a77dcca0a764a1aff1d658890532d35c37f734133accbddf3b3c96499c7e1
@@ -81,9 +81,9 @@ services:
       - firefly
     restart: always
     healthcheck:
-      test: [CMD, curl, "https://healthchecks.{{ domain }}/ping/{{ plaid.healthcheck }}"]
+      test: [CMD, curl, "{{ healthchecks.healthcheck }}"]
       timeout: 45s
-      interval: 10s
+      interval: "{{ healthchecks_defaults.ping.interval }}s"
       retries: 5
   promtail:
     image: grafana/promtail:latest@sha256:aa77333bb912b1017d35f16bd5d7f6d191963d6cee78bc0bd0df0a56990a3e42

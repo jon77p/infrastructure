@@ -1,6 +1,5 @@
 ---
 nextcloud:
-  healthcheck: "{{ opconnect_results['nextcloud'].healthcheck }}"
   smtp:
     host: smtp.gmail.com
     port: "587"
