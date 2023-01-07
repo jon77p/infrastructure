@@ -1,4 +1,2 @@
 ---
-additional_ingress:
-  - hostname: "{{ codeserver.project_name }}.{{ domain }}"
-    service: http://localhost:{{ codeserver.port }}
+additional_ingress: []
