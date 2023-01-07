@@ -6,5 +6,5 @@ cronjobs:
     day: "*"
     weekday: "*"
     month: "*"
-    job: curl -m 10 --retry 5 -o /dev/null https://healthchecks.{{ healthcheck_domain }}/ping/{{ opconnect_results[inventory_hostname].healthcheck }}
+    job: curl -m {{ healthchecks_defaults.ping.interval | int }} --retry 5 -o /dev/null {{ healthchecks.healthcheck }}
     state: present

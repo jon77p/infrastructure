@@ -1,5 +1,5 @@
 ---
-healthchecks:
+healthchecks_defaults:
   ping:
     interval: 60 # seconds
     grace: 300 # seconds

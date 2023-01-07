@@ -17,7 +17,7 @@ services:
     healthcheck:
       test: [CMD, wget, "{{ healthchecks.healthcheck }}", -O, /dev/null]
       timeout: 45s
-      interval: 10s
+      interval: "{{ healthchecks_defaults.ping.interval }}s"
       retries: 5
   opconnect_api:
     image: 1password/connect-api:latest@sha256:7dd240760c7ed6a66c2e50e614524eb2b1155ab45f430ee38d191dc0fd15983a
