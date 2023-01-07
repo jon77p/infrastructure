@@ -6,7 +6,7 @@
     path: /etc/netplan/50-cloud-init.yaml
     insertafter: "(\\s*)set-name: (\\S+)"
     marker: "            # {mark} ANSIBLE MANAGED BLOCK"
-    block: "            dhcp4-overrides:\n                use-dns: false\n"
+    block: "            dhcp4-overrides:\n                use-dns: false\n                use-domains: false\n"
   register: netplan_dhcp
 
 - name: Apply new netplan
@@ -22,14 +22,44 @@
     name: systemd-resolved
     state: restarted
 
-# DNSSec needs to be enabled for the tailscale0 interface (using resolvectl)
-- name: Check if DNSSec is enabled for tailscale0
-  become: true
-  ansible.builtin.command: resolvectl dnssec tailscale0
-  register: resolvectl_dnssec
+- name: Normalize nameservers
+  include_tasks: normalize_nameservers.yml
+  loop: "{{ nameservers }}"
+  loop_control:
+    loop_var: nameserver
 
-- name: Enable DNSSec for tailscale0
-  # If DNSSec is not enabled, then previous check should end with "no"
-  when: resolvectl_dnssec.stdout | regex_search("no$")
+- name: Get primary network interface
   become: true
-  ansible.builtin.command: resolvectl dnssec tailscale0 yes
+  ansible.builtin.shell: "ip route | grep default | awk '{print $5}'"
+  register: primary_interface
+
+# Create /etc/systemd/resolved.conf.d if it doesn't exist
+- name: Create /etc/systemd/resolved.conf.d
+  become: true
+  ansible.builtin.file:
+    path: /etc/systemd/resolved.conf.d
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+# Create drop-in file for systemd-resolved for DNS on {{ primary_interface.stdout }}
+- name: Create drop-in file for systemd-resolved on {{ primary_interface.stdout }}
+  become: true
+  ansible.builtin.copy:
+    dest: /etc/systemd/resolved.conf.d/10-stub-resolver.conf
+    content: |
+      [Resolve]
+      DNSStubListener=no
+      DNS={{ normalized_nameservers | join(' ') }}
+      Domains=~.
+      Interface={{ primary_interface.stdout }}
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Restart systemd-resolved
+  become: true
+  ansible.builtin.systemd:
+    name: systemd-resolved
+    state: restarted
