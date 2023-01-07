@@ -107,7 +107,7 @@ jobs:
           version: 1.34.1
           authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
       - name: Disallow DNS configuration from Tailscale admin panel
-        run: tailscale set --accept-dns=false
+        run: sudo tailscale set --accept-dns=false
       - name: Setup Taskfile
         uses: arduino/setup-task@v1
         with:
