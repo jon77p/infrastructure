@@ -22,11 +22,20 @@
   loop_control:
     loop_var: nameserver
 
+- name: Get primary network interface
+  become: true
+  ansible.builtin.shell: "ip route | grep default | awk '{print $5}'"
+  register: primary_interface_output
+
+- name: Set primary network interface
+  ansible.builtin.set_fact:
+    primary_interface: "{{ primary_interface_output.stdout }}"
+
 # We want to set the following DNS settings interface:
 - name: Set DNS settings
   ansible.builtin.set_fact:
     dns_settings:
-      DNSStubListener: no
+      DNSStubListener: "no"
       DNS: "{{ normalized_nameservers }}"
       FallbackDNS: "{{ hostvars['pihole'].nameservers }}"
       Domain: "~."
@@ -43,43 +52,27 @@
     mode: 0755
 
 # Create drop-in file for systemd-resolved to set global DNS settings
-# - name: Create drop-in file for systemd-resolved for global DNS settings
-#   become: true
-#   ansible.builtin.copy:
-#     dest: /etc/systemd/resolved.conf.d/10-stub-resolver.conf
-#     content: |
-#       [Resolve]
-#       DNSStubListener={{ dns_settings.DNSStubListener }}
-#       DNS={{ dns_settings.FallbackDNS | join(' ') }}
-#       # Domains={{ dns_settings.Domain }}
-#     owner: root
-#     group: root
-#     mode: 0644
+- name: Create drop-in file for systemd-resolved for global DNS settings
+  become: true
+  ansible.builtin.copy:
+    dest: /etc/systemd/resolved.conf.d/10-{{ primary_interface }}.conf
+    content: |
+      [Resolve]
+      DNS={{ dns_settings.DNS | join(' ') }}
+      FallbackDNS={{ dns_settings.FallbackDNS | join(' ') }}
+      Domains={{ dns_settings.Domain }}
+      DNSSEC={{ dns_settings.DNSSEC }}
+      DNSStubListener={{ dns_settings.DNSStubListener }}
+    owner: root
+    group: root
+    mode: 0644
 
+# Restart DNS-related services
 - name: Restart systemd-resolved
   become: true
   ansible.builtin.systemd:
     name: systemd-resolved
     state: restarted
-
-- name: Get primary network interface
-  become: true
-  ansible.builtin.shell: "ip route | grep default | awk '{print $5}'"
-  register: primary_interface
-
-# Use resolvectl to set DNS settings on the primary interface
-- name: Set DNS settings on primary interface
-  become: true
-  ansible.builtin.command: resolvectl dns {{ primary_interface.stdout }} {{ dns_settings.DNS | join(' ') }}
-  register: resolvectl_dns
-- name: Set Domain settings on primary interface
-  become: true
-  ansible.builtin.command: resolvectl domain {{ primary_interface.stdout }} {{ dns_settings.Domain }}
-  register: resolvectl_domain
-- name: Set DNSSEC settings on primary interface
-  become: true
-  ansible.builtin.command: resolvectl dnssec {{ primary_interface.stdout }} {{ dns_settings.DNSSEC }}
-  register: resolvectl_dnssec
 
 # Make sure that we can still resolve DNS
 - name: Check DNS resolution
