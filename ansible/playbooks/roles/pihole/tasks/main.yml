@@ -1,4 +1,9 @@
 ---
+# Disallow Tailscale admin DNS
+- name: Disallow Tailscale admin DNS
+  become: true
+  ansible.builtin.command: tailscale set --accept-dns=false
+
 # Create /etc/systemd/resolved.conf.d if it doesn't exist
 - name: Create /etc/systemd/resolved.conf.d
   become: true
