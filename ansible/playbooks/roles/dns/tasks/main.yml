@@ -21,3 +21,15 @@
   ansible.builtin.systemd:
     name: systemd-resolved
     state: restarted
+
+# DNSSec needs to be enabled for the tailscale0 interface (using resolvectl)
+- name: Check if DNSSec is enabled for tailscale0
+  become: true
+  ansible.builtin.command: resolvectl dnssec tailscale0
+  register: resolvectl_dnssec
+
+- name: Enable DNSSec for tailscale0
+  # If DNSSec is not enabled, then previous check should end with "no"
+  when: resolvectl_dnssec.stdout | regex_search("no$")
+  become: true
+  ansible.builtin.command: resolvectl dnssec tailscale0 yes
