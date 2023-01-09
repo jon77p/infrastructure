@@ -27,8 +27,6 @@
         - ombi_apikey
         - maxmind_license_key
       healthchecks:
-        - project_id
-        - readonly_apikey
         - apikey
   roles:
     - opconnect
@@ -44,6 +42,7 @@
     - dns
     - healthchecks
     - cron
+    - grafana_agent
     - loki
     - prometheus
     - grafana

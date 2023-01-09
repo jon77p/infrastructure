@@ -21,4 +21,5 @@
     - iptables
     - dns
     - healthchecks
+    - grafana_agent
     - docker

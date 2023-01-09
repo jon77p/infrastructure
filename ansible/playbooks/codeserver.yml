@@ -23,4 +23,5 @@
     - dns
     - healthchecks
     - cron
+    - grafana_agent
     - codeserver

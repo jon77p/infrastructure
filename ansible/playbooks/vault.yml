@@ -17,5 +17,6 @@
     - cloudflare
     - dns
     - healthchecks
+    - grafana_agent
     - vault
     - docker
