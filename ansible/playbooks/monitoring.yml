@@ -43,7 +43,6 @@
     - healthchecks
     - cron
     - grafana_agent
-    - loki
     - grafana
     - varken
     - docker
