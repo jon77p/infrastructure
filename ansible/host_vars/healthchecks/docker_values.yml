@@ -1,6 +1,8 @@
 ---
 healthchecks:
   port: "8000"
+  project_id: "{{ opconnect_results['healthchecks'].project_id }}"
+  readonly_apikey: "{{ opconnect_results['healthchecks'].readonly_apikey }}"
   healthcheck: "{{ opconnect_results['healthchecks'].healthcheck }}"
   email:
     host: smtp.gmail.com
