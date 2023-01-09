@@ -2,7 +2,7 @@
 version: "3"
 services:
   influxdb:
-    image: influxdb:2.6@sha256:d7c48214e57f77b8eba4e29d0c9b2a0c10393e7a9f9ee5d015da2d75b845faca
+    image: influxdb:1.8
     restart: always
     volumes:
       - "{{ docker_volume_dirs.influxdb[0] }}:/var/lib/influxdb"
@@ -12,6 +12,7 @@ services:
     image: boerderij/varken:latest@sha256:784aaf577c822a3e69c5b2792e0422896c8cdb0455e584cd5a4e46bca789848d
     restart: always
     depends_on:
+      # Currently varken requires influxdb to be on v1.8.x
       - influxdb
     volumes:
       - "{{ docker_volume_dirs.varken[0] }}:/config"
