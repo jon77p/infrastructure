@@ -44,7 +44,6 @@
     - cron
     - grafana_agent
     - loki
-    - prometheus
     - grafana
     - varken
     - docker

@@ -1,14 +1,14 @@
 ---
 version: "3"
 services:
-  prometheus:
-    image: prom/prometheus:latest@sha256:1a3e9a878e50cd339ae7cf5718fda08381dda2d4ccd28e94bbaa3190d1a566c2
-    restart: always
-    volumes:
-      - "{{ docker_volume_dirs.prometheus[0] }}/prometheus.yml:/etc/prometheus/prometheus.yml"
-      - "{{ docker_volume_dirs.prometheus[1] }}:/prometheus" # todo: chown this after creation on host: chown 65534:65534
-    ports:
-      - "{{ compose_project_ports.prometheus[0] }}:{{ prometheus.internal_port }}"
+  # prometheus:
+  #   image: prom/prometheus:latest@sha256:1a3e9a878e50cd339ae7cf5718fda08381dda2d4ccd28e94bbaa3190d1a566c2
+  #   restart: always
+  #   volumes:
+  #     - "{{ docker_volume_dirs.prometheus[0] }}/prometheus.yml:/etc/prometheus/prometheus.yml"
+  #     - "{{ docker_volume_dirs.prometheus[1] }}:/prometheus" # todo: chown this after creation on host: chown 65534:65534
+  #   ports:
+  #     - "{{ compose_project_ports.prometheus[0] }}:{{ prometheus.internal_port }}"
   loki:
     image: grafana/loki:latest@sha256:262d91088fb8cc31d3a6a0591aea52f74fa448884c961e63abd35decd3570a88
     restart: always
@@ -43,7 +43,7 @@ services:
     ports:
       - "{{ compose_project_ports.grafana[0] }}:3000"
     depends_on:
-      - prometheus
+      # - prometheus
       - loki
       - influxdb
       - varken
