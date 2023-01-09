@@ -1,10 +1,6 @@
 ---
 compose_project_name: monitoring
 compose_project_ports:
-  prometheus:
-    - "{{ prometheus.port }}"
-  loki:
-    - "{{ loki.port }}"
   influxdb:
     - "{{ influxdb.port }}"
   grafana:
@@ -16,11 +12,6 @@ docker_group_id:
 docker_volume_dirs:
   monitoring:
     - /mnt/{{ compose_project_name }}
-  prometheus:
-    - /mnt/{{ compose_project_name }}/prometheus/config
-    - /mnt/{{ compose_project_name }}/prometheus/data
-  loki:
-    - /mnt/{{ compose_project_name }}/loki/config
   influxdb:
     - /mnt/{{ compose_project_name }}/influxdb/config
   varken:

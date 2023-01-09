@@ -1,8 +1,6 @@
 ---
 additional_ingress:
   - hostname: grafana.{{ domain }}
-    service: http://localhost:{{ compose_project_ports.grafana[0] }}
-  - hostname: prometheus.{{ domain }}
-    service: http://localhost:{{ compose_project_ports.prometheus[0] }}
+    service: http://localhost:{{ grafana.port }}
   - hostname: influxdb.{{ domain }}
-    service: http://localhost:{{ compose_project_ports.influxdb[0] }}
+    service: http://localhost:{{ influxdb.port }}

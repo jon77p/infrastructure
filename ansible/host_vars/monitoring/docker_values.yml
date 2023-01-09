@@ -1,25 +1,4 @@
 ---
-prometheus:
-  host: prometheus
-  port: "9000"
-  internal_port: "9090"
-  cloudflared:
-    - firefly.{{ domain }}
-    - firefly-importer.{{ domain }}
-    - healthchecks.{{ domain }}
-    - prometheus.{{ domain }}
-    - grafana.{{ domain }}
-    - drive.thepi.cloud
-    - pihole.{{ domain }}
-    - vault.{{ domain }}
-    - allaboutsecurity.xyz
-    - securemy.life
-  healthchecks:
-    project_id: "{{ opconnect_results['healthchecks'].project_id }}"
-    readonly_apikey: "{{ opconnect_results['healthchecks'].readonly_apikey }}"
-loki:
-  host: loki
-  port: "3100"
 grafana:
   port: "3000"
   cloud:
@@ -59,14 +38,6 @@ grafana:
     datasources:
       apiVersion: 1
       datasources:
-        - name: Loki
-          type: loki
-          access: proxy
-          url: http://{{ loki.host }}:{{ loki.port }}
-        - name: Prometheus
-          type: prometheus
-          access: proxy
-          url: http://{{ prometheus.host }}:{{ prometheus.internal_port }}
         - name: Influxdb
           type: influxdb
           access: proxy
