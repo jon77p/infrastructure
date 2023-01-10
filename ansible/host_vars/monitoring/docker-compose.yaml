@@ -26,6 +26,7 @@ services:
       - "{{ docker_volume_dirs.grafana[1] }}:/var/lib/grafana"
       - "{{ docker_volume_dirs.grafana[2] }}:/var/lib/grafana/plugins"
       - "{{ docker_volume_dirs.grafana[3] }}:/etc/grafana/provisioning"
+      - "{{ docker_volume_dirs.grafana[4] }}:/var/lib/grafana/dashboards"
     ports:
       - "{{ grafana.port }}:3000"
     depends_on:

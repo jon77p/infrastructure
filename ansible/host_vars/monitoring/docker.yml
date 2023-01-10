@@ -21,7 +21,4 @@ docker_volume_dirs:
     - /mnt/{{ compose_project_name }}/grafana/data
     - /mnt/{{ compose_project_name }}/grafana/plugins
     - /mnt/{{ compose_project_name }}/grafana/provisioning
-    - /mnt/{{ compose_project_name }}/grafana/provisioning/datasources
-    - /mnt/{{ compose_project_name }}/grafana/provisioning/plugins
-    - /mnt/{{ compose_project_name }}/grafana/provisioning/notifiers
-    - /mnt/{{ compose_project_name }}/grafana/provisioning/dashboards
+    - /mnt/{{ compose_project_name }}/grafana/dashboards

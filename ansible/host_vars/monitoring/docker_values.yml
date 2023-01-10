@@ -35,6 +35,7 @@ grafana:
     password: "{{ opconnect_results['grafana'].smtp_password }}"
     from: grafana@{{ domain }}
   provisioning:
+    alerting:
     datasources:
       apiVersion: 1
       datasources:
@@ -52,7 +53,7 @@ grafana:
           database: varken
           username: "{{ influxdb.username }}"
           password: "{{ influxdb.password }}"
-    dashboardProviders:
+    dashboards:
       apiVersion: 1
       providers:
         - name: default
@@ -79,41 +80,43 @@ grafana:
           editable: true
           options:
             path: /var/lib/grafana/dashboards/media
+    notifiers:
+    plugins:
   dashboards:
     default:
       prometheus:
         gnetId: 2
         revision: 2
-        datasource: Prometheus
+        datasource: "grafanacloud-{{ opconnect_results['grafana'].cloud_tenant_name }}-prom"
       pihole:
         gnetId: 10176
         revision: 2
-        datasource: Prometheus
+        datasource: "grafanacloud-{{ opconnect_results['grafana'].cloud_tenant_name }}-prom"
     unifi:
       client-insights:
         gnetId: 11315
         revision: 8
-        datasource: Prometheus
+        datasource: "grafanacloud-{{ opconnect_results['grafana'].cloud_tenant_name }}-prom"
       uap-insights:
         gnetId: 11314
         revision: 9
-        datasource: Prometheus
+        datasource: "grafanacloud-{{ opconnect_results['grafana'].cloud_tenant_name }}-prom"
       network-sites:
         gnetId: 11311
         revision: 4
-        datasource: Prometheus
+        datasource: "grafanacloud-{{ opconnect_results['grafana'].cloud_tenant_name }}-prom"
       usw-insights:
         gnetId: 11312
         revision: 8
-        datasource: Prometheus
+        datasource: "grafanacloud-{{ opconnect_results['grafana'].cloud_tenant_name }}-prom"
       usg-insights:
         gnetId: 11313
         revision: 8
-        datasource: Prometheus
+        datasource: "grafanacloud-{{ opconnect_results['grafana'].cloud_tenant_name }}-prom"
       client-dpi:
         gnetId: 11310
         revision: 4
-        datasource: Prometheus
+        datasource: "grafanacloud-{{ opconnect_results['grafana'].cloud_tenant_name }}-prom"
     media:
       varken-official:
         gnetId: 9585
