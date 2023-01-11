@@ -1,0 +1,63 @@
+---
+# The grafana_dashboard.value might be a couple types of dashboards
+# Currently, only dashboards with the gnetId and revision values are supported
+# For dashboards with the gnetId and revision, we want to download the dashboard as JSON from https://grafana.com/api/dashboards/<gnetId>/revisions/<revision>/download
+- name: Download dashboard {{ grafana_dashboard.key }} from Grafana.com
+  ansible.builtin.uri:
+    url: https://grafana.com/api/dashboards/{{ grafana_dashboard.value.gnetId }}/revisions/{{ grafana_dashboard.value.revision }}/download
+    return_content: yes
+    status_code: 200
+  register: dashboard_json_result
+  no_log: true
+  when: grafana_dashboard.value.gnetId is defined and grafana_dashboard.value.revision is defined
+
+- name: Parse dashboard JSON
+  ansible.builtin.set_fact:
+    dashboard_json: "{{ dashboard_json_result.json }}"
+
+# For some dashboards, the datasource is configured in a datasource annotation in the annotations list
+# This list should be updated to match the configured datasource (if set)
+
+# First, get list of annotations
+- name: Get list of annotations
+  ansible.builtin.set_fact:
+    grafana_dashboard_annotations: "{{ dashboard_json.annotations.list | default([]) | list }}"
+
+# Then, find any annotations that have the 'datasource' key
+- name: Find annotations with datasource key
+  when: grafana_dashboard_annotations | length > 0
+  ansible.builtin.set_fact:
+    grafana_dashboard_annotations: "{{ grafana_dashboard_annotations | selectattr('datasource', 'defined') | list }}"
+
+- name: Set updated_grafana_dashboard_annotations to empty list
+  ansible.builtin.set_fact:
+    updated_grafana_dashboard_annotations: []
+
+- name: Create datasource fact
+  ansible.builtin.set_fact:
+    grafana_dashboard_datasource:
+      datasource: "{{ grafana_dashboard.value.datasource }}"
+
+# Then, update the datasource value to match the configured datasource
+# We want to override the datasource value in place and in order too
+- name: Update datasource value in annotations
+  when: grafana_dashboard_annotations | length > 0
+  ansible.builtin.set_fact:
+    updated_grafana_dashboard_annotations: "{{ updated_grafana_dashboard_annotations + [grafana_dashboard_annotation | combine(grafana_dashboard_datasource) ] }}"
+  loop: "{{ grafana_dashboard_annotations }}"
+  loop_control:
+    loop_var: grafana_dashboard_annotation
+
+# Finally, update the dashboard JSON with the updated annotations
+- name: Update dashboard JSON with updated annotations
+  ansible.builtin.set_fact:
+    dashboard_json: "{{ dashboard_json | combine({'annotations': dashboard_json.annotations | combine({'list': updated_grafana_dashboard_annotations})}, recursive=True) }}"
+  when: updated_grafana_dashboard_annotations is defined and updated_grafana_dashboard_annotations | length > 0
+
+# For dashboards with the gnetId and revision, we want to write the JSON to a file
+# The file will be written to the provider directory in /mnt/monitoring/grafana/dashboards/<provider>
+- name: Write dashboard {{ grafana_dashboard.key }} to file
+  ansible.builtin.copy:
+    dest: "{{ grafana_dashboard_provider_path }}/{{ grafana_dashboard.key }}.json"
+    content: "{{ dashboard_json | to_nice_json(indent=2) }}"
+  when: grafana_dashboard.value.gnetId is defined and grafana_dashboard.value.revision is defined

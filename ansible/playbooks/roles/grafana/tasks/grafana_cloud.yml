@@ -1,0 +1,102 @@
+---
+- name: Get instances from Grafana Cloud API using cloud_admin_token
+  ansible.builtin.uri:
+    url: "https://grafana.com/api/orgs/{{ grafana.cloud.org }}/instances"
+    method: GET
+    headers:
+      Authorization: "Bearer {{ opconnect_results['grafana'].cloud_admin_token }}"
+      Content-Type: "application/json"
+  register: grafana_cloud_instances
+
+- name: Find instance with name that matches grafana cloud url
+  ansible.builtin.set_fact:
+    grafana_cloud_instance: "{{ grafana_cloud_instance }}"
+  loop: "{{ grafana_cloud_instances.json['items'] }}"
+  loop_control:
+    loop_var: grafana_cloud_instance
+  when: grafana_cloud_instance.name == grafana.cloud.host
+  no_log: true
+
+# <grafana_cloud_instance> is a single object with a bunch of key-value pairs
+# Some keys start with a prefix value that matches a prefix in <grafana.cloud.services>
+# The result should be a map of <grafana.cloud.services[].prefix> to new objects,
+# where each object contains all the key-value pairs from <grafana_cloud_instance> that start with the <grafana.cloud.services[].prefix>
+# Using the json query provided by jmespath and a starts_with query, we can filter the <grafana_cloud_instance> object to only include key:value entries with keys that start with the <grafana.cloud.services[].prefix>
+- name: Create map of Grafana Cloud services
+  loop: "{{ grafana.cloud.services }}"
+  loop_control:
+    loop_var: service
+  no_log: true
+  ansible.builtin.set_fact:
+    grafana_cloud_services: "{{ grafana_cloud_services | default({}) | combine({ service.name: grafana_cloud_instance | dict2items | json_query('[?starts_with(@.key, `'+service.prefix+'`)]') | list | default([]) | items2dict }) }}"
+
+# - debug:
+#     msg: "{{ grafana_cloud_services }}"
+
+# Update each object of each service so that the keys of each object do not include the service's prefix
+# For example, if the service prefix is "am", then the key "am.url" should be changed to "url" in the "am" service object
+# This means that {"am": {"amUrl": "google.com"}} would become {"am": {"Url": "google.com"}}
+- name: Remove service prefix from keys
+  loop: "{{ grafana.cloud.services }}"
+  loop_control:
+    loop_var: service
+  no_log: true
+  ansible.builtin.set_fact:
+    grafana_cloud_services: "{{ grafana_cloud_services | default({}) | combine({ service.name: dict(grafana_cloud_services[service.name] | dict2items | map(attribute='key') | map('regex_replace', '^'+service.prefix+'Instance', '') | list | zip(grafana_cloud_services[service.name] | dict2items | map(attribute='value') | list)) }) }}"
+
+# - debug:
+#     msg: "{{ grafana_cloud_services }}"
+
+# Update each service object with subservices to have one sub object per sub service
+- name: Create map of Grafana Cloud sub services
+  no_log: true
+  loop: "{{ grafana.cloud.services }}"
+  loop_control:
+    loop_var: service
+  when: service.subservices is defined
+  ansible.builtin.set_fact:
+    grafana_cloud_sub_services: "{{ grafana_cloud_sub_services | default({}) | combine({ service.name: dict(grafana_cloud_services[service.name] | dict2items | map(attribute='key') | map('regex_replace', '^'+service.prefix, '') | list | zip(grafana_cloud_services[service.name] | dict2items | map(attribute='value') | list)) }) }}"
+# - debug:
+#     msg: "{{ grafana_cloud_sub_services }}"
+
+# - name: Test if Grafana Cloud URL is accessible
+#   ansible.builtin.uri:
+#     url: "https://{{ grafana.cloud.host }}/api/health"
+#     method: GET
+#     headers:
+#       Content-Type: "application/json"
+#   register: grafana_cloud_url_test
+#   failed_when: grafana_cloud_url_test.status != 200
+# - name: Test if Grafana Cloud is accessible with service_account_token
+#   ansible.builtin.uri:
+#     url: "https://{{ grafana.cloud.host }}/api/auth/keys"
+#     method: GET
+#     headers:
+#       Authorization: "Bearer {{ opconnect_results['grafana'].cloud_service_account_token }}"
+#       Content-Type: "application/json"
+#   register: grafana_cloud_test
+#   failed_when: grafana_cloud_test.status != 200
+# - name: Retrieve result for {{ grafana_provisioning.key }} from API
+#   ansible.builtin.uri:
+#     url: "https://{{ grafana.cloud.host }}/api/{{ grafana_provisioning.value.api_path }}"
+#     method: GET
+#     headers:
+#       Authorization: "Bearer {{ opconnect_results['grafana'].cloud_service_account_token }}"
+#       Content-Type: "application/json"
+#   register: grafana_cloud_provisioning
+#   failed_when: grafana_cloud_provisioning.status != 200
+
+# - debug:
+#     msg: "{{ grafana_cloud_provisioning.json }}"
+
+# - name: Get full details of {{ grafana_provisioning.key }} from API using uid value
+#   loop: "{{ grafana_cloud_provisioning.json }}"
+#   loop_control:
+#     loop_var: grafana_cloud_provisioning_item
+#   ansible.builtin.uri:
+#     url: "https://{{ grafana.cloud.host }}/api/{{ grafana_provisioning.value.api_path }}/uid/{{ grafana_cloud_provisioning_item.uid }}"
+#     method: GET
+#     headers:
+#       Authorization: "Bearer {{ opconnect_results['grafana'].cloud_service_account_token }}"
+#       Content-Type: "application/json"
+#   register: grafana_cloud_provisioning_uid

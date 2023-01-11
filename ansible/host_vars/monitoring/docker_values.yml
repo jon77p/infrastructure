@@ -1,27 +1,29 @@
 ---
-prometheus:
-  host: prometheus
-  port: "9000"
-  internal_port: "9090"
-  cloudflared:
-    - firefly.{{ domain }}
-    - firefly-importer.{{ domain }}
-    - healthchecks.{{ domain }}
-    - prometheus.{{ domain }}
-    - grafana.{{ domain }}
-    - drive.thepi.cloud
-    - pihole.{{ domain }}
-    - vault.{{ domain }}
-    - allaboutsecurity.xyz
-    - securemy.life
-  healthchecks:
-    project_id: "{{ opconnect_results['healthchecks'].project_id }}"
-    readonly_apikey: "{{ opconnect_results['healthchecks'].readonly_apikey }}"
-loki:
-  host: loki
-  port: "3100"
 grafana:
   port: "3000"
+  cloud:
+    enabled: true
+    org: "{{ opconnect_results['grafana'].cloud_tenant_name }}"
+    host: "{{ opconnect_results['grafana'].cloud_tenant_name }}.grafana.net"
+    services:
+      - prefix: am
+        name: "Alertmanager"
+      - prefix: hl
+        name: "Loki"
+      - prefix: hm
+        name: "Metrics"
+        subservices:
+          - prefix: Graphite
+            name: "Graphite"
+          - prefix: Prom
+            name: "Prometheus"
+      - prefix: ht
+        name: "Traces"
+    provisioning:
+      datasources:
+        api_path: "datasources"
+      dashboards:
+        api_path: "dashboards/home"
   plugins: grafana-piechart-panel,grafana-worldmap-panel,grafana-clock-panel
   admin:
     username: "{{ opconnect_results['grafana'].username }}"
@@ -33,17 +35,10 @@ grafana:
     password: "{{ opconnect_results['grafana'].smtp_password }}"
     from: grafana@{{ domain }}
   provisioning:
+    alerting:
     datasources:
       apiVersion: 1
       datasources:
-        - name: Loki
-          type: loki
-          access: proxy
-          url: http://{{ loki.host }}:{{ loki.port }}
-        - name: Prometheus
-          type: prometheus
-          access: proxy
-          url: http://{{ prometheus.host }}:{{ prometheus.internal_port }}
         - name: Influxdb
           type: influxdb
           access: proxy
@@ -58,7 +53,7 @@ grafana:
           database: varken
           username: "{{ influxdb.username }}"
           password: "{{ influxdb.password }}"
-    dashboardProviders:
+    dashboards:
       apiVersion: 1
       providers:
         - name: default
@@ -85,41 +80,43 @@ grafana:
           editable: true
           options:
             path: /var/lib/grafana/dashboards/media
+    notifiers:
+    plugins:
   dashboards:
     default:
       prometheus:
         gnetId: 2
         revision: 2
-        datasource: Prometheus
+        datasource: "grafanacloud-{{ opconnect_results['grafana'].cloud_tenant_name }}-prom"
       pihole:
         gnetId: 10176
         revision: 2
-        datasource: Prometheus
+        datasource: "grafanacloud-{{ opconnect_results['grafana'].cloud_tenant_name }}-prom"
     unifi:
       client-insights:
         gnetId: 11315
         revision: 8
-        datasource: Prometheus
+        datasource: "grafanacloud-{{ opconnect_results['grafana'].cloud_tenant_name }}-prom"
       uap-insights:
         gnetId: 11314
         revision: 9
-        datasource: Prometheus
+        datasource: "grafanacloud-{{ opconnect_results['grafana'].cloud_tenant_name }}-prom"
       network-sites:
         gnetId: 11311
         revision: 4
-        datasource: Prometheus
+        datasource: "grafanacloud-{{ opconnect_results['grafana'].cloud_tenant_name }}-prom"
       usw-insights:
         gnetId: 11312
         revision: 8
-        datasource: Prometheus
+        datasource: "grafanacloud-{{ opconnect_results['grafana'].cloud_tenant_name }}-prom"
       usg-insights:
         gnetId: 11313
         revision: 8
-        datasource: Prometheus
+        datasource: "grafanacloud-{{ opconnect_results['grafana'].cloud_tenant_name }}-prom"
       client-dpi:
         gnetId: 11310
         revision: 4
-        datasource: Prometheus
+        datasource: "grafanacloud-{{ opconnect_results['grafana'].cloud_tenant_name }}-prom"
     media:
       varken-official:
         gnetId: 9585

@@ -1,0 +1,21 @@
+---
+# Update metrics config to have a 'input_job_name' job, as defined by the input_scrape_config variable
+# This job might already exist, so we need to check for that by looking at the 'scrape_configs' list
+# If the job already exists, we need to update it
+# If the job doesn't exist, we need to add it
+# The job might be at any index in the list, so we need to loop through the list to find it
+
+- name: Find {{ input_job_name }} job in metrics config
+  ansible.builtin.set_fact:
+    input_jobs_search: "{{ grafana_agent_config['metrics']['configs'][0]['scrape_configs'] | selectattr('job_name', 'equalto', input_job_name) | list }}"
+  when: grafana_agent_config['metrics']['configs'][0]['scrape_configs'] is defined
+
+- name: Create updated scrape_configs fact with {{ input_job_name }} job
+  ansible.builtin.set_fact:
+    updated_scrape_configs: "{{ grafana_agent_config['metrics']['configs'][0]['scrape_configs'] | difference(input_jobs_search) | list + [input_scrape_config] }}"
+  when: grafana_agent_config['metrics']['configs'][0]['scrape_configs'] is defined and input_jobs_search | length >= 0
+
+- name: Update metrics config with {{ input_job_name }} job
+  ansible.builtin.set_fact:
+    grafana_agent_config: "{{ grafana_agent_config | combine({'metrics': grafana_agent_config['metrics'] | combine({'configs': [grafana_agent_config['metrics']['configs'][0] | combine({'scrape_configs': updated_scrape_configs})]})}) }}"
+  when: updated_scrape_configs is defined

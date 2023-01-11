@@ -1,0 +1,101 @@
+---
+# Load current grafana-agent configuration from file on remote host
+# grafana-agent configuration is at /etc/grafana-agent.yaml and sudo is needed to read it
+- name: Load current grafana-agent configuration from file on remote host
+  become: true
+  ansible.builtin.slurp:
+    src: /etc/grafana-agent.yaml
+  register: grafana_agent_config
+  ignore_errors: true
+
+# Parse config to YAML
+- name: Parse config to YAML
+  ansible.builtin.set_fact:
+    grafana_agent_config: "{{ grafana_agent_config['content'] | b64decode | from_yaml }}"
+
+# Replace any occurrences of the string <hostname> with the current host's hostname
+- name: Replace <hostname> with current host's hostname
+  ansible.builtin.set_fact:
+    grafana_agent_config: "{{ grafana_agent_config | replace('<hostname>', ansible_hostname) }}"
+
+- name: Set fact for cloudflared job
+  ansible.builtin.set_fact:
+    cloudflared_scrape_config:
+      job_name: cloudflared
+      metrics_path: /metrics
+      scheme: http
+      static_configs:
+        - targets:
+            - localhost:2000
+          labels:
+            instance: "{{ ansible_hostname }}"
+
+- name: Set fact for pihole job
+  ansible.builtin.set_fact:
+    pihole_scrape_config:
+      job_name: "pihole"
+      static_configs:
+        - targets:
+            - localhost:{{ pihole_exporter.port }}
+          labels:
+            instance: "{{ ansible_hostname }}"
+  when: ansible_hostname == 'pihole'
+
+- name: Set fact for healthchecks job
+  ansible.builtin.set_fact:
+    healthchecks_scrape_config:
+      job_name: "healthchecks"
+      scheme: http
+      metrics_path: "/projects/{{ healthchecks.project_id }}/metrics/{{ healthchecks.readonly_apikey }}"
+      static_configs:
+        - targets:
+            - "localhost:{{ healthchecks.port }}"
+          labels:
+            instance: "{{ ansible_hostname }}"
+  when: ansible_hostname == 'healthchecks'
+
+- name: Update cloudflared job
+  ansible.builtin.include_tasks:
+    file: update_scrape_job.yml
+    apply:
+      vars:
+        input_job_name: cloudflared
+        input_scrape_config: "{{ cloudflared_scrape_config }}"
+
+- name: Update pihole job
+  ansible.builtin.include_tasks:
+    file: update_scrape_job.yml
+    apply:
+      vars:
+        input_job_name: pihole
+        input_scrape_config: "{{ pihole_scrape_config }}"
+  when: ansible_hostname == 'pihole'
+
+- name: Update healthchecks job
+  ansible.builtin.include_tasks:
+    file: update_scrape_job.yml
+    apply:
+      vars:
+        input_job_name: healthchecks
+        input_scrape_config: "{{ healthchecks_scrape_config }}"
+  when: ansible_hostname == 'healthchecks'
+
+# Update grafana-agent configuration file on remote host
+# grafana-agent configuration is at /etc/grafana-agent.yaml and sudo is needed to write it
+- name: Update grafana-agent configuration file on remote host
+  become: true
+  ansible.builtin.copy:
+    content: "{{ grafana_agent_config | to_nice_yaml(indent=2, width=1337) }}"
+    dest: /etc/grafana-agent.yaml
+    owner: root
+    group: root
+    mode: 0644
+  register: grafana_agent_config_update
+
+# Restart grafana-agent service
+- name: Restart grafana-agent service
+  become: true
+  ansible.builtin.service:
+    name: grafana-agent
+    state: restarted
+  when: grafana_agent_config_update is changed

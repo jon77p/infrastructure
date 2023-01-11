@@ -24,3 +24,20 @@
   loop: "{{ grafana.provisioning | dict2items }}"
   loop_control:
     loop_var: grafana_provisioning
+  no_log: true
+
+- name: Setup Grafana dashboards
+  ansible.builtin.include_tasks: dashboards.yml
+  when: grafana.dashboards is defined
+  loop: "{{ grafana.dashboards | dict2items }}"
+  loop_control:
+    loop_var: grafana_dashboard_provider
+  no_log: true
+
+- name: Provision Grafana Cloud Content
+  include_tasks: grafana_cloud.yml
+  when: grafana.cloud.enabled
+  loop: "{{ grafana.cloud.provisioning | dict2items }}"
+  loop_control:
+    loop_var: grafana_provisioning
+  no_log: true

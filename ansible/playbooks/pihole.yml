@@ -21,5 +21,6 @@
     - iptables
     - dns
     - healthchecks
+    - grafana_agent
     - pihole
     - docker

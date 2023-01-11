@@ -9,4 +9,5 @@
   become: true
   ansible.builtin.copy:
     dest: "{{ docker_volume_dirs.grafana[3] }}/{{ grafana_provisioning.key }}/config.yaml"
-    content: "{{ grafana_provisioning.value }}"
+    content: "{{ grafana_provisioning.value | to_nice_yaml(indent=2, width=1337) }}"
+  when: grafana_provisioning.value is defined

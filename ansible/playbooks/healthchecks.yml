@@ -9,6 +9,8 @@
         - password
         - smtp_username
         - smtp_password
+        - project_id
+        - readonly_apikey
   roles:
     - opconnect
 
@@ -21,4 +23,5 @@
     - cloudflare
     - iptables
     - dns
+    - grafana_agent
     - docker

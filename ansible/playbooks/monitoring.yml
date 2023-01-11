@@ -8,6 +8,9 @@
         - password
         - smtp_username
         - smtp_password
+        - cloud_tenant_name
+        - cloud_admin_token
+        - cloud_service_account_token
       influxdb:
         - username
         - password
@@ -24,8 +27,6 @@
         - ombi_apikey
         - maxmind_license_key
       healthchecks:
-        - project_id
-        - readonly_apikey
         - apikey
   roles:
     - opconnect
@@ -41,8 +42,7 @@
     - dns
     - healthchecks
     - cron
-    - loki
-    - prometheus
+    - grafana_agent
     - grafana
     - varken
     - docker

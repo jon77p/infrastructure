@@ -1,0 +1,20 @@
+---
+# Create provider directory in /mnt/monitoring/grafana/dashboards
+- name: Create provider dashboard directory for {{ grafana_dashboard_provider.key }}
+  become: true
+  ansible.builtin.file:
+    path: "{{ docker_volume_dirs.grafana[4] }}/{{ grafana_dashboard_provider.key }}"
+    state: directory
+
+# Set variable for full dashboard provider path
+- name: Set dashboard provider path
+  ansible.builtin.set_fact:
+    grafana_dashboard_provider_path: "{{ docker_volume_dirs.grafana[4] }}/{{ grafana_dashboard_provider.key }}"
+
+# Loop through the dashboards associated with the provider and include the dashboard.yml task
+- name: Create dashboard files for {{ grafana_dashboard_provider.key }}
+  ansible.builtin.include_tasks: dashboard.yml
+  loop: "{{ grafana_dashboard_provider.value | dict2items }}"
+  loop_control:
+    loop_var: grafana_dashboard
+  no_log: true
