@@ -370,10 +370,10 @@
     fs-extra "^8.1.0"
     node-fetch "^2.6.7"
 
-"@cdktf/provider-cloudflare@^4.0.0":
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/@cdktf/provider-cloudflare/-/provider-cloudflare-4.0.4.tgz#845dd8fc789d3c49f25afba9a5d492cd37db8e88"
-  integrity sha512-TVP/4yijTRlfZoCw9+cvejvYIVtupKOKGOlyFrpEIrWPu5fqJle9Sj+XIT5sEVvSkMECWqBGe4q6eJXh6iLbDg==
+"@cdktf/provider-cloudflare@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@cdktf/provider-cloudflare/-/provider-cloudflare-5.0.0.tgz#ab7492d98b5ebf41d454fd0109a4bf2754209c0b"
+  integrity sha512-YeCLR10xB8VKs9JLkLAxiiqFrC54FZY9gQVR9xUmOTh1XwjdWRPDamTuuQUQ0tK7nBH1p+M+T4GvN9TtPuC2/A==
 
 "@cdktf/provider-generator@0.14.3":
   version "0.14.3"
