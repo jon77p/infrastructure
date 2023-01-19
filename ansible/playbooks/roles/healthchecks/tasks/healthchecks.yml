@@ -19,13 +19,14 @@
     url: "https://{{ healthchecks_domain }}/api/v1/checks/"
     method: POST
     headers:
-      X-Api-Key: "{{ opconnect_results.healthchecks.apikey }}"
+      X-Api-Key: "{{ opconnect_results['healthchecks'].apikey }}"
     body_format: "json"
     body: "{{ healthcheck_body }}"
     status_code:
       - 200
       - 201
   register: healthchecks_create
+  when: opconnect_results['healthchecks'] is defined
 
 - name: Update healthcheck
   ansible.builtin.set_fact:
