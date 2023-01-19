@@ -10,16 +10,16 @@ on:
     branches:
       - main
     paths:
-      - 'ansible/host_vars/**'
+      - "ansible/host_vars/**"
   workflow_dispatch:
     inputs:
       host:
-        description: 'Host to run Ansible against'
+        description: "Host to run Ansible against"
         required: true
         type: choice
         options:
           - "allaboutsecurity"
-          - "codeserver"
+          - "code"
           - "firefly"
           - "gaming"
           - "gaps"
@@ -34,7 +34,7 @@ on:
           - "vault"
           - "youtubedl"
       dry_run:
-        description: 'Dry run'
+        description: "Dry run"
         required: true
         type: boolean
         default: true
@@ -184,7 +184,7 @@ jobs:
           if [ "${{ github.event_name }}" == "pull_request" ]; then
             gh pr comment ${{ github.event.pull_request.number }} --body "$(cat $GITHUB_STEP_SUMMARY)"
           fi
-          
+
           exit $FINAL_STATUS
       - name: Tailscale Logout
         if: always()

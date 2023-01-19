@@ -1,9 +1,9 @@
 ---
 - name: Get 1Password secrets
-  hosts: localhost,codeserver
+  hosts: localhost,code
   vars:
     opconnect_items:
-      codeserver:
+      code:
         - password
         - token
         - tunnel
@@ -13,7 +13,7 @@
     - opconnect
 
 - name: Setup codeserver
-  hosts: codeserver
+  hosts: code
   become: true
   roles:
     - common
@@ -23,4 +23,4 @@
     - dns
     - healthchecks
     - cron
-    - codeserver
+    - code

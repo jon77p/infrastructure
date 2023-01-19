@@ -1,2 +1,0 @@
----
-codeserver: "{{ hostvars[inventory_hostname].codeserver }}"

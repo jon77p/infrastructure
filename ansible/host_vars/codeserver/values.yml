@@ -1,7 +1,0 @@
----
-codeserver:
-  project_name: code
-  port: "8080"
-  password: "{{ opconnect_results['codeserver'].password }}"
-  token: "{{ opconnect_results['codeserver'].token }}"
-  tunnel: "{{ opconnect_results['codeserver'].tunnel }}"

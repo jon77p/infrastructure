@@ -38,7 +38,7 @@ peers:
   - name: securemylife
     cidr: services
     ip: 10.42.128.9
-  - name: codeserver
+  - name: code
     cidr: services
     ip: 10.42.128.10
   - name: timemachine
@@ -53,5 +53,5 @@ oci_peers:
   - monitoring.{{ innernet_network }}.wg
   - allaboutsecurity.{{ innernet_network }}.wg
   - securemylife.{{ innernet_network }}.wg
-  - codeserver.{{ innernet_network }}.wg
+  - code.{{ innernet_network }}.wg
   - timemachine.{{ innernet_network }}.wg

@@ -67,20 +67,20 @@
 - name: Check if tunnel has been named correctly
   become_user: "{{ ansible_ssh_user }}"
   # Line is in format of "name":"<tunnel-name>" in ~/.vscode-cli/code_tunnel.json
-  ansible.builtin.shell: grep -q '"name":"{{ codeserver.tunnel }}"' /home/{{ ansible_ssh_user }}/.vscode-cli/code_tunnel.json
+  ansible.builtin.shell: grep -q '"name":"{{ code.tunnel }}"' /home/{{ ansible_ssh_user }}/.vscode-cli/code_tunnel.json
   ignore_errors: true
   register: tunnel_name_status
 
 - name: Rename tunnel
   become_user: "{{ ansible_ssh_user }}"
   when: tunnel_name_status.rc != 0
-  ansible.builtin.shell: code tunnel rename {{ codeserver.tunnel }}
+  ansible.builtin.shell: code tunnel rename {{ code.tunnel }}
   register: tunnel_rename_status
 
 - name: Verify tunnel has been named correctly
   become_user: "{{ ansible_ssh_user }}"
   # Line is in format of "name":"<tunnel-name>" in ~/.vscode-cli/code_tunnel.json
-  ansible.builtin.shell: grep -q '"name":"{{ codeserver.tunnel }}"' /home/{{ ansible_ssh_user }}/.vscode-cli/code_tunnel.json
+  ansible.builtin.shell: grep -q '"name":"{{ code.tunnel }}"' /home/{{ ansible_ssh_user }}/.vscode-cli/code_tunnel.json
   register: verify_tunnel_name_status
   failed_when: verify_tunnel_name_status.rc != 0
 
