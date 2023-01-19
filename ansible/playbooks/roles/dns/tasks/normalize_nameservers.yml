@@ -5,12 +5,24 @@
     normalized_nameservers: []
   when: normalized_nameservers is not defined
 
-# If nameserver is not an IP address, resolve it using dig lookup plugin
+# If nameserver is not an IP address, first use taislcale to resolve it, otherwise resolve it using dig lookup plugin
+- name: Get tailscale IP address
+  ansible.builtin.command: tailscale ip -4 {{ nameserver }}
+  register: tailscale_nameserver_ip
+  ignore_errors: true
+  when: nameserver is not ansible.utils.ip_address
+
+- name: Set nameserver to IP address (tailscale)
+  delegate_to: localhost
+  ansible.builtin.set_fact:
+    normalized_nameservers: "{{ normalized_nameservers | list + [tailscale_nameserver_ip.stdout] }}"
+  when: nameserver is not ansible.utils.ip_address and tailscale_nameserver_ip.rc == 0
+
 - name: Set nameserver to IP address
   delegate_to: localhost
   ansible.builtin.set_fact:
     normalized_nameservers: "{{ normalized_nameservers | list + [lookup('community.general.dig', nameserver, qtype='A')] }}"
-  when: nameserver is not ansible.utils.ip_address
+  when: nameserver is not ansible.utils.ip_address and tailscale_nameserver_ip.rc != 0
 
 - name: Add IP nameserver to normalized nameservers list
   ansible.builtin.set_fact:
