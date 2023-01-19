@@ -2,7 +2,7 @@
 grafana:
   port: "3000"
   cloud:
-    enabled: true
+    enabled: false
     org: "{{ opconnect_results['grafana'].cloud_tenant_name }}"
     host: "{{ opconnect_results['grafana'].cloud_tenant_name }}.grafana.net"
     services:

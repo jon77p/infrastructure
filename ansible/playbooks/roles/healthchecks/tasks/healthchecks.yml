@@ -27,6 +27,7 @@
       - 201
   register: healthchecks_create
 
+# TODO: update this so that final healthcheck uses http:// tailscale IP :8000 for healtchecks domain
 - name: Update healthcheck
   ansible.builtin.set_fact:
     healthchecks:
