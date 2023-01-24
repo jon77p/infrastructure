@@ -1,7 +1,7 @@
 pre-commit==2.20.0
 tartufo==3.2.1
 yamllint==1.28.0
-ansible==6.4.0
+ansible==7.0.0
 ansible-lint==6.8.0
 pylint-venv==2.3.0
 cdktf==0.13.0
