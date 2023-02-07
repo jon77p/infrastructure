@@ -46,12 +46,12 @@ jobs:
       dry_run: ${{ steps.set-dry-run.outputs.dry_run }}
     steps:
       - name: Checkout (pull_request)
-        uses: actions/checkout@v2
+        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3
         if: github.event_name == 'pull_request'
         with:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: Checkout (workflow_dispatch || push)
-        uses: actions/checkout@v2
+        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3
         if: github.event_name != 'pull_request'
       - name: Fetch main branch
         run: git fetch origin main
