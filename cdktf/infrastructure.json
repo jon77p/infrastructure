@@ -126,8 +126,8 @@
         "memory": 1,
         "ocpus": 1
       },
-      "code": {
-        "name": "code",
+      "headscale": {
+        "name": "headscale",
         "domain": "jon77p.xyz",
         "is_subdomain": true,
         "ad_number": 1,
