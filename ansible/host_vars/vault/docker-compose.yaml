@@ -20,7 +20,7 @@ services:
       interval: "{{ healthchecks_defaults.ping.interval }}s"
       retries: 5
   opconnect_api:
-    image: 1password/connect-api:latest@sha256:7dd240760c7ed6a66c2e50e614524eb2b1155ab45f430ee38d191dc0fd15983a
+    image: 1password/connect-api:latest@sha256:143df8c290dcb353b4da896a6a8a8c11f686cb1033981982f798c60f67efd090
     volumes:
       - "{{ docker_volume_dirs.opconnect[0] }}/1password-credentials.json:/home/opuser/.op/1password-credentials.json"
       - data:/home/opuser/.op/data
