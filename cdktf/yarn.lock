@@ -387,10 +387,10 @@
     fs-extra "^8.1.0"
     jsii-srcmak "^0.1.741"
 
-"@cdktf/provider-random@^4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@cdktf/provider-random/-/provider-random-4.0.0.tgz#4576fe9e37fc4c0aae982b4f2615c1270e77e2fb"
-  integrity sha512-kbMgVfNR+61+7RGLHRYmx9ons2SpE+oFddzSSxzTmK0tljHQGVhlofzFOcqJYmrq4v0u9vz9/Aw3N3zibVaeuQ==
+"@cdktf/provider-random@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@cdktf/provider-random/-/provider-random-5.0.0.tgz#69a63c50a2576a8a79b130f5a04c6a103b60d46c"
+  integrity sha512-0YVVdYfAvp3plMvQRGT4tRZSCiqVVv+9NK31H9x4e8AyaNzdYB4w1NJIyAyXtcdzj/AVTpN1lSQ+sRW1ZC2oOA==
 
 "@cdktf/provider-template@^5.0.0":
   version "5.0.0"
