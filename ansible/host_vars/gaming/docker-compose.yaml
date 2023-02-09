@@ -3,7 +3,7 @@ version: "3"
 
 services:
   mineos:
-    image: ghcr.io/jon77p/mineos-node:latest
+    image: ghcr.io/jon77p/mineos-node:latest@sha256:3ef5f0fa96c863ce79db8f1fc78972d8c8b22be960ce52318c7ac34a3ca0166a
     networks:
       - mineos
     restart: always
@@ -63,7 +63,7 @@ services:
       retries: 5
 
   smo_online_server:
-    image: ghcr.io/sanae6/smo-online-server:latest
+    image: ghcr.io/sanae6/smo-online-server:latest@sha256:72d9311fe593b2e133d71d1cf524a7261746c9ea852ae4efe755d8c09f1789b6
     restart: always
 
     # user: 1000:1000

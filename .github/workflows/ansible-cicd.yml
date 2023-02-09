@@ -102,7 +102,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3
       - name: Setup Tailscale
-        uses: tailscale/github-action@v1
+        uses: tailscale/github-action@cc6818dd6930277a6e4b5d249e32ba2f4cf6ea32 # v1
         with:
           version: 1.34.1
           authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
@@ -118,12 +118,12 @@ jobs:
           python-version: 3.9
           cache: pip
       - name: Cache Ansible Roles
-        uses: actions/cache@v3
+        uses: actions/cache@627f0f41f6904a5b1efbaed9f96d9eb58e92e920 # v3
         with:
           path: ${{ env.ANSIBLE_ROLES_PATH }}
           key: ${{ runner.os }}-ansible-roles-${{ hashFiles('ansible/requirements.yml') }}
       - name: Cache Ansible Collections
-        uses: actions/cache@v3
+        uses: actions/cache@627f0f41f6904a5b1efbaed9f96d9eb58e92e920 # v3
         with:
           path: ${{ env.ANSIBLE_COLLECTIONS_PATH }}
           key: ${{ runner.os }}-ansible-collections-${{ hashFiles('ansible/requirements.yml') }}
