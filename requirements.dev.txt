@@ -1,5 +1,5 @@
 pre-commit==2.20.0
-tartufo==3.2.1
+tartufo==4.0.0
 yamllint==1.28.0
 ansible==7.0.0
 ansible-lint==6.8.0
