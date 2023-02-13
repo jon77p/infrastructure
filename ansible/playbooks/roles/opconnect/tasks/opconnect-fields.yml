@@ -31,4 +31,4 @@
     opconnect_item_results: "{{ hostvars['localhost'].opconnect_item_results | combine(new_item_result) }}"
   vars:
     new_field_result: '{ "{{ opconnect_field_name }}": "{{ opconnect_output.field.value }}" }'
-    new_item_result: "{ \"{{ opconnect_item_name }}\": {{ hostvars['localhost'].opconnect_item_results[opconnect_item_name] | combine(new_field_result) }} }"
+    new_item_result: '{ "{{ opconnect_item_name }}": {{ hostvars[''localhost''].opconnect_item_results[opconnect_item_name] | combine(new_field_result) }} }'

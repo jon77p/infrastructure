@@ -38,7 +38,14 @@ compose_definition:
         - 139:139
       restart: always
       healthcheck:
-        test: [CMD, wget, "https://healthchecks.{{ domain }}/ping/{{ healthcheck_uuid }}", -O, /dev/null]
+        test:
+          [
+            CMD,
+            wget,
+            "https://healthchecks.{{ domain }}/ping/{{ healthcheck_uuid }}",
+            -O,
+            /dev/null,
+          ]
         timeout: 45s
         interval: 10s
         retries: 5

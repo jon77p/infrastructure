@@ -1,5 +1,5 @@
 image:
-  tag: 'latest'
+  tag: "latest"
 ingress:
   enabled: true
   hosts:
@@ -14,4 +14,3 @@ ingress:
     - secretName: code-server-tls
       hosts:
         - code.thepi.cloud
-

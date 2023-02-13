@@ -8,9 +8,9 @@ spec:
   entryPoints:
     - websecure
   routes:
-  - match: Host(`yt-k3s.jon77p.xyz`)
-    kind: Rule
-    services:
-      - name: youtubedl
-        kind: Service
-        port: 8080
+    - match: Host(`yt-k3s.jon77p.xyz`)
+      kind: Rule
+      services:
+        - name: youtubedl
+          kind: Service
+          port: 8080
