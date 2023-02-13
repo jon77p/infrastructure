@@ -6,7 +6,7 @@ default_language_version:
 repos:
   # General hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: 3298ddab3c13dd77d6ce1fc0baf97691430d84b0 # frozen: v4.3.0
+    rev: f71fa2c1f9cf5cb705f73dffe4b21f7c61470ba9 # frozen: v4.4.0
     hooks:
       - id: check-added-large-files
       - id: check-executables-have-shebangs
@@ -25,7 +25,7 @@ repos:
       - id: trailing-whitespace
         exclude: .md
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 9ff55b0adf11b603e0e2b4e1d639255278f4316f # frozen: 0.18.3
+    rev: 09a6c7ead6abdd33a4f1a72469a102e357413986 # frozen: 0.21.0
     hooks:
       - id: check-dependabot
       - id: check-github-actions
@@ -33,24 +33,24 @@ repos:
       - id: check-renovate
   # General Linting-related hooks
   - repo: https://github.com/markdownlint/markdownlint
-    rev: 4089e11ea61317283a50455ff73afe895b9d8b2d # frozen: v0.11.0
+    rev: 5a6cc38e9dd10830df11fa5f6a5f44cfe83df389 # frozen: v0.12.0
     hooks:
       - id: markdownlint
         args: [--config, .github/lint/.markdownlint.yaml]
   - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: d0a4882e1c96eca274f90b273f0f809ab3d98aff # frozen: v3.0.0-alpha.0
+    rev: cafd5506f18eea191804850dacc0a4264772d59d # frozen: v3.0.0-alpha.4
     hooks:
       - id: prettier
         stages: [commit]
         args: [--config, .github/lint/.prettierrc.yaml]
   - repo: https://github.com/adrienverge/yamllint
-    rev: 9cce2940414e9560ae4c8518ddaee2ac1863a4d2 # frozen: v1.28.0
+    rev: b9e1fd18c1acbaa4b0028196f8925ce4e91970d9 # frozen: v1.29.0
     hooks:
       - id: yamllint
         args: [--config-file, .github/lint/.yamllint.yaml]
   # Secrets-related hooks
   - repo: https://github.com/gitguardian/gg-shield
-    rev: 8c39f5101656ab416f09d127e515355fea320c28 # frozen: v1.13.3
+    rev: fa7f532d224f8f8f859aa6285e0093d01e816c7d # frozen: v1.14.3
     hooks:
       - id: ggshield
         args: [secret, scan, pre-commit]
@@ -59,11 +59,11 @@ repos:
     hooks:
       - id: ripsecrets
   - repo: https://github.com/zricethezav/gitleaks
-    rev: 3c6efd004c2b113ccf6697c0c163955f045825a1 # frozen: v8.13.0
+    rev: e9cac36f1c5e0b8e52f224f9335344055bbce13f # frozen: v8.15.3
     hooks:
       - id: gitleaks
   - repo: https://github.com/godaddy/tartufo
-    rev: 7c78708eed025c5d901ee34106e12db370f6a595 # frozen: v3.2.1
+    rev: 540d9b2a184db4e6c2e273973ecacbbf40f593d4 # frozen: v4.0.0
     hooks:
       - id: tartufo
         args: [pre-commit]
@@ -77,7 +77,7 @@ repos:
         types: [python]
         args: ["-rn", "-sn", "--rcfile=.github/lint/.pylintrc"]
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: 33f4a30be4e66513c51a857712fc732e1a9ddd78 # frozen: v0.982
+    rev: dc6912646c561f16af711006e7615d52e9bf0968 # frozen: v1.0.0
     hooks:
       - id: mypy
         args:
@@ -87,7 +87,7 @@ repos:
             --no-strict-optional,
           ]
   - repo: https://github.com/psf/black
-    rev: 27d20144a7517594e24a1649451177b2a11284be # frozen: 22.10.0
+    rev: b0d1fba7ac3be53c71fb0d3211d911e629f8aecb # frozen: 23.1.0
     hooks:
       - id: black
   # Golang-related hooks
@@ -100,17 +100,17 @@ repos:
       - id: go-mod-vendor
   # Terraform-related hooks
   - repo: https://github.com/gruntwork-io/pre-commit
-    rev: 1722bf6a0804bf5357f4c49da4b80bfc875f1697 # frozen: v0.1.17
+    rev: eee43be6a4b6862e70dbb40eba684778a32636c6 # frozen: v0.1.18
     hooks:
       - id: terraform-fmt
       - id: terraform-validate
       - id: tflint
   - repo: https://github.com/aquasecurity/tfsec
-    rev: aaaae87de1e5b94adc6c6e84a70592e6d763c799 # frozen: v1.28.0
+    rev: 3c1870a2a59e2e923ca441dfa3f3dc89ceea8ddf # frozen: v1.28.1
     hooks:
       - id: tfsec
   # Docker-related hooks
   - repo: https://github.com/hadolint/hadolint
-    rev: 0269c965ba799e7f79da826d9589eaca46eacb9a # frozen: v2.10.0
+    rev: 02c491342ac7c7a4c0617c01ddd51f49010a77f6 # frozen: v2.12.1-beta
     hooks:
       - id: hadolint
