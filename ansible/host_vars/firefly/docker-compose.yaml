@@ -40,7 +40,7 @@ services:
       interval: "{{ healthchecks_defaults.ping.interval }}s"
       retries: 5
   fireflydb:
-    image: mariadb:latest@sha256:0561934060f35234b22e3188dde69b152b0ba31e0ee7cbb976d10e0858b5e6d3
+    image: mariadb:latest@sha256:deaea2b3caf7e61bab304739886976155896a9385b163952f9b6aa6635b6ff8d
     environment:
       MYSQL_RANDOM_ROOT_PASSWORD: "yes"
       MYSQL_USER: "{{ fireflydb.username }}"
