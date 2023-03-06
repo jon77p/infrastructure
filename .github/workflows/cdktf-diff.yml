@@ -41,7 +41,7 @@ jobs:
           TERRAFORM_CLOUD_TOKEN: ${{ secrets.TERRAFORM_CLOUD_TOKEN }}
         run: yarn get
       - name: Run Terraform CDK
-        uses: hashicorp/terraform-cdk-action@acab19a15843055c49a1e06e2f012d2b78bb49bc # v0.1.10
+        uses: hashicorp/terraform-cdk-action@a0d46ffc8deb1930305cb0bd7068dd22186ee8d2 # v0.1.11
         with:
           terraformVersion: 1.3.5
           cdktfVersion: 0.14.1
