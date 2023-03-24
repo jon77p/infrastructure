@@ -139,9 +139,11 @@ export class Compute extends Construct {
           sourceType: `\${\"${Fn.lengthOf(
             bootVolumes.bootVolumes
           )}\" == 1 ? "bootVolume" : "image"}`,
-          sourceId: `\${\"${Fn.lengthOf(bootVolumes.bootVolumes)}\" == 1 ? "${
-            bootVolumes.bootVolumes.get(0).id
-          }" : "${instance.instance.image_id}"}`,
+          sourceId: `\${\"${Fn.lengthOf(
+            bootVolumes.bootVolumes
+          )}\" == 1 ? "\${${bootVolumes.bootVolumes.get(0).id}}" : "${
+            instance.instance.image_id
+          }"}`,
           /*eslint-enable no-useless-escape */
         },
       }
