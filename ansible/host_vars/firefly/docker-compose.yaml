@@ -86,7 +86,7 @@ services:
       interval: "{{ healthchecks_defaults.ping.interval }}s"
       retries: 5
   promtail:
-    image: grafana/promtail:latest@sha256:a79659f502a5811711a4b03cf596f86e4563008cc018804f17cca45df6c5470d
+    image: grafana/promtail:latest@sha256:f2d34db787476fbf0b5b9e69f9dac40762c362b9ad1f9e420895b1fc02b60b30
     restart: always
     volumes:
       - /var/log/cloudflared.log:/var/log/cloudflared.log:ro
