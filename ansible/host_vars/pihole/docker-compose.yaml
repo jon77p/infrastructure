@@ -29,7 +29,7 @@ services:
       interval: "{{ healthchecks_defaults.ping.interval }}s"
       retries: 5
   pihole_exporter:
-    image: ekofr/pihole-exporter:latest@sha256:1150fa1240943223193963854b94504412b4fb5ba06149a1e6c6ec91af19816d
+    image: ekofr/pihole-exporter:latest@sha256:787e4f7019d00b153a3c4a02078d601d13894e3c98e5aa7a04fc6603795beb0a
     ports:
       - "{{ compose_project_ports.pihole_exporter[0] }}:9617"
     environment:
