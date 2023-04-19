@@ -25,7 +25,7 @@
     "@cdktf/provider-cloudflare": "^5.0.0",
     "@cdktf/provider-random": "^6.0.0",
     "@cdktf/provider-template": "^5.0.0",
-    "cdktf": "^0.15.0",
+    "cdktf": "^0.16.0",
     "constructs": "^10.1.136"
   },
   "devDependencies": {
