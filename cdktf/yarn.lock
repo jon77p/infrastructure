@@ -383,9 +383,9 @@
     prebuild-install "^7.1.1"
 
 "@cdktf/provider-cloudflare@^6.0.0":
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/@cdktf/provider-cloudflare/-/provider-cloudflare-6.0.1.tgz#0027b822bdbe48197a77954528768d199ad20f58"
-  integrity sha512-Q0CsCRoQIUYz/+xCYSD/uEvKXFQi9344XiUZ09/1RZfcd7Nj6Pa4rG8rFGzSa+kphGfLvlsWQwsDevjjsTvobw==
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/@cdktf/provider-cloudflare/-/provider-cloudflare-6.0.2.tgz#26af2786077e26c42739403033e73732dd7832a0"
+  integrity sha512-6A2JUwLU3CaWELYRkwBrBOAzLZ/G1y5dqB6cYecp0JpnRad5cc6PIzc6N/X9NrfQqLUsWHvYG5ou+VlGOXczjg==
 
 "@cdktf/provider-generator@0.16.1":
   version "0.16.1"
@@ -1405,9 +1405,9 @@ concat-map@0.0.1:
   integrity sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==
 
 constructs@^10.0.25, constructs@^10.1.136:
-  version "10.2.12"
-  resolved "https://registry.yarnpkg.com/constructs/-/constructs-10.2.12.tgz#5209852dd13be17f33ea3200c775578e2981e948"
-  integrity sha512-aBX/fxAgJgZaX2SL6rdUap8UIWAY1lv6xK/stB1EJ3TFpSEDApd6ZCG40hvK/243H13m0MilvCrmyfyKTdiPlQ==
+  version "10.2.14"
+  resolved "https://registry.yarnpkg.com/constructs/-/constructs-10.2.14.tgz#8ec810aa8b1cb92ff97abbff121a4b28938f723d"
+  integrity sha512-DSaLWW4RlTiCVfwg15PENlxAsRCMnOywkxFJ7tS40H2ttJUc/0/K40xzMvQ+mU79mkp4gdeMP1lppcHhLRgHLQ==
 
 convert-source-map@^1.6.0, convert-source-map@^1.7.0:
   version "1.9.0"
