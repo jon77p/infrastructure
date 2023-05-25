@@ -1,0 +1,22 @@
+---
+version: "3"
+
+tasks:
+  install:
+    status:
+      - which gh
+      - test -f /usr/share/keyrings/githubcli-archive-keyring.gpg
+      - test -f /etc/apt/sources.list.d/github-cli.list
+    generates:
+      - /usr/share/keyrings/githubcli-archive-keyring.gpg
+      - /etc/apt/sources.list.d/github-cli.list
+    cmds:
+      - >-
+        curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg &&
+        sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg &&
+        echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null &&
+        sudo apt update -qq -o=Dpkg::Use-Pty=0 &&
+        sudo apt install -qq -o=Dpkg::Use-Pty=0 -y gh
+  setup:
+    deps:
+      - install

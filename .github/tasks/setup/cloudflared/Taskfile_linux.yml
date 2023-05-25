@@ -1,0 +1,14 @@
+---
+version: "3"
+
+tasks:
+  install:
+    status:
+      - which cloudflared
+    cmds:
+      - >-
+        curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb -o /tmp/cloudflared-linux-amd64.deb &&
+        sudo dpkg -i /tmp/cloudflared-linux-amd64.deb
+  setup:
+    deps:
+      - install
