@@ -1,0 +1,40 @@
+---
+name: Template Sync
+on:
+  # cronjob trigger
+  schedule:
+    - cron: "0 0 1 * *"
+  # manual trigger
+  workflow_dispatch:
+    inputs:
+      # optional: specify if workflows should be synced
+      sync_workflows:
+        description: "Sync workflows"
+        required: false
+        default: false
+        type: boolean
+jobs:
+  repo-sync:
+    # Only run on non-template repos
+    if: github.repository != 'jon77p/template'
+    runs-on: ubuntu-latest
+    steps:
+      # To use this repository's private action, you must check out the repository
+      - name: Checkout
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
+      # Only run if sync workflows is true
+      - name: Generate GitHub App Token
+        # see: https://github.com/tibdex/github-app-token
+        id: generate_token
+        uses: tibdex/github-app-token@b62528385c34dbc9f38e5f4225ac829252d1ea92 # v1.8.0
+        if: ${{ github.event.inputs.sync_workflows == 'true' }}
+        with:
+          app_id: ${{ secrets.TEMPLATE_SYNC_APP_ID }}
+          private_key: ${{ secrets.TEMPLATE_SYNC_PRIVATE_KEY }}
+      - name: Sync Template
+        uses: AndreasAugustin/actions-template-sync@6038fdfeb863b03c9c451ae039347fbeb1b7a3e4 # v0.8.0
+        with:
+          github_token: ${{ steps.generate_token.outputs.token if github.event.inputs.sync_workflows == 'true' else secrets.GITHUB_TOKEN }}
+          source_repo_path: jon77p/template
+          upstream_branch: main
+          pr_labels: template-sync

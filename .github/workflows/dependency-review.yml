@@ -6,16 +6,45 @@
 # Source repository: https://github.com/actions/dependency-review-action
 # Public documentation: https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-dependency-review#dependency-review-enforcement
 name: "Dependency Review"
-on: [pull_request]
+on:
+  pull_request:
 
 permissions:
   contents: read
 
 jobs:
+  check:
+    name: Check
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: read
+    steps:
+      # Use the gh API to check if the repository has dependency review enabled
+      # We can check this at /repos/{owner}/{repo}/dependency-graph/compare/{baseref...headref}
+      - name: Check if dependency review is enabled
+        id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # The dependency review API will return a 403 if it is not enabled
+          # The range is the base ref to the head ref of the PR
+          status=$(gh api /repos/${{ github.repository }}/dependency-graph/compare/${{ github.base_ref }}...${{ github.sha }} -i 2>/dev/null | head -n 1 | awk '{ print $2 }')
+          if [[ $status == "200" ]]; then
+            echo "enabled=true" >> $GITHUB_OUTPUT
+          else
+            echo "enabled=false" >> $GITHUB_OUTPUT
+          fi
+    outputs:
+      enabled: ${{ steps.check.outputs.enabled }}
   dependency-review:
     runs-on: ubuntu-latest
+    needs: check
     steps:
       - name: "Checkout Repository"
+        if: needs.check.outputs.enabled == 'true'
         uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
       - name: "Dependency Review"
+        if: needs.check.outputs.enabled == 'true'
         uses: actions/dependency-review-action@f46c48ed6d4f1227fb2d9ea62bf6bcbed315589e # v3

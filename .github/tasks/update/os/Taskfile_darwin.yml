@@ -6,4 +6,4 @@ tasks:
     cmds:
       - >-
         brew update &&
-        brew upgrade
+        brew upgrade --greedy

@@ -1,0 +1,12 @@
+---
+version: "3"
+
+tasks:
+  install:
+    status:
+      - which cloudflared
+    cmds:
+      - brew install cloudflared # macOS only
+  setup:
+    deps:
+      - install

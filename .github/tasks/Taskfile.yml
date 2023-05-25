@@ -7,22 +7,12 @@ includes:
   scan: scan.yml
   setup: setup
   update: update
-  ansible: ansible
 
 tasks:
   setup:
     cmds:
       - task: update:os:update
       - task: setup:setup
-  setup-cicd:
-    cmds:
-      - task: setup:cicd
-  ansible:
-    cmds:
-      - task: ansible:playbook
-  ansible-ping:
-    cmds:
-      - task: ansible:ping
   update:
     cmds:
       - task: update:update

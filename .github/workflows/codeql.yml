@@ -14,16 +14,42 @@ name: "CodeQL"
 
 on:
   push:
-    branches: ["main"]
+    branches:
+      - "main"
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: ["main"]
+    branches:
+      - "main"
   schedule:
-    - cron: "31 15 * * 4"
+    - cron: "31 7 * * 3"
 
 jobs:
+  check:
+    name: Check
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: read
+    steps:
+      # Use the gh API to check if the repository has code scanning enabled
+      # We can check this at /repos/{owner}/{repo}/code-scanning/alerts
+      - name: Check if code scanning is enabled
+        id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          status=$(gh api /repos/${{ github.repository }}/code-scanning/alerts -i 2>/dev/null | head -n 1 | awk '{ print $2 }')
+          if [[ $status == "200" ]]; then
+            echo "enabled=true" >> $GITHUB_OUTPUT
+          else
+            echo "enabled=false" >> $GITHUB_OUTPUT
+          fi
+    outputs:
+      enabled: ${{ steps.check.outputs.enabled }}
   analyze:
     name: Analyze
+    needs: check
     runs-on: ubuntu-latest
     permissions:
       actions: read
@@ -33,19 +59,22 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: ["javascript"]
         # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby' ]
         # Use only 'java' to analyze code written in Java, Kotlin or both
         # Use only 'javascript' to analyze code written in JavaScript, TypeScript or both
         # Learn more about CodeQL language support at https://aka.ms/codeql-docs/language-support
+        language:
+          - javascript
 
     steps:
       - name: Checkout repository
+        if: needs.check.outputs.enabled == 'true'
         uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
 
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@f0e3dfb30302f8a0881bb509b044e0de4f6ef589 # v2
+        if: needs.check.outputs.enabled == 'true'
+        uses: github/codeql-action/init@0225834cc549ee0ca93cb085b92954821a145866 # v2
         with:
           languages: ${{ matrix.language }}
           # If you wish to specify custom queries, you can do so here or in a config file.
@@ -58,7 +87,8 @@ jobs:
       # Autobuild attempts to build any compiled languages  (C/C++, C#, Go, or Java).
       # If this step fails, then you should remove it and run the build manually (see below)
       - name: Autobuild
-        uses: github/codeql-action/autobuild@f0e3dfb30302f8a0881bb509b044e0de4f6ef589 # v2
+        if: needs.check.outputs.enabled == 'true'
+        uses: github/codeql-action/autobuild@0225834cc549ee0ca93cb085b92954821a145866 # v2
 
       # ℹ️ Command-line programs to run using the OS shell.
       # 📚 See https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsrun
@@ -71,6 +101,7 @@ jobs:
       #     ./location_of_script_within_repo/buildscript.sh
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@f0e3dfb30302f8a0881bb509b044e0de4f6ef589 # v2
+        if: needs.check.outputs.enabled == 'true'
+        uses: github/codeql-action/analyze@0225834cc549ee0ca93cb085b92954821a145866 # v2
         with:
           category: "/language:${{matrix.language}}"
