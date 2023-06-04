@@ -439,14 +439,14 @@
     jsii-srcmak "^0.1.867"
 
 "@cdktf/provider-random@^7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@cdktf/provider-random/-/provider-random-7.0.0.tgz#74ae0e5cd1d10543df1ad7f4ac8e3dc9706677e2"
-  integrity sha512-TKIY3GXlnFl2rjNVmjS3kD4x9JznApqw7yBn0C4OuFqNDxizkh6QDYjq9NW1Tcktf+8llcviqwBU2asFH8CyjA==
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/@cdktf/provider-random/-/provider-random-7.0.1.tgz#04796d06b417322b2f5a62612c64b725b8c2505b"
+  integrity sha512-GF14hSu7ZyE6j+FIAZcTp6kpBNWrY1A926VyPLXS1b0Zc9FczRwqQfNTivMX6qdnScDE+QzixuX+csOOoWLU2g==
 
 "@cdktf/provider-template@^6.0.0":
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/@cdktf/provider-template/-/provider-template-6.0.0.tgz#9fd48c580c9ea56a1fc7012098fff013567ed1cd"
-  integrity sha512-Q99ZXDBUiHkQ2xhwPjw2URKknREwMis7zWrvCVKomZVczFIAt7Z9osptM2z/n1sFCCIjWbEK3MLes13dxEoxJA==
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/@cdktf/provider-template/-/provider-template-6.0.1.tgz#843c14be478c6f1ad066eaaaca72185e045d48a7"
+  integrity sha512-EJfJyDzilKjDxPEauV9Dfpts0ZkZcySptfx9Ojp0hjEz0kh/78NFA51TMV8GkHra3y+3jaTXcrD1J0jZOsHaig==
 
 "@cspotcode/source-map-support@^0.8.0":
   version "0.8.1"
