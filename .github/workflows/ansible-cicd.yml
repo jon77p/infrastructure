@@ -46,12 +46,12 @@ jobs:
       dry_run: ${{ steps.set-dry-run.outputs.dry_run }}
     steps:
       - name: Checkout (pull_request)
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3
         if: github.event_name == 'pull_request'
         with:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: Checkout (workflow_dispatch || push)
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3
         if: github.event_name != 'pull_request'
       - name: Fetch main branch
         run: git fetch origin main
@@ -100,7 +100,7 @@ jobs:
       ANSIBLE_COLLECTIONS_PATH: ${{ github.workspace }}/ansible/collections
     steps:
       - name: Checkout
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3
       - name: Setup Tailscale
         uses: tailscale/github-action@cc6818dd6930277a6e4b5d249e32ba2f4cf6ea32 # v1
         with:

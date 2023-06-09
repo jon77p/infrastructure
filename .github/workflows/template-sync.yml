@@ -21,7 +21,7 @@ jobs:
     steps:
       # To use this repository's private action, you must check out the repository
       - name: Checkout
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3
       # Only run if sync workflows is true
       - name: Generate GitHub App Token
         # see: https://github.com/tibdex/github-app-token
