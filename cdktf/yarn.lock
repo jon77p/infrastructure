@@ -405,10 +405,10 @@
     nan "^2.14.2"
     prebuild-install "^7.1.1"
 
-"@cdktf/provider-cloudflare@^6.0.0":
-  version "6.0.7"
-  resolved "https://registry.yarnpkg.com/@cdktf/provider-cloudflare/-/provider-cloudflare-6.0.7.tgz#71c25039fd9d05025acfe9eb2605629cf08ff38c"
-  integrity sha512-AtPICncEml2mwpZOVFkqXJMI3jw2CtXjnt6U+psPjHxumNcUV/lXORhqU4VBKlkFCSWy7y8oq6kBeGgfr43BvQ==
+"@cdktf/provider-cloudflare@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@cdktf/provider-cloudflare/-/provider-cloudflare-7.0.0.tgz#0236f15bd342a8d87152ef321cef6cc8ba7271e7"
+  integrity sha512-eihSQpc2oeR/MWwZyHCuXKDNlc9JUJ27prKHtE7+K3reX3dqRE2Az4MX0karNUwr4dcCoHfYx+QDn2ybGo6Mrw==
 
 "@cdktf/provider-generator@0.17.0":
   version "0.17.0"
