@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   speedtest:
-    image: henrywhitaker3/speedtest-tracker:dev-arm@sha256:849311620428166f9b5cc56d4e2cc1ed4ca97d246b4dad42ffc8c7bea58460ce
+    image: henrywhitaker3/speedtest-tracker:dev-arm@sha256:70d85eccf3fdcfefa3fcfedb13c3b93c0925382c5222698f2613aaf14da72791
     depends_on:
       - traefik
     volumes:
