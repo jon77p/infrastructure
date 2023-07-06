@@ -74,7 +74,7 @@ jobs:
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
         if: needs.check.outputs.enabled == 'true'
-        uses: github/codeql-action/init@004c5de30b6423267685b897a3d595e944f7fed5 # v2
+        uses: github/codeql-action/init@46ed16ded91731b2df79a2893d3aea8e9f03b5c4 # v2
         with:
           languages: ${{ matrix.language }}
           # If you wish to specify custom queries, you can do so here or in a config file.
@@ -88,7 +88,7 @@ jobs:
       # If this step fails, then you should remove it and run the build manually (see below)
       - name: Autobuild
         if: needs.check.outputs.enabled == 'true'
-        uses: github/codeql-action/autobuild@004c5de30b6423267685b897a3d595e944f7fed5 # v2
+        uses: github/codeql-action/autobuild@46ed16ded91731b2df79a2893d3aea8e9f03b5c4 # v2
 
       # ℹ️ Command-line programs to run using the OS shell.
       # 📚 See https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsrun
@@ -102,6 +102,6 @@ jobs:
 
       - name: Perform CodeQL Analysis
         if: needs.check.outputs.enabled == 'true'
-        uses: github/codeql-action/analyze@004c5de30b6423267685b897a3d595e944f7fed5 # v2
+        uses: github/codeql-action/analyze@46ed16ded91731b2df79a2893d3aea8e9f03b5c4 # v2
         with:
           category: "/language:${{matrix.language}}"
