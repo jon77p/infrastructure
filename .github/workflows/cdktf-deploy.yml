@@ -14,6 +14,11 @@ permissions:
   pull-requests: write
   issues: read
 
+env:
+  CDKTF_VERSION: 0.14.3
+  TERRAFORM_VERSION: 1.3.5
+  NODE_VERSION: latest
+
 jobs:
   terraform:
     name: "Terraform CDK Deploy"
@@ -24,13 +29,13 @@ jobs:
       - name: Install Terraform
         uses: hashicorp/setup-terraform@633666f66e0061ca3b725c73b2ec20cd13a8fdd1 # v2
         with:
-          terraform_version: 1.3.5
+          terraform_version: ${{ env.TERRAFORM_VERSION }}
           terraform_wrapper: false
           cli_config_credentials_token: ${{ secrets.TERRAFORM_CLOUD_TOKEN }}
       - name: Setup yarn
         uses: actions/setup-node@e33196f7422957bea03ed53f6fbb155025ffc7b8 # v3
         with:
-          node-version: "16.14"
+          node-version: ${{ env.NODE_VERSION }}
           cache: yarn
           cache-dependency-path: ./cdktf/yarn.lock
       - name: Install dependencies
@@ -44,8 +49,8 @@ jobs:
       - name: Run Terraform CDK
         uses: hashicorp/terraform-cdk-action@6b19d05fa4efedee6d780c79689af9c21b7e04de # v0.1.28
         with:
-          terraformVersion: 1.3.5
-          cdktfVersion: 0.14.1
+          terraformVersion: ${{ env.TERRAFORM_VERSION }}
+          cdktfVersion: ${{ env.CDKTF_VERSION }}
           workingDirectory: ./cdktf
           stackName: cdktf
           mode: auto-approve-apply
