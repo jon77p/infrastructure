@@ -24,7 +24,7 @@ export class Tunnel extends Construct {
   public readonly tunnelSecret: random.id.Id
   public readonly cloudflareZones: cloudflare.dataCloudflareZones.DataCloudflareZones
   public readonly sshCertificate: cloudflare.accessCaCertificate.AccessCaCertificate
-  public readonly tunnel: cloudflare.argoTunnel.ArgoTunnel
+  public readonly tunnel: cloudflare.tunnel.Tunnel
 
   constructor(scope: Construct, name: string, props: TunnelProps) {
     super(scope, name)
@@ -104,7 +104,7 @@ export class Tunnel extends Construct {
       zoneId: this.cloudflareZones.zones.get(0).id,
     })
 
-    this.tunnel = new cloudflare.argoTunnel.ArgoTunnel(this, `tunnel_${name}`, {
+    this.tunnel = new cloudflare.tunnel.Tunnel(this, `tunnel_${name}`, {
       accountId: config.accountId,
       name: instance.name,
       secret: this.tunnelSecret.b64Std,
