@@ -41,7 +41,11 @@ jobs:
           cache-dependency-path: ./cdktf/yarn.lock
       - name: Install dependencies
         working-directory: ./cdktf
-        run: yarn install --frozen-lockfile --immutable
+        run: |
+          # Install node-gyp globally first
+          npm install -g node-gyp
+
+          yarn install --frozen-lockfile --immutable
       - name: Generate module and provider bindings
         working-directory: ./cdktf
         env:
