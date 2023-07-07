@@ -38,6 +38,11 @@ on:
         required: true
         type: boolean
         default: true
+
+env:
+  TAILSCALE_VERSION: 1.44.0
+  PYTHON_VERSION: 3.11
+
 jobs:
   setup:
     runs-on: ubuntu-latest
@@ -104,7 +109,7 @@ jobs:
       - name: Setup Tailscale
         uses: tailscale/github-action@65cdd9a05d7ebe4ef4e8c70141f5d84e1cd4cab4 # v2
         with:
-          version: 1.34.1
+          version: ${{ env.TAILSCALE_VERSION }}
           authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
       - name: Disallow DNS configuration from Tailscale admin panel
         run: sudo tailscale set --accept-dns=false
@@ -115,7 +120,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@bd6b4b6205c4dbad673328db7b31b7fab9e241c0 # v4
         with:
-          python-version: 3.9
+          python-version: ${{ env.PYTHON_VERSION }}
           cache: pip
       - name: Cache Ansible Roles
         uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
