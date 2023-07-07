@@ -25,7 +25,7 @@ tasks:
       - task: ansible
   virtualenv:
     cmds:
-      - virtualenv .venv
+      - python3 -m venv .venv
     generates:
       - .venv/bin/activate
     status:
