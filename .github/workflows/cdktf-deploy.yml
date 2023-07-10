@@ -28,12 +28,25 @@ jobs:
         uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3
         with:
           persist-credentials: false
+      # Configure 1Password Service Account
+      - name: Configure 1Password Service Account
+        uses: 1Password/load-secrets-action/configure@v1
+        with:
+          service-account-token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+      # Fetch TERRAFORM_CLOUD_TOKEN from 1Password using load-secrets-action
+      - name: Fetch TERRAFORM_CLOUD_TOKEN from 1Password
+        uses: 1Password/load-secrets-action@v1
+        id: fetch-terraform-cloud-token
+        with:
+          export-env: false
+        env:
+          TERRAFORM_CLOUD_TOKEN: op://Infrastructure/terraform/cloud/token
       - name: Install Terraform
         uses: hashicorp/setup-terraform@633666f66e0061ca3b725c73b2ec20cd13a8fdd1 # v2
         with:
           terraform_version: ${{ env.TERRAFORM_VERSION }}
           terraform_wrapper: false
-          cli_config_credentials_token: ${{ secrets.TERRAFORM_CLOUD_TOKEN }}
+          cli_config_credentials_token: ${{ steps.fetch-terraform-cloud-token.outputs.TERRAFORM_CLOUD_TOKEN }}
       - name: Setup yarn
         uses: actions/setup-node@e33196f7422957bea03ed53f6fbb155025ffc7b8 # v3
         with:
@@ -50,7 +63,7 @@ jobs:
       - name: Generate module and provider bindings
         working-directory: ./cdktf
         env:
-          TERRAFORM_CLOUD_TOKEN: ${{ secrets.TERRAFORM_CLOUD_TOKEN }}
+          TERRAFORM_CLOUD_TOKEN: ${{ steps.fetch-terraform-cloud-token.outputs.TERRAFORM_CLOUD_TOKEN }}
         run: yarn get
       - name: Run Terraform CDK
         uses: hashicorp/terraform-cdk-action@6b19d05fa4efedee6d780c79689af9c21b7e04de # v0.1.28
