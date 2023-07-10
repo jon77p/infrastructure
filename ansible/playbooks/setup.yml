@@ -3,9 +3,3 @@
   hosts: all
   roles:
     - common
-- name: Setup innernet on all hosts
-  hosts: all
-  tags:
-    - cluster
-  roles:
-    - innernet

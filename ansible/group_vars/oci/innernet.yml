@@ -1,4 +1,0 @@
----
-pihole_innernet_address: 10.42.128.2
-healthchecks_innernet_address: 10.42.128.4
-monitoring_innernet_address: 10.42.128.7
