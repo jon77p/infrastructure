@@ -48,12 +48,12 @@ jobs:
           yarn install --frozen-lockfile --immutable
       # Configure 1Password Service Account
       - name: Configure 1Password Service Account
-        uses: 1Password/load-secrets-action/configure@v1
+        uses: 1Password/load-secrets-action/configure@d1a4e73495bde3551cf63f6c048588b8f734e21d # v1
         with:
           service-account-token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
       # Fetch TERRAFORM_CLOUD_TOKEN from 1Password using load-secrets-action
       - name: Fetch TERRAFORM_CLOUD_TOKEN from 1Password
-        uses: 1Password/load-secrets-action@v1
+        uses: 1Password/load-secrets-action@d1a4e73495bde3551cf63f6c048588b8f734e21d # v1
         id: fetch-terraform-cloud-token
         with:
           export-env: false
