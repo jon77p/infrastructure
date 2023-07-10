@@ -30,14 +30,6 @@ class InfrastructureStack extends TerraformStack {
       description: "Id of administrator Cloudflare group",
       type: "string",
     })
-    const cfAdminServiceTokenId = new TerraformVariable(
-      this,
-      "cf_admin_service_token_id",
-      {
-        description: "Id of administrator Cloudflare service token",
-        type: "string",
-      }
-    )
     const cfAllowedIdpIds = new TerraformVariable(this, "cf_allowed_idp_ids", {
       default: [],
       description: "list of allowed Cloudflare IDP ids",
@@ -153,7 +145,6 @@ class InfrastructureStack extends TerraformStack {
         cfConfig: {
           accountId: cfAccountId.value,
           adminGroupId: cfAdminGroupId.value,
-          adminServiceTokenId: cfAdminServiceTokenId.value,
           allowedIdpIds: cfAllowedIdpIds.value,
           email: cfEmail.value,
           sshPassword: cfSshPassword.value,

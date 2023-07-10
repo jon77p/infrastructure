@@ -10,7 +10,6 @@ export interface CFConfig {
   email: string
   allowedIdpIds: string[]
   adminGroupId: string
-  adminServiceTokenId: string
   sshUsername: string
   sshPassword: string
 }
@@ -88,19 +87,6 @@ export class Tunnel extends Construct {
       ],
       name: `Policy for ${sshDomain}`,
       precedence: 2,
-      zoneId: this.cloudflareZones.zones.get(0).id,
-    })
-
-    new cloudflare.accessPolicy.AccessPolicy(this, "ssh_service_token_policy", {
-      applicationId: sshApp.id,
-      decision: "non_identity",
-      include: [
-        {
-          serviceToken: [config.adminServiceTokenId],
-        },
-      ],
-      name: `Service Token Auth Policy for ${sshDomain}`,
-      precedence: 1,
       zoneId: this.cloudflareZones.zones.get(0).id,
     })
 
