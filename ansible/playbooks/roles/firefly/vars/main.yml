@@ -1,3 +1,0 @@
----
-docker_volume_dirs: "{{ hostvars[inventory_hostname].docker_volume_dirs }}"
-plaid: "{{ hostvars[inventory_hostname].plaid }}"

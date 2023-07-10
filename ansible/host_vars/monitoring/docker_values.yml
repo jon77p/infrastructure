@@ -4,8 +4,6 @@ prometheus:
   port: "9000"
   internal_port: "9090"
   cloudflared:
-    - firefly.{{ domain }}
-    - firefly-importer.{{ domain }}
     - healthchecks.{{ domain }}
     - prometheus.{{ domain }}
     - grafana.{{ domain }}
