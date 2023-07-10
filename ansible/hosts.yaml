@@ -34,8 +34,6 @@ all:
               ansible_host: pihole
             vault:
               ansible_host: vault
-            code:
-              ansible_host: code
             monitoring:
               ansible_host: monitoring
       vars:
