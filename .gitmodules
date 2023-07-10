@@ -1,3 +1,0 @@
-[submodule "migrate-todo/code-server/code-server"]
-	path = migrate-todo/code-server/code-server
-	url = https://github.com/cdr/code-server
