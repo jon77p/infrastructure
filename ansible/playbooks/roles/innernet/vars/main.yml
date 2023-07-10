@@ -1,7 +1,0 @@
----
-innernet_version: 1.5.3
-innernet_network: "{{ hostvars['innernet'].innernet_network }}"
-innernet_network_cidr: "{{ hostvars['innernet'].innernet_network_cidr }}"
-innernet_server_port: "{{ hostvars['innernet'].innernet_server_port }}"
-additional_networks: "{{ hostvars['innernet'].additional_networks | default([]) }}"
-peers: "{{ hostvars['innernet'].peers | default([]) }}"

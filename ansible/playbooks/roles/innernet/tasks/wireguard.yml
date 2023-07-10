@@ -1,6 +1,0 @@
----
-- name: Install wireguard
-  become: true
-  ansible.builtin.apt:
-    name: wireguard
-    state: latest
