@@ -105,12 +105,12 @@ jobs:
         uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3
       # Configure 1Password Service Account
       - name: Configure 1Password Service Account
-        uses: 1Password/load-secrets-action/configure@v1
+        uses: 1Password/load-secrets-action/configure@d1a4e73495bde3551cf63f6c048588b8f734e21d # v1
         with:
           service-account-token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
       # Fetch TAILSCALE_AUTHKEY from 1Password using load-secrets-action
       - name: Fetch Tailscale Authkey
-        uses: 1Password/load-secrets-action@v1
+        uses: 1Password/load-secrets-action@d1a4e73495bde3551cf63f6c048588b8f734e21d # v1
         id: fetch-tailscale-authkey
         with:
           export-env: false
@@ -146,7 +146,7 @@ jobs:
         run: task setup-cicd
       # Fetch ANSIBLE_VAULT_PASSWORD from 1Password using load-secrets-action
       - name: Fetch Ansible Vault Password
-        uses: 1Password/load-secrets-action@v1
+        uses: 1Password/load-secrets-action@d1a4e73495bde3551cf63f6c048588b8f734e21d # v1
         id: fetch-ansible-vault-password
         with:
           export-env: false
