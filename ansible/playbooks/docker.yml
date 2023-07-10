@@ -1,18 +1,4 @@
 ---
-- name: Setup firefly
-  hosts: firefly
-  roles:
-    - docker
-  vars:
-    servicelist:
-      - agent
-      - portainer
-      - traefik
-      - fireflyiii
-      - fireflyiii-csv-importer
-      - fireflyiiidb
-      - plaid_connector
-
 - name: Setup stash
   hosts: stash
   roles:
