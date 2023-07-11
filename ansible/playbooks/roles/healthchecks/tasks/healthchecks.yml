@@ -16,7 +16,7 @@
 
 - name: Create/Get healthcheck
   ansible.builtin.uri:
-    url: "https://{{ healthchecks_domain }}/api/v1/checks/"
+    url: "{{ healthchecks_domain }}/api/v3/checks/"
     method: POST
     headers:
       X-Api-Key: "{{ opconnect_results['healthchecks'].apikey }}"

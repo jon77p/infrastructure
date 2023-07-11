@@ -2,22 +2,37 @@
 - name: Compute healthchecks domain
   when: inventory_hostname != 'healthchecks'
   ansible.builtin.set_fact:
-    healthchecks_domain: "healthchecks.{{ domain }}"
+    healthchecks_domain: "http://healthchecks:{{ hostvars['healthchecks'].healthchecks.port }}"
 
 - name: Compute healthchecks domain
   when: inventory_hostname == 'healthchecks'
   ansible.builtin.set_fact:
-    healthchecks_domain: "healthchecks.io"
+    healthchecks_domain: "https://healthchecks.io"
 
 - name: Determine if healthchecks server is online
   ansible.builtin.uri:
-    url: "https://{{ healthchecks_domain }}"
+    url: "{{ healthchecks_domain }}/api/v3/checks/"
     status_code: 200
-  register: healthchecks_online
-  until: healthchecks_online.status == 200
+    headers:
+      X-Api-Key: "{{ opconnect_results['healthchecks'].apikey }}"
+  register: healthchecks_online_check
+  until: healthchecks_online_check.status == 200
   retries: 3
   delay: 5
   ignore_errors: true
+
+# The healthcheck server might be offline even with a 200 status code
+# Check if we have a list of checks returned from the healthchecks server
+# If the checks key is not defined, then the healthchecks server is offline
+- name: Determine if healthchecks server is online
+  ansible.builtin.set_fact:
+    healthchecks_online: false
+  when: healthchecks_online_check.json.checks is not defined or healthchecks_online_check.status != 200
+
+- name: Determine if healthchecks server is online
+  ansible.builtin.set_fact:
+    healthchecks_online: true
+  when: healthchecks_online_check.json.checks is defined and healthchecks_online_check.status == 200
 
 - name:
     Set healthchecks default fact
@@ -39,9 +54,6 @@
       # Tags also should be a unique list that is sorted in alphabetical order
       tags: "{{ (group_names | list | union(healthchecks_defaults.tags)) | unique | sort }}"
 
-- debug:
-    msg: "healthchecks: {{ healthchecks }}"
-
 - name: Include healthchecks tasks
   ansible.builtin.include_tasks: "healthchecks.yml"
-  when: healthchecks_online.status == 200
+  when: healthchecks_online == true
