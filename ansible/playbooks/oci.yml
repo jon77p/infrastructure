@@ -1,0 +1,19 @@
+---
+# Setup the vault server
+- name: Setup vault
+  import_playbook: vault.yml
+# Setup the healthchecks server
+- name: Setup healthchecks
+  import_playbook: healthchecks.yml
+# Re-run the vault server to add the healthchecks token
+- name: Setup vault healthchecks
+  import_playbook: vault.yml
+# Setup the pihole server
+- name: Setup pihole
+  import_playbook: pihole.yml
+# Setup the monitoring server
+- name: Setup monitoring
+  import_playbook: monitoring.yml
+# Setup the gaming server
+- name: Setup gaming
+  import_playbook: gaming.yml
