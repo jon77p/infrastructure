@@ -2,60 +2,28 @@
 version: "3"
 
 services:
-  mineos:
-    image: ghcr.io/jon77p/mineos-node:latest@sha256:3ef5f0fa96c863ce79db8f1fc78972d8c8b22be960ce52318c7ac34a3ca0166a
-    networks:
-      - mineos
+  crafty:
+    image: registry.gitlab.com/crafty-controller/crafty-4:latest
     restart: always
 
     # Adjust as needed; if this is too short, stopping the container
     #  may corrupt map data
     stop_grace_period: 10m
 
-    volumes:
-      # Using a bind mapping is preferrable here due to how docker
-      # stores names volumes by default in /var/lib/docker/volumes
-      # with permissions that prevent normal users from accessing
-      # the folder structure.
-      - "{{ docker_volume_dirs.mineos[0] }}:/var/games/minecraft"
-
     environment:
-      # Should the web interface use HTTPS or HTTP?
-      # Valid entries are "true" and "false" (with quotes)
-      USE_HTTPS: "false"
-
-      # What port should the web interface listen on?
-      # This is independant of the USE_HTTPS setting.
-      SERVER_PORT: "{{ gaming.mineos.port }}"
-
-      # On startup, mineos will check if an account of this name exists.
-      # If it does not exist, one will be created. This account, and
-      # any other created with this variable will be permitted to login
-      # to the web interface.
-      USER_NAME: "{{ gaming.mineos.username }}"
-
-      # If the account listed above does not already exist, when mineos
-      # creates it, it will do so with UID. If an account with this UID
-      # already exists, account creation will be aborted.
-      USER_UID: 1000
-
-      # If the account is being created, it will use either the password
-      # set below, or a random, 20 character password will generated for
-      # you and displayed in the console log. After first launch, you
-      # should check the log.
-      USER_PASSWORD: "{{ gaming.mineos.password }}"
-
+      - TZ=Etc/UTC
     ports:
-      # HTTPS port for web interface. If you change the SERVER_PORT
-      # variable, also change this mapping.
-      - "{{ gaming.mineos.port }}:8000/tcp"
-
-      # Minecraft server ports. 25565 is the default, but is you plan
-      # on running multiple servers at the same time, each will need
-      # a unique port unless you are using bungiecord.
-      # Expand this range as needed.
-      - "{{ gaming.mineos.minecraft.ports }}:25565-25570/tcp"
-      - "{{ gaming.mineos.minecraft.ports }}:25565-25570/udp"
+      - "{{ gaming.crafty.ports.https }}:8443" # HTTPS
+      - "{{ gaming.crafty.ports.dynmap }}:8123" # DYNMAP
+      - "{{ gaming.crafty.ports.bedrock }}:19132/udp" # BEDROCK
+      - "{{ gaming.crafty.ports.minecraft }}:25500-25600" # MC SERV PORT RANGE
+    volumes:
+      - "{{ docker_volume_dirs.crafty[0] }}:/crafty/backups"
+      - "{{ docker_volume_dirs.crafty[1] }}:/crafty/logs"
+      - "{{ docker_volume_dirs.crafty[2] }}:/crafty/servers"
+      - "{{ docker_volume_dirs.crafty[3] }}:/crafty/app/config"
+      - "{{ docker_volume_dirs.crafty[4] }}:/crafty/import"
+      - "{{ docker_volume_dirs.crafty[5] }}/default.json:/crafty/default.json"
     healthcheck:
       test: [CMD, curl, "{{ healthchecks.healthcheck }}"]
       timeout: 45s

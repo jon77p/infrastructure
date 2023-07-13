@@ -1,7 +1,18 @@
 ---
 compose_project_name: gaming
 compose_project_port: "{{ gaming.mineos.port }}"
+docker_user_id:
+  crafty: "1000"
+docker_group_id:
+  crafty: "0"
 docker_volume_dirs:
+  crafty:
+    - /mnt/{{ compose_project_name }}/crafty/backups
+    - /mnt/{{ compose_project_name }}/crafty/logs
+    - /mnt/{{ compose_project_name }}/crafty/servers
+    - /mnt/{{ compose_project_name }}/crafty/config
+    - /mnt/{{ compose_project_name }}/crafty/import
+    - /mnt/{{ compose_project_name }}/crafty/default
   mineos:
     - /mnt/{{ compose_project_name }}/mineos
   smo_online_server:

@@ -3,6 +3,9 @@
   hosts: localhost,gaming
   vars:
     opconnect_items:
+      crafty:
+        - username
+        - password
       mineos:
         - username
         - password
@@ -21,4 +24,5 @@
     - iptables
     - dns
     - healthchecks
+    - crafty
     - docker
