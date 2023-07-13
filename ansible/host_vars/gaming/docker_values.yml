@@ -1,5 +1,13 @@
 ---
 gaming:
+  crafty:
+    username: "{{ opconnect_results['crafty'].username }}"
+    password: "{{ opconnect_results['crafty'].password }}"
+    ports:
+      https: "8443"
+      dynmap: "8123"
+      bedrock: "19132"
+      minecraft: "25500-25600"
   mineos:
     port: "8000"
     minecraft:

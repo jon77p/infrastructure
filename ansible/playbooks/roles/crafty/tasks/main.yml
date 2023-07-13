@@ -1,0 +1,17 @@
+---
+- name: Create mount directories
+  become: true
+  ansible.builtin.file:
+    path: "{{ docker_volume_dirs.crafty[5] }}"
+    recurse: true
+    owner: "{{ docker_user_id.crafty }}"
+    group: "{{ docker_group_id.crafty }}"
+    state: directory
+
+- name: Create config file
+  become: true
+  ansible.builtin.template:
+    src: ../templates/default.json.j2
+    dest: "{{ docker_volume_dirs.crafty[5] }}/default.json"
+    # Permission needs to be 0664
+    mode: "0664"

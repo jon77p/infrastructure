@@ -22,6 +22,15 @@ iptables_rules:
     chain: INPUT
     rule_num: 8
     ctstate: NEW
+    destination_port: "{{ gaming.crafty.ports.bedrock }}"
+    protocol: udp
+    state: present
+    jump: ACCEPT
+    comment: "Accept new connections to UDP/{{ gaming.crafty.ports.bedrock }}"
+  - action: insert
+    chain: INPUT
+    rule_num: 9
+    ctstate: NEW
     destination_port: "{{ gaming.smo_online_server.port }}"
     protocol: tcp
     state: present

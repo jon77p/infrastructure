@@ -1,4 +1,11 @@
 ---
 additional_ingress:
+  - hostname: crafty.{{ domain }}
+    service: https://localhost:{{ gaming.crafty.ports.https }}
+    originRequest:
+      # trust self-signed cert
+      noTLSVerify: true
+  - hostname: dynmap.{{ domain }}
+    service: http://localhost:{{ gaming.crafty.ports.dynmap }}
   - hostname: mineos.{{ domain }}
     service: http://localhost:{{ gaming.mineos.port }}
