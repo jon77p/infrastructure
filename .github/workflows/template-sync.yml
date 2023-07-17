@@ -32,7 +32,7 @@ jobs:
           app_id: ${{ secrets.TEMPLATE_SYNC_APP_ID }}
           private_key: ${{ secrets.TEMPLATE_SYNC_PRIVATE_KEY }}
       - name: Sync Template
-        uses: AndreasAugustin/actions-template-sync@6038fdfeb863b03c9c451ae039347fbeb1b7a3e4 # v0.8.0
+        uses: AndreasAugustin/actions-template-sync@964b16174a24d517420640c0e81466c93491c147 # v1.1.0
         with:
           github_token: ${{ steps.generate_token.outputs.token if github.event.inputs.sync_workflows == 'true' else secrets.GITHUB_TOKEN }}
           source_repo_path: jon77p/template
