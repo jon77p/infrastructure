@@ -108,19 +108,23 @@ jobs:
         uses: 1Password/load-secrets-action/configure@d1a4e73495bde3551cf63f6c048588b8f734e21d # v1
         with:
           service-account-token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
-      # Fetch TAILSCALE_AUTHKEY from 1Password using load-secrets-action
-      - name: Fetch Tailscale Authkey
+      # Fetch TAILSCALE_OAUTH_CLIENT_ID and TAILSCALE_OAUTH_CLIENT_SECRET
+      # from 1Password using load-secrets-action
+      - name: Fetch Tailscale Secrets
         uses: 1Password/load-secrets-action@d1a4e73495bde3551cf63f6c048588b8f734e21d # v1
-        id: fetch-tailscale-authkey
+        id: fetch-tailscale-secrets
         with:
           export-env: false
         env:
-          AUTH_KEY: op://Infrastructure/tailscale/github_actions/auth_key
+          OAUTH_CLIENT_ID: op://Infrastructure/tailscale/github_actions/oauth_client_id
+          OAUTH_CLIENT_SECRET: op://Infrastructure/tailscale/github_actions/oauth_client_secret
+          tags: tag:cicd
       - name: Setup Tailscale
         uses: tailscale/github-action@65cdd9a05d7ebe4ef4e8c70141f5d84e1cd4cab4 # v2
         with:
           version: ${{ env.TAILSCALE_VERSION }}
-          authkey: ${{ steps.fetch-tailscale-authkey.outputs.AUTH_KEY }}
+          oauth-client-id: ${{ steps.fetch-tailscale-authkey.outputs.OAUTH_CLIENT_ID }}
+          oauth-client-secret: ${{ steps.fetch-tailscale-authkey.outputs.OAUTH_CLIENT_SECRET }}
       - name: Disallow DNS configuration from Tailscale admin panel
         run: sudo tailscale set --accept-dns=false
       - name: Setup Taskfile
