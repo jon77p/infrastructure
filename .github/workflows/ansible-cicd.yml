@@ -124,7 +124,7 @@ jobs:
         with:
           version: ${{ env.TAILSCALE_VERSION }}
           oauth-client-id: ${{ steps.fetch-tailscale-authkey.outputs.OAUTH_CLIENT_ID }}
-          oauth-client-secret: ${{ steps.fetch-tailscale-authkey.outputs.OAUTH_CLIENT_SECRET }}
+          oauth-secret: ${{ steps.fetch-tailscale-authkey.outputs.OAUTH_CLIENT_SECRET }}
       - name: Disallow DNS configuration from Tailscale admin panel
         run: sudo tailscale set --accept-dns=false
       - name: Setup Taskfile
