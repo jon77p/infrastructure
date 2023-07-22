@@ -1,0 +1,26 @@
+---
+- name: Get 1Password secrets
+  hosts: localhost,authentik
+  vars:
+    opconnect_items:
+      authentik:
+        - authentik_bootstrap_email
+        - authentik_bootstrap_password
+        - authentik_secret_key
+        - postgres_password
+        - smtp_host
+        - smtp_port
+        - smtp_username
+        - smtp_password
+  roles:
+    - opconnect
+
+- name: Setup authentik
+  hosts: authentik
+  become: true
+  roles:
+    - common
+    - cloudflared
+    - cloudflare
+    - iptables
+    - docker
