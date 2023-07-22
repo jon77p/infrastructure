@@ -1,0 +1,8 @@
+---
+compose_project_name: auth
+compose_project_port: "{{ authentik.ports.https }}"
+docker_volume_dirs:
+  authentik:
+    - /mnt/{{ compose_project_name }}/media
+    - /mnt/{{ compose_project_name }}/custom-templates
+    - /mnt/{{ compose_project_name }}/certs

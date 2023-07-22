@@ -36,6 +36,8 @@ all:
               ansible_host: vault
             monitoring:
               ansible_host: monitoring
+            authentik:
+              ansible_host: auth
       vars:
         ansible_ssh_user: ubuntu
     deployments:
