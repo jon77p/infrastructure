@@ -48,26 +48,7 @@
         }
       },
       "security": {
-        "ingress": [
-          {
-            "name": "timemachine",
-            "entries": [
-              {
-                "description": "allow timemachine TCP/445 inbound",
-                "protocol": 6,
-                "source": "0.0.0.0/0",
-                "source_type": "CIDR_BLOCK",
-                "stateless": false,
-                "tcp_options": [
-                  {
-                    "max": 445,
-                    "min": 445
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+        "ingress": []
       }
     },
     "instances": {
