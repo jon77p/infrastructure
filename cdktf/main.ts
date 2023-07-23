@@ -10,6 +10,8 @@ import { Construct } from "constructs"
 import { App, TerraformStack, TerraformVariable, VariableType } from "cdktf"
 import { OCIConfig } from "./oci/main"
 
+require("json5/lib/register")
+
 class InfrastructureStack extends TerraformStack {
   constructor(scope: Construct, name: string) {
     super(scope, name)
@@ -111,7 +113,7 @@ class InfrastructureStack extends TerraformStack {
     // Read infrastructure config from local file
     const ociConfig: Map<string, OCIConfig> = require(path.join(
       __dirname,
-      "infrastructure.json"
+      "infrastructure.json5"
     ))
 
     // Providers
