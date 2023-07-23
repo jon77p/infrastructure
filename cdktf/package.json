@@ -26,7 +26,8 @@
     "@cdktf/provider-random": "^8.0.0",
     "@cdktf/provider-template": "^7.0.0",
     "cdktf": "^0.17.1",
-    "constructs": "^10.1.136"
+    "constructs": "^10.1.136",
+    "json5": "^2.2.3"
   },
   "devDependencies": {
     "@types/jest": "^29.2.0",
