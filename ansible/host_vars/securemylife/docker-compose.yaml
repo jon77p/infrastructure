@@ -2,7 +2,7 @@
 version: "3"
 services:
   ghost:
-    image: ghost:latest@sha256:d2dedc98224865b095c68239ee26b3a9fd53ab16f265b4becfa65d9fa11e0857
+    image: ghost:latest@sha256:9abc45871ba4459a35c7696e224da175703af9f83e4a2dc22e1bec7e688c2c21
     volumes:
       - "{{ docker_volume_dirs.ghost[0] }}/config.production.json:/var/lib/ghost/config.production.json"
       - "{{ docker_volume_dirs.ghost[1] }}:/var/lib/ghost/content"
