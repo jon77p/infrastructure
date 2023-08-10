@@ -11,6 +11,9 @@
 # Setup the pihole server
 - name: Setup pihole
   import_playbook: pihole.yml
+# Setup the authentik server
+- name: Setup authentik
+  import_playbook: authentik.yml
 # Setup the monitoring server
 - name: Setup monitoring
   import_playbook: monitoring.yml
