@@ -17,13 +17,8 @@
     state: present
 
 - name: Install Docker SDK
-  ansible.builtin.pip:
-    name: docker
-    state: present
-
-- name: Install docker-compose
-  ansible.builtin.pip:
-    name: docker-compose
+  ansible.builtin.apt:
+    name: python3-docker
     state: present
 
 - name: Ensure ansible user is in docker group
