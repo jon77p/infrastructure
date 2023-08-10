@@ -118,13 +118,13 @@ jobs:
         env:
           OAUTH_CLIENT_ID: op://Infrastructure/tailscale/github_actions/oauth_client_id
           OAUTH_CLIENT_SECRET: op://Infrastructure/tailscale/github_actions/oauth_client_secret
-          tags: tag:cicd
       - name: Setup Tailscale
         uses: tailscale/github-action@65cdd9a05d7ebe4ef4e8c70141f5d84e1cd4cab4 # v2
         with:
           version: ${{ env.TAILSCALE_VERSION }}
-          oauth-client-id: ${{ steps.fetch-tailscale-authkey.outputs.OAUTH_CLIENT_ID }}
-          oauth-secret: ${{ steps.fetch-tailscale-authkey.outputs.OAUTH_CLIENT_SECRET }}
+          oauth-client-id: ${{ steps.fetch-tailscale-secrets.outputs.OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ steps.fetch-tailscale-secrets.outputs.OAUTH_CLIENT_SECRET }}
+          tags: tag:cicd
       - name: Disallow DNS configuration from Tailscale admin panel
         run: sudo tailscale set --accept-dns=false
       - name: Setup Taskfile
