@@ -10,12 +10,13 @@
     name: compose_definition
 
 - name: Take down project {{ compose_project_name }}
-  community.docker.docker_compose:
-    project_name: "{{ compose_project_name }}"
-    definition: "{{ compose_definition }}"
-    remove_orphans: true
-    remove_images: all
-    state: absent
+  # community.docker.docker_compose:
+  #   project_name: "{{ compose_project_name }}"
+  #   definition: "{{ compose_definition }}"
+  #   remove_orphans: true
+  #   remove_images: all
+  #   state: absent
+  ansible.builtin.shell: echo '{{ compose_definition | to_json }}' | jq -r . | docker compose -f - --project-name "{{ compose_project_name }}" down --remove-orphans --rmi "all"
 
 - name: Restart docker systemd service
   ansible.builtin.systemd:
@@ -32,21 +33,29 @@
     loop_var: docker_network
 
 - name: Deploy docker-compose for project {{ compose_project_name }}
-  community.docker.docker_compose:
-    project_name: "{{ compose_project_name }}"
-    definition: "{{ compose_definition }}"
-    timeout: 60
-  register: output
+  # community.docker.docker_compose:
+  #   project_name: "{{ compose_project_name }}"
+  #   definition: "{{ compose_definition }}"
+  #   timeout: 60
+  ansible.builtin.shell: echo '{{ compose_definition | to_json }}' | jq -r . | docker compose -f - --project-name "{{ compose_project_name }}" up --detach
 
 - name: Wait for services to start
   ansible.builtin.pause:
     seconds: 30
 
+- name: Get all services
+  ansible.builtin.shell: docker container ls --format json --all | jq -s -r 'INDEX(.Names) | with_entries(.key |= gsub("-";"_"))'
+  register: output
+
+- set_fact:
+    output:
+      services: "{{ output.stdout | from_json }}"
+
 - name: Check if services are running
   ansible.builtin.assert:
     quiet: true
     that:
-      - output.services.{{ docker_service.key }}.{{ compose_project_name }}_{{ docker_service.key }}_1.state.running
+      - output.services.{{ compose_project_name }}_{{ docker_service.key }}_1.State == "running"
     success_msg: "{{ docker_service.key }} is running"
     fail_msg: "{{ docker_service.key }} is not running"
   loop: "{{ compose_definition.services | dict2items }}"
