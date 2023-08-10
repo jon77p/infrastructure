@@ -10,6 +10,12 @@
   ansible.builtin.shell: curl -fsSL https://get.docker.com | bash
   when: docker_check_deb.rc == 1
 
+- name: Ensure jq is installed
+  become: true
+  ansible.builtin.apt:
+    name: jq
+    state: present
+
 - name: Ensure pip is installed
   become: true
   ansible.builtin.apt:
