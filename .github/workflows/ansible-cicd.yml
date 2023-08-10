@@ -27,7 +27,6 @@ on:
           - "nodered"
           - "pihole"
           - "securemylife"
-          - "timemachine"
           - "vault"
           - "youtubedl"
       dry_run:
