@@ -1,0 +1,2 @@
+---
+tailscale_tailnet: "{{ vault_tailscale_tailnet }}"
