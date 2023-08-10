@@ -10,7 +10,7 @@ import { Construct } from "constructs"
 import { App, TerraformStack, TerraformVariable, VariableType } from "cdktf"
 import { OCIConfig } from "./oci/main"
 
-require("json5/lib/register")
+require("json5/lib/register") // eslint-disable-line no-eval
 
 class InfrastructureStack extends TerraformStack {
   constructor(scope: Construct, name: string) {
@@ -113,7 +113,7 @@ class InfrastructureStack extends TerraformStack {
     // Read infrastructure config from local file
     const ociConfig: Map<string, OCIConfig> = require(path.join(
       __dirname,
-      "infrastructure.json5"
+      "infrastructure.json5",
     ))
 
     // Providers
