@@ -1,5 +1,5 @@
 ---
-cf_email: "{{ vault_cf_email }}"
-cf_api_token: "{{ vault_cf_api_token }}"
+cf_email: "{{ opconnect_results['cloudflare'].email }}"
+cf_api_token: "{{ opconnect_results['cloudflare'].api_token }}"
 cf_tunnel_id: "{{ hostvars[inventory_hostname].cf_tunnel_id | default(None) }}"
 cloudflare_dns_records: "{{ hostvars[inventory_hostname].cloudflare_dns_records | default([]) }}"

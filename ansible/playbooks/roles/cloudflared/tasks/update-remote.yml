@@ -1,0 +1,34 @@
+---
+- name: Get current remote tunnel config
+  ansible.builtin.uri:
+    url: "https://api.cloudflare.com/client/v4/accounts/{{ cf_account }}/cfd_tunnel/{{ tunnel.id }}/configurations"
+    method: GET
+    headers:
+      Content-Type: application/json
+      Authorization: "Bearer {{ cf_api_token }}"
+    status_code: 200
+  register: result
+
+- set_fact:
+    tunnel_config: "{{ result.json.result.config }}"
+
+- ansible.utils.update_fact:
+    updates:
+      - path: tunnel_config.ingress
+        value: "{{ tunnel_config.ingress[:lookup('ansible.utils.index_of', tunnel_config.ingress, 'eq', 'hello-world', 'service') + 1] + additional_ingress + [tunnel_config.ingress[tunnel_config.ingress | length - 1]] }}"
+  register: updated_tunnel_config
+
+- set_fact:
+    tunnel_config: "{{ updated_tunnel_config.tunnel_config }}"
+
+- name: Update current remote tunnel config
+  ansible.builtin.uri:
+    url: "https://api.cloudflare.com/client/v4/accounts/{{ cf_account }}/cfd_tunnel/{{ tunnel.id }}/configurations"
+    method: PUT
+    headers:
+      Content-Type: application/json
+      Authorization: "Bearer {{ cf_api_token }}"
+    body_format: json
+    body:
+      config: "{{ tunnel_config }}"
+    status_code: 200
