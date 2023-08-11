@@ -1,7 +1,4 @@
 ---
-- name: Inclue variables
-  ansible.builtin.include_vars: vault_main.yml
-
 - name: Debug records
   ansible.builtin.debug:
     var: cloudflare_dns_records

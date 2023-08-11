@@ -1,0 +1,20 @@
+---
+- name: List Cloudflare tunnels
+  ansible.builtin.uri:
+    url: "https://api.cloudflare.com/client/v4/accounts/{{ cf_account }}/cfd_tunnel?name={{ ansible_host }}&is_deleted=false"
+    method: GET
+    headers:
+      Content-Type: application/json
+      Authorization: "Bearer {{ cf_api_token }}"
+    status_code: 200
+  register: result
+
+- name: Check that tunnel exists
+  ansible.builtin.assert:
+    that:
+      - result.json.result | length > 0
+    quiet: true
+    fail_msg: "failed to find tunnel with name '{{ ansible_host }}'"
+
+- set_fact:
+    tunnel: "{{ result.json.result.0 }}"

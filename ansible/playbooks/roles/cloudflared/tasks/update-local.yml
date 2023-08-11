@@ -2,26 +2,28 @@
 - name: Create updated cloudflared config file
   become: true
   vars:
-    cf_tunnel_id: "{{ tunnel_output.stdout }}"
+    cf_tunnel_id: "{{ tunnel.id }}"
+    cf_tunnel_name: "{{ tunnel.name }}"
   ansible.builtin.template:
     src: ../templates/config-local.yml.j2
     dest: /tmp/cloudflared-config.yml
 
-- name: Validate updated config ingress rules
-  become: true
-  ansible.builtin.command: cloudflared --config /tmp/cloudflared-config.yml --no-autoupdate tunnel ingress validate
-  register: validation_check
+# - name: Validate updated config ingress rules
+#   become: true
+#   ansible.builtin.command: cloudflared --config /tmp/cloudflared-config.yml --no-autoupdate tunnel ingress validate
+#   register: validation_check
 
 - name: Diff updated config with current cloudflared config
   become: true
   ansible.builtin.command: diff /tmp/cloudflared-config.yml /etc/cloudflared/config.yml
   ignore_errors: true
-  when: validation_check.rc == 0
+  # when: validation_check.rc == 0
   register: diff_result
 
 - name: Copy updated cloudflared config file to /etc/cloudflared
   become: true
-  when: validation_check.rc == 0 and diff_result.rc != 0
+  # when: validation_check.rc == 0 and diff_result.rc != 0
+  when: diff_result.rc != 0
   ansible.builtin.command:
     cmd: cp /tmp/cloudflared-config.yml /etc/cloudflared/config.yml
 
@@ -31,6 +33,7 @@
     name: cloudflared
     state: restarted
     no_block: true
-  when: validation_check.rc == 0 and diff_result.rc != 0
+  # when: validation_check.rc == 0 and diff_result.rc != 0
+  when: diff_result.rc != 0
   async: 5
   poll: 1

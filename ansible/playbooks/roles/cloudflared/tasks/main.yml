@@ -1,7 +1,4 @@
 ---
-- name: Include variables
-  ansible.builtin.include_vars: vault_main.yml
-
 - name: Check if cloudflared is installed
   become: true
   ansible.builtin.command: dpkg-query -W cloudflared
@@ -23,14 +20,15 @@
   when: not cloudflared_setup_check.stat.exists
   ansible.builtin.include_tasks: setup.yml
 
-- name: Get required cloudflared values
-  become: true
-  ansible.builtin.shell: cat /root/.cloudflared/config.yml | head -n 1 | awk '{print $2}'
-  register: tunnel_output
+- name: Get Tunnel
+  ansible.builtin.include_tasks: get-tunnel.yml
 
 - name: Debug additional_ingress
   ansible.builtin.debug:
     var: additional_ingress
+
+- name: Update remote cloudflared
+  ansible.builtin.include_tasks: update-remote.yml
 
 - name: Update local cloudflared
   ansible.builtin.include_tasks: update-local.yml
