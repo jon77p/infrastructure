@@ -94,6 +94,7 @@ export class Tunnel extends Construct {
       accountId: config.accountId,
       name: instance.name,
       secret: this.tunnelSecret.b64Std,
+      configSrc: "cloudflare",
     })
 
     const tunnelDomain = `${
@@ -102,7 +103,7 @@ export class Tunnel extends Construct {
         : `tunnel.${instance.instance.domain}`
     }`
 
-    new cloudflare.record.Record(this, `ssh_app_${name}`, {
+    const sshRecord = new cloudflare.record.Record(this, `ssh_app_${name}`, {
       name: `${
         instance.instance.is_subdomain ? `ssh-${instance.name}` : "ssh"
       }`,
@@ -112,14 +113,56 @@ export class Tunnel extends Construct {
       zoneId: this.cloudflareZones.zones.get(0).id,
     })
 
-    new cloudflare.record.Record(this, `tunnel_app_${name}`, {
-      name: `${
-        instance.instance.is_subdomain ? `tunnel-${instance.name}` : "tunnel"
-      }`,
-      proxied: true,
-      type: "CNAME",
-      value: this.tunnel.cname,
-      zoneId: this.cloudflareZones.zones.get(0).id,
+    const tunnelRecord = new cloudflare.record.Record(
+      this,
+      `tunnel_app_${name}`,
+      {
+        name: `${
+          instance.instance.is_subdomain ? `tunnel-${instance.name}` : "tunnel"
+        }`,
+        proxied: true,
+        type: "CNAME",
+        value: this.tunnel.cname,
+        zoneId: this.cloudflareZones.zones.get(0).id,
+      }
+    )
+
+    new cloudflare.tunnelConfig.TunnelConfigA(this, `tunnel_config_${name}`, {
+      accountId: config.accountId,
+      tunnelId: this.tunnel.id,
+      config: {
+        warpRouting: {
+          enabled: true,
+        },
+        ingressRule: [
+          {
+            hostname: `${sshRecord.hostname}`,
+            service: `ssh://${instance.name}:22`,
+          },
+          {
+            hostname: "*",
+            path: "^/_healthcheck$",
+            service: "http_status:200",
+          },
+          {
+            hostname: "*",
+            path: "^/metrics$",
+            service: "http://localhost:2000",
+          },
+          {
+            hostname: "*",
+            path: "^/ready$",
+            service: "http://localhost:2000",
+          },
+          {
+            hostname: `${tunnelRecord.hostname}`,
+            service: "hello-world",
+          },
+          {
+            service: "http_status:404",
+          },
+        ],
+      },
     })
   }
 }

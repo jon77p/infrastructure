@@ -112,19 +112,8 @@ export class Compute extends Construct {
               cf_ssh_password: cfConfig.sshPassword,
               grafana_cloud_stack_id: grafanaConfig.stackId,
               grafana_cloud_api_key: grafanaConfig.apiKey,
-              hostname: instance.name,
-              ssh_subdomain: `${
-                instance.instance.is_subdomain
-                  ? `ssh-${instance.instance.name}.${instance.instance.domain}`
-                  : `ssh.${instance.instance.domain}`
-              }`,
               tailscale_auth_key: tailscale_auth_key,
               terraformSshPublicKey,
-              tunnel_subdomain: `${
-                instance.instance.is_subdomain
-                  ? `tunnel-${instance.instance.name}.${instance.instance.domain}`
-                  : `tunnel.${instance.instance.domain}`
-              }`,
             })
           ),
         },
