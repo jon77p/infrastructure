@@ -79,11 +79,24 @@ class InfrastructureStack extends TerraformStack {
       description: "Tailscale tailnet",
       type: "string",
     })
-    const tailscale_api_key = new TerraformVariable(this, "tailscale_api_key", {
-      description: "Tailscale api key",
-      sensitive: true,
-      type: "string",
-    })
+    const tailscale_oauth_client_id = new TerraformVariable(
+      this,
+      "tailscale_oauth_client_id",
+      {
+        description: "Tailscale oauth Client ID",
+        sensitive: true,
+        type: "string",
+      }
+    )
+    const tailscale_oauth_client_secret = new TerraformVariable(
+      this,
+      "tailscale_oauth_client_secret",
+      {
+        description: "Tailscale oauth Client Secret",
+        sensitive: true,
+        type: "string",
+      }
+    )
     const gfCloudStackId = new TerraformVariable(
       this,
       "grafana_cloud_stack_id",
@@ -113,7 +126,7 @@ class InfrastructureStack extends TerraformStack {
     // Read infrastructure config from local file
     const ociConfig: Map<string, OCIConfig> = require(path.join(
       __dirname,
-      "infrastructure.json5",
+      "infrastructure.json5"
     ))
 
     // Providers
@@ -122,7 +135,9 @@ class InfrastructureStack extends TerraformStack {
     })
     new random.provider.RandomProvider(this, "random")
     new tailscale.provider.TailscaleProvider(this, "tailscale", {
-      apiKey: tailscale_api_key.value,
+      oauthClientId: tailscale_oauth_client_id.value,
+      oauthClientSecret: tailscale_oauth_client_secret.value,
+      scopes: ["devices"],
       tailnet: tailscale_tailnet.value,
     })
 
