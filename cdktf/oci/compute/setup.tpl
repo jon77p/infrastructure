@@ -25,27 +25,9 @@ EOF
 sudo cat > /root/.cloudflared/config.yml << "EOF"
 tunnel: ${cf_tunnel_id}
 credentials-file: /etc/cloudflared/cert.json
-warp-routing:
-  enabled: true
 logfile: /var/log/cloudflared.log
 loglevel: info
 metrics: localhost:2000
-
-ingress:
-  - hostname: ${ssh_subdomain}
-    service: ssh://${hostname}:22
-  - hostname: "*"
-    path: "^/_healthcheck$"
-    service: http_status:200
-  - hostname: "*"
-    path: "^/metrics$"
-    service: http://localhost:2000
-  - hostname: "*"
-    path: "^/ready$"
-    service: http://localhost:2000
-  - hostname: ${tunnel_subdomain}
-    service: hello-world
-  - service: http_status:404
 EOF
 # Now we install the tunnel as a systemd service
 sudo cloudflared service install
