@@ -12,6 +12,10 @@
         - smtp_port
         - smtp_username
         - smtp_password
+      cloudflare:
+        - account
+        - email
+        - api_token
   roles:
     - opconnect
 
