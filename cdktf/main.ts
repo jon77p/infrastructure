@@ -149,6 +149,7 @@ class InfrastructureStack extends TerraformStack {
         reusable: true,
         ephemeral: false,
         preauthorized: true,
+        tags: ["tag:cdktf", "tag:ssh", "tag:oci"],
       }
     )
 
