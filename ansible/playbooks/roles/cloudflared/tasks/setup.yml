@@ -16,7 +16,7 @@
   vars:
     additional_ingress: []
   ansible.builtin.template:
-    src: ../templates/config.yml.j2
+    src: ../templates/config-local.yml.j2
     dest: /root/.cloudflared/config.yml
 
 - name: Install the cloudflared service
