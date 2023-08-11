@@ -6,6 +6,10 @@
       pihole:
         - email
         - password
+      cloudflare:
+        - account
+        - email
+        - api_token
       healthchecks:
         - apikey
   roles:

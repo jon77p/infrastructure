@@ -5,6 +5,10 @@
     opconnect_items:
       healthchecks:
         - apikey
+      cloudflare:
+        - account
+        - email
+        - api_token
   roles:
     - opconnect
 
