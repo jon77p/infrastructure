@@ -1,7 +1,0 @@
----
-additional_ingress:
-  - hostname: "{{ compose_project_name }}.{{ domain }}"
-    service: https://localhost:{{ compose_project_port }}
-    originRequest:
-      # trust self-signed cert
-      noTLSVerify: true

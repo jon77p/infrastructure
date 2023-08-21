@@ -24,7 +24,6 @@
   become: true
   roles:
     - common
-    - cloudflared
     - cloudflare
     - iptables
     - docker

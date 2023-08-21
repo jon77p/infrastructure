@@ -1,6 +1,0 @@
----
-cf_ssh_subdomain: ssh.{{ domain }}
-cf_tunnel_subdomain: tunnel.{{ domain }}
-additional_ingress:
-  - hostname: "{{ domain }}"
-    service: http://localhost:{{ compose_project_ports[0] }}
