@@ -22,7 +22,6 @@
   become: true
   roles:
     - common
-    - cloudflared
     - cloudflare
     - crowdsec
     - iptables

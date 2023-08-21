@@ -20,7 +20,6 @@
   become: true
   roles:
     - common
-    - cloudflared
     - cloudflare
     - iptables
     - dns
