@@ -30,6 +30,20 @@
         shape: "VM.Standard.E2.1.Micro",
         memory: 1,
         ocpus: 1,
+        ingress: [
+          {
+            hostname: "grafana.jon77p.xyz",
+            service: "https://localhost:3000",
+          },
+          {
+            hostname: "prometheus.jon77p.xyz",
+            service: "https://localhost:9000",
+          },
+          {
+            hostname: "influxdb.jon77p.xyz",
+            service: "https://localhost:8087",
+          },
+        ],
       },
     },
   },
@@ -64,6 +78,12 @@
         shape: "VM.Standard.E2.1.Micro",
         memory: 1,
         ocpus: 1,
+        ingress: [
+          {
+            hostname: "pihole.jon77p.xyz",
+            service: "http://localhost:8080",
+          },
+        ],
       },
     },
   },
@@ -98,6 +118,16 @@
         shape: "VM.Standard.E2.1.Micro",
         memory: 1,
         ocpus: 1,
+        ingress: [
+          {
+            hostname: "healthchecks.jon77p.xyz",
+            service: "http://localhost:8000",
+          },
+          {
+            hostname: "healthchecks.thepi.cloud",
+            service: "http://localhost:8000",
+          },
+        ],
       },
       vault: {
         name: "vault",
@@ -110,6 +140,16 @@
         shape: "VM.Standard.E2.1.Micro",
         memory: 1,
         ocpus: 1,
+        ingress: [
+          {
+            hostname: "vault.jon77p.xyz",
+            service: "http://localhost:8200",
+          },
+          {
+            hostname: "opconnect.jon77p.xyz",
+            service: "http://localhost:8082",
+          },
+        ],
       },
       gaming: {
         name: "gaming",
@@ -122,6 +162,23 @@
         shape: "VM.Standard.A1.Flex",
         memory: 18,
         ocpus: 3,
+        ingress: [
+          {
+            hostname: "crafty.jon77p.xyz",
+            service: "https://localhost:8443",
+            originRequest: {
+              noTLSVerify: true,
+            },
+          },
+          {
+            hostname: "dynmap.jon77p.xyz",
+            service: "https://localhost:8123",
+          },
+          {
+            hostname: "mineos.jon77p.xyz",
+            service: "https://localhost:8000",
+          },
+        ],
       },
       auth: {
         name: "auth",
@@ -134,6 +191,15 @@
         shape: "VM.Standard.A1.Flex",
         memory: 6,
         ocpus: 1,
+        ingress: [
+          {
+            hostname: "auth.thepi.cloud",
+            service: "https://localhost:9443",
+            originRequest: {
+              noTLSVerify: true,
+            },
+          },
+        ],
       },
     },
   },

@@ -158,6 +158,39 @@ export class Tunnel extends Construct {
             hostname: `${tunnelRecord.hostname}`,
             service: "hello-world",
           },
+          // Add all custom ingress routes for the current hostname here
+          ...instance.instance.ingress.map((ingress) => ({
+            hostname: `${ingress.hostname}`,
+            path: ingress.path ? ingress.path : undefined,
+            service: ingress.service,
+            // Add all originRequest properties if they exist
+            ...(ingress.originRequest && {
+              originRequest: {
+                caPool: ingress.originRequest.caPool,
+                connectTimeout: ingress.originRequest.connectTimeout,
+                disableChunkedEncoding:
+                  ingress.originRequest.disableChunkedEncoding,
+                http2Origin: ingress.originRequest.http2Origin,
+                httpHostHeader: ingress.originRequest.httpHostHeader,
+                keepAliveConnections:
+                  ingress.originRequest.keepAliveConnections,
+                keepAliveTimeout: ingress.originRequest.keepAliveTimeout,
+                keepaliveTimeout: ingress.originRequest.keepAliveTimeout,
+                maxTries: ingress.originRequest.maxTries,
+                noHappyEyeballs: ingress.originRequest.noHappyEyeballs,
+                noTLSVerify: ingress.originRequest.noTLSVerify,
+                originServerName: ingress.originRequest.originServerName,
+                proxyAddress: ingress.originRequest.proxyAddress,
+                proxyPort: ingress.originRequest.proxyPort,
+                proxyType: ingress.originRequest.proxyType,
+                readTimeout: ingress.originRequest.readTimeout,
+                requestTimeout: ingress.originRequest.requestTimeout,
+                retryOn: ingress.originRequest.retryOn,
+                tcpKeepAlive: ingress.originRequest.tcpKeepAlive,
+                tlsTimeout: ingress.originRequest.tlsTimeout,
+              },
+            }),
+          })),
           {
             service: "http_status:404",
           },
