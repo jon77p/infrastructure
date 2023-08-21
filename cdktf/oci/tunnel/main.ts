@@ -19,6 +19,8 @@ interface TunnelProps {
   instance: { name: string; instance: InstanceConfig }
 }
 
+const RecordComment = `Managed by cdktf. {tag=cdktf, repo=https://github.com/jon77p/infrastructure}`
+
 export class Tunnel extends Construct {
   public readonly tunnelSecret: random.id.Id
   public readonly cloudflareZones: cloudflare.dataCloudflareZones.DataCloudflareZones
@@ -111,6 +113,7 @@ export class Tunnel extends Construct {
       type: "CNAME",
       value: tunnelDomain,
       zoneId: this.cloudflareZones.zones.get(0).id,
+      comment: RecordComment,
     })
 
     const tunnelRecord = new cloudflare.record.Record(
@@ -124,6 +127,7 @@ export class Tunnel extends Construct {
         type: "CNAME",
         value: this.tunnel.cname,
         zoneId: this.cloudflareZones.zones.get(0).id,
+        comment: RecordComment,
       }
     )
 
@@ -195,6 +199,7 @@ export class Tunnel extends Construct {
         type: "CNAME",
         value: tunnelDomain,
         zoneId: this.cloudflareZones.zones.get(0).id,
+        comment: RecordComment,
       })
     })
   }
