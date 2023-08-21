@@ -4,4 +4,4 @@ ansible==8.3.0
 ansible-lint==6.17.2
 jmespath==1.0.1
 pylint-venv==3.0.1
-cdktf==0.17.3
+cdktf==0.18.0
