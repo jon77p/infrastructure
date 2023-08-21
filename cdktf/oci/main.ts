@@ -8,6 +8,37 @@ import { Tunnel, CFConfig } from "./tunnel/main"
 import { Construct } from "constructs"
 import { Token, TerraformVariable, Fn, TerraformOutput } from "cdktf"
 
+export interface IngressConfig {
+  // Only hostname and service are required
+  // Path, originRequest, and other fields are optional
+  hostname: string
+  service: string
+  path?: string
+  // Matches Cloudflare's origin request config
+  originRequest?: {
+    access?: string
+    connectTimeout?: string
+    noTLSVerify?: boolean
+    tlsTimeout?: string
+    http2Origin?: boolean
+    tcpKeepAlive?: string
+    noHappyEyeballs?: boolean
+    keepAliveConnections?: number
+    keepAliveTimeout?: string
+    httpHostHeader?: string
+    originServerName?: string
+    caPool?: string
+    disableChunkedEncoding?: boolean
+    proxyAddress?: string
+    proxyPort?: number
+    proxyType?: string
+    maxTries?: number
+    retryOn?: string
+    readTimeout?: string
+    requestTimeout?: string
+  }
+}
+
 export interface InstanceConfig {
   name: string
   domain: string
@@ -18,6 +49,7 @@ export interface InstanceConfig {
   shape: string
   memory: number
   ocpus: number
+  ingress: IngressConfig[]
 }
 
 export interface GrafanaConfig {
