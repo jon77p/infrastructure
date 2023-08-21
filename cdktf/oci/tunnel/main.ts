@@ -192,13 +192,38 @@ export class Tunnel extends Construct {
       }
 
       let name = ingress.hostname.replace(/\./g, "_")
+      let domain = name
+
+      // If the hostname is a subdomain, fetch the domain name
+      if (ingress.hostname.split(".").length > 2) {
+        domain = ingress.hostname.split(".").slice(1).join("_")
+      }
+
+      let zoneId = this.cloudflareZones.zones.get(0).id
+
+      // If the domain does not match the tunnel domain, fetch the zone id for the domain
+      if (domain !== tunnelDomain.split(".").slice(1).join("_")) {
+        let zone = new cloudflare.dataCloudflareZones.DataCloudflareZones(
+          this,
+          `cf_zones_${domain}`,
+          {
+            filter: {
+              accountId: config.accountId,
+              lookupType: "exact",
+              name: ingress.hostname.split(".").slice(1).join("."),
+              status: "active",
+            },
+          }
+        )
+        zoneId = zone.zones.get(0).id
+      }
 
       new cloudflare.record.Record(this, `ingress_record_${name}`, {
         name: ingress.hostname,
         proxied: true,
         type: "CNAME",
         value: tunnelDomain,
-        zoneId: this.cloudflareZones.zones.get(0).id,
+        zoneId: zoneId,
         comment: RecordComment,
       })
     })
