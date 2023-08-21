@@ -167,7 +167,7 @@
             hostname: "crafty.jon77p.xyz",
             service: "https://localhost:8443",
             originRequest: {
-              noTLSVerify: true,
+              noTlsVerify: true,
             },
           },
           {
@@ -196,7 +196,7 @@
             hostname: "auth.thepi.cloud",
             service: "https://localhost:9443",
             originRequest: {
-              noTLSVerify: true,
+              noTlsVerify: true,
             },
           },
         ],
