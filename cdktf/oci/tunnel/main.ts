@@ -174,5 +174,28 @@ export class Tunnel extends Construct {
         ],
       },
     })
+
+    // Make sure a CNAME record exists for each unique ingress hostname
+    instance.instance.ingress.forEach((ingress) => {
+      // If hostname is "*", not present, or the same as the tunnel domain or ssh domain, skip
+      if (
+        ingress.hostname === "*" ||
+        ingress.hostname === undefined ||
+        ingress.hostname === tunnelDomain ||
+        ingress.hostname === sshDomain
+      ) {
+        return
+      }
+
+      let name = ingress.hostname.replace(/\./g, "_")
+
+      new cloudflare.record.Record(this, `ingress_record_${name}`, {
+        name: ingress.hostname,
+        proxied: true,
+        type: "CNAME",
+        value: tunnelDomain,
+        zoneId: this.cloudflareZones.zones.get(0).id,
+      })
+    })
   }
 }
