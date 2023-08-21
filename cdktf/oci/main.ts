@@ -1,6 +1,9 @@
 import * as cloudflare from "@cdktf/provider-cloudflare"
 import * as oci from "../.gen/providers/oci"
 
+// Import TunnelConfigConfigOriginRequest
+import { TunnelConfigConfigOriginRequest } from "@cdktf/provider-cloudflare/lib/tunnel-config"
+
 import { Base, NetworkingConfig } from "./common/base"
 import * as Compute from "./compute/main"
 import { Tunnel, CFConfig } from "./tunnel/main"
@@ -15,28 +18,7 @@ export interface IngressConfig {
   service: string
   path?: string
   // Matches Cloudflare's origin request config
-  originRequest?: {
-    access?: string
-    connectTimeout?: string
-    noTLSVerify?: boolean
-    tlsTimeout?: string
-    http2Origin?: boolean
-    tcpKeepAlive?: string
-    noHappyEyeballs?: boolean
-    keepAliveConnections?: number
-    keepAliveTimeout?: string
-    httpHostHeader?: string
-    originServerName?: string
-    caPool?: string
-    disableChunkedEncoding?: boolean
-    proxyAddress?: string
-    proxyPort?: number
-    proxyType?: string
-    maxTries?: number
-    retryOn?: string
-    readTimeout?: string
-    requestTimeout?: string
-  }
+  originRequest?: TunnelConfigConfigOriginRequest
 }
 
 export interface InstanceConfig {
