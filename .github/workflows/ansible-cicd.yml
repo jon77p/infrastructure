@@ -119,7 +119,7 @@ jobs:
           OAUTH_CLIENT_ID: op://Infrastructure/tailscale/github_actions/oauth_client_id
           OAUTH_CLIENT_SECRET: op://Infrastructure/tailscale/github_actions/oauth_client_secret
       - name: Setup Tailscale
-        uses: tailscale/github-action@65cdd9a05d7ebe4ef4e8c70141f5d84e1cd4cab4 # v2
+        uses: tailscale/github-action@4e4c49acaa9818630ce0bd7a564372c17e33fb4d # v2
         with:
           version: ${{ env.TAILSCALE_VERSION }}
           oauth-client-id: ${{ steps.fetch-tailscale-secrets.outputs.OAUTH_CLIENT_ID }}
