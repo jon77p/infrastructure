@@ -413,9 +413,9 @@
     prebuild-install "^7.1.1"
 
 "@cdktf/provider-cloudflare@^8.0.0":
-  version "8.0.3"
-  resolved "https://registry.yarnpkg.com/@cdktf/provider-cloudflare/-/provider-cloudflare-8.0.3.tgz#2393f72e67b395d34e0d431817a1fcbc7ffb5dcd"
-  integrity sha512-dJKxcgvDutoGcpaa/LLmLyc6j6RTwlbsMhWdQOo97n8PvoQoeTR7/K5jtNuttbfFA0R+tzmChPQeqpv2ppQGOw==
+  version "8.0.4"
+  resolved "https://registry.yarnpkg.com/@cdktf/provider-cloudflare/-/provider-cloudflare-8.0.4.tgz#6f240a54b36e03042da1a221bd2621ff03a87091"
+  integrity sha512-2hE4XJ9kPX30HUD3/9YDGbH7N8qwDTPBQwcR5Qbzo2fH53COF7la45jVYVCy+EC2U8xSizWZDTEyaYfYRX/Hbg==
 
 "@cdktf/provider-generator@0.18.0":
   version "0.18.0"
