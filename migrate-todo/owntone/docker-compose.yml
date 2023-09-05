@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   owntone:
-    image: ghcr.io/linuxserver/daapd@sha256:d4cde159eb92986f59f9ab37337f4d4eec441fab392ef2b1e7dc0df6426b85a4
+    image: ghcr.io/linuxserver/daapd@sha256:96274de38b1cf184d008471c151ed0b48cf6bdf3faab14a917f12f86cd2bc43e
     hostname: "owntone"
     volumes:
       - /mnt/owntone/config:/config
