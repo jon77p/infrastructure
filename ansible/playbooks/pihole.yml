@@ -6,10 +6,6 @@
       pihole:
         - email
         - password
-      cloudflare:
-        - account
-        - email
-        - api_token
       healthchecks:
         - apikey
   roles:
@@ -20,7 +16,6 @@
   become: true
   roles:
     - common
-    - cloudflare
     - iptables
     - dns
     - healthchecks

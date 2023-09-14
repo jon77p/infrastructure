@@ -10,10 +10,6 @@
         - github_token
       crowdsec:
         - key
-      cloudflare:
-        - account
-        - email
-        - api_token
   roles:
     - opconnect
 
@@ -22,8 +18,6 @@
   become: true
   roles:
     - common
-    - cloudflared
-    - cloudflare
     - cron
     - crowdsec
     - iptables

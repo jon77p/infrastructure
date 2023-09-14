@@ -9,10 +9,6 @@
         - password
         - smtp_username
         - smtp_password
-      cloudflare:
-        - account
-        - email
-        - api_token
   roles:
     - opconnect
 
@@ -21,7 +17,6 @@
   become: true
   roles:
     - common
-    - cloudflare
     - iptables
     - dns
     - docker

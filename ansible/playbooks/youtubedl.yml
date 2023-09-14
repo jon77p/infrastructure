@@ -4,7 +4,6 @@
   become: true
   roles:
     - common
-    - cloudflare
     - stefangweichinger.ansible_rclone
     - rclone
     - youtubedl
