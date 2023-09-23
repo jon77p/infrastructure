@@ -404,9 +404,9 @@
     prebuild-install "^7.1.1"
 
 "@cdktf/provider-cloudflare@^9.0.0":
-  version "9.0.1"
-  resolved "https://registry.yarnpkg.com/@cdktf/provider-cloudflare/-/provider-cloudflare-9.0.1.tgz#99dc94681a0ea0eca134652ffe63d999fe8f087d"
-  integrity sha512-XixaTghqd7oTAIprsNP04tDyfRxy9ooLzcLAmoWWViYfi7OlE9eHSBNd1gsqU7ofvKB6+kTXPNGOzssS9IZE9Q==
+  version "9.0.2"
+  resolved "https://registry.yarnpkg.com/@cdktf/provider-cloudflare/-/provider-cloudflare-9.0.2.tgz#081d99fac99e452ee33b56bd036fdd02c5ead8ad"
+  integrity sha512-De8HFE6DgwxvWMgb28Mpo+05uh2RX1PbRceuwDN/+oOHV1nEMyVJfWLx7WR4mDgOzEExlwS+tUbaV8zD9tz+UA==
 
 "@cdktf/provider-generator@0.18.0":
   version "0.18.0"
@@ -1053,9 +1053,9 @@
     "@types/node" "*"
 
 "@types/node@*", "@types/node@^20.4.0", "@types/node@^20.4.2", "@types/node@^20.6.0":
-  version "20.6.2"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.6.2.tgz#a065925409f59657022e9063275cd0b9bd7e1b12"
-  integrity sha512-Y+/1vGBHV/cYk6OI1Na/LHzwnlNCAfU3ZNGrc1LdRe/LAIbdDPTTv/HU3M7yXN448aTVDq3eKRm2cg7iKLb8gw==
+  version "20.6.3"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.6.3.tgz#5b763b321cd3b80f6b8dde7a37e1a77ff9358dd9"
+  integrity sha512-HksnYH4Ljr4VQgEy2lTStbCKv/P590tmPe5HqOnv9Gprffgv5WXAY+Y5Gqniu0GGqeTCUdBnzC3QSrzPkBkAMA==
 
 "@types/node@16.18.23":
   version "16.18.23"
