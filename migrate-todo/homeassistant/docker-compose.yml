@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   homeassistant:
-    image: homeassistant/home-assistant:latest@sha256:223c9986ff318eaf35fac70351900cf766c15faf82fbe54150b73b7cfc3c933a
+    image: homeassistant/home-assistant:latest@sha256:067490d7b65cfa8b9e494a9447b0e5a7876be83ead7ec01738681c55d66e7cfe
     volumes:
       - /mnt/homeassistant:/config
       - /etc/localtime:/etc/localtime:ro
