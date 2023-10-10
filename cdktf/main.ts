@@ -137,7 +137,7 @@ class InfrastructureStack extends TerraformStack {
     new tailscale.provider.TailscaleProvider(this, "tailscale", {
       oauthClientId: tailscale_oauth_client_id.value,
       oauthClientSecret: tailscale_oauth_client_secret.value,
-      scopes: ["devices"],
+      scopes: ["all"],
       tailnet: tailscale_tailnet.value,
     })
 
