@@ -3214,22 +3214,22 @@ jsii-rosetta@^1.90.0:
     yargs "^16.2.0"
 
 jsii-rosetta@^5.1.9:
-  version "5.1.13"
-  resolved "https://registry.yarnpkg.com/jsii-rosetta/-/jsii-rosetta-5.1.13.tgz#5f5ccf112000c573747d039725d3cf48378ef781"
-  integrity sha512-EmtQU/Q5ex/e2XmysU1ZdEW3vK4feEPDXaivRj5Cf284fuEcWINcD38oPYog0XofPdqeBbf0n+EciBitoEhKGA==
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/jsii-rosetta/-/jsii-rosetta-5.2.0.tgz#69bfad53279fdab5814989142fad5a98fa635a34"
+  integrity sha512-nUJ8b9IRViBtpIFvJPqQZ+TUJ+vnCOkuyWBpsQoo0CMS/CrAN2NuhBX3xidfP4o02ggAgPXjP8VIYgs0Zeyu1w==
   dependencies:
-    "@jsii/check-node" "1.88.0"
-    "@jsii/spec" "^1.88.0"
+    "@jsii/check-node" "1.90.0"
+    "@jsii/spec" "^1.90.0"
     "@xmldom/xmldom" "^0.8.10"
     chalk "^4"
     commonmark "^0.30.0"
     fast-glob "^3.3.1"
-    jsii "~5.1.5"
+    jsii "~5.2.5"
     semver "^7.5.4"
     semver-intersect "^1.4.0"
     stream-json "^1.8.0"
-    typescript "~5.1.6"
-    workerpool "^6.4.2"
+    typescript "~5.2.2"
+    workerpool "^6.5.1"
     yargs "^17.7.2"
 
 jsii-srcmak@^0.1.951:
@@ -3262,10 +3262,10 @@ jsii@1.90.0:
     typescript "~3.9.10"
     yargs "^16.2.0"
 
-jsii@^5.1.10:
-  version "5.2.14"
-  resolved "https://registry.yarnpkg.com/jsii/-/jsii-5.2.14.tgz#6080a27fdd78b456718887a7cdd5959167ce2f2c"
-  integrity sha512-ryFPgWC6gVx3xtKryusm5SmX0jzr0lgv/GcGxF0EL5zKDK007NpgeqkhKm7sLOHq41hXD0r9j0Rr3d3GLUD3Lg==
+jsii@^5.1.10, jsii@~5.2.5:
+  version "5.2.15"
+  resolved "https://registry.yarnpkg.com/jsii/-/jsii-5.2.15.tgz#d5b1ae79e14b0ccfba68ff899b60fbf7ab171c26"
+  integrity sha512-18AfirBKBjaOwos09JNtOekfTHBGbmSM7n/x2P7YAWxUXIgnmaWw8pQNQhFvknsCoJ1aP9jwugmP9dviq7jtyw==
   dependencies:
     "@jsii/check-node" "1.90.0"
     "@jsii/spec" "^1.90.0"
@@ -3281,7 +3281,7 @@ jsii@^5.1.10:
     typescript "~5.2"
     yargs "^17.7.2"
 
-jsii@~5.1.10, jsii@~5.1.5:
+jsii@~5.1.10:
   version "5.1.12"
   resolved "https://registry.yarnpkg.com/jsii/-/jsii-5.1.12.tgz#0ac6d92d52c6732a6e0e3e27f9f07453318715f2"
   integrity sha512-iY3zLosUEKbeua6IAGJXjFxibiiI0xHFjyYPyewOc56MBRHC7nczWSVGRP+Jgwyo7HWXs4TvJKLG6w8zSuAZrg==
@@ -4496,7 +4496,7 @@ type-fest@^0.21.3:
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.21.3.tgz#d260a24b0198436e133fa26a524a6d65fa3b2e37"
   integrity sha512-t0rzBq87m3fVcduHDUFhKmyyX+9eo6WQjZvf51Ea/M0Q7+T374Jp1aUiyUl0GKxp8M/OETVHSDvmkyPgvX+X2w==
 
-typescript@^5.0.0, typescript@~5.2:
+typescript@^5.0.0, typescript@~5.2, typescript@~5.2.2:
   version "5.2.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.2.2.tgz#5ebb5e5a5b75f085f22bc3f8460fba308310fa78"
   integrity sha512-mI4WrpHsbCIcwT9cF4FZvr80QUeKvsUsUvKDoR+X/7XHQH98xYD8YHZg7ANtz2GtZt/CBq2QJ0thkGJMHfqc1w==
@@ -4646,7 +4646,7 @@ widest-line@^3.1.0:
   dependencies:
     string-width "^4.0.0"
 
-workerpool@^6.4.2, workerpool@^6.5.0:
+workerpool@^6.5.0, workerpool@^6.5.1:
   version "6.5.1"
   resolved "https://registry.yarnpkg.com/workerpool/-/workerpool-6.5.1.tgz#060f73b39d0caf97c6db64da004cd01b4c099544"
   integrity sha512-Fs4dNYcsdpYSAfVxhnl1L5zTksjvOJxtC5hzMNl+1t9B8hTJTdKDyZ5ju7ztgPy+ft9tBFXoOlDNiOT9WUXZlA==
