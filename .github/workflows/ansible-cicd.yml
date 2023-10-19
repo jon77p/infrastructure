@@ -48,12 +48,12 @@ jobs:
       dry_run: ${{ steps.set-dry-run.outputs.dry_run }}
     steps:
       - name: Checkout (pull_request)
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
         if: github.event_name == 'pull_request'
         with:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: Checkout (workflow_dispatch || push)
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
         if: github.event_name != 'pull_request'
       - name: Fetch main branch
         run: git fetch origin main
@@ -102,7 +102,7 @@ jobs:
       ANSIBLE_COLLECTIONS_PATH: ${{ github.workspace }}/ansible/collections
     steps:
       - name: Checkout
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
       # Configure 1Password Service Account
       - name: Configure 1Password Service Account
         uses: 1Password/load-secrets-action/configure@d1a4e73495bde3551cf63f6c048588b8f734e21d # v1
