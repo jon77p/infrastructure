@@ -437,10 +437,10 @@
     "@cdktf/commons" "0.19.0"
     fs-extra "^11.1.1"
 
-"@cdktf/provider-template@^8.0.0":
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/@cdktf/provider-template/-/provider-template-8.0.0.tgz#7629a519ad14f4007a3990d9b1aedd66b526fa49"
-  integrity sha512-3bHf0f/HqOsVF83mS0u0R24LUR9a3ub9rEEEUxEGzlUwbAXFu5++I55YYTkETWZYMmyd8mB7Ys+6HcmqFBQ1Xg==
+"@cdktf/provider-template@^9.0.0":
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/@cdktf/provider-template/-/provider-template-9.0.0.tgz#43e90dfce5080f63d0e2f22d5b10b92989bda1ae"
+  integrity sha512-1Bl2+GsVjAzn6mrTBwWWM51MZN5NoBfXPFo0CLyd5mA1k9lII5G84ztRDzf+U+C/Nmt3mVwuhl14TYfPHQ81bw==
 
 "@cspotcode/source-map-support@^0.8.0":
   version "0.8.1"
