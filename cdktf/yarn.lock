@@ -424,10 +424,10 @@
     fs-extra "^8.1.0"
     jsii-srcmak "^0.1.951"
 
-"@cdktf/provider-random@^9.0.0":
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/@cdktf/provider-random/-/provider-random-9.0.0.tgz#dc16ca235865345aec0aec91aa25e6fcd0b606bd"
-  integrity sha512-c3d29Io2RFYj8DQlp5+ChGkvCXp96QK4c7jMpQgqrRpmkyL+9DAyJd5c0eCV1Kxem2CoYBE+tMM3jiWLCz12Lg==
+"@cdktf/provider-random@^10.0.0":
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/@cdktf/provider-random/-/provider-random-10.0.0.tgz#8eb614ff2159a07b7d2664a5d77bcbcf40da5043"
+  integrity sha512-MTOq2+zvmNEbT0v1vpUfGHXxeL1Up7i8IkxjHuVeGPXpXJ+42WzASxTcaO6597IYwTnvpyv6gbTsPQMFHMex2A==
 
 "@cdktf/provider-schema@0.19.0":
   version "0.19.0"
