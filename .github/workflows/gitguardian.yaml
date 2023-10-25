@@ -15,12 +15,13 @@ jobs:
       # Configure 1Password Service Account
       - name: Configure 1Password Service Account
         uses: 1Password/load-secrets-action/configure@d1a4e73495bde3551cf63f6c048588b8f734e21d # v1
+        id: configure-1password
         with:
           service-account-token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
-      # Fetch TERRAFORM_CLOUD_TOKEN from 1Password using load-secrets-action
-      - name: Fetch TERRAFORM_CLOUD_TOKEN from 1Password
+      # Fetch GITGUARDIAN_API_KEY from 1Password using load-secrets-action
+      - name: Fetch Secrets from 1Password
         uses: 1Password/load-secrets-action@d1a4e73495bde3551cf63f6c048588b8f734e21d # v1
-        id: fetch-gitguardian-token
+        id: fetch-secrets
         with:
           export-env: false
         env:
@@ -29,7 +30,7 @@ jobs:
         uses: GitGuardian/gg-shield-action@master
         env:
           GITHUB_PUSH_BEFORE_SHA: ${{ github.event.before }}
-          GITHUB_PUSH_BASE_SHA: ${{ github.event.base }}
+          GITHUB_PUSH_BASE_SHA: ${{ github.event.after }}
           GITHUB_PULL_BASE_SHA: ${{ github.event.pull_request.base.sha }}
           GITHUB_DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
-          GITGUARDIAN_API_KEY: ${{ steps.fetch-gitguardian-token.outputs.GITGUARDIAN_API_KEY}}
+          GITGUARDIAN_API_KEY: ${{ steps.fetch-secrets.outputs.GITGUARDIAN_API_KEY}}
