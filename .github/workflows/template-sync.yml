@@ -23,18 +23,47 @@ jobs:
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
       # Only run if sync workflows is true
+      # Configure 1Password Service Account
+      - name: Configure 1Password Service Account
+        if: ${{ github.event.inputs.sync_workflows == 'true' }}
+        id: configure-1password
+        uses: 1Password/load-secrets-action/configure@d1a4e73495bde3551cf63f6c048588b8f734e21d # v1
+        with:
+          service-account-token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+      # Fetch TEMPLATE_SYNC_APP_ID and TEMPLATE_SYNC_PRIVATE_KEY
+      # from 1Password using load-secrets-action
+      # Run only if configure-1password was successful
+      - name: Fetch Secrets
+        if: ${{ steps.configure-1password.outcome == 'success' }}
+        uses: 1Password/load-secrets-action@d1a4e73495bde3551cf63f6c048588b8f734e21d # v1
+        id: fetch-secrets
+        with:
+          export-env: false
+        env:
+          TEMPLATE_SYNC_APP_ID: op://Infrastructure/template-sync/app/app_id
+          TEMPLATE_SYNC_PRIVATE_KEY: op://Infrastructure/template-sync/ssh/private_key.pem
+      # Run only if fetch-secrets was successful
       - name: Generate GitHub App Token
         # see: https://github.com/tibdex/github-app-token
         id: generate_token
         uses: tibdex/github-app-token@3beb63f4bd073e61482598c45c71c1019b59b73a # v2.1.0
-        if: ${{ github.event.inputs.sync_workflows == 'true' }}
+        if: ${{ steps.fetch-secrets.outcome == 'success' }}
         with:
-          app_id: ${{ secrets.TEMPLATE_SYNC_APP_ID }}
-          private_key: ${{ secrets.TEMPLATE_SYNC_PRIVATE_KEY }}
+          app_id: ${{ steps.fetch-secrets.outputs.TEMPLATE_SYNC_APP_ID }}
+          private_key: ${{ steps.fetch-secrets.outputs.TEMPLATE_SYNC_PRIVATE_KEY }}
+      - name: Set variables
+        id: variables
+        run: |
+          # If github.event.inputs.sync_workflows is true, use the generated token
+          if [ "${{ github.event.inputs.sync_workflows }}" = "true" ]; then
+            echo "token=${{ steps.generate_token.outputs.token }}" >> $GITHUB_OUTPUT
+          else
+            echo "token=${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_OUTPUT
+          fi
       - name: Sync Template
         uses: AndreasAugustin/actions-template-sync@c6631d6e8aa5de34b29cd5b3a4c22327a159fc12 # v1.1.8
         with:
-          github_token: ${{ steps.generate_token.outputs.token if github.event.inputs.sync_workflows == 'true' else secrets.GITHUB_TOKEN }}
+          github_token: ${{ steps.variables.outputs.token }}
           source_repo_path: jon77p/template
           upstream_branch: main
           pr_labels: template-sync
