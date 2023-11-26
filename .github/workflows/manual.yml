@@ -47,45 +47,20 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     outputs:
-      type: ${{ steps.set-type.outputs.type }}
-      action: ${{ steps.set-action.outputs.action }}
-      host: ${{ steps.set-host.outputs.host }}
-      dry_run: ${{ steps.set-dry-run.outputs.dry_run }}
+      type: ${{ steps.setup.outputs.type }}
+      action: ${{ steps.setup.outputs.action }}
+      host: ${{ steps.setup.outputs.host }}
+      dry_run: ${{ steps.setup.outputs.dry_run }}
     steps:
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
-      - name: Set Type
-        id: set-type
+      - name: Setup
+        id: setup
         run: |
           if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
             echo "type=${{ github.event.inputs.type }}" >> $GITHUB_OUTPUT
-          else
-            echo "Unknown event name: ${{ github.event_name }}"
-            exit 1
-          fi
-      - name: Set Action
-        id: set-action
-        run: |
-          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
             echo "action=${{ github.event.inputs.action }}" >> $GITHUB_OUTPUT
-          else
-            echo "Unknown event name: ${{ github.event_name }}"
-            exit 1
-          fi
-      - name: Set host
-        id: set-host
-        run: |
-          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
             echo "host=${{ github.event.inputs.host }}" >> $GITHUB_OUTPUT
-          else
-            echo "Unknown event name: ${{ github.event_name }}"
-            exit 1
-          fi
-      - name: Set dry run (workflow_dispatch)
-        id: set-dry-run
-        run: |
-          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
-            echo "dry_run=${{ github.event.inputs.dry_run }}" >> $GITHUB_OUTPUT
           else
             echo "Unknown event name: ${{ github.event_name }}"
             exit 1
@@ -95,10 +70,9 @@ jobs:
           echo "# Inputs Summary" >> $GITHUB_STEP_SUMMARY
           echo "| Input | Value |" >> $GITHUB_STEP_SUMMARY
           echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
-          echo "| type | ${{ steps.set-type.outputs.type }} |" >> $GITHUB_STEP_SUMMARY"
-          echo "| action | ${{ steps.set-action.outputs.action }} |" >> $GITHUB_STEP_SUMMARY"
-          echo "| host | ${{ steps.set-host.outputs.host }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| dry_run | ${{ steps.set-dry-run.outputs.dry_run }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| type | ${{ steps.setup.outputs.type }} |" >> $GITHUB_STEP_SUMMARY"
+          echo "| action | ${{ steps.setup.outputs.action }} |" >> $GITHUB_STEP_SUMMARY"
+          echo "| host | ${{ steps.setup.outputs.host }} |" >> $GITHUB_STEP_SUMMARY
 
   ansible:
     name: "Ansible CICD"
@@ -107,7 +81,7 @@ jobs:
     uses: ./.github/workflows/ansible-cicd.yml
     with:
       host: ${{ needs.setup.outputs.host }}
-      dry_run: ${{ needs.setup.outputs.dry_run }}
+      dry_run: ${{ github.event.inputs.dry_run }}
 
   cdktf:
     name: "CDKTF CICD"
