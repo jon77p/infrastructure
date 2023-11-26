@@ -16,7 +16,9 @@
     "watch": "tsc -w",
     "test": "jest",
     "test:watch": "jest --watch",
-    "upgrade": "yarn upgrade"
+    "upgrade": "yarn upgrade",
+    "clean": "rm -rf .gen cdktf.out node_modules *.log",
+    "remove-tailscale": "cd cdktf.out/stacks/cdktf && terraform state rm $(terraform state list | grep tailscale)"
   },
   "engines": {
     "node": ">=14.0"
