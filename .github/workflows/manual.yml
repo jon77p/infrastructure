@@ -74,6 +74,7 @@ jobs:
     with:
       host: ${{ needs.setup.outputs.host }}
       dry_run: ${{ github.event.inputs.dry_run }}
+    secrets: inherit
 
   cdktf:
     name: "CDKTF CICD"
@@ -82,3 +83,4 @@ jobs:
     uses: ./.github/workflows/cdktf-cicd.yml
     with:
       action: ${{ needs.setup.outputs.action }}
+    secrets: inherit
