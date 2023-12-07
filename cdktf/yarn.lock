@@ -425,9 +425,9 @@
     jsii-srcmak "^0.1.954"
 
 "@cdktf/provider-random@^10.0.0":
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/@cdktf/provider-random/-/provider-random-10.0.0.tgz#8eb614ff2159a07b7d2664a5d77bcbcf40da5043"
-  integrity sha512-MTOq2+zvmNEbT0v1vpUfGHXxeL1Up7i8IkxjHuVeGPXpXJ+42WzASxTcaO6597IYwTnvpyv6gbTsPQMFHMex2A==
+  version "10.0.1"
+  resolved "https://registry.yarnpkg.com/@cdktf/provider-random/-/provider-random-10.0.1.tgz#1b8f448a0b3a3f019f0becb01b80128d805ab487"
+  integrity sha512-GGtScORnQIHUq6gzcpUt9ZCoWKEiV39qLVAhRC3z/b5cyhSh+rqLNZlsLmXJuemRKfI/Xtp1MVoqyR5xE3fjTg==
 
 "@cdktf/provider-schema@0.19.2":
   version "0.19.2"
