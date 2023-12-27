@@ -104,8 +104,9 @@ jobs:
           workingDirectory: ./cdktf
           stackName: cdktf
           mode: ${{ steps.determine-mode.outputs.mode }}
-          terraformCloudToken: ${{ steps.fetch-terraform-cloud-token.outputs.TERRAFORM_CLOUD_TOKEN }}
           githubToken: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          TERRAFORM_CLOUD_TOKEN: ${{ steps.fetch-terraform-cloud-token.outputs.TERRAFORM_CLOUD_TOKEN }}
       - name: Store generated CDKTF
         uses: actions/upload-artifact@c7d193f32edcb7bfad88892161225aeda64e9392 # v4
         # Only store the CDKTF output if the Terraform CDK step ran
