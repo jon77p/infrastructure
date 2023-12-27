@@ -28,7 +28,6 @@ permissions:
 env:
   CDKTF_VERSION: 0.14.3
   TERRAFORM_VERSION: 1.3.5
-  NODE_VERSION: latest
 
 jobs:
   terraform:
@@ -58,10 +57,15 @@ jobs:
           terraform_version: ${{ env.TERRAFORM_VERSION }}
           terraform_wrapper: false
           cli_config_credentials_token: ${{ steps.fetch-terraform-cloud-token.outputs.TERRAFORM_CLOUD_TOKEN }}
+      # Fetch the node version from the .nvmrc file
+      - name: Fetch node version
+        id: fetch-node-version
+        run: |
+          echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_ENV
       - name: Setup yarn
         uses: actions/setup-node@b39b52d1213e96004bfcb1c61a8a6fa8ab84f3e8 # v4
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: ${{ steps.fetch-node-version.outputs.NODE_VERSION }}
           cache: yarn
           cache-dependency-path: ./cdktf/yarn.lock
       - name: Install dependencies
