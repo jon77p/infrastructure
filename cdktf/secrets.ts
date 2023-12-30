@@ -5,24 +5,19 @@ import * as cdktf from "cdktf";
 import { Construct } from "constructs";
 
 function Setup1Password(scope: Construct) {
-  const opPath = "tools/op"
+  // const opPath = "tools/op"
   const install = new localExec.LocalExec(scope, "1password-install", {
     cwd: ".",
     command: `ARCH="amd64"; \
-      OP_VERSION="v$(curl https://app-updates.agilebits.com/check/1/0/CLI2/en/2.0.0 -s | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+')"; \
-      curl -sSfo op.zip \
-      "https://cache.agilebits.com/dist/1P/op2/pkg/$OP_VERSION/op_linux_$ARCH_$OP_VERSION.zip" \
-      && mkdir -p tools \
-      && unzip -od tools op.zip \
-      && rm op.zip \
-      && chmod 0755 tools/op \
-      && export PATH="$PATH:$(pwd)/tools" \
-      && echo $PATH \
-      && op --version`
+OP_VERSION="v$(curl https://app-updates.agilebits.com/check/1/0/CLI2/en/2.0.0/N -s | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+')"; \
+curl -sSfo op.zip \
+https://cache.agilebits.com/dist/1P/op2/pkg/"$OP_VERSION"/op_linux_"$ARCH"_"$OP_VERSION".zip \
+&& unzip -od /usr/local/bin/ op.zip \
+&& rm op.zip`,
   });
 
   return {
-    path: opPath,
+    path: '/usr/local/bin/op',
     install: install
   }
 }
