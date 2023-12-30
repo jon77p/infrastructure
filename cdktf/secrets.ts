@@ -11,7 +11,7 @@ function Setup1Password(scope: Construct) {
     command: `ARCH="amd64"; \
       OP_VERSION="v$(curl https://app-updates.agilebits.com/check/1/0/CLI2/en/2.0.0 -s | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+')"; \
       curl -sSfo op.zip \
-      https://cache.agilebits.com/dist/1P/op2/pkg/"$OP_VERSION"/op_linux_"$ARCH"_"$OP_VERSION".zip \
+      "https://cache.agilebits.com/dist/1P/op2/pkg/$OP_VERSION/op_linux_$ARCH_$OP_VERSION.zip" \
       && mkdir -p tools \
       && unzip -od tools op.zip \
       && rm op.zip \
