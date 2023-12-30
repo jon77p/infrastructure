@@ -39,14 +39,17 @@ export class Secrets extends Construct {
     // Setup 1Password
     const setup = Setup1Password(this)
 
+    new cdktf.TerraformOutput(this, "op-path", {
+      value: setup.path,
+    });
+
+    return;
+
     // Initialize 1Password provider
-    const opProvider = new onepassword.provider.OnepasswordProvider(this, "onepassword", {
+    new onepassword.provider.OnepasswordProvider(this, "onepassword", {
       serviceAccountToken: process.env.OP_SERVICE_ACCOUNT_TOKEN,
       opCliPath: cdktf.Fn.join("/", [setup.install.cwd, "op"]),
     });
-
-    // Make sure opProvider depends on the install
-    opProvider.node.addDependency(setup.install);
 
     // Fetch the 1Password Infrastructure vault
     const vault = new onepassword.dataOnepasswordVault.DataOnepasswordVault(this, "vault", {
