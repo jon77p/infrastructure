@@ -9,6 +9,7 @@ import * as tailscale from "./.gen/providers/tailscale"
 import { Construct } from "constructs"
 import { App, TerraformStack, TerraformVariable, VariableType } from "cdktf"
 import { OCIConfig } from "./oci/main"
+import { Secrets } from "./secrets"
 
 require("json5/lib/register") // eslint-disable-line no-eval
 
@@ -21,6 +22,8 @@ class InfrastructureStack extends TerraformStack {
       organization: "jon77p-xyz",
       workspaces: new cdktf.NamedCloudWorkspace("infrastructure"),
     })
+
+    new Secrets(this, name, {})
 
     // Terraform Vars
     const cfAccountId = new TerraformVariable(this, "cf_account_id", {
@@ -122,6 +125,8 @@ class InfrastructureStack extends TerraformStack {
       ),
       default: {},
     })
+
+    return
 
     // Read infrastructure config from local file
     const ociConfig: Map<string, OCIConfig> = require(path.join(
