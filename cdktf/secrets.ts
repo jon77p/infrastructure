@@ -9,7 +9,7 @@ function Setup1Password(scope: Construct) {
   const install = new localExec.LocalExec(scope, "1password-install", {
     cwd: ".",
     command: `ARCH="amd64"; \
-      OP_VERSION="v$(curl https://app-updates.agilebits.com/check/1/0/CLI2/en/2.0.0/N -s | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+')"; \
+      OP_VERSION="v$(curl https://app-updates.agilebits.com/check/1/0/CLI2/en/2.0.0 -s | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+')"; \
       curl -sSfo op.zip \
       https://cache.agilebits.com/dist/1P/op2/pkg/"$OP_VERSION"/op_linux_"$ARCH"_"$OP_VERSION".zip \
       && mkdir -p tools \
@@ -55,6 +55,9 @@ export class Secrets extends Construct {
     // Fetch the 1Password Infrastructure vault
     const vault = new onepassword.dataOnepasswordVault.DataOnepasswordVault(this, "vault", {
       name: "Infrastructure",
+      provisioners: [
+        // setup.install,
+      ],
     });
 
     // Fetch the 1Password item for the Terraform login
