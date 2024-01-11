@@ -148,12 +148,12 @@ jobs:
           python-version: ${{ env.PYTHON_VERSION }}
           cache: pip
       - name: Cache Ansible Roles
-        uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3
+        uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v3
         with:
           path: ${{ env.ANSIBLE_ROLES_PATH }}
           key: ${{ runner.os }}-ansible-roles-${{ hashFiles('ansible/requirements.yml') }}
       - name: Cache Ansible Collections
-        uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3
+        uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v3
         with:
           path: ${{ env.ANSIBLE_COLLECTIONS_PATH }}
           key: ${{ runner.os }}-ansible-collections-${{ hashFiles('ansible/requirements.yml') }}
