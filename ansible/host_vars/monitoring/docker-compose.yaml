@@ -17,7 +17,7 @@ services:
     ports:
       - "{{ compose_project_ports.loki[0] }}:3100"
   influxdb:
-    image: influxdb:2.7@sha256:1c12b5eef99689fcb37df85d85239aabfa3b237e9d528e89562033afe9a07aac
+    image: influxdb:2.7@sha256:1b77a9f7b8a092d18f9bf3252b807bd1b24bef33c0b3a10267fa08269fcf5002
     restart: always
     volumes:
       - "{{ docker_volume_dirs.influxdb[0] }}:/var/lib/influxdb"
