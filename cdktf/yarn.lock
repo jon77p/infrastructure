@@ -406,9 +406,9 @@
     prebuild-install "^7.1.1"
 
 "@cdktf/provider-cloudflare@^10.0.0":
-  version "10.1.0"
-  resolved "https://registry.yarnpkg.com/@cdktf/provider-cloudflare/-/provider-cloudflare-10.1.0.tgz#28c850e031f51de889274b51096e44d14cca0316"
-  integrity sha512-f9fXmH8Z9SK5hdP14FeYw5MMrU1PhlCexC1KDY+PATLyssu2KgqN5kFAnkeQZtFTGGz2QY9X5GD0/ruDWlWgoQ==
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/@cdktf/provider-cloudflare/-/provider-cloudflare-10.2.0.tgz#78d0b9570a7607f06d0bfc03f7010d46cc6c7efe"
+  integrity sha512-Q3Bs/jJVUYRLmY4LfnZIpOVjxeQrpic08h4fiiXPwV7lRC077maTLnXsxEjRUWtitQQI29iM+/GJD3/Sc0gEzw==
 
 "@cdktf/provider-generator@0.19.2":
   version "0.19.2"
