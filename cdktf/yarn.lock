@@ -474,10 +474,10 @@
     deepmerge "4.3.1"
     fs-extra "11.2.0"
 
-"@cdktf/provider-template@^9.0.0":
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/@cdktf/provider-template/-/provider-template-9.0.0.tgz#43e90dfce5080f63d0e2f22d5b10b92989bda1ae"
-  integrity sha512-1Bl2+GsVjAzn6mrTBwWWM51MZN5NoBfXPFo0CLyd5mA1k9lII5G84ztRDzf+U+C/Nmt3mVwuhl14TYfPHQ81bw==
+"@cdktf/provider-template@^10.0.0":
+  version "10.0.1"
+  resolved "https://registry.yarnpkg.com/@cdktf/provider-template/-/provider-template-10.0.1.tgz#19d6b66cf5428e99347ae0cda1f19e9cdba2cee5"
+  integrity sha512-kqysvnv/o7lDEMCe8pZ9kZdz6SJwjbcYHnnvnYx0nNzo8cOgu2Rbsz13kcPOlBV/GtTS+noH2d9n2NEq4GYfmA==
 
 "@cspotcode/source-map-support@^0.8.0":
   version "0.8.1"
