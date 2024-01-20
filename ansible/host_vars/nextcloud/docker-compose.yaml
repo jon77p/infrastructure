@@ -15,7 +15,7 @@ services:
     networks:
       - nextcloud
   nextcloud:
-    image: nextcloud:latest@sha256:3402475a002c3f8c6ebce0012a4ceea35ffd25d25c1ee8423f86e0cc199555c1
+    image: nextcloud:latest@sha256:fc199acfb722e651f1ed22fc382c133d0fc7d697f17f7e826a1a510099d3c3fd
     volumes:
       - "{{ docker_volume_dirs.nextcloud[0] }}:/var/www/html"
       - "{{ docker_volume_dirs.nextcloud[1] }}:/var/www/html/data"
