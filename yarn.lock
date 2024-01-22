@@ -2201,9 +2201,9 @@ jsii@~5.2.41:
     yargs "^17.7.2"
 
 jsii@~5.3.0, jsii@~5.3.3:
-  version "5.3.7"
-  resolved "https://registry.yarnpkg.com/jsii/-/jsii-5.3.7.tgz#ade07bc330f13956d7b40a0503d59b7824aa70e8"
-  integrity sha512-jf3F0o3s4G3k3g0LjUa4WGMzp7jr0i8J6qiZp/ocRXV3EVFUOfji6RiKeib9i3iqU/x1kd9KlLsVb96yVCa/oQ==
+  version "5.3.8"
+  resolved "https://registry.yarnpkg.com/jsii/-/jsii-5.3.8.tgz#104b962250dcbc0f8494f8ac74ac7a555d9b6a1a"
+  integrity sha512-9VhPEc4KDXJbHmNbnKu+Owyom0NFQV/AGMrpWsAX2bHbINmZ7yfwmPJtD79Czr/O3TzCV2hK0YPccyqQeudYGw==
   dependencies:
     "@jsii/check-node" "1.94.0"
     "@jsii/spec" "^1.94.0"
@@ -3256,9 +3256,9 @@ type-fest@^0.21.3:
   integrity sha512-t0rzBq87m3fVcduHDUFhKmyyX+9eo6WQjZvf51Ea/M0Q7+T374Jp1aUiyUl0GKxp8M/OETVHSDvmkyPgvX+X2w==
 
 typescript@next:
-  version "5.4.0-dev.20240119"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.4.0-dev.20240119.tgz#93e2bf67e5be79210532be2ce78cf5946da04db3"
-  integrity sha512-I+Uge2+WNFs91q42WVrqTwxmq3NQwQlrL0MLora9zXhizbsKIGApE7LGcEJIbG+0yk6gpDilGaDH1pU4VUAKzw==
+  version "5.4.0-dev.20240121"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.4.0-dev.20240121.tgz#c13b42e77f1c63f50d925379d539691ace69c4f8"
+  integrity sha512-mRsxgYHpW6gRWM72xK9BqjCOiAAady4aJJg3JjQW1/ZkIlT+AGgJobFJYDHvQ2eexz7uaGA3zVftM4UNC5KkRw==
 
 typescript@~3.9.10:
   version "3.9.10"
