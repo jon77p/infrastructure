@@ -139,7 +139,7 @@ jobs:
       - name: Disallow DNS configuration from Tailscale admin panel
         run: sudo tailscale set --accept-dns=false
       - name: Setup Taskfile
-        uses: arduino/setup-task@v1
+        uses: arduino/setup-task@v2
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Setup Python
