@@ -2,7 +2,7 @@
 version: "3"
 services:
   nextclouddb:
-    image: mariadb:latest@sha256:65c0c44bc4754bd03dc17396328f2adae8f156ebe6ec1edb928386886654785e
+    image: mariadb:latest@sha256:4d17158efa6f92bb9894c048c87d784758e20b9a3c1956ad3a1f1f2292d2b7c3
     restart: always
     command: --transaction-isolation=READ-COMMITTED --log-bin=mysqld-bin --binlog-format=ROW --innodb-file-per-table=1 --skip-innodb-read-only-compressed
     environment:
