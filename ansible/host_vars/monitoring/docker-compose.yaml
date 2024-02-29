@@ -10,7 +10,7 @@ services:
     ports:
       - "{{ compose_project_ports.prometheus[0] }}:{{ prometheus.internal_port }}"
   loki:
-    image: grafana/loki:latest@sha256:086642063f8ba09cd0cfe360bedcda2eba0c0c05cc5d48bb9acd7562963a6951
+    image: grafana/loki:latest@sha256:55561cf48b19e03d982e1f959efc0d8842b7be141eb5eaaa4b8a8eeb5a2dfc58
     restart: always
     volumes:
       - "{{ docker_volume_dirs.loki[0] }}/local-config.yaml:/etc/loki/local-config.yaml"
