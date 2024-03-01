@@ -17,12 +17,6 @@ tasks:
       - task: direnv:setup
       - task: secrets:setup
       - task: pre-commit
-  cicd:
-    cmds:
-      - task: pip
-      - task: cloudflared:setup
-      - task: direnv:setup
-      - task: ansible
   virtualenv:
     cmds:
       - python3 -m venv .venv
@@ -50,5 +44,5 @@ tasks:
     cmds:
       - task: pip
       - >-
-        .venv/bin/ansible-galaxy role install -r ansible/requirements.yml &&
-        .venv/bin/ansible-galaxy collection install -r ansible/requirements.yml
+        .venv/bin/ansible-galaxy role install -r requirements.yml &&
+        .venv/bin/ansible-galaxy collection install -r requirements.yml
