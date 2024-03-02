@@ -39,7 +39,7 @@ services:
         condition: on-failure
 
   yourspotifyweb:
-    image: yooooomi/your_spotify_client@sha256:0032fd5125bfe557a15bfec6cf2f2d714a9fc968821ad81a5087ff924af01888
+    image: yooooomi/your_spotify_client@sha256:bf624c65cf45414c101a19ecc4292becf4c35c6106b7a1b1aa4999e34e60c826
     environment:
       - API_ENDPOINT=https://trends-spotify-cluster.${CF_DOMAIN}/api
     depends_on:
