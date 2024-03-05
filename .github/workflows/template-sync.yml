@@ -61,7 +61,7 @@ jobs:
             echo "token=${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_OUTPUT
           fi
       - name: Sync Template
-        uses: AndreasAugustin/actions-template-sync@5a3b946a0a960f456d9a4fef24a970fab250d742 # v1.9.0
+        uses: AndreasAugustin/actions-template-sync@efe37936208741042e7cb794e2170f4d6f73d5d2 # v1.10.0
         with:
           github_token: ${{ steps.variables.outputs.token }}
           source_repo_path: jon77p/template
