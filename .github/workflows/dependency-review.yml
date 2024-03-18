@@ -44,7 +44,7 @@ jobs:
     steps:
       - name: "Checkout Repository"
         if: needs.check.outputs.enabled == 'true'
-        uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633 # v4
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
       - name: "Dependency Review"
         if: needs.check.outputs.enabled == 'true'
         uses: actions/dependency-review-action@9129d7d40b8c12c1ed0f60400d00c92d437adcce # v4
