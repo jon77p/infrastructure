@@ -415,9 +415,9 @@
     prebuild-install "^7.1.1"
 
 "@cdktf/provider-cloudflare@^11.0.0":
-  version "11.7.0"
-  resolved "https://registry.yarnpkg.com/@cdktf/provider-cloudflare/-/provider-cloudflare-11.7.0.tgz#6a11e1abacae1920fa9e29e964cf55344c82859a"
-  integrity sha512-qnshOVqdR1BAxZfc2xXk2IIu91VzbNXMGTuYTSOqZxucW8Jx3F5JPbMKfHs8nYi3Gmhn54/watPWudNHSl2JdQ==
+  version "11.8.0"
+  resolved "https://registry.yarnpkg.com/@cdktf/provider-cloudflare/-/provider-cloudflare-11.8.0.tgz#4e07f040c25167c02cca9dd76dabcf462c4c13e6"
+  integrity sha512-E+d6DH45N1pUn0cWyq8Ud+2OBk9g0XpmAh/HDoCVkyn9CvhO6DL04msKY5F7AS9wFMV2RuGtE3AmKv1h07xWKw==
 
 "@cdktf/provider-generator@0.20.7":
   version "0.20.7"
@@ -433,9 +433,9 @@
     jsii-srcmak "0.1.1039"
 
 "@cdktf/provider-random@^11.0.0":
-  version "11.0.0"
-  resolved "https://registry.yarnpkg.com/@cdktf/provider-random/-/provider-random-11.0.0.tgz#a6ef70560c45593abace52dd22691bf39da2a338"
-  integrity sha512-08mXxGFxhVpakxDIGwmHfbDB0yScXMV90Sdlg6+sa1GGXIxSARpEq/vqlTs/aqiBeVH358cQEr6OqvgEbgI82g==
+  version "11.0.1"
+  resolved "https://registry.yarnpkg.com/@cdktf/provider-random/-/provider-random-11.0.1.tgz#1de6dfacfba94a641e036b248be94bdfeba56e1a"
+  integrity sha512-l+W1n6Tn4ROMTta3hHu60WRvlMcgZprC5mdT9qoGt7pAgJ3Fo61s9sNK00qqbLIotlwSMPyHW3TwC/1l8JD3Rw==
 
 "@cdktf/provider-schema@0.20.7":
   version "0.20.7"
