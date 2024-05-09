@@ -2,7 +2,7 @@
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.236.0/containers/ubuntu
 {
   "name": "Template",
-  "image": "ghcr.io/jon77p/codespaces/images/default:latest",
+  "image": "ghcr.io/jon77p/codespaces/images/default:latest@sha256:b7c3cb08f902ddfb95cfd9b09b268d7d8369b9d4ba1b64d7119f4f27a1e2ddf0",
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   // "forwardPorts": [],
@@ -10,22 +10,22 @@
   "postStartCommand": "task setup",
 
   "features": {
-    "ghcr.io/devcontainers/features/aws-cli:1": {
+    "ghcr.io/devcontainers/features/aws-cli:1@sha256:8d39e89cc98291953fb03cf7ef540dc1a7c78c3162f0eee9b61c800e4838f807": {
       "version": "latest"
     },
     // "ghcr.io/devcontainers/features/docker-from-docker:1": {
     //   "version": "latest"
     // },
-    "ghcr.io/devcontainers/features/rust:1": {
+    "ghcr.io/devcontainers/features/rust:1@sha256:aba6f47303b197976902bf544c786b5efecc03c238ff593583e5e74dfa9c7ccb": {
       "version": "latest"
     },
-    "ghcr.io/devcontainers/features/terraform:1": {
+    "ghcr.io/devcontainers/features/terraform:1@sha256:403fe3406aaf4618d9ca5b79cd1bd4a3576eac8816b18419650ab2f87026bb09": {
       "version": "latest"
     },
-    "ghcr.io/jon77p/codespaces/features/tailscale:latest": {
+    "ghcr.io/jon77p/codespaces/features/tailscale:latest@sha256:b24f019db029c8630ab3d962f706b792c002e34e8baf2adcf8da3fdef339f850": {
       "version": "latest"
     },
-    "ghcr.io/jon77p/codespaces/features/taskfile:latest": {
+    "ghcr.io/jon77p/codespaces/features/taskfile:latest@sha256:c896eb5bc841597ae291bd18cd719b8eb5cdff93c2852bf31a74d182f2593bef": {
       "version": "latest"
     }
   },
