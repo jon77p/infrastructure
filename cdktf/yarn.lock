@@ -442,9 +442,9 @@
     prebuild-install "^7.1.1"
 
 "@cdktf/provider-cloudflare@^11.0.0":
-  version "11.11.0"
-  resolved "https://registry.yarnpkg.com/@cdktf/provider-cloudflare/-/provider-cloudflare-11.11.0.tgz#86c42385a3edde7b918ba70f2f65ba0186bcb31d"
-  integrity sha512-bvSL79WkcEz/UZeDx4oviUyg1ijpP3JLfTsvLs6q8tQ9/b24rqADurE3Z32mN4AOO+JDICcIHfjbqx8oYBHbKQ==
+  version "11.12.0"
+  resolved "https://registry.yarnpkg.com/@cdktf/provider-cloudflare/-/provider-cloudflare-11.12.0.tgz#5f6a019fe5001b7474f2c8dbd26d82beb91afcdb"
+  integrity sha512-pQwi1y2t7A+z6p+xXxUVF9msv+RzIl5V77fcRh1jOl3oY6TFhyZNZSruS5QvKhpQDU/HRZkPVtY4ZLNNPjgd9Q==
 
 "@cdktf/provider-generator@0.20.7":
   version "0.20.7"
@@ -1147,9 +1147,9 @@
     undici-types "~5.26.4"
 
 "@types/node@^20.10.7", "@types/node@^20.4.0", "@types/node@^20.4.2":
-  version "20.12.12"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.12.12.tgz#7cbecdf902085cec634fdb362172dfe12b8f2050"
-  integrity sha512-eWLDGF/FOSPtAvEqeRAQ4C8LSA7M1I7i0ky1I8U7kD1J5ITyW3AsRhQrKVoWf5pFKZ2kILsEGJhsI9r93PYnOw==
+  version "20.14.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.14.0.tgz#49ceec7b34f8621470cff44677fa9d461a477f17"
+  integrity sha512-5cHBxFGJx6L4s56Bubp4fglrEpmyJypsqI6RgzMfBHWUJQGWAAi8cWcgetEbZXHYXo9C2Fa4EEds/uSyS4cxmA==
   dependencies:
     undici-types "~5.26.4"
 
