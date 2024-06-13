@@ -58,7 +58,7 @@ jobs:
     steps:
       - name: Checkout the code
         if: needs.check.outputs.enabled == 'true'
-        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
       - name: nodejsscan scan
         if: needs.check.outputs.enabled == 'true'
         id: njsscan
