@@ -31,7 +31,7 @@ services:
       retries: 5
 
   smo_online_server:
-    image: ghcr.io/sanae6/smo-online-server:latest@sha256:911fa7e541601796110357a0dca37144b28445af9daf3596ccece4fe1b5cc729
+    image: ghcr.io/sanae6/smo-online-server:latest@sha256:f295bd6851930c0194cb4c92eea5080138cc72910eeb178ad6aebc21a015f0e7
     restart: always
 
     # user: 1000:1000
