@@ -29,10 +29,3 @@ venv/
 .Spotlight-V100
 .Trashes
 Thumbs.db
-
-**/secrets*.env
-secrets*
-!.github/tasks/secrets
-Brewfile.lock.json
-.config.env
-.decrypted~*.yaml
