@@ -64,7 +64,7 @@ jobs:
         run: |
           echo "NODE_VERSION=$(cat .nvmrc | sed 's/[^0-9.]*//g')" >> $GITHUB_ENV
       - name: Setup yarn
-        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4
+        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4
         with:
           node-version: ${{ steps.fetch-node-version.outputs.NODE_VERSION }}
       - name: Install corepack
