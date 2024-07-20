@@ -18,18 +18,11 @@ on:
         required: true
         type: choice
         options:
-          - "allaboutsecurity"
           - "authentik"
-          - "gaming"
-          - "gaps"
+          - "cicd"
           - "healthchecks"
           - "monitoring"
-          - "nextcloud"
-          - "nodered"
-          - "pihole"
-          - "securemylife"
           - "vault"
-          - "youtubedl"
       dry_run:
         description: "Dry run"
         required: true
