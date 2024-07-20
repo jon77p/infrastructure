@@ -24,23 +24,20 @@ all:
       children:
         services:
           hosts:
-            stash:
-              ansible_host: stash
-            gaming:
-              ansible_host: gaming
-            healthchecks:
-              ansible_host: healthchecks
-            pihole:
-              ansible_host: pihole
-            vault:
-              ansible_host: vault
             monitoring:
               ansible_host: monitoring
+            vault:
+              ansible_host: vault
             authentik:
               ansible_host: auth
+            healthchecks:
+              ansible_host: healthchecks
+            cicd:
+              ansible_host: cicd
       vars:
         ansible_ssh_user: ubuntu
     deployments:
       hosts:
+        pihole:
         gaps:
         nodered:
