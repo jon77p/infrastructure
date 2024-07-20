@@ -46,8 +46,9 @@
         is_subdomain: true,
         ad_number: 1,
         region: "us-sanjose-1",
-        // Canonical-Ubuntu-22.04-2023.06.30-0
-        image_id: "ocid1.image.oc1.us-sanjose-1.aaaaaaaaptsek35424k7cyikerkf3s47hoi6vjwo2j25s4x2pkw3sivim4pa",
+        // Canonical-Ubuntu-22.04-2024.05.31-0
+        // https://docs.oracle.com/en-us/iaas/images/image/2e489f7c-01c3-4e8a-ae19-4648a1114c26/
+        image_id: "ocid1.image.oc1.us-sanjose-1.aaaaaaaajiapmujnlwkmd4qzbuwbo43t7pzhx6jwxo746s5l4iqx5ktmprxa",
         shape: "VM.Standard.E2.1.Micro",
         memory: 1,
         ocpus: 1,
@@ -90,8 +91,9 @@
         is_subdomain: true,
         ad_number: 1,
         region: "us-sanjose-1",
-        // Canonical-Ubuntu-22.04-2023.06.30-0
-        image_id: "ocid1.image.oc1.us-sanjose-1.aaaaaaaaptsek35424k7cyikerkf3s47hoi6vjwo2j25s4x2pkw3sivim4pa",
+        // Canonical-Ubuntu-22.04-2024.05.31-0
+        // https://docs.oracle.com/en-us/iaas/images/image/2e489f7c-01c3-4e8a-ae19-4648a1114c26/
+        image_id: "ocid1.image.oc1.us-sanjose-1.aaaaaaaajiapmujnlwkmd4qzbuwbo43t7pzhx6jwxo746s5l4iqx5ktmprxa",
         shape: "VM.Standard.E2.1.Micro",
         memory: 1,
         ocpus: 1,
@@ -112,8 +114,9 @@
         is_subdomain: true,
         ad_number: 1,
         region: "us-sanjose-1",
-        // Canonical-Ubuntu-22.04-2023.06.30-0
-        image_id: "ocid1.image.oc1.us-sanjose-1.aaaaaaaaptsek35424k7cyikerkf3s47hoi6vjwo2j25s4x2pkw3sivim4pa",
+        // Canonical-Ubuntu-22.04-2024.05.31-0
+        // https://docs.oracle.com/en-us/iaas/images/image/2e489f7c-01c3-4e8a-ae19-4648a1114c26/
+        image_id: "ocid1.image.oc1.us-sanjose-1.aaaaaaaajiapmujnlwkmd4qzbuwbo43t7pzhx6jwxo746s5l4iqx5ktmprxa",
         shape: "VM.Standard.E2.1.Micro",
         memory: 1,
         ocpus: 1,
@@ -133,8 +136,9 @@
         is_subdomain: true,
         ad_number: 1,
         region: "us-phoenix-1",
-        // Canonical-Ubuntu-22.04-aarch64-2023.06.30-0
-        image_id: "ocid1.image.oc1.phx.aaaaaaaaj7xr4kbfkosjsnsx3o7e7d5piorxgngstebfsrfhp2yj6rsqqhpa",
+        // Canonical-Ubuntu-22.04-aarch64-2024.05.31-0
+        // https://docs.oracle.com/en-us/iaas/images/image/73b549bd-1534-404c-968c-78f5cd3275d6/
+        image_id: "ocid1.image.oc1.phx.aaaaaaaahnj5t3jk6za5prnsz3ikp35kjxfbqagxmhbtwbhirmnoghpjukhq",
         shape: "VM.Standard.A1.Flex",
         memory: 24,
         ocpus: 4,
