@@ -1,3 +1,5 @@
 ---
 user_password: "{{ vault_user_password }}"
-cloudflare_dns_ip_addresses: "{{ vault_cloudflare_dns_ip_addresses }}"
+cloudflare_dns_ip_addresses:
+  primary: "1.1.1.1"
+  secondary: "1.1.1.1"
