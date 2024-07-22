@@ -345,9 +345,9 @@
     figures "^3.2.0"
 
 "@inquirer/type@^1.1.1", "@inquirer/type@^1.1.6":
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@inquirer/type/-/type-1.5.0.tgz#0890e6286281b3f118632e6f7c47c0ccb9b29ee3"
-  integrity sha512-L/UdayX9Z1lLN+itoTKqJ/X4DX5DaWu2Sruwt4XgZzMNv32x4qllbzMX4MbJlz0yxAQtU19UvABGOjmdq1u3qA==
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/@inquirer/type/-/type-1.5.1.tgz#cdd36732e38ea5d2b1a4336aada65ebe7d2765e0"
+  integrity sha512-m3YgGQlKNS0BM+8AFiJkCsTqHEFCWn6s/Rqye3mYwvqY6LdfUv12eSwbsgNzrYyrLXiy7IrrjDLPysaSBwEfhw==
   dependencies:
     mute-stream "^1.0.0"
 
@@ -3430,9 +3430,9 @@ typed-array-length@^1.0.6:
     possible-typed-array-names "^1.0.0"
 
 typescript@next:
-  version "5.6.0-dev.20240719"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.6.0-dev.20240719.tgz#1bee8182303b6f4cdfb7a0b97d721aeea5ef7fc9"
-  integrity sha512-gwHt3fdLbe+LLgZJnPaGZ7v9MHTkjrqjf4NpxznO0SmFVSu7cEd8IwEsePtmQQZAX3FtPdgfwDmeNktid848Hw==
+  version "5.6.0-dev.20240721"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.6.0-dev.20240721.tgz#5ccad727badcfa6a9f270752c327cf4725382a12"
+  integrity sha512-W6nC7VqNlG2tS+FhLE7yyvjm1WnIu/fWfrDBQy9dLEzQohE4CwEhy6WLTWrsMADLfmLERlnW8PjQEoC63u2zDg==
 
 typescript@~5.4:
   version "5.4.5"
