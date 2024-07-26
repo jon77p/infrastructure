@@ -33,7 +33,7 @@ services:
     environment:
       - TZ=America/Los_Angeles
   grafana:
-    image: grafana/grafana-oss:latest@sha256:cea3d0c8e54b9e63f82b7baf607107e3c8842d7d3afafd728adca0303f4c2648
+    image: grafana/grafana-oss:latest@sha256:3d605614c7c7ce2e96f71abaccd09eb3cfacef48fea5fda4b02a555c95a73edc
     restart: always
     volumes:
       - "{{ docker_volume_dirs.grafana[0] }}/grafana.ini:/etc/grafana/grafana.ini"
