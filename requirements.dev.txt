@@ -1,4 +1,4 @@
-pre-commit==3.7.1
+pre-commit==3.8.0
 yamllint==1.35.1
 ansible==10.2.0
 ansible-lint==24.7.0
