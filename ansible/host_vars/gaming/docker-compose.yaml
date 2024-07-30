@@ -3,7 +3,7 @@ version: "3"
 
 services:
   crafty:
-    image: registry.gitlab.com/crafty-controller/crafty-4:latest@sha256:5c1a7fd70a2e8b3c086a36bf5e041aa1d9a0188d883b86dfa17f3555cc97af03
+    image: registry.gitlab.com/crafty-controller/crafty-4:latest@sha256:2edd6928751a5dfc50d5b24619f085f7f21069850f380d672b6e94d54f1967d2
     restart: always
 
     # Adjust as needed; if this is too short, stopping the container
