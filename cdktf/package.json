@@ -15,27 +15,33 @@
     "compile": "tsc --pretty",
     "watch": "tsc -w",
     "test": "jest",
-    "test:watch": "jest --watch",
-    "upgrade": "yarn upgrade"
+    "test:watch": "jest --watch"
   },
   "engines": {
     "node": ">=14.0"
   },
   "dependencies": {
-    "@cdktf/provider-cloudflare": "^11.0.0",
-    "@cdktf/provider-random": "^11.0.0",
-    "@cdktf/provider-template": "^10.0.0",
+    "@cdktf/node-pty-prebuilt-multiarch": "^0.10.1-pre.11",
+    "@cdktf/provider-cloudflare": "^11.19.0",
+    "@cdktf/provider-random": "^11.0.3",
     "cdktf": "^0.20.0",
-    "constructs": "^10.1.136",
+    "constructs": "^10.3.0",
+    "fs-extra": "^11.2.0",
+    "ink": "^5.0.1",
+    "jsii": "^5.5.4",
+    "jsii-pacmak": "^1.103.1",
+    "jsii-rosetta": "^5.5.5",
     "json5": "^2.2.3"
   },
   "devDependencies": {
+    "@types/fs-extra": "^11",
     "@types/jest": "^29.2.0",
-    "@types/node": "^20.4.0",
+    "@types/node": "^22.5.5",
     "cdktf-cli": "^0.20.0",
     "jest": "^29.2.1",
     "ts-jest": "^29.0.3",
     "ts-node": "^10.9.1",
-    "typescript": "^5.0.0"
-  }
+    "typescript": "^5.6.2"
+  },
+  "packageManager": "yarn@4.5.0"
 }
