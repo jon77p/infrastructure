@@ -13,7 +13,7 @@
   become: true
   roles:
     - common
-    - dns
+    # - dns
     - healthchecks
     - vault
     - docker
