@@ -6,7 +6,7 @@ import { TunnelConfigConfigOriginRequest } from "@cdktf/provider-cloudflare/lib/
 
 import { Base, NetworkingConfig } from "./common/base"
 import * as Compute from "./compute/main"
-import { Tunnel, CFConfig } from "./tunnel/main"
+import { Tunnel, CFConfig, RecordComment } from "./tunnel/main"
 
 import { Construct } from "constructs"
 import { Token, TerraformVariable, Fn, TerraformOutput } from "cdktf"
@@ -121,10 +121,11 @@ export class OCI extends Construct {
 
       // Create a record pointing to the instance
       new cloudflare.record.Record(this, `${name}-${instanceName}-record`, {
+        comment: RecordComment,
+        content: compute.coreInstance.publicIp,
         name: `${instance.name}.${profile}.${instance.domain}`,
         proxied: false,
         type: "A",
-        value: compute.coreInstance.publicIp,
         zoneId: tunnel.cloudflareZones.zones.get(0).id,
       })
     }
