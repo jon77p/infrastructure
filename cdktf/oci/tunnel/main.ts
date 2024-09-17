@@ -19,13 +19,13 @@ interface TunnelProps {
   instance: { name: string; instance: InstanceConfig }
 }
 
-const RecordComment = `Managed by cdktf. {tag=cdktf, repo=https://github.com/jon77p/infrastructure}`
+export const RecordComment = `Managed by cdktf. {tag=cdktf, repo=https://github.com/jon77p/infrastructure}`
 
 export class Tunnel extends Construct {
   public readonly tunnelSecret: random.id.Id
   public readonly cloudflareZones: cloudflare.dataCloudflareZones.DataCloudflareZones
-  public readonly sshCertificate: cloudflare.accessCaCertificate.AccessCaCertificate
-  public readonly tunnel: cloudflare.tunnel.Tunnel
+  public readonly sshCertificate: cloudflare.zeroTrustAccessShortLivedCertificate.ZeroTrustAccessShortLivedCertificate
+  public readonly tunnel: cloudflare.zeroTrustTunnelCloudflared.ZeroTrustTunnelCloudflared
 
   constructor(scope: Construct, name: string, props: TunnelProps) {
     super(scope, name)
@@ -53,24 +53,25 @@ export class Tunnel extends Construct {
         : `ssh.${instance.instance.domain}`
     }`
 
-    const sshApp = new cloudflare.accessApplication.AccessApplication(
-      this,
-      "ssh_app",
-      {
-        allowedIdps: config.allowedIdpIds,
-        appLauncherVisible: false,
-        autoRedirectToIdentity: true,
-        domain: sshDomain,
-        name: sshDomain,
-        sessionDuration: "24h",
-        type: "ssh",
-        skipInterstitial: true,
-        zoneId: this.cloudflareZones.zones.get(0).id,
-      }
-    )
+    const sshApp =
+      new cloudflare.zeroTrustAccessApplication.ZeroTrustAccessApplication(
+        this,
+        "ssh_app",
+        {
+          allowedIdps: config.allowedIdpIds,
+          appLauncherVisible: false,
+          autoRedirectToIdentity: true,
+          domain: sshDomain,
+          name: sshDomain,
+          sessionDuration: "24h",
+          type: "ssh",
+          skipInterstitial: true,
+          zoneId: this.cloudflareZones.zones.get(0).id,
+        }
+      )
 
     this.sshCertificate =
-      new cloudflare.accessCaCertificate.AccessCaCertificate(
+      new cloudflare.zeroTrustAccessShortLivedCertificate.ZeroTrustAccessShortLivedCertificate(
         this,
         "ssh_certificate",
         {
@@ -79,25 +80,34 @@ export class Tunnel extends Construct {
         }
       )
 
-    new cloudflare.accessPolicy.AccessPolicy(this, "ssh_policy", {
-      applicationId: sshApp.id,
-      decision: "allow",
-      include: [
-        {
-          group: [config.adminGroupId],
-        },
-      ],
-      name: `Policy for ${sshDomain}`,
-      precedence: 2,
-      zoneId: this.cloudflareZones.zones.get(0).id,
-    })
+    new cloudflare.zeroTrustAccessPolicy.ZeroTrustAccessPolicy(
+      this,
+      "ssh_policy",
+      {
+        applicationId: sshApp.id,
+        decision: "allow",
+        include: [
+          {
+            group: [config.adminGroupId],
+          },
+        ],
+        name: `Policy for ${sshDomain}`,
+        precedence: 2,
+        zoneId: this.cloudflareZones.zones.get(0).id,
+      }
+    )
 
-    this.tunnel = new cloudflare.tunnel.Tunnel(this, `tunnel_${name}`, {
-      accountId: config.accountId,
-      name: instance.name,
-      secret: this.tunnelSecret.b64Std,
-      configSrc: "cloudflare",
-    })
+    this.tunnel =
+      new cloudflare.zeroTrustTunnelCloudflared.ZeroTrustTunnelCloudflared(
+        this,
+        `tunnel_${name}`,
+        {
+          accountId: config.accountId,
+          name: instance.name,
+          secret: this.tunnelSecret.b64Std,
+          configSrc: "cloudflare",
+        }
+      )
 
     const tunnelDomain = `${
       instance.instance.is_subdomain
@@ -106,78 +116,82 @@ export class Tunnel extends Construct {
     }`
 
     const sshRecord = new cloudflare.record.Record(this, `ssh_app_${name}`, {
+      comment: RecordComment,
+      content: tunnelDomain,
       name: `${
         instance.instance.is_subdomain ? `ssh-${instance.name}` : "ssh"
       }`,
       proxied: true,
       type: "CNAME",
-      value: tunnelDomain,
       zoneId: this.cloudflareZones.zones.get(0).id,
-      comment: RecordComment,
     })
 
     const tunnelRecord = new cloudflare.record.Record(
       this,
       `tunnel_app_${name}`,
       {
+        comment: RecordComment,
+        content: this.tunnel.cname,
         name: `${
           instance.instance.is_subdomain ? `tunnel-${instance.name}` : "tunnel"
         }`,
         proxied: true,
         type: "CNAME",
-        value: this.tunnel.cname,
         zoneId: this.cloudflareZones.zones.get(0).id,
-        comment: RecordComment,
       }
     )
 
-    new cloudflare.tunnelConfig.TunnelConfigA(this, `tunnel_config_${name}`, {
-      accountId: config.accountId,
-      tunnelId: this.tunnel.id,
-      config: {
-        warpRouting: {
-          enabled: true,
+    new cloudflare.zeroTrustTunnelCloudflaredConfig.ZeroTrustTunnelCloudflaredConfigA(
+      this,
+      `tunnel_config_${name}`,
+      {
+        accountId: config.accountId,
+        tunnelId: this.tunnel.id,
+        config: {
+          warpRouting: {
+            enabled: true,
+          },
+          ingressRule: [
+            {
+              hostname: `${sshRecord.hostname}`,
+              service: `ssh://${instance.name}:22`,
+            },
+            {
+              hostname: "*",
+              path: "^/_healthcheck$",
+              service: "http_status:200",
+            },
+            {
+              hostname: "*",
+              path: "^/metrics$",
+              service: "http://localhost:2000",
+            },
+            {
+              hostname: "*",
+              path: "^/ready$",
+              service: "http://localhost:2000",
+            },
+            {
+              hostname: `${tunnelRecord.hostname}`,
+              service: "hello-world",
+            },
+            // Add all custom ingress routes for the current hostname here
+            ...instance.instance.ingress.map((ingress) => ({
+              hostname: `${ingress.hostname}`,
+              path: ingress.path ? ingress.path : undefined,
+              service: ingress.service,
+              // Add all originRequest properties if they exist
+              originRequest: ingress.originRequest
+                ? ingress.originRequest
+                : undefined,
+            })),
+            {
+              service: "http_status:404",
+            },
+          ],
         },
-        ingressRule: [
-          {
-            hostname: `${sshRecord.hostname}`,
-            service: `ssh://${instance.name}:22`,
-          },
-          {
-            hostname: "*",
-            path: "^/_healthcheck$",
-            service: "http_status:200",
-          },
-          {
-            hostname: "*",
-            path: "^/metrics$",
-            service: "http://localhost:2000",
-          },
-          {
-            hostname: "*",
-            path: "^/ready$",
-            service: "http://localhost:2000",
-          },
-          {
-            hostname: `${tunnelRecord.hostname}`,
-            service: "hello-world",
-          },
-          // Add all custom ingress routes for the current hostname here
-          ...instance.instance.ingress.map((ingress) => ({
-            hostname: `${ingress.hostname}`,
-            path: ingress.path ? ingress.path : undefined,
-            service: ingress.service,
-            // Add all originRequest properties if they exist
-            originRequest: ingress.originRequest
-              ? ingress.originRequest
-              : undefined,
-          })),
-          {
-            service: "http_status:404",
-          },
-        ],
-      },
-    })
+      }
+    )
 
     // Make sure a CNAME record exists for each unique ingress hostname
     instance.instance.ingress.forEach((ingress) => {
@@ -219,12 +233,12 @@ export class Tunnel extends Construct {
       }
 
       new cloudflare.record.Record(this, `ingress_record_${name}`, {
+        comment: RecordComment,
+        content: tunnelDomain,
         name: ingress.hostname,
         proxied: true,
         type: "CNAME",
-        value: tunnelDomain,
         zoneId: zoneId,
-        comment: RecordComment,
       })
     })
   }
