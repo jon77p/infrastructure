@@ -130,20 +130,6 @@
           },
         ],
       },
-      cicd: {
-        name: "cicd",
-        domain: "jon77p.xyz",
-        is_subdomain: true,
-        ad_number: 1,
-        region: "us-phoenix-1",
-        // Canonical-Ubuntu-22.04-aarch64-2024.05.31-0
-        // https://docs.oracle.com/en-us/iaas/images/image/73b549bd-1534-404c-968c-78f5cd3275d6/
-        image_id: "ocid1.image.oc1.phx.aaaaaaaahnj5t3jk6za5prnsz3ikp35kjxfbqagxmhbtwbhirmnoghpjukhq",
-        shape: "VM.Standard.A1.Flex",
-        memory: 24,
-        ocpus: 4,
-        ingress: [],
-      },
     },
   },
 }
