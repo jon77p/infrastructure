@@ -580,12 +580,12 @@ __metadata:
   linkType: hard
 
 "@cdktf/provider-cloudflare@npm:^11.19.0":
-  version: 11.19.0
-  resolution: "@cdktf/provider-cloudflare@npm:11.19.0"
+  version: 11.20.0
+  resolution: "@cdktf/provider-cloudflare@npm:11.20.0"
   peerDependencies:
     cdktf: ^0.20.0
     constructs: ^10.3.0
-  checksum: 10c0/053d9fed6ee4a57255425b54b93bc4576ce2f1c074adb29e83e43f4af9d9a44df82a2bb6a6f07e252eeef3ccdca057c2497487ee9342be91009e0a51cba2da42
+  checksum: 10c0/4149c3fedc6954899fe9ecc21ebfd8d29c7f275177a52ec0903302ab72a85d5ea32b3e6e571fdde2456b8b55480183471ecacb87260ff8d80a43d89bbe51d4f1
   languageName: node
   linkType: hard
 
