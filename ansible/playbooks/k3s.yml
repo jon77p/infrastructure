@@ -1,0 +1,5 @@
+---
+- name: Setup k3s
+  hosts: controlplane
+  roles:
+    - k3s

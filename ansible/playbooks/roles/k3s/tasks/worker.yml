@@ -1,0 +1,25 @@
+---
+- name: Fetch tailscale ip for "controlplane-k3s"
+  ansible.builtin.command: "tailscale ip -4 controlplane-k3s"
+  register: k3s_server_ip
+  changed_when: false
+  delegate_to: localhost
+  delegate_facts: true
+
+- name: Fetch tailscale ip for {{ hostname }}
+  ansible.builtin.command: "tailscale ip -4 {{ hostname }}"
+  register: tailscale_ip
+  changed_when: false
+  delegate_to: localhost
+  delegate_facts: true
+
+- name: Join k3s worker {{ hostname }}
+  delegate_to: localhost
+  delegate_facts: true
+  vandot.k3sup.k3sup:
+    k3sup_bin: /opt/homebrew/bin/k3sup
+    action: agent
+    ip: "{{ tailscale_ip.stdout | trim }}"
+    server_ip: "{{ k3s_server_ip.stdout | trim }}"
+    ssh_key: "~/.ssh/proxmox"
+    k3s_version: "{{ k3s_version }}"

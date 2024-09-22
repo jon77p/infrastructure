@@ -1,0 +1,3 @@
+---
+k3s_server_args: "--disable traefik --embedded-registry --node-name controlplane"
+k3s_taint_controlplane: false
