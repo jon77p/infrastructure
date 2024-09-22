@@ -45,6 +45,7 @@
         domain: "jon77p.xyz",
         is_subdomain: true,
         ad_number: 1,
+        use_tunnel: true,
         region: "us-sanjose-1",
         // Canonical-Ubuntu-22.04-2024.05.31-0
         // https://docs.oracle.com/en-us/iaas/images/image/2e489f7c-01c3-4e8a-ae19-4648a1114c26/
@@ -90,6 +91,7 @@
         domain: "jon77p.xyz",
         is_subdomain: true,
         ad_number: 1,
+        use_tunnel: true,
         region: "us-sanjose-1",
         // Canonical-Ubuntu-22.04-2024.05.31-0
         // https://docs.oracle.com/en-us/iaas/images/image/2e489f7c-01c3-4e8a-ae19-4648a1114c26/
@@ -113,6 +115,7 @@
         domain: "jon77p.xyz",
         is_subdomain: true,
         ad_number: 1,
+        use_tunnel: true,
         region: "us-sanjose-1",
         // Canonical-Ubuntu-22.04-2024.05.31-0
         // https://docs.oracle.com/en-us/iaas/images/image/2e489f7c-01c3-4e8a-ae19-4648a1114c26/
@@ -135,6 +138,7 @@
         domain: "thepi.cloud",
         is_subdomain: true,
         ad_number: 1,
+        use_tunnel: false,
         region: "us-phoenix-1",
         // Canonical-Ubuntu-22.04-aarch64-2024.05.31-0
         // https://docs.oracle.com/en-us/iaas/images/image/73b549bd-1534-404c-968c-78f5cd3275d6/
