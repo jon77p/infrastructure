@@ -26,6 +26,7 @@ export interface InstanceConfig {
   domain: string
   is_subdomain: boolean
   ad_number: number
+  use_tunnel: boolean
   region: string
   image_id: string
   shape: string
@@ -102,12 +103,7 @@ export class OCI extends Construct {
         `${name}-${instanceName}-compute`,
         {
           cfConfig,
-          cfSshCertificate: tunnel.sshCertificate,
-          cfTunnel: {
-            name: tunnel.tunnel.name,
-            id: tunnel.tunnel.id,
-            secret: tunnel.tunnelSecret.b64Std,
-          },
+          tunnel: tunnel,
           compartmentId,
           instance: { name: instanceName, instance },
           region: region,

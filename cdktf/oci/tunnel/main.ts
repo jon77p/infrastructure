@@ -24,8 +24,8 @@ export const RecordComment = `Managed by cdktf. {tag=cdktf, repo=https://github.
 export class Tunnel extends Construct {
   public readonly tunnelSecret: random.id.Id
   public readonly cloudflareZones: cloudflare.dataCloudflareZones.DataCloudflareZones
-  public readonly sshCertificate: cloudflare.zeroTrustAccessShortLivedCertificate.ZeroTrustAccessShortLivedCertificate
-  public readonly tunnel: cloudflare.zeroTrustTunnelCloudflared.ZeroTrustTunnelCloudflared
+  public readonly sshCertificate: cloudflare.zeroTrustAccessShortLivedCertificate.ZeroTrustAccessShortLivedCertificate | null
+  public readonly tunnel: cloudflare.zeroTrustTunnelCloudflared.ZeroTrustTunnelCloudflared | null
 
   constructor(scope: Construct, name: string, props: TunnelProps) {
     super(scope, name)
@@ -46,6 +46,12 @@ export class Tunnel extends Construct {
           status: "active",
         },
       })
+
+    if (instance.instance.use_tunnel === false) {
+      this.sshCertificate = null
+      this.tunnel = null
+      return
+    }
 
     const sshDomain = `${
       instance.instance.is_subdomain

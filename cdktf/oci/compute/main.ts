@@ -6,7 +6,7 @@ import { TerraformAsset, Fn, TerraformOutput } from "cdktf"
 import * as path from "path"
 
 import { InstanceConfig, GrafanaConfig } from "../main"
-import { CFConfig } from "../tunnel/main"
+import { CFConfig, Tunnel } from "../tunnel/main"
 
 interface ComputeProps {
   compartmentId: string
@@ -15,16 +15,7 @@ interface ComputeProps {
   instance: { name: string; instance: InstanceConfig }
   subnetId: string
   cfConfig: CFConfig
-  cfTunnel: {
-    id: string
-    name: string
-    secret: string
-  }
-  cfSshCertificate: {
-    id: string
-    aud: string
-    publicKey: string
-  }
+  tunnel: Tunnel
   grafanaConfig: GrafanaConfig
   ociProvider: oci.provider.OciProvider
   tailscale_auth_key: string
@@ -43,8 +34,7 @@ export class Compute extends Construct {
       instance,
       subnetId,
       cfConfig,
-      cfTunnel,
-      cfSshCertificate,
+      tunnel,
       grafanaConfig,
       tailscale_auth_key,
     } = props
@@ -86,6 +76,17 @@ export class Compute extends Construct {
       path: path.resolve(__dirname, "setup.tpl"),
     })
 
+    let cfPublicKey = "unknown"
+    let tunnelID = "unknown"
+    let tunnelName = "unknown"
+    let tunnelSecret = "unknown"
+    if (instance.instance.use_tunnel) {
+      cfPublicKey = tunnel.sshCertificate?.publicKey ?? "unknown"
+      tunnelID = tunnel.tunnel?.id ?? "unknown"
+      tunnelName = tunnel.tunnel?.name ?? "unknown"
+      tunnelSecret = tunnel.tunnelSecret.b64Std
+    }
+
     this.coreInstance = new oci.coreInstance.CoreInstance(
       this,
       "ubuntu_instance",
@@ -104,10 +105,11 @@ export class Compute extends Construct {
           user_data: Fn.base64gzip(
             Fn.templatefile(templateFile.path, {
               cf_account: cfConfig.accountId,
-              cf_tunnel_id: cfTunnel.id,
-              cf_tunnel_name: cfTunnel.name,
-              cf_tunnel_secret: cfTunnel.secret,
-              cf_ssh_certificate: cfSshCertificate.publicKey,
+              use_tunnel: instance.instance.use_tunnel,
+              cf_tunnel_id: tunnelID,
+              cf_tunnel_name: tunnelName,
+              cf_tunnel_secret: tunnelSecret,
+              cf_ssh_certificate: cfPublicKey,
               cf_ssh_username: cfConfig.sshUsername,
               cf_ssh_password: cfConfig.sshPassword,
               grafana_cloud_stack_id: grafanaConfig.stackId,
@@ -124,6 +126,7 @@ export class Compute extends Construct {
           ocpus: instance.instance.ocpus,
         },
         sourceDetails: {
+          isPreserveBootVolumeEnabled: true,
           /*eslint-disable no-useless-escape */
           sourceType: `\${\"${Fn.lengthOf(
             bootVolumes.bootVolumes
