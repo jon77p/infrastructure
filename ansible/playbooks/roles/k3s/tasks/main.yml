@@ -1,0 +1,13 @@
+---
+- name: Install k3s server
+  ansible.builtin.import_tasks:
+    file: server.yml
+  vars:
+    hostname: "{{ inventory_hostname }}"
+  when: inventory_hostname in groups['controlplane']
+- name: Install k3s worker
+  ansible.builtin.import_tasks:
+    file: worker.yml
+  vars:
+    hostname: "{{ inventory_hostname }}-k3s"
+  when: inventory_hostname in groups['workers']
