@@ -1518,9 +1518,9 @@ __metadata:
   linkType: hard
 
 "@xmldom/xmldom@npm:^0.9.0":
-  version: 0.9.2
-  resolution: "@xmldom/xmldom@npm:0.9.2"
-  checksum: 10c0/a449add63f652dfe1fb8d24f793d258ef8ae896eea52b242864d2118b9c659bbadc70bad6175c07f7309920044d48a5544ffce20932cdeb62b44357bbb6eec21
+  version: 0.9.3
+  resolution: "@xmldom/xmldom@npm:0.9.3"
+  checksum: 10c0/542bd992839751d6a0ee3f4b944b94ece387288eceebb85258d8ad5206b610c30939a7ce3c58dd9ddef04e23065462571f256f54c4259a702b91e56262ce6048
   languageName: node
   linkType: hard
 
@@ -2084,9 +2084,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.30001646":
-  version: 1.0.30001660
-  resolution: "caniuse-lite@npm:1.0.30001660"
-  checksum: 10c0/d28900b56c597176d515c3175ca75c454f2d30cb2c09a44d7bdb009bb0c4d8a2557905adb77642889bbe9feb85fbfe9d974c8b8e53521fb4b50ee16ab246104e
+  version: 1.0.30001662
+  resolution: "caniuse-lite@npm:1.0.30001662"
+  checksum: 10c0/4af44610db30b9e63443d984be9d48ab93eef584609b3e87201c10972b9daff0b52674e3ed01f7b7b240460763428a3aa8ef7328d14b76ed31ed464203677007
   languageName: node
   linkType: hard
 
@@ -2472,15 +2472,15 @@ __metadata:
   linkType: hard
 
 "commonmark@npm:^0.31.0, commonmark@npm:^0.31.1":
-  version: 0.31.1
-  resolution: "commonmark@npm:0.31.1"
+  version: 0.31.2
+  resolution: "commonmark@npm:0.31.2"
   dependencies:
     entities: "npm:~3.0.1"
     mdurl: "npm:~1.0.1"
-    minimist: "npm:~1.2.5"
+    minimist: "npm:~1.2.8"
   bin:
     commonmark: bin/commonmark
-  checksum: 10c0/8edd222d3ce0b9b39d23ecb59a92b97efec53bc2abd00fb6fce03db9d0ed0959949945e2a2ab7ab3027321277564bd15f0e9ec31124ddb0912883a54c6d0e08b
+  checksum: 10c0/3328c9a4ef59986baca17ca4c4839134c259900e73ff4257a5c7c519c1de56498056851f912641c1fa4396b2cb3a52322ec71cb88d5d36089825f8c388ce07f7
   languageName: node
   linkType: hard
 
@@ -2819,9 +2819,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.4":
-  version: 1.5.24
-  resolution: "electron-to-chromium@npm:1.5.24"
-  checksum: 10c0/c20a6fc69145c0b470778ee0a952226d3480d611949bea00c9f8ed3bac0a205e5cd8ba76cfa99034d9ee717482741cf1c7e41eb151ccffc933e1eefe501d3bc7
+  version: 1.5.27
+  resolution: "electron-to-chromium@npm:1.5.27"
+  checksum: 10c0/4a057f469a01829884f2a51f3fc60af7e6a718b15009e4875df122fcdf13babea475ba029af1652a6875b4acfca730c48b13caac5d477d648e622699d3b662bf
   languageName: node
   linkType: hard
 
@@ -5252,7 +5252,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimist@npm:>=1.2.2, minimist@npm:^1.2.0, minimist@npm:^1.2.3, minimist@npm:~1.2.5":
+"minimist@npm:>=1.2.2, minimist@npm:^1.2.0, minimist@npm:^1.2.3, minimist@npm:~1.2.8":
   version: 1.2.8
   resolution: "minimist@npm:1.2.8"
   checksum: 10c0/19d3fcdca050087b84c2029841a093691a91259a47def2f18222f41e7645a0b7c44ef4b40e88a1e58a40c84d2ef0ee6047c55594d298146d0eb3f6b737c20ce6
@@ -5404,11 +5404,11 @@ __metadata:
   linkType: hard
 
 "node-abi@npm:^3.3.0":
-  version: 3.67.0
-  resolution: "node-abi@npm:3.67.0"
+  version: 3.68.0
+  resolution: "node-abi@npm:3.68.0"
   dependencies:
     semver: "npm:^7.3.5"
-  checksum: 10c0/72ce2edbdfb84745bc201a4e48aa7146fd88a0d2c80046b6b17f28439c9a7683eab846f40f1e819349c31f7d9331ed5c50d1e741208d938dd5f38b29cab2275e
+  checksum: 10c0/0f20cdb1216485ef399f581fe8fad300f1321cc66e08a7e2e7c6c6a1d89006799c464943e45dae19ec39ba581f6417dff4af21324a09c1e74a4e2fc1bceb0f83
   languageName: node
   linkType: hard
 
@@ -6932,12 +6932,12 @@ __metadata:
   linkType: hard
 
 "typescript@npm:next":
-  version: 5.7.0-dev.20240916
-  resolution: "typescript@npm:5.7.0-dev.20240916"
+  version: 5.7.0-dev.20240922
+  resolution: "typescript@npm:5.7.0-dev.20240922"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/ea7e61073e5dfaf053c48bd9131f41ae9b8614756a56737d87c5cccd1b6d1cde1cf855fe747f3f074b43fb785a14a558a783e2a10291574ee2bfe1bcbaf96d04
+  checksum: 10c0/e04574c6cb9a6cf05cf30db6e5360fb50819a3a3c6f5a26e19bc5aedeacf1fc14b1338913da77dab2f019c627549e7439894339002e1fc08c5b1097cd71c2750
   languageName: node
   linkType: hard
 
@@ -6972,12 +6972,12 @@ __metadata:
   linkType: hard
 
 "typescript@patch:typescript@npm%3Anext#optional!builtin<compat/typescript>":
-  version: 5.7.0-dev.20240916
-  resolution: "typescript@patch:typescript@npm%3A5.7.0-dev.20240916#optional!builtin<compat/typescript>::version=5.7.0-dev.20240916&hash=8c6c40"
+  version: 5.7.0-dev.20240922
+  resolution: "typescript@patch:typescript@npm%3A5.7.0-dev.20240922#optional!builtin<compat/typescript>::version=5.7.0-dev.20240922&hash=8c6c40"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/8da279ba458a5427079f21c8ac0f86003aa69bc7918db2e582b8a2642dc2ed48a109e8cdd6bc788eb8c69ae2b2e1dfa415a8f2b503561361698403b043709230
+  checksum: 10c0/030e275e83c6606e6124f0d83759eac0068432e0fae39feaee96bb52804e6e2d48f147e6bfbada2b813fbbc155357a00efc4f44e59404bf71172f9b2c154b7e5
   languageName: node
   linkType: hard
 
