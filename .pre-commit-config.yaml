@@ -75,7 +75,7 @@ repos:
       - id: gitleaks
   # Python-related hooks
   - repo: https://github.com/pycqa/pylint
-    rev: v3.3.0 # frozen: v3.0.0a6
+    rev: v3.3.1 # frozen: v3.0.0a6
     hooks:
       - id: pylint
         args: ["-rn", "-sn", "--rcfile=.github/lint/.pylintrc"]
