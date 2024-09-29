@@ -26,8 +26,8 @@ permissions:
   issues: read
 
 env:
-  CDKTF_VERSION: 0.20.8
-  TERRAFORM_VERSION: 1.9.5
+  CDKTF_VERSION: 0.20.9
+  TERRAFORM_VERSION: 1.9.6
 
 jobs:
   terraform:
