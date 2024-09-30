@@ -511,9 +511,9 @@
     "@types/node" "*"
 
 "@types/node@*":
-  version "22.7.2"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-22.7.2.tgz#80ed66c0a5025ffa037587fd69a816f29b54e4c7"
-  integrity sha512-866lXSrpGpgyHBZUa2m9YNWqHDjjM0aBTJlNtYaGEw4rqY/dcD7deRVTbBBAJelfA7oaGDbNftXF/TL/A6RgoA==
+  version "22.7.4"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-22.7.4.tgz#e35d6f48dca3255ce44256ddc05dee1c23353fcc"
+  integrity sha512-y+NPi1rFzDs1NdQHHToqeiX2TIS79SWEAw9GYhkkx8bD0ChpfqC+n2j5OXOCpzfojBEBt6DnEnnG9MY0zk1XLg==
   dependencies:
     undici-types "~6.19.2"
 
@@ -525,9 +525,9 @@
     undici-types "~5.26.4"
 
 "@types/node@^20.10.7", "@types/node@^20.4.2":
-  version "20.16.9"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.16.9.tgz#1217c6cc77c4f3aaf4a6c76fb56b790e81e48120"
-  integrity sha512-rkvIVJxsOfBejxK7I0FO5sa2WxFmJCzoDwcd88+fq/CUfynNywTo/1/T6hyFz22CyztsnLS9nVlHOnTI36RH5w==
+  version "20.16.10"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.16.10.tgz#0cc3fdd3daf114a4776f54ba19726a01c907ef71"
+  integrity sha512-vQUKgWTjEIRFCvK6CyriPH3MZYiYlNy0fKiEYHWbcoWLEgs4opurGGKlebrTLqdSMIbXImH6XExNiIyNUv3WpA==
   dependencies:
     undici-types "~6.19.2"
 
@@ -1360,9 +1360,9 @@ fast-glob@^3.3.2:
     micromatch "^4.0.4"
 
 fast-uri@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/fast-uri/-/fast-uri-3.0.1.tgz#cddd2eecfc83a71c1be2cc2ef2061331be8a7134"
-  integrity sha512-MWipKbbYiYI0UC7cl8m/i/IWTqfC8YXsqjzybjddLsFjStroQzsHXkc73JutMvBiXmOvapk+axIl79ig5t55Bw==
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/fast-uri/-/fast-uri-3.0.2.tgz#d78b298cf70fd3b752fd951175a3da6a7b48f024"
+  integrity sha512-GR6f0hD7XXyNJa25Tb9BuIdN0tdr+0BMi6/CJPH3wJO1JjNG3n/VsSw38AwRdKZABm8lGbPfakLRkYzx2V9row==
 
 fastq@^1.6.0:
   version "1.17.1"
@@ -2491,9 +2491,9 @@ p-try@^2.0.0:
   integrity sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ==
 
 package-json-from-dist@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/package-json-from-dist/-/package-json-from-dist-1.0.0.tgz#e501cd3094b278495eb4258d4c9f6d5ac3019f00"
-  integrity sha512-dATvCeZN/8wQsGywez1mzHtTlP22H8OEfPrVMLNr4/eGa+ijtLn/6M5f0dY8UKNrC2O9UCU6SSoG3qRKnt7STw==
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/package-json-from-dist/-/package-json-from-dist-1.0.1.tgz#4f1471a010827a86f94cfd9b0727e36d267de505"
+  integrity sha512-UEZIS3/by4OC8vL3P2dTXRETpebLI2NiI5vIrjaD/5UtrkFX/tNbwjTSRAGC/+7CAo2pIcBaRgWmcBBHcsaCIw==
 
 parse-gitignore@1.0.1:
   version "1.0.1"
@@ -3171,9 +3171,9 @@ type-fest@^0.21.3:
   integrity sha512-t0rzBq87m3fVcduHDUFhKmyyX+9eo6WQjZvf51Ea/M0Q7+T374Jp1aUiyUl0GKxp8M/OETVHSDvmkyPgvX+X2w==
 
 typescript@next:
-  version "5.7.0-dev.20240926"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.7.0-dev.20240926.tgz#83995caf95836b5886bba6d38f420385dd5256ab"
-  integrity sha512-urjGXo3L23oEcK2thBaZ71DdA6My+NeeTuNIUJfYszrplyk//HIgV1yl40S+eQcya4vwmH14dhDDDH4vl4dlng==
+  version "5.7.0-dev.20240929"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.7.0-dev.20240929.tgz#60cdc36d29570e0aed32ec10e3894372b81a6312"
+  integrity sha512-qcghiX+nPjUkCRJW95fqZiemaj+b/2ljt46UliUqjbhbolAX1o1TzavEYuwlv3JHqcBT9WjaPNf8+OyzovyQMw==
 
 typescript@~5.4:
   version "5.4.5"
