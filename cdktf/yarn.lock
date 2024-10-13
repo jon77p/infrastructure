@@ -2501,10 +2501,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"constructs@npm:10.3.0, constructs@npm:^10.3.0":
+"constructs@npm:10.3.0":
   version: 10.3.0
   resolution: "constructs@npm:10.3.0"
   checksum: 10c0/be93ff934f28f2226a674dc18cd608dc7543e2cd6e17e4fbbb55faf80a5ab30b5346bdb18f266ea9b9192438debaafa0b65cad09d67a33a9f84fd8919200ee79
+  languageName: node
+  linkType: hard
+
+"constructs@npm:^10.3.0":
+  version: 10.4.1
+  resolution: "constructs@npm:10.4.1"
+  checksum: 10c0/6abf4c9e19da794bbcef257d1151653ae422281f3925192a14e58164018f8b814ec2a55463fee5b5903b3d37ed79ea63a88e915c0ef91accfbf7e3983dbd2998
   languageName: node
   linkType: hard
 
