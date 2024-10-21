@@ -519,9 +519,9 @@
     "@types/node" "*"
 
 "@types/node@*":
-  version "22.7.5"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-22.7.5.tgz#cfde981727a7ab3611a481510b473ae54442b92b"
-  integrity sha512-jML7s2NAzMWc//QSJ1a3prpk78cOPchGvXJsC3C6R6PSMoooztvRVQEz89gmBTBY1SPMaqo5teB4uNHPdetShQ==
+  version "22.7.7"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-22.7.7.tgz#6cd9541c3dccb4f7e8b141b491443f4a1570e307"
+  integrity sha512-SRxCrrg9CL/y54aiMCG3edPKdprgMVGDXjA3gB8UmmBW5TcXzRUYAh8EWzTnSJFAd1rgImPELza+A3bJ+qxz8Q==
   dependencies:
     undici-types "~6.19.2"
 
@@ -533,9 +533,9 @@
     undici-types "~5.26.4"
 
 "@types/node@^20.10.7", "@types/node@^20.4.2":
-  version "20.16.11"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.16.11.tgz#9b544c3e716b1577ac12e70f9145193f32750b33"
-  integrity sha512-y+cTCACu92FyA5fgQSAI8A1H429g7aSK2HsO7K4XYUWc4dY5IUz55JSDIYT6/VsOLfGy8vmvQYC2hfb0iF16Uw==
+  version "20.16.13"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.16.13.tgz#148c152d757dc73f8d65f0f6f078f39050b85b0c"
+  integrity sha512-GjQ7im10B0labo8ZGXDGROUl9k0BNyDgzfGpb4g/cl+4yYDWVKcozANF4FGr4/p0O/rAkQClM6Wiwkije++1Tg==
   dependencies:
     undici-types "~6.19.2"
 
@@ -1368,9 +1368,9 @@ fast-glob@^3.3.2:
     micromatch "^4.0.4"
 
 fast-uri@^3.0.1:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/fast-uri/-/fast-uri-3.0.2.tgz#d78b298cf70fd3b752fd951175a3da6a7b48f024"
-  integrity sha512-GR6f0hD7XXyNJa25Tb9BuIdN0tdr+0BMi6/CJPH3wJO1JjNG3n/VsSw38AwRdKZABm8lGbPfakLRkYzx2V9row==
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/fast-uri/-/fast-uri-3.0.3.tgz#892a1c91802d5d7860de728f18608a0573142241"
+  integrity sha512-aLrHthzCjH5He4Z2H9YZ+v6Ujb9ocRuW6ZzkJQOrTxleEijANq4v1TsaPaVG1PZcuurEzrLcWRyYBYXD5cEiaw==
 
 fastq@^1.6.0:
   version "1.17.1"
@@ -2379,9 +2379,9 @@ napi-build-utils@^1.0.1:
   integrity sha512-ONmRUqK7zj7DWX0D9ADe03wbwOBZxNAfF20PlGfCWQcD3+/MakShIHrMqx9YwPTfxDdF1zLeL+RGZiR9kGMLdg==
 
 node-abi@^3.3.0:
-  version "3.68.0"
-  resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-3.68.0.tgz#8f37fb02ecf4f43ebe694090dcb52e0c4cc4ba25"
-  integrity sha512-7vbj10trelExNjFSBm5kTvZXXa7pZyKWx9RCKIyqe6I9Ev3IzGpQoqBP3a+cOdxY+pWj6VkP28n/2wWysBHD/A==
+  version "3.71.0"
+  resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-3.71.0.tgz#52d84bbcd8575efb71468fbaa1f9a49b2c242038"
+  integrity sha512-SZ40vRiy/+wRTf21hxkkEjPJZpARzUMVcJoQse2EF8qkUWbbO2z7vd5oA/H6bVH6SZQ5STGcu0KRDS7biNRfxw==
   dependencies:
     semver "^7.3.5"
 
@@ -2555,9 +2555,9 @@ pend@~1.2.0:
   integrity sha512-F3asv42UuXchdzt+xXqfW1OGlVBe+mxa2mqI0pg5yAHZPvFmY3Y6drSf/GQ1A86WgWEN9Kzh/WrgKa6iGcHXLg==
 
 picocolors@^1.0.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/picocolors/-/picocolors-1.1.0.tgz#5358b76a78cde483ba5cef6a9dc9671440b27d59"
-  integrity sha512-TQ92mBOW0l3LeMeyLV6mzy/kWr8lkd/hp3mTg7wYK7zJhuBStmGMBG0BdeDZS/dZx1IukaX6Bk11zcln25o1Aw==
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/picocolors/-/picocolors-1.1.1.tgz#3d321af3eab939b083c8f929a1d12cda81c26b6b"
+  integrity sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==
 
 picomatch@^2.0.4, picomatch@^2.2.1, picomatch@^2.3.1:
   version "2.3.1"
@@ -3131,11 +3131,9 @@ tar-stream@^3.0.0:
     streamx "^2.15.0"
 
 text-decoder@^1.1.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/text-decoder/-/text-decoder-1.2.0.tgz#85f19d4d5088e0b45cd841bdfaeac458dbffeefc"
-  integrity sha512-n1yg1mOj9DNpk3NeZOx7T6jchTbyJS3i3cucbNN6FcdPriMZx7NsgrGpWWdWZZGxD7ES1XB+3uoqHMgOKaN+fg==
-  dependencies:
-    b4a "^1.6.4"
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/text-decoder/-/text-decoder-1.2.1.tgz#e173f5121d97bfa3ff8723429ad5ba92e1ead67e"
+  integrity sha512-x9v3H/lTKIJKQQe7RPQkLfKAnc9lUTkWDypIQgTzPJAq+5/GCDHonmshfvlsNSj58yyshbIJJDLmU15qNERrXQ==
 
 tmp@^0.0.33:
   version "0.0.33"
@@ -3179,9 +3177,9 @@ type-fest@^0.21.3:
   integrity sha512-t0rzBq87m3fVcduHDUFhKmyyX+9eo6WQjZvf51Ea/M0Q7+T374Jp1aUiyUl0GKxp8M/OETVHSDvmkyPgvX+X2w==
 
 typescript@next:
-  version "5.7.0-dev.20241013"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.7.0-dev.20241013.tgz#8ecdfc7eb1e6cb39d8ef69600ea423bfb496b01b"
-  integrity sha512-cRj/qZ4vG7KbpT6Y5EYEZBIYrDbvs6y1nFWZ7YGHnddo9klZtvTpkNlJNvbQiQfc1uDV9LEOMxCPXbXIbnVTpQ==
+  version "5.7.0-dev.20241020"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.7.0-dev.20241020.tgz#2844ec4b07c0c9ef283880eb5a04a71e838335a1"
+  integrity sha512-Fxz1BGn0aMK86l4qEjTCz0D2dS2V1PL5GMjUPISZlxAKDMfuZgu7pOr+HppOgqa0kFDQf77YQ17xKddHJQGbSg==
 
 typescript@~5.4:
   version "5.4.5"
