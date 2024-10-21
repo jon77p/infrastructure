@@ -6945,11 +6945,11 @@ __metadata:
 
 "typescript@patch:typescript@npm%3Anext#optional!builtin<compat/typescript>":
   version: 5.7.0-dev.20241020
-  resolution: "typescript@patch:typescript@npm%3A5.7.0-dev.20241020#optional!builtin<compat/typescript>::version=5.7.0-dev.20241020&hash=8c6c40"
+  resolution: "typescript@patch:typescript@npm%3A5.7.0-dev.20241020#optional!builtin<compat/typescript>::version=5.7.0-dev.20241020&hash=cef18b"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/252132d23e4747aac0ac7bbae344b3fcf21eaf21e934fe90fdf791115db3633620abfa8f690637ae283eba1b818d4950359ebda2da3549bacface06a6bcb8bcf
+  checksum: 10c0/0f0c038add62ff3deb4a8a89e3785c2556ec0e622e58a24ceaf7d46164f9427a18153baf614a6f7b8554718909ea7a2742950088141a4db8455bd8f823a2b670
   languageName: node
   linkType: hard
 
