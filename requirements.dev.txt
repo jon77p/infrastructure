@@ -1,6 +1,6 @@
 pre-commit==4.0.1
 yamllint==1.35.1
-ansible==10.5.0
+ansible==10.6.0
 ansible-lint==24.9.2
 jmespath==1.0.1
 pylint-venv==3.0.4
