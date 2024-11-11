@@ -2063,9 +2063,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.30001669":
-  version: 1.0.30001677
-  resolution: "caniuse-lite@npm:1.0.30001677"
-  checksum: 10c0/22b4aa738b213b5d0bc820c26ba23fa265ca90a5c59776e1a686b9ab6fff9120d0825fd920c0a601a4b65056ef40d01548405feb95c8dd6083255f50c71a0864
+  version: 1.0.30001680
+  resolution: "caniuse-lite@npm:1.0.30001680"
+  checksum: 10c0/11a4e7f6f5d5f965cfd4b7dc4aef34e12a26e99647f02b5ac9fd7f7670845473b95ada416a785473237e4b1b67281f7b043c8736c85b77097f6b697e8950b15f
   languageName: node
   linkType: hard
 
@@ -2557,7 +2557,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-spawn@npm:7.0.3, cross-spawn@npm:^7.0.0, cross-spawn@npm:^7.0.3":
+"cross-spawn@npm:7.0.3":
   version: 7.0.3
   resolution: "cross-spawn@npm:7.0.3"
   dependencies:
@@ -2565,6 +2565,17 @@ __metadata:
     shebang-command: "npm:^2.0.0"
     which: "npm:^2.0.1"
   checksum: 10c0/5738c312387081c98d69c98e105b6327b069197f864a60593245d64c8089c8a0a744e16349281210d56835bb9274130d825a78b2ad6853ca13cfbeffc0c31750
+  languageName: node
+  linkType: hard
+
+"cross-spawn@npm:^7.0.0, cross-spawn@npm:^7.0.3":
+  version: 7.0.5
+  resolution: "cross-spawn@npm:7.0.5"
+  dependencies:
+    path-key: "npm:^3.1.0"
+    shebang-command: "npm:^2.0.0"
+    which: "npm:^2.0.1"
+  checksum: 10c0/aa82ce7ac0814a27e6f2b738c5a7cf1fa21a3558a1e42df449fc96541ba3ba731e4d3ecffa4435348808a86212f287c6f20a1ee551ef1ff95d01cfec5f434944
   languageName: node
   linkType: hard
 
@@ -2764,9 +2775,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.41":
-  version: 1.5.50
-  resolution: "electron-to-chromium@npm:1.5.50"
-  checksum: 10c0/8b77b18ae833bfe2173e346ac33b8d66b5b5acf0cf5de65df9799f4d482334c938aa0950e4d01391d5fab8994f46c0e9059f4517843e7b8d861f9b0c49eb4c5d
+  version: 1.5.55
+  resolution: "electron-to-chromium@npm:1.5.55"
+  checksum: 10c0/1b9e0970a591d342cf4d4c95b63bcdb8bffed01edb7c8baed8dd54ea769c8b33c07484c94a031a20363a8129ca2ad1d612ce4ca55ec831244240ae1e6bcdf07c
   languageName: node
   linkType: hard
 
@@ -4808,11 +4819,11 @@ __metadata:
   linkType: hard
 
 "jsii@npm:~5.4.0":
-  version: 5.4.36
-  resolution: "jsii@npm:5.4.36"
+  version: 5.4.42
+  resolution: "jsii@npm:5.4.42"
   dependencies:
-    "@jsii/check-node": "npm:1.103.1"
-    "@jsii/spec": "npm:^1.103.1"
+    "@jsii/check-node": "npm:1.104.0"
+    "@jsii/spec": "npm:^1.104.0"
     case: "npm:^1.6.3"
     chalk: "npm:^4"
     downlevel-dts: "npm:^0.11.0"
@@ -4826,7 +4837,7 @@ __metadata:
     yargs: "npm:^17.7.2"
   bin:
     jsii: bin/jsii
-  checksum: 10c0/d67ef2e1b7a675073f8e5e506f3d34db412215290927b8376ac24a641aa848c28d9974aaa0589d8a6a4e35872a39f305aadf9e90d2b60eaba38538610eb4a889
+  checksum: 10c0/fd31727ec636610c5f239896eb67c7411f5188341cfbdab535330063915386269a4684b76e2959b3f2e5175dae7f98886b7ba9d314c1baccdd5fdaa3a4c93838
   languageName: node
   linkType: hard
 
@@ -5427,9 +5438,9 @@ __metadata:
   linkType: hard
 
 "object-inspect@npm:^1.13.1":
-  version: 1.13.2
-  resolution: "object-inspect@npm:1.13.2"
-  checksum: 10c0/b97835b4c91ec37b5fd71add84f21c3f1047d1d155d00c0fcd6699516c256d4fcc6ff17a1aced873197fe447f91a3964178fd2a67a1ee2120cdaf60e81a050b4
+  version: 1.13.3
+  resolution: "object-inspect@npm:1.13.3"
+  checksum: 10c0/cc3f15213406be89ffdc54b525e115156086796a515410a8d390215915db9f23c8eab485a06f1297402f440a33715fe8f71a528c1dcbad6e1a3bcaf5a46921d4
   languageName: node
   linkType: hard
 
@@ -6830,12 +6841,12 @@ __metadata:
   linkType: hard
 
 "typescript@npm:next":
-  version: 5.7.0-dev.20241103
-  resolution: "typescript@npm:5.7.0-dev.20241103"
+  version: 5.8.0-dev.20241110
+  resolution: "typescript@npm:5.8.0-dev.20241110"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/e82c7c819ca931a504e6b12beb9d6f6306f12b0723e9012737e80d80f03bbcc44d21bb833f9d64a46813a6f0bde3d194220f462412ef754e717496a34e44f174
+  checksum: 10c0/5a206981ae894208460dd3b22ec7ba472973944262ee7fb1336d5bdb8f20b9dd7df47bc4bc5986fb7262ffa6634ede09e092d0ae0f08f7f4123be5e38d75343d
   languageName: node
   linkType: hard
 
@@ -6870,12 +6881,12 @@ __metadata:
   linkType: hard
 
 "typescript@patch:typescript@npm%3Anext#optional!builtin<compat/typescript>":
-  version: 5.7.0-dev.20241103
-  resolution: "typescript@patch:typescript@npm%3A5.7.0-dev.20241103#optional!builtin<compat/typescript>::version=5.7.0-dev.20241103&hash=cef18b"
+  version: 5.8.0-dev.20241110
+  resolution: "typescript@patch:typescript@npm%3A5.8.0-dev.20241110#optional!builtin<compat/typescript>::version=5.8.0-dev.20241110&hash=cef18b"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/23183653415ca0f19da6fa690236eb7f9ba2344ea88f7e322c0ed7e3c959d6aa5b50e08e1d18ee77dada77417c094d9cbed0aafbf7d1ab5bb31860c679bc0647
+  checksum: 10c0/d49acc877a7e3f55eb10cf6016a6c9942a8acea0ee3541c09be8e83a9343447a517453a5bedee4633d4760e103c438729f0edfa116d3a847cd94bf11fc6ecdab
   languageName: node
   linkType: hard
 
