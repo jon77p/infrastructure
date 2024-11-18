@@ -1089,16 +1089,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jsii/spec@npm:^1.102.0, @jsii/spec@npm:^1.104.0":
-  version: 1.104.0
-  resolution: "@jsii/spec@npm:1.104.0"
-  dependencies:
-    ajv: "npm:^8.17.1"
-  checksum: 10c0/95eb31f9fa41f31b3657beb363e40649a293a33fba5d36d3130971f95e1dd27417fd04eceacef5ae0bc788faffef91c0bda6b533f58f485c5aa85bbfa0acfe9a
-  languageName: node
-  linkType: hard
-
-"@jsii/spec@npm:^1.105.0":
+"@jsii/spec@npm:^1.102.0, @jsii/spec@npm:^1.104.0, @jsii/spec@npm:^1.105.0":
   version: 1.105.0
   resolution: "@jsii/spec@npm:1.105.0"
   dependencies:
@@ -2350,18 +2341,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"codemaker@npm:^1.102.0":
-  version: 1.104.0
-  resolution: "codemaker@npm:1.104.0"
-  dependencies:
-    camelcase: "npm:^6.3.0"
-    decamelize: "npm:^5.0.1"
-    fs-extra: "npm:^10.1.0"
-  checksum: 10c0/2cd73aeb5c5d8414a3788b95bdd88c7e38be56f0aca00f4078aeba6065da81c2ef5c538911544d82996f2a15a76d27619057f1be24717704db7cc7b2e39a7278
-  languageName: node
-  linkType: hard
-
-"codemaker@npm:^1.105.0":
+"codemaker@npm:^1.102.0, codemaker@npm:^1.105.0":
   version: 1.105.0
   resolution: "codemaker@npm:1.105.0"
   dependencies:
@@ -2761,9 +2741,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.41":
-  version: 1.5.55
-  resolution: "electron-to-chromium@npm:1.5.55"
-  checksum: 10c0/1b9e0970a591d342cf4d4c95b63bcdb8bffed01edb7c8baed8dd54ea769c8b33c07484c94a031a20363a8129ca2ad1d612ce4ca55ec831244240ae1e6bcdf07c
+  version: 1.5.62
+  resolution: "electron-to-chromium@npm:1.5.62"
+  checksum: 10c0/93dc628f0359df0cae475cf5e91fa0cf357611f14da7cf15c28fe92f89dede7def20c04b24787e6166181ae582b060d02b252e906d7ec84020485579a95bc8e9
   languageName: node
   linkType: hard
 
@@ -4687,23 +4667,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsii-reflect@npm:^1.102.0":
-  version: 1.104.0
-  resolution: "jsii-reflect@npm:1.104.0"
-  dependencies:
-    "@jsii/check-node": "npm:1.104.0"
-    "@jsii/spec": "npm:^1.104.0"
-    chalk: "npm:^4"
-    fs-extra: "npm:^10.1.0"
-    oo-ascii-tree: "npm:^1.104.0"
-    yargs: "npm:^16.2.0"
-  bin:
-    jsii-tree: bin/jsii-tree
-  checksum: 10c0/32c558698faef936b4c6db14bca3f8a3b25785fb5129303d9a3b520ff9deaf7b953e94713cdce04d971497f8caf4f04521418628355e3cfa7fd622ca31946722
-  languageName: node
-  linkType: hard
-
-"jsii-reflect@npm:^1.105.0":
+"jsii-reflect@npm:^1.102.0, jsii-reflect@npm:^1.105.0":
   version: 1.105.0
   resolution: "jsii-reflect@npm:1.105.0"
   dependencies:
@@ -5487,13 +5451,6 @@ __metadata:
   dependencies:
     mimic-fn: "npm:^2.1.0"
   checksum: 10c0/ffcef6fbb2692c3c40749f31ea2e22677a876daea92959b8a80b521d95cca7a668c884d8b2045d1d8ee7d56796aa405c405462af112a1477594cc63531baeb8f
-  languageName: node
-  linkType: hard
-
-"oo-ascii-tree@npm:^1.104.0":
-  version: 1.104.0
-  resolution: "oo-ascii-tree@npm:1.104.0"
-  checksum: 10c0/e5fab3f423e372b28c21611c8fb9ffc43846ecbda67f3c9c536cbfca79c0941f81c8b3f8d436def0c5e144d0efb7b0d954dda5b7e2078109b6fce155e1765356
   languageName: node
   linkType: hard
 
@@ -6443,16 +6400,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stream-json@npm:^1.8.0":
-  version: 1.9.0
-  resolution: "stream-json@npm:1.9.0"
-  dependencies:
-    stream-chain: "npm:^2.2.5"
-  checksum: 10c0/12bb0e45cdb8ec8fca3a507ac82f2c3827f377f7780887a0d8c111b014e84a361f4d1587eccdbca70d7d3103eeb5672ab501f93e0968ef6f323fc5605c0e357e
-  languageName: node
-  linkType: hard
-
-"stream-json@npm:^1.9.1":
+"stream-json@npm:^1.8.0, stream-json@npm:^1.9.1":
   version: 1.9.1
   resolution: "stream-json@npm:1.9.1"
   dependencies:
@@ -6473,8 +6421,8 @@ __metadata:
   linkType: hard
 
 "streamx@npm:^2.15.0":
-  version: 2.20.1
-  resolution: "streamx@npm:2.20.1"
+  version: 2.20.2
+  resolution: "streamx@npm:2.20.2"
   dependencies:
     bare-events: "npm:^2.2.0"
     fast-fifo: "npm:^1.3.2"
@@ -6483,7 +6431,7 @@ __metadata:
   dependenciesMeta:
     bare-events:
       optional: true
-  checksum: 10c0/34ffa2ee9465d70e18c7e2ba70189720c166d150ab83eb7700304620fa23ff42a69cb37d712ea4b5fc6234d8e74346a88bb4baceb873c6b05e52ac420f8abb4d
+  checksum: 10c0/2ad68b9426e0211c1198b5b5dd7280088793c6792e1f8e2a8fbd2487d483f35ee13b0b46edfa247daad2132d6b0abc21af4eaa4a4c099ff4cd11fcff83e6ce3e
   languageName: node
   linkType: hard
 
@@ -6825,9 +6773,9 @@ __metadata:
   linkType: hard
 
 "type-fest@npm:^4.8.3":
-  version: 4.26.1
-  resolution: "type-fest@npm:4.26.1"
-  checksum: 10c0/d2719ff8d380befe8a3c61068f37f28d6fa2849fd140c5d2f0f143099e371da6856aad7c97e56b83329d45bfe504afe9fd936a7cff600cc0d46aa9ffb008d6c6
+  version: 4.27.0
+  resolution: "type-fest@npm:4.27.0"
+  checksum: 10c0/30c8ebe1219725021f5b5006081bd828c4e915de0de65e9a87065f566a96ece706846b2c874ac04c0dcfdfe6b4ae47ad15d3285c9aab162cb79c026dfb2e7556
   languageName: node
   linkType: hard
 
@@ -6842,12 +6790,12 @@ __metadata:
   linkType: hard
 
 "typescript@npm:next":
-  version: 5.8.0-dev.20241110
-  resolution: "typescript@npm:5.8.0-dev.20241110"
+  version: 5.8.0-dev.20241117
+  resolution: "typescript@npm:5.8.0-dev.20241117"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/5a206981ae894208460dd3b22ec7ba472973944262ee7fb1336d5bdb8f20b9dd7df47bc4bc5986fb7262ffa6634ede09e092d0ae0f08f7f4123be5e38d75343d
+  checksum: 10c0/931825c579e7c104c039e4d88fc90dead32ae0b393158e56677ea5ed8153f659046607340c0612cc039c336b7cdbb77fa65aa48efc5b1e904be54ea0a964d86d
   languageName: node
   linkType: hard
 
@@ -6872,12 +6820,12 @@ __metadata:
   linkType: hard
 
 "typescript@patch:typescript@npm%3Anext#optional!builtin<compat/typescript>":
-  version: 5.8.0-dev.20241110
-  resolution: "typescript@patch:typescript@npm%3A5.8.0-dev.20241110#optional!builtin<compat/typescript>::version=5.8.0-dev.20241110&hash=cef18b"
+  version: 5.8.0-dev.20241117
+  resolution: "typescript@patch:typescript@npm%3A5.8.0-dev.20241117#optional!builtin<compat/typescript>::version=5.8.0-dev.20241117&hash=cef18b"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/d49acc877a7e3f55eb10cf6016a6c9942a8acea0ee3541c09be8e83a9343447a517453a5bedee4633d4760e103c438729f0edfa116d3a847cd94bf11fc6ecdab
+  checksum: 10c0/87bb37d12c43cad76392ef155baa7a49a6756300a471e4f2842b73d42189c3a64ff2dfcd826137823d31d43d48e8c7984f6410ab5385f2d5119af1e4c4875346
   languageName: node
   linkType: hard
 
