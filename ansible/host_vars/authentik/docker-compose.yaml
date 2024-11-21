@@ -29,7 +29,7 @@ services:
     volumes:
       - redis:/data
   server:
-    image: ghcr.io/goauthentik/server:2024.10.3@sha256:1a08745806a552121ce7174d0ff603fb12a3b51e2a9713e3ee6ea79cf8b93b9b
+    image: ghcr.io/goauthentik/server:2024.10.4@sha256:5843c56a56be58dcee8927c705f8c9def0af7189511c0e8e687d430f543b0f6d
     restart: always
     command: server
     environment:
@@ -61,7 +61,7 @@ services:
       - postgresql
       - redis
   worker:
-    image: ghcr.io/goauthentik/server:2024.10.3@sha256:1a08745806a552121ce7174d0ff603fb12a3b51e2a9713e3ee6ea79cf8b93b9b
+    image: ghcr.io/goauthentik/server:2024.10.4@sha256:5843c56a56be58dcee8927c705f8c9def0af7189511c0e8e687d430f543b0f6d
     restart: always
     command: worker
     environment:
