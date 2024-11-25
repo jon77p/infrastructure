@@ -6821,11 +6821,11 @@ __metadata:
 
 "typescript@patch:typescript@npm%3Anext#optional!builtin<compat/typescript>":
   version: 5.8.0-dev.20241117
-  resolution: "typescript@patch:typescript@npm%3A5.8.0-dev.20241117#optional!builtin<compat/typescript>::version=5.8.0-dev.20241117&hash=cef18b"
+  resolution: "typescript@patch:typescript@npm%3A5.8.0-dev.20241117#optional!builtin<compat/typescript>::version=5.8.0-dev.20241117&hash=5786d5"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/87bb37d12c43cad76392ef155baa7a49a6756300a471e4f2842b73d42189c3a64ff2dfcd826137823d31d43d48e8c7984f6410ab5385f2d5119af1e4c4875346
+  checksum: 10c0/852e5d96b23224d6e698a2d634399f5b8fcf10d3324fd9ce6710c7187c6fd347392f804d23df54ce8b965e6a92fae3401a538a73383da0c9aae433c71d8a3752
   languageName: node
   linkType: hard
 
