@@ -2853,6 +2853,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"es-toolkit@npm:^1.22.0":
+  version: 1.27.0
+  resolution: "es-toolkit@npm:1.27.0"
+  dependenciesMeta:
+    "@trivago/prettier-plugin-sort-imports@4.3.0":
+      unplugged: true
+    prettier-plugin-sort-re-exports@0.0.1:
+      unplugged: true
+  checksum: 10c0/c2ac707635237252efd8cade7301cdf313926ad6fabf67fdcf04dca37dbd446247b6c2a350f3081515b1e6ce1c8044f7331ed306124483cfdf4e371ddc944b1f
+  languageName: node
+  linkType: hard
+
 "escalade@npm:^3.1.1, escalade@npm:^3.2.0":
   version: 3.2.0
   resolution: "escalade@npm:3.2.0"
@@ -3676,8 +3688,8 @@ __metadata:
   linkType: hard
 
 "ink@npm:^5.0.1":
-  version: 5.0.1
-  resolution: "ink@npm:5.0.1"
+  version: 5.1.0
+  resolution: "ink@npm:5.1.0"
   dependencies:
     "@alcalzone/ansi-tokenize": "npm:^0.1.3"
     ansi-escapes: "npm:^7.0.0"
@@ -3688,20 +3700,20 @@ __metadata:
     cli-cursor: "npm:^4.0.0"
     cli-truncate: "npm:^4.0.0"
     code-excerpt: "npm:^4.0.0"
+    es-toolkit: "npm:^1.22.0"
     indent-string: "npm:^5.0.0"
-    is-in-ci: "npm:^0.1.0"
-    lodash: "npm:^4.17.21"
+    is-in-ci: "npm:^1.0.0"
     patch-console: "npm:^2.0.0"
     react-reconciler: "npm:^0.29.0"
     scheduler: "npm:^0.23.0"
     signal-exit: "npm:^3.0.7"
     slice-ansi: "npm:^7.1.0"
     stack-utils: "npm:^2.0.6"
-    string-width: "npm:^7.0.0"
-    type-fest: "npm:^4.8.3"
+    string-width: "npm:^7.2.0"
+    type-fest: "npm:^4.27.0"
     widest-line: "npm:^5.0.0"
     wrap-ansi: "npm:^9.0.0"
-    ws: "npm:^8.15.0"
+    ws: "npm:^8.18.0"
     yoga-wasm-web: "npm:~0.3.3"
   peerDependencies:
     "@types/react": ">=18.0.0"
@@ -3712,7 +3724,7 @@ __metadata:
       optional: true
     react-devtools-core:
       optional: true
-  checksum: 10c0/3cb2eabe7a42e35e70b5f41d88b06465fb6685168de5244d015ef82f8cf1fa85b7c5a190331b66496decac041e792ff9854143bed1089bf15aa98e55a9055a0c
+  checksum: 10c0/2d86c329eb4998bb47801eb3f908f37ac9c5c6dea5ac321963f79d4446047baa8bda29a2efa247e816d796a8c7865334c0ed0f27bb38cfc0dcd721c07036db46
   languageName: node
   linkType: hard
 
@@ -3890,12 +3902,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-in-ci@npm:^0.1.0":
-  version: 0.1.0
-  resolution: "is-in-ci@npm:0.1.0"
+"is-in-ci@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "is-in-ci@npm:1.0.0"
   bin:
     is-in-ci: cli.js
-  checksum: 10c0/0895b6ecf8abc18a07611382184a3fbe2a8424c11e8a6fd915fcee950d7027d6a3734068636c86bc084828465bf2878fdcd60a8f4fe06d70ff42e10f5cf8bb73
+  checksum: 10c0/98f9cec4c35aece4cf731abf35ebf28359a9b0324fac810da05b842515d9ccb33b8999c1d9a679f0362e1a4df3292065c38d7f86327b1387fa667bc0150f4898
   languageName: node
   linkType: hard
 
@@ -4970,7 +4982,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:^4.17.15, lodash@npm:^4.17.20, lodash@npm:^4.17.21":
+"lodash@npm:^4.17.15, lodash@npm:^4.17.20":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: 10c0/d8cbea072bb08655bb4c989da418994b073a608dffa608b09ac04b43a791b12aeae7cd7ad919aa4c925f33b48490b5cfe6c1f71d827956071dae2e7bb3a6b74c
@@ -6457,7 +6469,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"string-width@npm:^7.0.0":
+"string-width@npm:^7.0.0, string-width@npm:^7.2.0":
   version: 7.2.0
   resolution: "string-width@npm:7.2.0"
   dependencies:
@@ -6762,10 +6774,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-fest@npm:^4.8.3":
-  version: 4.28.0
-  resolution: "type-fest@npm:4.28.0"
-  checksum: 10c0/fbaf766ae002c2b97e22cd1f48f20d6ff05915f25cf04632591e9ab52ee716cf38b9554f6198625c07e3e8bdf5277c284f8889cfe1fbea6fc19374706f2c75f8
+"type-fest@npm:^4.27.0":
+  version: 4.29.0
+  resolution: "type-fest@npm:4.29.0"
+  checksum: 10c0/de11f04e141e4dd2caf8ba9cb4894955f73d60c06303f93836feea66f162166a2d66e81e7aca270721627cdc7fef2d248b21917fe1346598a66c3d6b856d2d7f
   languageName: node
   linkType: hard
 
@@ -7139,7 +7151,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ws@npm:^8.15.0":
+"ws@npm:^8.18.0":
   version: 8.18.0
   resolution: "ws@npm:8.18.0"
   peerDependencies:
