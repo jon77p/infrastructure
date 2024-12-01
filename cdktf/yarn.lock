@@ -4709,8 +4709,8 @@ __metadata:
   linkType: hard
 
 "jsii-rosetta@npm:^5.5.5":
-  version: 5.6.1
-  resolution: "jsii-rosetta@npm:5.6.1"
+  version: 5.7.0
+  resolution: "jsii-rosetta@npm:5.7.0"
   dependencies:
     "@jsii/check-node": "npm:1.105.0"
     "@jsii/spec": "npm:^1.105.0"
@@ -4718,16 +4718,16 @@ __metadata:
     chalk: "npm:^4"
     commonmark: "npm:^0.31.2"
     fast-glob: "npm:^3.3.2"
-    jsii: "npm:~5.6.0"
+    jsii: "npm:~5.7.0"
     semver: "npm:^7.6.3"
     semver-intersect: "npm:^1.5.0"
     stream-json: "npm:^1.9.1"
-    typescript: "npm:~5.6"
+    typescript: "npm:~5.7"
     workerpool: "npm:^6.5.1"
     yargs: "npm:^17.7.2"
   bin:
     jsii-rosetta: bin/jsii-rosetta
-  checksum: 10c0/8650e2322e6aa7ea8dd5d33d94514e84b7f60291a19dbcbf1fc9d254a9408450fbe3d578c55dbb10384a9a49c5b7f4669fc71e610587070049beac25073faf24
+  checksum: 10c0/031b2c4f8d7abe980ccb376755225d109e2e52afd524a0a7aa82dd1311bd1d89f36107437a79ec8add74fce56c2144a447ac551b02ee50197b314adaca349262
   languageName: node
   linkType: hard
 
@@ -4754,7 +4754,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsii@npm:^5.5.4":
+"jsii@npm:^5.5.4, jsii@npm:~5.7.0":
   version: 5.7.0
   resolution: "jsii@npm:5.7.0"
   dependencies:
@@ -4796,28 +4796,6 @@ __metadata:
   bin:
     jsii: bin/jsii
   checksum: 10c0/9738d61f418c5bd0b8b3a3a7d2a0dddd0e7acfa5d19ec943f121800751e5ede1ddeeccdd6b1c7ef49e885c5ad2ebfd9400790d1918c7afb745cd815f3ea9dcd5
-  languageName: node
-  linkType: hard
-
-"jsii@npm:~5.6.0":
-  version: 5.6.1
-  resolution: "jsii@npm:5.6.1"
-  dependencies:
-    "@jsii/check-node": "npm:1.105.0"
-    "@jsii/spec": "npm:^1.105.0"
-    case: "npm:^1.6.3"
-    chalk: "npm:^4"
-    fast-deep-equal: "npm:^3.1.3"
-    log4js: "npm:^6.9.1"
-    semver: "npm:^7.6.3"
-    semver-intersect: "npm:^1.5.0"
-    sort-json: "npm:^2.0.1"
-    spdx-license-list: "npm:^6.9.0"
-    typescript: "npm:~5.6"
-    yargs: "npm:^17.7.2"
-  bin:
-    jsii: bin/jsii
-  checksum: 10c0/15e0d7faf41d3141b89c4470c46e39fab9c498163bed8f50551019c76697c55e1a93add90ba75c8e82b92897e9f2bd5c283a33ce12b0d7088bdd3015851e37bc
   languageName: node
   linkType: hard
 
@@ -6833,16 +6811,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:~5.6":
-  version: 5.6.3
-  resolution: "typescript@npm:5.6.3"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 10c0/44f61d3fb15c35359bc60399cb8127c30bae554cd555b8e2b46d68fa79d680354b83320ad419ff1b81a0bdf324197b29affe6cc28988cd6a74d4ac60c94f9799
-  languageName: node
-  linkType: hard
-
 "typescript@patch:typescript@npm%3A^5.6.2#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A~5.7#optional!builtin<compat/typescript>":
   version: 5.7.2
   resolution: "typescript@patch:typescript@npm%3A5.7.2#optional!builtin<compat/typescript>::version=5.7.2&hash=5786d5"
@@ -6870,16 +6838,6 @@ __metadata:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 10c0/db2ad2a16ca829f50427eeb1da155e7a45e598eec7b086d8b4e8ba44e5a235f758e606d681c66992230d3fc3b8995865e5fd0b22a2c95486d0b3200f83072ec9
-  languageName: node
-  linkType: hard
-
-"typescript@patch:typescript@npm%3A~5.6#optional!builtin<compat/typescript>":
-  version: 5.6.3
-  resolution: "typescript@patch:typescript@npm%3A5.6.3#optional!builtin<compat/typescript>::version=5.6.3&hash=8c6c40"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 10c0/7c9d2e07c81226d60435939618c91ec2ff0b75fbfa106eec3430f0fcf93a584bc6c73176676f532d78c3594fe28a54b36eb40b3d75593071a7ec91301533ace7
   languageName: node
   linkType: hard
 
