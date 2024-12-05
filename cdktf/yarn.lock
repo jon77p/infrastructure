@@ -4713,8 +4713,8 @@ __metadata:
   linkType: hard
 
 "jsii-rosetta@npm:^5.5.5":
-  version: 5.7.0
-  resolution: "jsii-rosetta@npm:5.7.0"
+  version: 5.7.1
+  resolution: "jsii-rosetta@npm:5.7.1"
   dependencies:
     "@jsii/check-node": "npm:1.105.0"
     "@jsii/spec": "npm:^1.105.0"
@@ -4731,7 +4731,7 @@ __metadata:
     yargs: "npm:^17.7.2"
   bin:
     jsii-rosetta: bin/jsii-rosetta
-  checksum: 10c0/031b2c4f8d7abe980ccb376755225d109e2e52afd524a0a7aa82dd1311bd1d89f36107437a79ec8add74fce56c2144a447ac551b02ee50197b314adaca349262
+  checksum: 10c0/76e1dd20ccbcce44d23174feb9be2871e77c1381fe6e5ee78e540e8925e8cb0a6a526f6f984ea80499005d736ff43e6400393898f7a28cd5209550bed18cc531
   languageName: node
   linkType: hard
 
@@ -4759,8 +4759,8 @@ __metadata:
   linkType: hard
 
 "jsii@npm:^5.5.4, jsii@npm:~5.7.0":
-  version: 5.7.0
-  resolution: "jsii@npm:5.7.0"
+  version: 5.7.1
+  resolution: "jsii@npm:5.7.1"
   dependencies:
     "@jsii/check-node": "npm:1.105.0"
     "@jsii/spec": "npm:^1.105.0"
@@ -4776,13 +4776,13 @@ __metadata:
     yargs: "npm:^17.7.2"
   bin:
     jsii: bin/jsii
-  checksum: 10c0/87a4b3874f99cc26b067cda635d757d26b36eb95f569b77833b0db921cd1cb89f7a1bcf6fc4206d15945517b7848ac14f52f802e3809dc50d0befcc8f9a1bb44
+  checksum: 10c0/5994b91ad5f1e4022748cb9fb0c6829fef7d7d3329abbe9a80295c586648b736de52f6128be7633689554739d9d2cf6a80d2d7ae860a45d3e3fb883044f25988
   languageName: node
   linkType: hard
 
 "jsii@npm:~5.4.0":
-  version: 5.4.43
-  resolution: "jsii@npm:5.4.43"
+  version: 5.4.44
+  resolution: "jsii@npm:5.4.44"
   dependencies:
     "@jsii/check-node": "npm:1.105.0"
     "@jsii/spec": "npm:^1.105.0"
@@ -4799,7 +4799,7 @@ __metadata:
     yargs: "npm:^17.7.2"
   bin:
     jsii: bin/jsii
-  checksum: 10c0/9738d61f418c5bd0b8b3a3a7d2a0dddd0e7acfa5d19ec943f121800751e5ede1ddeeccdd6b1c7ef49e885c5ad2ebfd9400790d1918c7afb745cd815f3ea9dcd5
+  checksum: 10c0/ef23904870cbdb18da71ab791f39f3abe19b99e2a6a3f38f7dc93387f2d85cbf745e48a076e88d7a9eb0a2ea8043c95f1a9a059ea6778d7f53c17be4b20dfd14
   languageName: node
   linkType: hard
 
