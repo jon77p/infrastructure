@@ -547,12 +547,12 @@ __metadata:
   linkType: hard
 
 "@cdktf/provider-cloudflare@npm:^11.19.0":
-  version: 11.26.0
-  resolution: "@cdktf/provider-cloudflare@npm:11.26.0"
+  version: 11.27.1
+  resolution: "@cdktf/provider-cloudflare@npm:11.27.1"
   peerDependencies:
     cdktf: ^0.20.0
     constructs: ^10.3.0
-  checksum: 10c0/c6afd1e6782867b697cb7728ea0ff49a1130323d4eb1c0c834f316783de8fa936b625a6d8a35a4f0d59b82e1e9cf3a3177dda6bffd66eedbd6450f7b50c9fcd4
+  checksum: 10c0/a0073c75ac39fcf236907e6d48d11080335bede439a0063d7edbac85576d2d7676a482c17689e710e13beb9d430a80cf60d915c6aab350f13438d199832b5137
   languageName: node
   linkType: hard
 
