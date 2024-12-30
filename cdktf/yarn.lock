@@ -2784,9 +2784,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.73":
-  version: 1.5.75
-  resolution: "electron-to-chromium@npm:1.5.75"
-  checksum: 10c0/df769b7a5e9895a8ba8eb7f31b9525a0e00b8aef6e3ecab3faebe90756fc9ac008dddb8d9a2a78d2079cbaebd27da6e1379f77e910163f405bb1a3d622ec4276
+  version: 1.5.76
+  resolution: "electron-to-chromium@npm:1.5.76"
+  checksum: 10c0/5a977be9fd5810769a7b4eae0e4b41b6beca65f2b3f3b7442819f6c93366d767d183cfbf408714f944a9bf3aa304f8c9ab9d0cdfd8e878ab8f2cbb61f8b22acd
   languageName: node
   linkType: hard
 
@@ -2914,14 +2914,14 @@ __metadata:
   linkType: hard
 
 "es-toolkit@npm:^1.22.0":
-  version: 1.30.1
-  resolution: "es-toolkit@npm:1.30.1"
+  version: 1.31.0
+  resolution: "es-toolkit@npm:1.31.0"
   dependenciesMeta:
     "@trivago/prettier-plugin-sort-imports@4.3.0":
       unplugged: true
     prettier-plugin-sort-re-exports@0.0.1:
       unplugged: true
-  checksum: 10c0/679f528d59862ca2187604d2e7008569a474467a2b2ea752923fd7a36652c748705d1ee37a36f3fd76d4c267e6ae149d917b9384ff18e1ba79f44f5f0c740c39
+  checksum: 10c0/51db787e41b1cca12c819caa2f7a1326e7277f127ae4f344c7f6c7a8f0e2af0a0fc5ccb4fed316890e1ebc3302bcb5ce3eb480cc221386a546d67129d1d46f23
   languageName: node
   linkType: hard
 
@@ -3091,11 +3091,11 @@ __metadata:
   linkType: hard
 
 "fastq@npm:^1.6.0":
-  version: 1.17.1
-  resolution: "fastq@npm:1.17.1"
+  version: 1.18.0
+  resolution: "fastq@npm:1.18.0"
   dependencies:
     reusify: "npm:^1.0.4"
-  checksum: 10c0/1095f16cea45fb3beff558bb3afa74ca7a9250f5a670b65db7ed585f92b4b48381445cd328b3d87323da81e43232b5d5978a8201bde84e0cd514310f1ea6da34
+  checksum: 10c0/7be87ecc41762adbddf558d24182f50a4b1a3ef3ee807d33b7623da7aee5faecdcc94fce5aa13fe91df93e269f383232bbcdb2dc5338cd1826503d6063221f36
   languageName: node
   linkType: hard
 
@@ -6883,9 +6883,9 @@ __metadata:
   linkType: hard
 
 "type-fest@npm:^4.27.0":
-  version: 4.30.2
-  resolution: "type-fest@npm:4.30.2"
-  checksum: 10c0/c28db60ff57223fb23180e66bd9652fb3197fb533e9360f9ee76e66c3ccb6849b292df5e8fa5897f215f6685357dd31c946511da56be549cb5de9d42ac9ea67d
+  version: 4.31.0
+  resolution: "type-fest@npm:4.31.0"
+  checksum: 10c0/a5bb69e3b0f82e068af8c645ac3d50b1fa5c588ebc83735a6add4ef6dacf277bb3605801f66c72c069af20120ee7387a3ae6dd84e12c152f5982784c710b4051
   languageName: node
   linkType: hard
 
@@ -6900,12 +6900,12 @@ __metadata:
   linkType: hard
 
 "typescript@npm:next":
-  version: 5.8.0-dev.20241222
-  resolution: "typescript@npm:5.8.0-dev.20241222"
+  version: 5.8.0-dev.20241229
+  resolution: "typescript@npm:5.8.0-dev.20241229"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/bcd713c058d5b3db257d12f337d9339a2bcab2c273bda0fe25a8e5e9fbb8281646c645fc846fe075a3a709326f77c202b61042b34a83679b3a1c2950e63067e4
+  checksum: 10c0/e4c0557b207c15cac1eaf83b286b2d2ce7cc05e44c3635e7aa5d580a0382ff62a3486e69bf8dfc2eed52097562f461039150ffd006fd9d50ecb69be1fc97266f
   languageName: node
   linkType: hard
 
@@ -6930,12 +6930,12 @@ __metadata:
   linkType: hard
 
 "typescript@patch:typescript@npm%3Anext#optional!builtin<compat/typescript>":
-  version: 5.8.0-dev.20241222
-  resolution: "typescript@patch:typescript@npm%3A5.8.0-dev.20241222#optional!builtin<compat/typescript>::version=5.8.0-dev.20241222&hash=5786d5"
+  version: 5.8.0-dev.20241229
+  resolution: "typescript@patch:typescript@npm%3A5.8.0-dev.20241229#optional!builtin<compat/typescript>::version=5.8.0-dev.20241229&hash=5786d5"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/5b6b12e4fdd8a954624ea5d4a2d82fb3e3f941b881239b72798e9dfd4bb1e5b0e68ab6523449af080a82615c0237c8924f51f492e3c6618711e4d054a38290b3
+  checksum: 10c0/bd3c6c93c09806fe400dda1ba3f7774286037ae8b9094b3a136a76697e88540faa8d015bb098057d1ed3cda6ed6686b30a463ef76a8c52ad46cdac84d670a4e8
   languageName: node
   linkType: hard
 
