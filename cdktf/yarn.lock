@@ -1101,16 +1101,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jsii/check-node@npm:1.105.0":
-  version: 1.105.0
-  resolution: "@jsii/check-node@npm:1.105.0"
-  dependencies:
-    chalk: "npm:^4.1.2"
-    semver: "npm:^7.6.3"
-  checksum: 10c0/76f799e0c538f6fef5c5e0694f74ff257eb20290d9f44d4c83d4dac883406d8840034d5526e843a760cdfc5f8e26fac25ad8f2ba46543729f2f4f456a92aca2d
-  languageName: node
-  linkType: hard
-
 "@jsii/check-node@npm:1.106.0":
   version: 1.106.0
   resolution: "@jsii/check-node@npm:1.106.0"
@@ -1121,7 +1111,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jsii/spec@npm:^1.102.0, @jsii/spec@npm:^1.105.0, @jsii/spec@npm:^1.106.0":
+"@jsii/spec@npm:^1.102.0, @jsii/spec@npm:^1.106.0":
   version: 1.106.0
   resolution: "@jsii/spec@npm:1.106.0"
   dependencies:
@@ -1879,9 +1869,9 @@ __metadata:
   linkType: hard
 
 "bare-events@npm:^2.2.0":
-  version: 2.5.0
-  resolution: "bare-events@npm:2.5.0"
-  checksum: 10c0/afbeec4e8be4d93fb4a3be65c3b4a891a2205aae30b5a38fafd42976cc76cf30dad348963fe330a0d70186e15dc507c11af42c89af5dddab2a54e5aff02e2896
+  version: 2.5.1
+  resolution: "bare-events@npm:2.5.1"
+  checksum: 10c0/7ea9c491ff3a51cc2c7ea2ac8d459c7db2408bc31bc82cac73ba45a466f0e223194771782fa410cbe00b6553b67e7947f2d830c355b53922972ade20397e7abf
   languageName: node
   linkType: hard
 
@@ -2754,7 +2744,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dunder-proto@npm:^1.0.0":
+"dunder-proto@npm:^1.0.1":
   version: 1.0.1
   resolution: "dunder-proto@npm:1.0.1"
   dependencies:
@@ -3064,15 +3054,15 @@ __metadata:
   linkType: hard
 
 "fast-glob@npm:^3.3.2":
-  version: 3.3.2
-  resolution: "fast-glob@npm:3.3.2"
+  version: 3.3.3
+  resolution: "fast-glob@npm:3.3.3"
   dependencies:
     "@nodelib/fs.stat": "npm:^2.0.2"
     "@nodelib/fs.walk": "npm:^1.2.3"
     glob-parent: "npm:^5.1.2"
     merge2: "npm:^1.3.0"
-    micromatch: "npm:^4.0.4"
-  checksum: 10c0/42baad7b9cd40b63e42039132bde27ca2cb3a4950d0a0f9abe4639ea1aa9d3e3b40f98b1fe31cbc0cc17b664c9ea7447d911a152fa34ec5b72977b125a6fc845
+    micromatch: "npm:^4.0.8"
+  checksum: 10c0/f6aaa141d0d3384cf73cbcdfc52f475ed293f6d5b65bfc5def368b09163a9f7e5ec2b3014d80f733c405f58e470ee0cc451c2937685045cddcdeaa24199c43fe
   languageName: node
   linkType: hard
 
@@ -3084,9 +3074,9 @@ __metadata:
   linkType: hard
 
 "fast-uri@npm:^3.0.1":
-  version: 3.0.3
-  resolution: "fast-uri@npm:3.0.3"
-  checksum: 10c0/4b2c5ce681a062425eae4f15cdc8fc151fd310b2f69b1f96680677820a8b49c3cd6e80661a406e19d50f0c40a3f8bffdd458791baf66f4a879d80be28e10a320
+  version: 3.0.4
+  resolution: "fast-uri@npm:3.0.4"
+  checksum: 10c0/802969cd9902678026021e8cc2df7cab989bee56a094f17f38b39908ac422b48ed05288042b60f472479c4a4311ba021fc7266de5cfde7ed5ec7538b8b910ada
   languageName: node
   linkType: hard
 
@@ -3310,20 +3300,20 @@ __metadata:
   linkType: hard
 
 "get-intrinsic@npm:^1.1.3, get-intrinsic@npm:^1.2.2, get-intrinsic@npm:^1.2.4, get-intrinsic@npm:^1.2.5, get-intrinsic@npm:^1.2.6":
-  version: 1.2.6
-  resolution: "get-intrinsic@npm:1.2.6"
+  version: 1.2.7
+  resolution: "get-intrinsic@npm:1.2.7"
   dependencies:
     call-bind-apply-helpers: "npm:^1.0.1"
-    dunder-proto: "npm:^1.0.0"
     es-define-property: "npm:^1.0.1"
     es-errors: "npm:^1.3.0"
     es-object-atoms: "npm:^1.0.0"
     function-bind: "npm:^1.1.2"
+    get-proto: "npm:^1.0.0"
     gopd: "npm:^1.2.0"
     has-symbols: "npm:^1.1.0"
     hasown: "npm:^2.0.2"
-    math-intrinsics: "npm:^1.0.0"
-  checksum: 10c0/0f1ea6d807d97d074e8a31ac698213a12757fcfa9a8f4778263d2e4702c40fe83198aadd3dba2e99aabc2e4cf8a38345545dbb0518297d3df8b00b56a156c32a
+    math-intrinsics: "npm:^1.1.0"
+  checksum: 10c0/b475dec9f8bff6f7422f51ff4b7b8d0b68e6776ee83a753c1d627e3008c3442090992788038b37eff72e93e43dceed8c1acbdf2d6751672687ec22127933080d
   languageName: node
   linkType: hard
 
@@ -3331,6 +3321,16 @@ __metadata:
   version: 0.1.0
   resolution: "get-package-type@npm:0.1.0"
   checksum: 10c0/e34cdf447fdf1902a1f6d5af737eaadf606d2ee3518287abde8910e04159368c268568174b2e71102b87b26c2020486f126bfca9c4fb1ceb986ff99b52ecd1be
+  languageName: node
+  linkType: hard
+
+"get-proto@npm:^1.0.0, get-proto@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "get-proto@npm:1.0.1"
+  dependencies:
+    dunder-proto: "npm:^1.0.1"
+    es-object-atoms: "npm:^1.0.0"
+  checksum: 10c0/9224acb44603c5526955e83510b9da41baf6ae73f7398875fba50edc5e944223a89c4a72b070fcd78beb5f7bdda58ecb6294adc28f7acfc0da05f76a2399643c
   languageName: node
   linkType: hard
 
@@ -4825,11 +4825,11 @@ __metadata:
   linkType: hard
 
 "jsii@npm:~5.4.0":
-  version: 5.4.46
-  resolution: "jsii@npm:5.4.46"
+  version: 5.4.47
+  resolution: "jsii@npm:5.4.47"
   dependencies:
-    "@jsii/check-node": "npm:1.105.0"
-    "@jsii/spec": "npm:^1.105.0"
+    "@jsii/check-node": "npm:1.106.0"
+    "@jsii/spec": "npm:^1.106.0"
     case: "npm:^1.6.3"
     chalk: "npm:^4"
     downlevel-dts: "npm:^0.11.0"
@@ -4843,7 +4843,7 @@ __metadata:
     yargs: "npm:^17.7.2"
   bin:
     jsii: bin/jsii
-  checksum: 10c0/363727f047107eaf5d03b674db53e41cc1051f3643f6e4ad5e50e1c96a3ad21681156377db43a3a382b02bd4c0eb56c81f14dfadf2eb00d8b4f034456182d558
+  checksum: 10c0/55e3ff766cb2f7d4803c3e153d5e14b972b80e240d58d3e55cd0dedcf5310393b83a428ba613d8da101615753cbccb05db0826c48b02a43935e16c0d598d42a0
   languageName: node
   linkType: hard
 
@@ -5121,7 +5121,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"math-intrinsics@npm:^1.0.0":
+"math-intrinsics@npm:^1.1.0":
   version: 1.1.0
   resolution: "math-intrinsics@npm:1.1.0"
   checksum: 10c0/7579ff94e899e2f76ab64491d76cf606274c874d8f2af4a442c016bd85688927fcfca157ba6bf74b08e9439dc010b248ce05b96cc7c126a354c3bae7fcb48b7f
@@ -5149,7 +5149,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"micromatch@npm:^4.0.4":
+"micromatch@npm:^4.0.4, micromatch@npm:^4.0.8":
   version: 4.0.8
   resolution: "micromatch@npm:4.0.8"
   dependencies:
@@ -5959,14 +5959,16 @@ __metadata:
   linkType: hard
 
 "regexp.prototype.flags@npm:^1.5.1":
-  version: 1.5.3
-  resolution: "regexp.prototype.flags@npm:1.5.3"
+  version: 1.5.4
+  resolution: "regexp.prototype.flags@npm:1.5.4"
   dependencies:
-    call-bind: "npm:^1.0.7"
+    call-bind: "npm:^1.0.8"
     define-properties: "npm:^1.2.1"
     es-errors: "npm:^1.3.0"
+    get-proto: "npm:^1.0.1"
+    gopd: "npm:^1.2.0"
     set-function-name: "npm:^2.0.2"
-  checksum: 10c0/e1a7c7dc42cc91abf73e47a269c4b3a8f225321b7f617baa25821f6a123a91d23a73b5152f21872c566e699207e1135d075d2251cd3e84cc96d82a910adf6020
+  checksum: 10c0/83b88e6115b4af1c537f8dabf5c3744032cb875d63bc05c288b1b8c0ef37cbe55353f95d8ca817e8843806e3e150b118bc624e4279b24b4776b4198232735a77
   languageName: node
   linkType: hard
 
@@ -6900,12 +6902,12 @@ __metadata:
   linkType: hard
 
 "typescript@npm:next":
-  version: 5.8.0-dev.20241229
-  resolution: "typescript@npm:5.8.0-dev.20241229"
+  version: 5.8.0-dev.20250105
+  resolution: "typescript@npm:5.8.0-dev.20250105"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/e4c0557b207c15cac1eaf83b286b2d2ce7cc05e44c3635e7aa5d580a0382ff62a3486e69bf8dfc2eed52097562f461039150ffd006fd9d50ecb69be1fc97266f
+  checksum: 10c0/3dcac81b29155592908ace176a45b572d2080133b45da2abee838d82d3429ba6c5b98b41b290834620b89b0dacd3629efb3186dc37c7cefef4ffa2ca48e9fc2c
   languageName: node
   linkType: hard
 
@@ -6930,12 +6932,12 @@ __metadata:
   linkType: hard
 
 "typescript@patch:typescript@npm%3Anext#optional!builtin<compat/typescript>":
-  version: 5.8.0-dev.20241229
-  resolution: "typescript@patch:typescript@npm%3A5.8.0-dev.20241229#optional!builtin<compat/typescript>::version=5.8.0-dev.20241229&hash=5786d5"
+  version: 5.8.0-dev.20250105
+  resolution: "typescript@patch:typescript@npm%3A5.8.0-dev.20250105#optional!builtin<compat/typescript>::version=5.8.0-dev.20250105&hash=5786d5"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/bd3c6c93c09806fe400dda1ba3f7774286037ae8b9094b3a136a76697e88540faa8d015bb098057d1ed3cda6ed6686b30a463ef76a8c52ad46cdac84d670a4e8
+  checksum: 10c0/d21730c926c873f69d538dcf2ddcb5aff181586dc4d9562e7d04dc7c74de01723da8279da27c6e77a7e14530c5b1d06515a4b1fd7da87debdd7e873aaa400ada
   languageName: node
   linkType: hard
 
