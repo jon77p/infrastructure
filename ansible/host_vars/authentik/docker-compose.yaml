@@ -17,7 +17,7 @@ services:
       POSTGRES_USER: "{{ authentik.postgres.username }}"
       POSTGRES_DB: "{{ authentik.postgres.database }}"
   redis:
-    image: docker.io/library/redis:alpine@sha256:99f9a7e68297e7b196a6e7b59437b30b50b0328a9d725ec144403f552fa66afb
+    image: docker.io/library/redis:alpine@sha256:86c23b252bbdaa1a867e0e360480de1aaea96e6ab3b1e69743c626c07a2a0c17
     command: --save 60 1 --loglevel warning
     restart: always
     healthcheck:
