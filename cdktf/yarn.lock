@@ -6842,22 +6842,22 @@ __metadata:
   linkType: hard
 
 "typescript@npm:^5.6.2, typescript@npm:~5.7":
-  version: 5.7.2
-  resolution: "typescript@npm:5.7.2"
+  version: 5.7.3
+  resolution: "typescript@npm:5.7.3"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/a873118b5201b2ef332127ef5c63fb9d9c155e6fdbe211cbd9d8e65877283797cca76546bad742eea36ed7efbe3424a30376818f79c7318512064e8625d61622
+  checksum: 10c0/b7580d716cf1824736cc6e628ab4cd8b51877408ba2be0869d2866da35ef8366dd6ae9eb9d0851470a39be17cbd61df1126f9e211d8799d764ea7431d5435afa
   languageName: node
   linkType: hard
 
 "typescript@npm:next":
-  version: 5.8.0-dev.20250105
-  resolution: "typescript@npm:5.8.0-dev.20250105"
+  version: 5.8.0-dev.20250111
+  resolution: "typescript@npm:5.8.0-dev.20250111"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/3dcac81b29155592908ace176a45b572d2080133b45da2abee838d82d3429ba6c5b98b41b290834620b89b0dacd3629efb3186dc37c7cefef4ffa2ca48e9fc2c
+  checksum: 10c0/657bb90d5b9a06933a9d2703d191bfb94ad058d297f91b699a823bdbda7f84c56e2a5a4f0e19c7be7c9d5a2dcb95a8f319ab03528c18a7543fbfbd223ab399eb
   languageName: node
   linkType: hard
 
@@ -6872,22 +6872,22 @@ __metadata:
   linkType: hard
 
 "typescript@patch:typescript@npm%3A^5.6.2#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A~5.7#optional!builtin<compat/typescript>":
-  version: 5.7.2
-  resolution: "typescript@patch:typescript@npm%3A5.7.2#optional!builtin<compat/typescript>::version=5.7.2&hash=5786d5"
+  version: 5.7.3
+  resolution: "typescript@patch:typescript@npm%3A5.7.3#optional!builtin<compat/typescript>::version=5.7.3&hash=5786d5"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/f3b8082c9d1d1629a215245c9087df56cb784f9fb6f27b5d55577a20e68afe2a889c040aacff6d27e35be165ecf9dca66e694c42eb9a50b3b2c451b36b5675cb
+  checksum: 10c0/6fd7e0ed3bf23a81246878c613423730c40e8bdbfec4c6e4d7bf1b847cbb39076e56ad5f50aa9d7ebd89877999abaee216002d3f2818885e41c907caaa192cc4
   languageName: node
   linkType: hard
 
 "typescript@patch:typescript@npm%3Anext#optional!builtin<compat/typescript>":
-  version: 5.8.0-dev.20250105
-  resolution: "typescript@patch:typescript@npm%3A5.8.0-dev.20250105#optional!builtin<compat/typescript>::version=5.8.0-dev.20250105&hash=5786d5"
+  version: 5.8.0-dev.20250111
+  resolution: "typescript@patch:typescript@npm%3A5.8.0-dev.20250111#optional!builtin<compat/typescript>::version=5.8.0-dev.20250111&hash=5786d5"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/d21730c926c873f69d538dcf2ddcb5aff181586dc4d9562e7d04dc7c74de01723da8279da27c6e77a7e14530c5b1d06515a4b1fd7da87debdd7e873aaa400ada
+  checksum: 10c0/913456569c30f213e98b8e48d354cc7c0a1041bab38bf9b1a09e11013de32f4ed4a5b4af4a0b745eaf694458709ea75ff7e31144eb6084464f423c7653c6ff9d
   languageName: node
   linkType: hard
 
