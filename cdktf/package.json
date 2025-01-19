@@ -12,6 +12,7 @@
     "list": "cdktf list",
     "plan": "cdktf plan cdktf",
     "diff": "cdktf diff cdktf",
+    "apply": "cdktf apply cdktf",
     "compile": "tsc --pretty",
     "watch": "tsc -w",
     "test": "jest",
