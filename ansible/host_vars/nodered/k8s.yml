@@ -1,4 +1,0 @@
----
-service_name: node-red
-namespaces:
-  - "{{ service_name }}"
