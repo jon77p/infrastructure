@@ -16,7 +16,9 @@
   #   remove_orphans: true
   #   remove_images: all
   #   state: absent
-  ansible.builtin.shell: echo '{{ compose_definition | to_json }}' | jq -r . | docker compose -f - --project-name "{{ compose_project_name }}" down --remove-orphans --rmi "all"
+  ansible.builtin.shell:
+    echo '{{ compose_definition | to_json }}' | jq -r . | docker compose -f - --project-name "{{ compose_project_name }}" down --remove-orphans
+    --rmi "all"
 
 - name: Restart docker systemd service
   ansible.builtin.systemd:
@@ -47,7 +49,7 @@
   ansible.builtin.shell: docker container ls --format json --all | jq -s -r 'INDEX(.Names) | with_entries(.key |= gsub("-";"_"))'
   register: output
 
-- set_fact:
+- ansible.builtin.set_fact:
     output:
       services: "{{ output.stdout | from_json }}"
 

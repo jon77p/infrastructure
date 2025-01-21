@@ -9,16 +9,18 @@
     status_code: 200
   register: result
 
-- set_fact:
+- ansible.builtin.set_fact:
     tunnel_config: "{{ result.json.result.config }}"
 
 - ansible.utils.update_fact:
     updates:
       - path: tunnel_config.ingress
-        value: "{{ tunnel_config.ingress[:lookup('ansible.utils.index_of', tunnel_config.ingress, 'eq', 'hello-world', 'service') + 1] + additional_ingress + [tunnel_config.ingress[tunnel_config.ingress | length - 1]] }}"
+        value:
+          "{{ tunnel_config.ingress[: lookup('ansible.utils.index_of', tunnel_config.ingress, 'eq', 'hello-world', 'service') + 1] + additional_ingress + [tunnel_config.ingress[tunnel_config.ingress
+          | length - 1]] }}"
   register: updated_tunnel_config
 
-- set_fact:
+- ansible.builtin.set_fact:
     tunnel_config: "{{ updated_tunnel_config.tunnel_config }}"
 
 - name: Update current remote tunnel config
