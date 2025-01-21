@@ -17,7 +17,7 @@
   when: netplan_dhcp.changed
 
 - name: Normalize nameservers
-  include_tasks: normalize_nameservers.yml
+  ansible.builtin.include_tasks: normalize_nameservers.yml
   loop: "{{ nameservers }}"
   loop_control:
     loop_var: nameserver
@@ -49,7 +49,7 @@
     state: directory
     owner: root
     group: root
-    mode: 0755
+    mode: "0755"
 
 # Create drop-in file for systemd-resolved to set global DNS settings
 - name: Create drop-in file for systemd-resolved for global DNS settings
@@ -65,7 +65,7 @@
       DNSStubListener={{ dns_settings.DNSStubListener }}
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
 
 # Restart DNS-related services
 - name: Restart systemd-resolved

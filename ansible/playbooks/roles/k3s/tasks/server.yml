@@ -20,7 +20,7 @@
     k3s_version: "{{ k3s_version }}"
 - name: Taint the controlplane node
   when: "k3s_taint_controlplane"
-  ansible.builtin.shell: "kubectl taint nodes controlplane node-role.kubernetes.io/control-plane:NoSchedule"
+  ansible.builtin.command: "kubectl taint nodes controlplane node-role.kubernetes.io/control-plane:NoSchedule"
   delegate_to: localhost
   delegate_facts: true
   environment:
