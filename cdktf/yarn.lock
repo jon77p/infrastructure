@@ -4748,8 +4748,8 @@ __metadata:
   linkType: hard
 
 "jsii-rosetta@npm:^5.5.5":
-  version: 5.7.3
-  resolution: "jsii-rosetta@npm:5.7.3"
+  version: 5.7.4
+  resolution: "jsii-rosetta@npm:5.7.4"
   dependencies:
     "@jsii/check-node": "npm:1.106.0"
     "@jsii/spec": "npm:^1.106.0"
@@ -4758,7 +4758,7 @@ __metadata:
     commonmark: "npm:^0.31.2"
     fast-glob: "npm:^3.3.3"
     jsii: "npm:~5.7.0"
-    semver: "npm:^7.7.0"
+    semver: "npm:^7.7.1"
     semver-intersect: "npm:^1.5.0"
     stream-json: "npm:^1.9.1"
     typescript: "npm:~5.7"
@@ -4766,7 +4766,7 @@ __metadata:
     yargs: "npm:^17.7.2"
   bin:
     jsii-rosetta: bin/jsii-rosetta
-  checksum: 10c0/d0a3312ec93e5e7165ed4dc5006f5bcb2934c9ea17e091f86b69b6009ac79f2a66b5105d935a4abcda63f48c55cfc8217aefadecef05d10f03bea17d8dd6018b
+  checksum: 10c0/9ebd88cd88e95a68ac63f5eb3034f2dc261ddd0d1a365085096f40d3f8e18fc28dbbd6f83fb88ae7b80fdb09970009dae08d0353987842eed3bb985faf43a8cf
   languageName: node
   linkType: hard
 
@@ -6178,6 +6178,15 @@ __metadata:
   bin:
     semver: bin/semver.js
   checksum: 10c0/bcd1c03209b4be7d8ca86c976a0410beba7d4ec1d49d846a4be154b958db1ff5eaee50760c1d4f4070b19dee3236b8672d3e09642c53ea23740398bba2538a2d
+  languageName: node
+  linkType: hard
+
+"semver@npm:^7.7.1":
+  version: 7.7.1
+  resolution: "semver@npm:7.7.1"
+  bin:
+    semver: bin/semver.js
+  checksum: 10c0/fd603a6fb9c399c6054015433051bdbe7b99a940a8fb44b85c2b524c4004b023d7928d47cb22154f8d054ea7ee8597f586605e05b52047f048278e4ac56ae958
   languageName: node
   linkType: hard
 
