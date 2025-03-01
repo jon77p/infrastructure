@@ -582,12 +582,12 @@ __metadata:
   linkType: hard
 
 "@cdktf/provider-random@npm:^11.0.3":
-  version: 11.0.3
-  resolution: "@cdktf/provider-random@npm:11.0.3"
+  version: 11.1.0
+  resolution: "@cdktf/provider-random@npm:11.1.0"
   peerDependencies:
     cdktf: ^0.20.0
     constructs: ^10.3.0
-  checksum: 10c0/37e7f40f7f2643965227f3e4f6aee484b0bcba4eba14c79483dc16e3d300c7839245c8fe7530d5d3cc84f50f49e036ed63e90210621e4ea172c875f0673eab32
+  checksum: 10c0/c687c63c038c76d0f7c49533613d170478f863f98012247fc69c37928466ddca9969121ad5f42146e047098aae51a825dc19a0c60eb73945e00264d4daabd5cc
   languageName: node
   linkType: hard
 
