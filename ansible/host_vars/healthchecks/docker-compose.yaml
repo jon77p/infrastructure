@@ -2,7 +2,7 @@
 version: "3"
 services:
   healthchecks:
-    image: linuxserver/healthchecks:latest@sha256:8807100c4d3020f996ba52f0802c61799d5256ffc7164cc21c1e5506db08dfcd
+    image: linuxserver/healthchecks:latest@sha256:e5b32a30ecfd0f14caa321237a3b19dab4e29f7d757debad4041116ffcb0eab2
     volumes:
       - "{{ docker_volume_dirs.healthchecks[0] }}:/config"
     ports:
