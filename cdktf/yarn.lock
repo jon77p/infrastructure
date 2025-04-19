@@ -546,7 +546,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cdktf/node-pty-prebuilt-multiarch@npm:0.10.1-pre.11, @cdktf/node-pty-prebuilt-multiarch@npm:^0.10.1-pre.11":
+"@cdktf/node-pty-prebuilt-multiarch@npm:0.10.1-pre.11":
   version: 0.10.1-pre.11
   resolution: "@cdktf/node-pty-prebuilt-multiarch@npm:0.10.1-pre.11"
   dependencies:
@@ -554,6 +554,17 @@ __metadata:
     node-gyp: "npm:latest"
     prebuild-install: "npm:^7.1.1"
   checksum: 10c0/71feb83cc4a4ceb0d29366f638f3e2153143cd3fb63bb333908445f68187ec3c0fd6ee069b83c39afc19ecb84941eba85d82322c27edc18b8312c963a5460873
+  languageName: node
+  linkType: hard
+
+"@cdktf/node-pty-prebuilt-multiarch@npm:^0.10.1-pre.11":
+  version: 0.10.2
+  resolution: "@cdktf/node-pty-prebuilt-multiarch@npm:0.10.2"
+  dependencies:
+    nan: "npm:^2.14.2"
+    node-gyp: "npm:latest"
+    prebuild-install: "npm:^7.1.3"
+  checksum: 10c0/1a9a0319d5f8c6c50de44c85c380ada0215bbf9810567e1b68c1b1724a0c648244b0af9eee4edbcb9ba6b00f033783d0e3ec1671e1daf017842d0b7daecd9876
   languageName: node
   linkType: hard
 
@@ -5765,7 +5776,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prebuild-install@npm:^7.1.1":
+"prebuild-install@npm:^7.1.1, prebuild-install@npm:^7.1.3":
   version: 7.1.3
   resolution: "prebuild-install@npm:7.1.3"
   dependencies:
