@@ -10,7 +10,7 @@
   "postStartCommand": "sudo /bin/bash -c \"$(curl --location https://taskfile.dev/install.sh)\" -- -d -b /usr/local/bin && task setup",
 
   "features": {
-    "ghcr.io/devcontainers/features/aws-cli:1@sha256:8d39e89cc98291953fb03cf7ef540dc1a7c78c3162f0eee9b61c800e4838f807": {
+    "ghcr.io/devcontainers/features/aws-cli:1@sha256:ead7751da0043c8e76902c0b886ca3b51da8022073dc65cfddeff0cc1bcb3686": {
       "version": "latest"
     },
     // "ghcr.io/devcontainers/features/docker-from-docker:1": {
