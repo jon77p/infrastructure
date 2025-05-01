@@ -2,7 +2,7 @@
 version: "3.4"
 services:
   vault:
-    image: hashicorp/vault:latest@sha256:69fca96c67b499cbc3e8364dedfb5f97ba736a7fa5c8ecb97bf14602cceaf33e
+    image: hashicorp/vault:latest@sha256:7735a161c835879b918982ddd2ec46d73d1e9f85be7f6a4d5cad902887e5d4d7
     volumes:
       - "{{ docker_volume_dirs.vault[0] }}:/vault/config"
       - "{{ docker_volume_dirs.vault[1] }}:/vault/file"
