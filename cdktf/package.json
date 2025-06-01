@@ -27,7 +27,7 @@
     "cdktf": "^0.20.0",
     "constructs": "^10.3.0",
     "fs-extra": "^11.2.0",
-    "ink": "^5.0.1",
+    "ink": "^6.0.0",
     "jsii": "^5.5.4",
     "jsii-pacmak": "^1.103.1",
     "jsii-rosetta": "^5.5.5",

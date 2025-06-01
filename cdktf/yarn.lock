@@ -2144,7 +2144,7 @@ __metadata:
     cdktf-cli: "npm:^0.20.0"
     constructs: "npm:^10.3.0"
     fs-extra: "npm:^11.2.0"
-    ink: "npm:^5.0.1"
+    ink: "npm:^6.0.0"
     jest: "npm:^29.2.1"
     jsii: "npm:^5.5.4"
     jsii-pacmak: "npm:^1.103.1"
@@ -3717,9 +3717,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ink@npm:^5.0.1":
-  version: 5.2.1
-  resolution: "ink@npm:5.2.1"
+"ink@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "ink@npm:6.0.0"
   dependencies:
     "@alcalzone/ansi-tokenize": "npm:^0.1.3"
     ansi-escapes: "npm:^7.0.0"
@@ -3734,7 +3734,7 @@ __metadata:
     indent-string: "npm:^5.0.0"
     is-in-ci: "npm:^1.0.0"
     patch-console: "npm:^2.0.0"
-    react-reconciler: "npm:^0.29.0"
+    react-reconciler: "npm:^0.32.0"
     scheduler: "npm:^0.23.0"
     signal-exit: "npm:^3.0.7"
     slice-ansi: "npm:^7.1.0"
@@ -3746,15 +3746,15 @@ __metadata:
     ws: "npm:^8.18.0"
     yoga-layout: "npm:~3.2.1"
   peerDependencies:
-    "@types/react": ">=18.0.0"
-    react: ">=18.0.0"
+    "@types/react": ">=19.0.0"
+    react: ">=19.0.0"
     react-devtools-core: ^4.19.1
   peerDependenciesMeta:
     "@types/react":
       optional: true
     react-devtools-core:
       optional: true
-  checksum: 10c0/0e2607712783353fbe99438ca4220db3d5874c7ae1a07e2b232f7539489b13a9db929b3046eedeccf318a3ffa222a572287dbe2307c848b8e7f6ec4bba39e550
+  checksum: 10c0/00bbc17a94109b43614f670cb62a6f608167a2a81cda4bfbc32231367236a3439569b7d279c93bfe13628f43e4f81d8b7a5c16f3e622754b594c0c8323241c82
   languageName: node
   linkType: hard
 
@@ -5876,15 +5876,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-reconciler@npm:^0.29.0":
-  version: 0.29.2
-  resolution: "react-reconciler@npm:0.29.2"
+"react-reconciler@npm:^0.32.0":
+  version: 0.32.0
+  resolution: "react-reconciler@npm:0.32.0"
   dependencies:
-    loose-envify: "npm:^1.1.0"
-    scheduler: "npm:^0.23.2"
+    scheduler: "npm:^0.26.0"
   peerDependencies:
-    react: ^18.3.1
-  checksum: 10c0/94f48ddc348a974256cf13c859f5a94efdb0cd72e04c51b1a4d5c72a8b960ccd35df2196057ee6a4cbcb26145e12b01e3f9ba3b183fddb901414db36a07cbf43
+    react: ^19.1.0
+  checksum: 10c0/ace0562d2aa99685416ac62741354706dec6df334aa64acc7ad455bd8a6f6af0068b276ad2e5412c3875388022ab13807f0b7d688fda7b2835301c110247146b
   languageName: node
   linkType: hard
 
@@ -6144,12 +6143,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"scheduler@npm:^0.23.0, scheduler@npm:^0.23.2":
+"scheduler@npm:^0.23.0":
   version: 0.23.2
   resolution: "scheduler@npm:0.23.2"
   dependencies:
     loose-envify: "npm:^1.1.0"
   checksum: 10c0/26383305e249651d4c58e6705d5f8425f153211aef95f15161c151f7b8de885f24751b377e4a0b3dd42cce09aad3f87a61dab7636859c0d89b7daf1a1e2a5c78
+  languageName: node
+  linkType: hard
+
+"scheduler@npm:^0.26.0":
+  version: 0.26.0
+  resolution: "scheduler@npm:0.26.0"
+  checksum: 10c0/5b8d5bfddaae3513410eda54f2268e98a376a429931921a81b5c3a2873aab7ca4d775a8caac5498f8cbc7d0daeab947cf923dbd8e215d61671f9f4e392d34356
   languageName: node
   linkType: hard
 
