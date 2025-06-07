@@ -559,13 +559,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cdktf/provider-cloudflare@npm:^12.0.0":
-  version: 12.5.0
-  resolution: "@cdktf/provider-cloudflare@npm:12.5.0"
+"@cdktf/provider-cloudflare@npm:^13.0.0":
+  version: 13.0.0
+  resolution: "@cdktf/provider-cloudflare@npm:13.0.0"
   peerDependencies:
-    cdktf: ^0.20.0
-    constructs: ^10.3.0
-  checksum: 10c0/54437a4cee5445533ce79f60e1a643b0d6a1f57d5f01b07836185cc326d81cf69ab3ac5d260663e41eaa000a5c8f70484db8cfcad66b87948dc8cff8b35f495d
+    cdktf: ^0.21.0
+    constructs: ^10.4.2
+  checksum: 10c0/7440bc51e542483cd4e529eddb055f57b42df2efd734276c1eaf06028de35c90cb0deed194a870a08e98cc636ae547fd5ced54985c44ce44ccde80f0eeb7d488
   languageName: node
   linkType: hard
 
@@ -2098,7 +2098,7 @@ __metadata:
   resolution: "cdktf@workspace:."
   dependencies:
     "@cdktf/node-pty-prebuilt-multiarch": "npm:^0.10.1-pre.11"
-    "@cdktf/provider-cloudflare": "npm:^12.0.0"
+    "@cdktf/provider-cloudflare": "npm:^13.0.0"
     "@cdktf/provider-random": "npm:^11.0.3"
     "@types/fs-extra": "npm:^11"
     "@types/jest": "npm:^29.2.0"
