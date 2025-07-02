@@ -29,7 +29,7 @@ services:
         traefik.http.services.yourspotifyapi.loadbalancer.server.port: 8080
 
   yourspotifymongo:
-    image: mongo:latest@sha256:b2b90af3588fb4d71c341b1a9ce959e5ab55b3c34305130cfb88c157dac39ea8
+    image: mongo:latest@sha256:5941949d3887e40be5175787aade07dc052f2cddb8ce21b740c3948eba6a3ed0
     volumes:
       - /mnt/yourspotify/mongo:/data/db
     networks:
