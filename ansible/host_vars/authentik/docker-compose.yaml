@@ -2,7 +2,7 @@
 version: "3"
 services:
   postgresql:
-    image: docker.io/library/postgres:17.5-alpine@sha256:88dc671877e6a23014f083958026b16448623f76e598a5c1a2c3c577620d3ed6
+    image: docker.io/library/postgres:17.5-alpine@sha256:796067bb1c12a8552071964286a3bb4eca86d02045acc44ffbda08bc43f25d79
     restart: always
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
