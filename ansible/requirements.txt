@@ -1,4 +1,4 @@
-oci==2.156.0
+oci==2.157.0
 dnspython==2.7.0
 jmespath==1.0.1
 cryptography>=42.0.8 # not directly required, pinned by Snyk to avoid a vulnerability
