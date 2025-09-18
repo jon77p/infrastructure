@@ -98,7 +98,7 @@ jobs:
             exit 1
           fi
       - name: Run Terraform CDK
-        uses: hashicorp/terraform-cdk-action@6f898dc5b69be8dbeebb9cd2c461c4f492085f88 # v11.0.1
+        uses: hashicorp/terraform-cdk-action@ec317e0c5cebab5b15bd676bbcc8e0afdbc96142 # v11.0.2
         id: terraform-cdk
         with:
           terraformVersion: ${{ env.TERRAFORM_VERSION }}
