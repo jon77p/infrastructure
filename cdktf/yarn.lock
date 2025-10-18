@@ -1166,16 +1166,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jsii/check-node@npm:1.114.1":
-  version: 1.114.1
-  resolution: "@jsii/check-node@npm:1.114.1"
-  dependencies:
-    chalk: "npm:^4.1.2"
-    semver: "npm:^7.7.2"
-  checksum: 10c0/0154574bbf80f2538af5d649c90ac5a2fbc125099ac6ee12adc6fb62d833990c3e1730aeb8c49380ebb6a42be77433c14bc3ea6acf261176ca857aaf3ab1f5ee
-  languageName: node
-  linkType: hard
-
 "@jsii/check-node@npm:1.115.0":
   version: 1.115.0
   resolution: "@jsii/check-node@npm:1.115.0"
@@ -1186,7 +1176,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jsii/check-node@npm:1.116.0":
+"@jsii/check-node@npm:1.116.0, @jsii/check-node@npm:^1.116.0":
   version: 1.116.0
   resolution: "@jsii/check-node@npm:1.116.0"
   dependencies:
@@ -1196,7 +1186,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jsii/spec@npm:1.115.0, @jsii/spec@npm:^1.112.0, @jsii/spec@npm:^1.114.1, @jsii/spec@npm:^1.115.0":
+"@jsii/spec@npm:1.115.0, @jsii/spec@npm:^1.112.0, @jsii/spec@npm:^1.115.0":
   version: 1.115.0
   resolution: "@jsii/spec@npm:1.115.0"
   dependencies:
@@ -1205,7 +1195,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jsii/spec@npm:1.116.0":
+"@jsii/spec@npm:1.116.0, @jsii/spec@npm:^1.116.0":
   version: 1.116.0
   resolution: "@jsii/spec@npm:1.116.0"
   dependencies:
@@ -4941,17 +4931,17 @@ __metadata:
   linkType: hard
 
 "jsii-rosetta@npm:^5.5.5, jsii-rosetta@npm:^5.8.8":
-  version: 5.9.8
-  resolution: "jsii-rosetta@npm:5.9.8"
+  version: 5.9.10
+  resolution: "jsii-rosetta@npm:5.9.10"
   dependencies:
-    "@jsii/check-node": "npm:1.114.1"
-    "@jsii/spec": "npm:^1.114.1"
+    "@jsii/check-node": "npm:^1.116.0"
+    "@jsii/spec": "npm:^1.116.0"
     "@xmldom/xmldom": "npm:^0.9.8"
     chalk: "npm:^4"
     commonmark: "npm:^0.31.2"
     fast-glob: "npm:^3.3.3"
     jsii: "npm:~5.9.1"
-    semver: "npm:^7.7.2"
+    semver: "npm:^7.7.3"
     semver-intersect: "npm:^1.5.0"
     stream-json: "npm:^1.9.1"
     typescript: "npm:~5.9"
@@ -4959,7 +4949,7 @@ __metadata:
     yargs: "npm:^17.7.2"
   bin:
     jsii-rosetta: bin/jsii-rosetta
-  checksum: 10c0/026a8bbd88b13b91a59afd67ef1e6cc80e0c2099d9b539f5f8420405630836b93ff016cff5f94789b0c2e3068d513b7a94d3b727f23d386071200e2a104986c6
+  checksum: 10c0/22e7a9e3a5e8f110d3956d0ea83d568e86470f322596b848ee0ea61e37ae6aa8ba2a71cd7e5b093262df583ef540e1de303c19b69b1964c9f568ee525d2daeed
   languageName: node
   linkType: hard
 
