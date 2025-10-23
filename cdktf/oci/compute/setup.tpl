@@ -2,6 +2,12 @@
 
 ARCH=$(dpkg --print-architecture)
 
+# Install tailscale
+curl -fsSL https://tailscale.com/install.sh | sh
+
+# Register node with tailscale
+sudo tailscale up --authkey "${tailscale_auth_key}" --ssh --advertise-tags=tag:oci,tag:cdktf,tag:ssh
+
 # Make a backup of all ssh host keys to disk if not exists
 if [ ! -d /.sshd ]; then
   sudo mkdir /.sshd
@@ -71,8 +77,7 @@ if [ "${use_tunnel}" = "true" ]; then
   if grep -Fxq "${cf_ssh_certificate}" /etc/ssh/ca.pub; then
     echo "Public key already exists in /etc/ssh/ca.pub"
   else
-    echo "Public key does not exist in /etc/ssh/ca.pub"
-    echo "${cf_ssh_certificate}" | sudo tee -a /etc/ssh/ca.pub > /dev/null
+    echo "Public key does not exist in /etc/ssh/ca.pub" && echo "${cf_ssh_certificate}" | sudo tee -a /etc/ssh/ca.pub > /dev/null
   fi
 fi
 
@@ -81,12 +86,6 @@ sudo sed -i 's/[#]\w*PubkeyAuthentication yes/PubkeyAuthentication yes\nTrustedU
 
 # Restart sshd to force server to have modified SSHD configuration
 sudo systemctl restart sshd
-
-# Install tailscale
-curl -fsSL https://tailscale.com/install.sh | sh
-
-# Register node with tailscale
-sudo tailscale up --authkey "${tailscale_auth_key}" --ssh --advertise-tags=tag:oci,tag:cdktf,tag:ssh
 
 # Install Grafana Cloud Agent
 sudo ARCH="$(dpkg --print-architecture)" GCLOUD_STACK_ID="${grafana_cloud_stack_id}" GCLOUD_API_KEY="${grafana_cloud_api_key}" GCLOUD_API_URL="https://integrations-api-us-central.grafana.net" /bin/sh -c "$(curl -fsSL https://raw.githubusercontent.com/grafana/agent/release/production/grafanacloud-install.sh)"
