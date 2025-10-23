@@ -32,17 +32,6 @@ repos:
       - id: check-github-workflows
       - id: check-renovate
   # General Linting-related hooks
-  - repo: https://github.com/markdownlint/markdownlint
-    rev: 5a6cc38e9dd10830df11fa5f6a5f44cfe83df389 # frozen: v0.12.0
-    hooks:
-      - id: markdownlint
-        args:
-          [
-            --config,
-            ".github/lint/.markdownlint.yaml",
-            --ignore-path,
-            ".gitignore",
-          ]
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: 62c175d3fee73e21416a3a9267a794b8d83d8475 # frozen: v3.0.0-alpha.8-for-vscode
     hooks:
