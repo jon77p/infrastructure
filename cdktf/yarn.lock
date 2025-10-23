@@ -4940,8 +4940,8 @@ __metadata:
   linkType: hard
 
 "jsii@npm:^5.5.4, jsii@npm:^5.8.9, jsii@npm:~5.9.1":
-  version: 5.9.9
-  resolution: "jsii@npm:5.9.9"
+  version: 5.9.10
+  resolution: "jsii@npm:5.9.10"
   dependencies:
     "@jsii/check-node": "npm:1.116.0"
     "@jsii/spec": "npm:1.116.0"
@@ -4957,7 +4957,7 @@ __metadata:
     yargs: "npm:^17.7.2"
   bin:
     jsii: bin/jsii
-  checksum: 10c0/dec95bf6edbef4a742546d40ca1c35632c31f8a3c92fcb82be532e38f62c343b2c8ccba2a1a623d66405e5e58e2adec83dfd624fd6639961420e5b7eacb29050
+  checksum: 10c0/5c46884a65b89003d36471f62cb26ccd69d6c58abe750da8ad74ab2c3d3863a4a295011bc2253f6ad7265525e1a54237ce7708296fbfddb68930af9ebf10300b
   languageName: node
   linkType: hard
 
