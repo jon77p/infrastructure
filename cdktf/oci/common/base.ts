@@ -52,6 +52,7 @@ export class Base extends Construct {
     const icmpProtocol = "1"
     const sshPort = 22
     const tcpProtocol = "6"
+    const udpProtocol = "17"
 
     this.coreVcns = new oci.dataOciCoreVcns.DataOciCoreVcns(this, "core_vcn", {
       compartmentId,
@@ -89,6 +90,16 @@ export class Base extends Construct {
           tcpOptions: {
             max: sshPort,
             min: sshPort,
+          },
+        },
+        {
+          description: "Tailscale IPv4 direct connections",
+          protocol: udpProtocol,
+          sourceType: "CIDR_BLOCK",
+          source: anywhere,
+          udpOptions: {
+            max: 41641,
+            min: 41641,
           },
         },
         {
