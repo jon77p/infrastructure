@@ -99,6 +99,20 @@ services:
       - postgresql
       - redis
 
+  # TSIDP
+  tsidp:
+    container_name: tsidp
+    image: ghcr.io/tailscale/tsidp:latest
+    restart: always
+    volumes:
+      - "{{ docker_volume_dirs.tsidp[0] }}:/data"
+    environment:
+      - TAILSCALE_USE_WIP_CODE=1
+      - TS_STATE_DIR=/data
+      - TS_HOSTNAME=idp
+      - TSIDP_ENABLE_STS=1
+      - TSIDP_USE_FUNNEL=1 # Enable Tailscale Funnel
+
 volumes:
   database:
     driver: local
