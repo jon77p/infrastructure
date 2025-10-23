@@ -3,9 +3,9 @@ version: "3"
 
 includes:
   secrets: ../secrets
-  direnv: direnv/Taskfile_{{OS}}.yml
-  githubcli: githubcli/Taskfile_{{OS}}.yml
-  cloudflared: cloudflared/Taskfile_{{OS}}.yml
+  direnv: ./direnv/Taskfile_{{OS}}.yml
+  githubcli: ./githubcli/Taskfile_{{OS}}.yml
+  cloudflared: ./cloudflared/Taskfile_{{OS}}.yml
 
 tasks:
   setup:

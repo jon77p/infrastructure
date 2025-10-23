@@ -15,14 +15,10 @@ all:
         services:
           hosts:
             vault:
-              ansible_host: vault
+              ansible_host: vault-oci
             authentik:
-              ansible_host: auth
-            healthchecks:
-              ansible_host: healthchecks
-            cicd:
-              ansible_host: cicd
-    deployments:
-      hosts:
-        gaps:
-        nodered:
+              ansible_host: auth-oci
+            tsadmin:
+              ansible_host: tsadmin
+            beszel:
+              ansible_host: beszel-oci

@@ -86,30 +86,6 @@
       },
     },
     instances: {
-      healthchecks: {
-        name: "healthchecks",
-        domain: "jon77p.xyz",
-        is_subdomain: true,
-        ad_number: 1,
-        use_tunnel: true,
-        region: "us-sanjose-1",
-        // Canonical-Ubuntu-22.04-2024.05.31-0
-        // https://docs.oracle.com/en-us/iaas/images/image/2e489f7c-01c3-4e8a-ae19-4648a1114c26/
-        image_id: "ocid1.image.oc1.us-sanjose-1.aaaaaaaajiapmujnlwkmd4qzbuwbo43t7pzhx6jwxo746s5l4iqx5ktmprxa",
-        shape: "VM.Standard.E2.1.Micro",
-        memory: 1,
-        ocpus: 1,
-        ingress: [
-          {
-            hostname: "healthchecks.jon77p.xyz",
-            service: "http://localhost:8000",
-          },
-          {
-            hostname: "healthchecks.thepi.cloud",
-            service: "http://localhost:8000",
-          },
-        ],
-      },
       auth: {
         name: "auth",
         domain: "jon77p.xyz",

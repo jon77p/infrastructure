@@ -16,5 +16,5 @@
     quiet: true
     fail_msg: "failed to find tunnel with name '{{ ansible_host }}'"
 
-- set_fact:
+- ansible.builtin.set_fact:
     tunnel: "{{ result.json.result.0 }}"
