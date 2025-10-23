@@ -6,3 +6,5 @@ docker_volume_dirs:
     - /mnt/{{ compose_project_name }}/media
     - /mnt/{{ compose_project_name }}/custom-templates
     - /mnt/{{ compose_project_name }}/certs
+  tsidp:
+    - /mnt/{{ compose_project_name }}/tsidp-data
