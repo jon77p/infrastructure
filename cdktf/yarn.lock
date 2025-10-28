@@ -1525,7 +1525,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*":
+"@types/node@npm:*, @types/node@npm:^24.0.0":
   version: 24.9.1
   resolution: "@types/node@npm:24.9.1"
   dependencies:
@@ -1549,15 +1549,6 @@ __metadata:
   dependencies:
     undici-types: "npm:~6.21.0"
   checksum: 10c0/a230f2ad8a5c10f3c5b2e31112e49b61f2cc9e7eacb95960b555ef133c0276c52b7f3841af744762ce355009fc03520ab7af5645cd877ab8699e45412bccf9b8
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:^22.5.5":
-  version: 22.18.12
-  resolution: "@types/node@npm:22.18.12"
-  dependencies:
-    undici-types: "npm:~6.21.0"
-  checksum: 10c0/13a4638f2baba3efba2b8bc369dd6f950dccbfca78f318f9c9f2c7adc11fce14fc119723c38567dada2d57a873c092b7356c024924d5974a08f3c1f93dc706c6
   languageName: node
   linkType: hard
 
@@ -2393,7 +2384,7 @@ __metadata:
     "@cdktf/provider-random": "npm:^12.0.0"
     "@types/fs-extra": "npm:^11"
     "@types/jest": "npm:^30.0.0"
-    "@types/node": "npm:^22.5.5"
+    "@types/node": "npm:^24.0.0"
     cdktf: "npm:^0.21.0"
     cdktf-cli: "npm:^0.21.0"
     constructs: "npm:^10.3.0"
