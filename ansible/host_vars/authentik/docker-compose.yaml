@@ -1,103 +1,103 @@
 ---
 version: "3"
 services:
-  postgresql:
-    image: docker.io/library/postgres:18.0-alpine@sha256:48c8ad3a7284b82be4482a52076d47d879fd6fb084a1cbfccbd551f9331b0e40
-    restart: always
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
-      start_period: 20s
-      interval: 30s
-      retries: 5
-      timeout: 5s
-    volumes:
-      - database:/var/lib/postgresql/data
-    environment:
-      POSTGRES_PASSWORD: "{{ authentik.postgres.password }}"
-      POSTGRES_USER: "{{ authentik.postgres.username }}"
-      POSTGRES_DB: "{{ authentik.postgres.database }}"
-  redis:
-    image: docker.io/library/redis:alpine@sha256:28c9c4d7596949a24b183eaaab6455f8e5d55ecbf72d02ff5e2c17fe72671d31
-    command: --save 60 1 --loglevel warning
-    restart: always
-    healthcheck:
-      test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
-      start_period: 20s
-      interval: 30s
-      retries: 5
-      timeout: 3s
-    volumes:
-      - redis:/data
-  server:
-    image: ghcr.io/goauthentik/server:2025.10.1@sha256:8f70895ad48bb7de656a2aac7c78c2bec6a4e820e009a570b0c285fe406eadac
-    restart: always
-    command: server
-    environment:
-      AUTHENTIK_SECRET_KEY: "{{ authentik.secret_key }}"
-      AUTHENTIK_BOOTSTRAP_EMAIL: "{{ authentik.bootstrap.email }}"
-      AUTHENTIK_BOOTSTRAP_PASSWORD: "{{ authentik.bootstrap.password }}"
-      # Database configuration
-      AUTHENTIK_REDIS__HOST: redis
-      AUTHENTIK_POSTGRESQL__HOST: postgresql
-      AUTHENTIK_POSTGRESQL__USER: "{{ authentik.postgres.username }}"
-      AUTHENTIK_POSTGRESQL__NAME: "{{ authentik.postgres.database }}"
-      AUTHENTIK_POSTGRESQL__PASSWORD: "{{ authentik.postgres.password }}"
-      # Email configuration
-      AUTHENTIK_EMAIL__HOST: "{{ authentik.email.host }}"
-      AUTHENTIK_EMAIL__PORT: "{{ authentik.email.port }}"
-      AUTHENTIK_EMAIL__USERNAME: "{{ authentik.email.username }}"
-      AUTHENTIK_EMAIL__PASSWORD: "{{ authentik.email.password }}"
-      AUTHENTIK_EMAIL__USE_TLS: "{{ authentik.email.use_tls | string() }}"
-      AUTHENTIK_EMAIL__USE_SSL: "{{ authentik.email.use_ssl | string() }}"
-      AUTHENTIK_EMAIL__TIMEOUT: "{{ authentik.email.timeout }}"
-      AUTHENTIK_EMAIL__FROM: "{{ authentik.email.from }}"
-    volumes:
-      - "{{ docker_volume_dirs.authentik[0] }}:/media"
-      - "{{ docker_volume_dirs.authentik[1] }}:/templates"
-    ports:
-      - "{{ authentik.ports.http }}:9000"
-      - "{{ authentik.ports.https }}:9443"
-    depends_on:
-      - postgresql
-      - redis
-  worker:
-    image: ghcr.io/goauthentik/server:2025.10.1@sha256:8f70895ad48bb7de656a2aac7c78c2bec6a4e820e009a570b0c285fe406eadac
-    restart: always
-    command: worker
-    environment:
-      AUTHENTIK_SECRET_KEY: "{{ authentik.secret_key }}"
-      AUTHENTIK_BOOTSTRAP_EMAIL: "{{ authentik.bootstrap.email }}"
-      AUTHENTIK_BOOTSTRAP_PASSWORD: "{{ authentik.bootstrap.password }}"
-      # Database configuration
-      AUTHENTIK_REDIS__HOST: redis
-      AUTHENTIK_POSTGRESQL__HOST: postgresql
-      AUTHENTIK_POSTGRESQL__USER: "{{ authentik.postgres.username }}"
-      AUTHENTIK_POSTGRESQL__NAME: "{{ authentik.postgres.database }}"
-      AUTHENTIK_POSTGRESQL__PASSWORD: "{{ authentik.postgres.password }}"
-      # Email configuration
-      AUTHENTIK_EMAIL__HOST: "{{ authentik.email.host }}"
-      AUTHENTIK_EMAIL__PORT: "{{ authentik.email.port }}"
-      AUTHENTIK_EMAIL__USERNAME: "{{ authentik.email.username }}"
-      AUTHENTIK_EMAIL__PASSWORD: "{{ authentik.email.password }}"
-      AUTHENTIK_EMAIL__USE_TLS: "{{ authentik.email.use_tls | string() }}"
-      AUTHENTIK_EMAIL__USE_SSL: "{{ authentik.email.use_ssl | string() }}"
-      AUTHENTIK_EMAIL__TIMEOUT: "{{ authentik.email.timeout }}"
-      AUTHENTIK_EMAIL__FROM: "{{ authentik.email.from }}"
-    # `user: root` and the docker socket volume are optional.
-    # See more for the docker socket integration here:
-    # https://goauthentik.io/docs/outposts/integrations/docker
-    # Removing `user: root` also prevents the worker from fixing the permissions
-    # on the mounted folders, so when removing this make sure the folders have the correct UID/GID
-    # (1000:1000 by default)
-    user: root
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - "{{ docker_volume_dirs.authentik[0] }}:/media"
-      - "{{ docker_volume_dirs.authentik[1] }}:/templates"
-      - "{{ docker_volume_dirs.authentik[2] }}:/certs"
-    depends_on:
-      - postgresql
-      - redis
+  # postgresql:
+  #   image: docker.io/library/postgres:18.0-alpine@sha256:48c8ad3a7284b82be4482a52076d47d879fd6fb084a1cbfccbd551f9331b0e40
+  #   restart: always
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
+  #     start_period: 20s
+  #     interval: 30s
+  #     retries: 5
+  #     timeout: 5s
+  #   volumes:
+  #     - database:/var/lib/postgresql/data
+  #   environment:
+  #     POSTGRES_PASSWORD: "{{ authentik.postgres.password }}"
+  #     POSTGRES_USER: "{{ authentik.postgres.username }}"
+  #     POSTGRES_DB: "{{ authentik.postgres.database }}"
+  # redis:
+  #   image: docker.io/library/redis:alpine@sha256:28c9c4d7596949a24b183eaaab6455f8e5d55ecbf72d02ff5e2c17fe72671d31
+  #   command: --save 60 1 --loglevel warning
+  #   restart: always
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+  #     start_period: 20s
+  #     interval: 30s
+  #     retries: 5
+  #     timeout: 3s
+  #   volumes:
+  #     - redis:/data
+  # server:
+  #   image: ghcr.io/goauthentik/server:2025.10.1@sha256:8f70895ad48bb7de656a2aac7c78c2bec6a4e820e009a570b0c285fe406eadac
+  #   restart: always
+  #   command: server
+  #   environment:
+  #     AUTHENTIK_SECRET_KEY: "{{ authentik.secret_key }}"
+  #     AUTHENTIK_BOOTSTRAP_EMAIL: "{{ authentik.bootstrap.email }}"
+  #     AUTHENTIK_BOOTSTRAP_PASSWORD: "{{ authentik.bootstrap.password }}"
+  #     # Database configuration
+  #     AUTHENTIK_REDIS__HOST: redis
+  #     AUTHENTIK_POSTGRESQL__HOST: postgresql
+  #     AUTHENTIK_POSTGRESQL__USER: "{{ authentik.postgres.username }}"
+  #     AUTHENTIK_POSTGRESQL__NAME: "{{ authentik.postgres.database }}"
+  #     AUTHENTIK_POSTGRESQL__PASSWORD: "{{ authentik.postgres.password }}"
+  #     # Email configuration
+  #     AUTHENTIK_EMAIL__HOST: "{{ authentik.email.host }}"
+  #     AUTHENTIK_EMAIL__PORT: "{{ authentik.email.port }}"
+  #     AUTHENTIK_EMAIL__USERNAME: "{{ authentik.email.username }}"
+  #     AUTHENTIK_EMAIL__PASSWORD: "{{ authentik.email.password }}"
+  #     AUTHENTIK_EMAIL__USE_TLS: "{{ authentik.email.use_tls | string() }}"
+  #     AUTHENTIK_EMAIL__USE_SSL: "{{ authentik.email.use_ssl | string() }}"
+  #     AUTHENTIK_EMAIL__TIMEOUT: "{{ authentik.email.timeout }}"
+  #     AUTHENTIK_EMAIL__FROM: "{{ authentik.email.from }}"
+  #   volumes:
+  #     - "{{ docker_volume_dirs.authentik[0] }}:/media"
+  #     - "{{ docker_volume_dirs.authentik[1] }}:/templates"
+  #   ports:
+  #     - "{{ authentik.ports.http }}:9000"
+  #     - "{{ authentik.ports.https }}:9443"
+  #   depends_on:
+  #     - postgresql
+  #     - redis
+  # worker:
+  #   image: ghcr.io/goauthentik/server:2025.10.1@sha256:8f70895ad48bb7de656a2aac7c78c2bec6a4e820e009a570b0c285fe406eadac
+  #   restart: always
+  #   command: worker
+  #   environment:
+  #     AUTHENTIK_SECRET_KEY: "{{ authentik.secret_key }}"
+  #     AUTHENTIK_BOOTSTRAP_EMAIL: "{{ authentik.bootstrap.email }}"
+  #     AUTHENTIK_BOOTSTRAP_PASSWORD: "{{ authentik.bootstrap.password }}"
+  #     # Database configuration
+  #     AUTHENTIK_REDIS__HOST: redis
+  #     AUTHENTIK_POSTGRESQL__HOST: postgresql
+  #     AUTHENTIK_POSTGRESQL__USER: "{{ authentik.postgres.username }}"
+  #     AUTHENTIK_POSTGRESQL__NAME: "{{ authentik.postgres.database }}"
+  #     AUTHENTIK_POSTGRESQL__PASSWORD: "{{ authentik.postgres.password }}"
+  #     # Email configuration
+  #     AUTHENTIK_EMAIL__HOST: "{{ authentik.email.host }}"
+  #     AUTHENTIK_EMAIL__PORT: "{{ authentik.email.port }}"
+  #     AUTHENTIK_EMAIL__USERNAME: "{{ authentik.email.username }}"
+  #     AUTHENTIK_EMAIL__PASSWORD: "{{ authentik.email.password }}"
+  #     AUTHENTIK_EMAIL__USE_TLS: "{{ authentik.email.use_tls | string() }}"
+  #     AUTHENTIK_EMAIL__USE_SSL: "{{ authentik.email.use_ssl | string() }}"
+  #     AUTHENTIK_EMAIL__TIMEOUT: "{{ authentik.email.timeout }}"
+  #     AUTHENTIK_EMAIL__FROM: "{{ authentik.email.from }}"
+  #   # `user: root` and the docker socket volume are optional.
+  #   # See more for the docker socket integration here:
+  #   # https://goauthentik.io/docs/outposts/integrations/docker
+  #   # Removing `user: root` also prevents the worker from fixing the permissions
+  #   # on the mounted folders, so when removing this make sure the folders have the correct UID/GID
+  #   # (1000:1000 by default)
+  #   user: root
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #     - "{{ docker_volume_dirs.authentik[0] }}:/media"
+  #     - "{{ docker_volume_dirs.authentik[1] }}:/templates"
+  #     - "{{ docker_volume_dirs.authentik[2] }}:/certs"
+  #   depends_on:
+  #     - postgresql
+  #     - redis
 
   # TSIDP
   tsidp:
@@ -105,13 +105,15 @@ services:
     image: ghcr.io/tailscale/tsidp:latest@sha256:b5bbc533cf4847c5ee19abbef241ed02152a837c1e5f5488cd41455ad0204236
     restart: always
     volumes:
-      - "{{ docker_volume_dirs.tsidp[0] }}:/data"
+      - "{{ docker_volume_dirs.tsidp[0].path }}:/data"
     environment:
       - TAILSCALE_USE_WIP_CODE=1
       - TS_STATE_DIR=/data
       - TS_HOSTNAME=idp
       - TSIDP_ENABLE_STS=1
       - TSIDP_USE_FUNNEL=1 # Enable Tailscale Funnel
+      # TODO: switch to client secret
+      # - TS_AUTHKEY="{{ tsidp.client_secret }}?ephemeral=false&preauthorized=true"
 
 volumes:
   database:
