@@ -8,10 +8,12 @@
         - authentik_bootstrap_password
         - authentik_secret_key
         - postgres_password
-        - smtp_host
-        - smtp_port
-        - smtp_username
-        - smtp_password
+        - email_host
+        - email_port
+        - email_username
+        - email_password
+      tsidp:
+        - client_secret
   roles:
     - opconnect
 
