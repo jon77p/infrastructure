@@ -13,11 +13,13 @@ authentik:
     username: authentik
     password: "{{ opconnect_results['authentik'].postgres_password }}"
   email:
-    host: "{{ opconnect_results['authentik'].smtp_host }}"
-    port: "{{ opconnect_results['authentik'].smtp_port }}"
-    username: "{{ opconnect_results['authentik'].smtp_username }}"
-    password: "{{ opconnect_results['authentik'].smtp_password }}"
+    host: "{{ opconnect_results['authentik'].email_host }}"
+    port: "{{ opconnect_results['authentik'].email_port }}"
+    username: "{{ opconnect_results['authentik'].email_username }}"
+    password: "{{ opconnect_results['authentik'].email_password }}"
     use_tls: "True"
     use_ssl: "False"
     timeout: "10"
     from: "admin@authentik.{{ domain }}"
+tsidp:
+  client_secret: "{{ opconnect_results['tsidp'].client_secret }}"
