@@ -127,7 +127,7 @@ export class Tunnel extends Construct {
       proxied: true,
       type: "CNAME",
       zoneId: zoneId,
-      ttl: 300,
+      ttl: 1,
     })
 
     const tunnelRecord = new DnsRecord(this, `tunnel_app_${name}`, {
@@ -139,7 +139,7 @@ export class Tunnel extends Construct {
       proxied: true,
       type: "CNAME",
       zoneId: zoneId,
-      ttl: 300,
+      ttl: 1,
     })
 
     new ZeroTrustTunnelCloudflaredConfigA(this, `tunnel_config_${name}`, {
@@ -228,7 +228,7 @@ export class Tunnel extends Construct {
         proxied: true,
         type: "CNAME",
         zoneId: zoneId,
-        ttl: 300,
+        ttl: 1,
       })
     })
   }

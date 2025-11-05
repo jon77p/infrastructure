@@ -122,7 +122,7 @@ export class OCI extends Construct {
         proxied: false,
         type: "A",
         zoneId: tunnel.cloudflareZones.result.get(0).id,
-        ttl: 300,
+        ttl: 1,
       })
     }
   }
