@@ -1,28 +1,22 @@
 ---
-version: "3.4"
 services:
   vault:
     image: hashicorp/vault:latest@sha256:62dd55c9ccbdc0af0a9269e87481a64650258907434d5ddb5e795e2eb2ac5780
     volumes:
-      - "{{ docker_volume_dirs.vault[0] }}:/vault/config"
-      - "{{ docker_volume_dirs.vault[1] }}:/vault/file"
-      - "{{ docker_volume_dirs.vault[2] }}:/vault/logs"
-      - "{{ docker_volume_dirs.vault[3] }}:/vault/plugins"
+      - "{{ docker_volume_dirs.vault[0].path }}:/vault/config"
+      - "{{ docker_volume_dirs.vault[1].path }}:/vault/file"
+      - "{{ docker_volume_dirs.vault[2].path }}:/vault/logs"
+      - "{{ docker_volume_dirs.vault[3].path }}:/vault/plugins"
     ports:
       - "{{ vault.port }}:{{ vault.internal_port }}"
     cap_add:
       - IPC_LOCK
     restart: always
     command: [vault, server, -config, /vault/config/config.hcl]
-  #   healthcheck:
-  #     test: [CMD, wget, "{{ healthchecks.healthcheck }}", -O, /dev/null]
-  #     timeout: 45s
-  #     interval: "{{ healthchecks_defaults.ping.interval }}s"
-  #     retries: 5
   opconnect_api:
     image: 1password/connect-api:latest@sha256:8fe7bcd50c9e73899e0a1aa5aa43421ca75fbceacb33dd07f6418c4116e637a1
     volumes:
-      - "{{ docker_volume_dirs.opconnect[0] }}/1password-credentials.json:/home/opuser/.op/1password-credentials.json"
+      - "{{ docker_volume_dirs.opconnect[0].path }}/1password-credentials.json:/home/opuser/.op/1password-credentials.json"
       - data:/home/opuser/.op/data
     ports:
       - "{{ opconnect.api.port }}:{{ opconnect.api.internal_port }}"
@@ -30,7 +24,7 @@ services:
   opconnect_sync:
     image: 1password/connect-sync:latest@sha256:d5e937b2b7e314dbbaffacf469dc8f30376b5954a3ad836c8d96e6cb579d7fab
     volumes:
-      - "{{ docker_volume_dirs.opconnect[0] }}/1password-credentials.json:/home/opuser/.op/1password-credentials.json"
+      - "{{ docker_volume_dirs.opconnect[0].path }}/1password-credentials.json:/home/opuser/.op/1password-credentials.json"
       - data:/home/opuser/.op/data
     ports:
       - "{{ opconnect.sync.port }}:{{ opconnect.sync.internal_port }}"

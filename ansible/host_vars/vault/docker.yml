@@ -2,9 +2,9 @@
 compose_project_name: "vault"
 docker_volume_dirs:
   vault:
-    - "/mnt/{{ compose_project_name }}/config"
-    - "/mnt/{{ compose_project_name }}/file"
-    - "/mnt/{{ compose_project_name }}/logs"
-    - "/mnt/{{ compose_project_name }}/plugins"
+    - path: "/mnt/{{ compose_project_name }}/config"
+    - path: "/mnt/{{ compose_project_name }}/file"
+    - path: "/mnt/{{ compose_project_name }}/logs"
+    - path: "/mnt/{{ compose_project_name }}/plugins"
   opconnect:
-    - "/mnt/op-connect"
+    - path: "/mnt/op-connect"
