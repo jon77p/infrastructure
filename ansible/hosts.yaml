@@ -9,7 +9,7 @@ all:
         controlplane:
           hosts:
             monitoring:
-              ansible_host: monitoring
+              ansible_host: monitoring-oci
     oci:
       children:
         services:
@@ -18,7 +18,3 @@ all:
               ansible_host: vault-oci
             authentik:
               ansible_host: auth-oci
-            tsadmin:
-              ansible_host: tsadmin
-            beszel:
-              ansible_host: beszel-oci
