@@ -1,5 +1,9 @@
 #!/bin/sh
 
+ENABLE_CF="false"
+ENABLE_CF_TUNNEL="${use_tunnel}"
+ENABLE_GRAFANA="false"
+
 ARCH=$(dpkg --print-architecture)
 
 # Install tailscale
@@ -33,7 +37,7 @@ ssh-rsa ${terraformSshPublicKey} terraform
 EOF
 
 # If use_tunnel is true, install cloudflared and setup tunnel
-if [ "${use_tunnel}" = "true" ]; then
+if [ "$ENABLE_CF_TUNNEL" = "true" ]; then
   # Download cloudflared deb
   curl "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-$ARCH.deb" -L -o /tmp/init-cloudflared.deb
 
@@ -87,5 +91,7 @@ sudo sed -i 's/[#]\w*PubkeyAuthentication yes/PubkeyAuthentication yes\nTrustedU
 # Restart sshd to force server to have modified SSHD configuration
 sudo systemctl restart sshd
 
-# Install Grafana Cloud Agent
-sudo ARCH="$(dpkg --print-architecture)" GCLOUD_STACK_ID="${grafana_cloud_stack_id}" GCLOUD_API_KEY="${grafana_cloud_api_key}" GCLOUD_API_URL="https://integrations-api-us-central.grafana.net" /bin/sh -c "$(curl -fsSL https://raw.githubusercontent.com/grafana/agent/release/production/grafanacloud-install.sh)"
+if [ "$ENABLE_GRAFANA" = "true" ]; then
+  # Install Grafana Cloud Agent
+  sudo ARCH="$(dpkg --print-architecture)" GCLOUD_STACK_ID="${grafana_cloud_stack_id}" GCLOUD_API_KEY="${grafana_cloud_api_key}" GCLOUD_API_URL="https://integrations-api-us-central.grafana.net" /bin/sh -c "$(curl -fsSL https://raw.githubusercontent.com/grafana/agent/release/production/grafanacloud-install.sh)"
+fi
