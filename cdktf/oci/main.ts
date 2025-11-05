@@ -1,8 +1,6 @@
-import * as cloudflare from "@cdktf/provider-cloudflare"
 import * as oci from "../.gen/providers/oci"
 
-// Import TunnelConfigConfigOriginRequest
-import { TunnelConfigConfigOriginRequest } from "@cdktf/provider-cloudflare/lib/tunnel-config"
+import { ZeroTrustTunnelCloudflaredConfigConfigOriginRequest } from "@cdktf/provider-cloudflare/lib/zero-trust-tunnel-cloudflared-config"
 
 import { Base, NetworkingConfig } from "./common/base"
 import * as Compute from "./compute/main"
@@ -10,6 +8,7 @@ import { Tunnel, CFConfig, RecordComment } from "./tunnel/main"
 
 import { Construct } from "constructs"
 import { Token, TerraformVariable, Fn, TerraformOutput } from "cdktf"
+import { DnsRecord } from "@cdktf/provider-cloudflare/lib/dns-record"
 
 export interface IngressConfig {
   // Only hostname and service are required
@@ -18,7 +17,7 @@ export interface IngressConfig {
   service: string
   path?: string
   // Matches Cloudflare's origin request config
-  originRequest?: TunnelConfigConfigOriginRequest
+  originRequest?: ZeroTrustTunnelCloudflaredConfigConfigOriginRequest
 }
 
 export interface InstanceConfig {
@@ -105,7 +104,7 @@ export class OCI extends Construct {
           cfConfig,
           tunnel: tunnel,
           compartmentId,
-          instance: { name: instanceName, instance },
+          instance: { name: `${instanceName}-oci`, instance },
           region: region,
           subnetId: base.publicSubnet.id,
           terraformSshPublicKey: terraformSshPublicKey,
@@ -116,13 +115,14 @@ export class OCI extends Construct {
       )
 
       // Create a record pointing to the instance
-      new cloudflare.record.Record(this, `${name}-${instanceName}-record`, {
+      new DnsRecord(this, `${name}-${instanceName}-record`, {
         comment: RecordComment,
         content: compute.coreInstance.publicIp,
         name: `${instance.name}.${profile}.${instance.domain}`,
         proxied: false,
         type: "A",
-        zoneId: tunnel.cloudflareZones.zones.get(0).id,
+        zoneId: tunnel.cloudflareZones.result.get(0).id,
+        ttl: 300,
       })
     }
   }
