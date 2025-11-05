@@ -1,19 +1,9 @@
 ---
-- name: Get 1Password secrets
-  hosts: localhost,vault
-  vars:
-    opconnect_items:
-      healthchecks:
-        - apikey
-  roles:
-    - opconnect
-
 - name: Setup vault
   hosts: vault
   become: true
   roles:
     - common
     # - dns
-    - healthchecks
     - vault
     - docker
