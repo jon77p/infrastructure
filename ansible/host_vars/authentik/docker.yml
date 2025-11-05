@@ -3,8 +3,10 @@ compose_project_name: auth
 compose_project_port: "{{ authentik.ports.https }}"
 docker_volume_dirs:
   authentik:
-    - /mnt/{{ compose_project_name }}/media
-    - /mnt/{{ compose_project_name }}/custom-templates
-    - /mnt/{{ compose_project_name }}/certs
+    - path: /mnt/{{ compose_project_name }}/media
+    - path: /mnt/{{ compose_project_name }}/custom-templates
+    - path: /mnt/{{ compose_project_name }}/certs
   tsidp:
-    - /mnt/{{ compose_project_name }}/tsidp-data
+    - path: /mnt/{{ compose_project_name }}/tsidp-data
+      owner: 1001
+      group: 1001
