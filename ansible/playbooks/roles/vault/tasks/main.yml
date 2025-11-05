@@ -2,7 +2,7 @@
 - name: Create mount directories - vault
   become: true
   ansible.builtin.file:
-    path: "{{ item }}"
+    path: "{{ item.path }}"
     recurse: true
     state: directory
   loop: "{{ docker_volume_dirs.vault }}"
@@ -10,7 +10,7 @@
 - name: Create mount directories - opconnect
   become: true
   ansible.builtin.file:
-    path: "{{ item }}"
+    path: "{{ item.path }}"
     recurse: true
     state: directory
   loop: "{{ docker_volume_dirs.opconnect }}"
@@ -20,11 +20,11 @@
   when: "docker_volume_dirs.vault != []"
   ansible.builtin.template:
     src: ../templates/config.hcl.j2
-    dest: "{{ docker_volume_dirs.vault[0] }}/config.hcl"
+    dest: "{{ docker_volume_dirs.vault[0].path }}/config.hcl"
 
 - name: Create 1Password Connect Credentials file
   become: true
   when: "op_connect_credentials != ''"
   ansible.builtin.template:
     src: ../templates/1password-credentials.json.j2
-    dest: "{{ docker_volume_dirs.opconnect[0] }}/1password-credentials.json"
+    dest: "{{ docker_volume_dirs.opconnect[0].path }}/1password-credentials.json"
