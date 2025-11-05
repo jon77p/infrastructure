@@ -74,7 +74,7 @@ export class Base extends Construct {
     })
 
     // Get the first vcn cidr
-    const vcnCidrFQN = Token.asString(this.vcn.vcnCidrs?.at(0))
+    const vcnCidrFQN = Token.asString(this.vcn.vcnCidrs?.[0])
 
     let ingressRules: oci.coreSecurityList.CoreSecurityListIngressSecurityRules[] =
       [

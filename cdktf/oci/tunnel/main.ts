@@ -1,5 +1,12 @@
-import * as cloudflare from "@cdktf/provider-cloudflare"
 import * as random from "@cdktf/provider-random"
+
+import { DnsRecord } from "@cdktf/provider-cloudflare/lib/dns-record"
+import { DataCloudflareZones } from "@cdktf/provider-cloudflare/lib/data-cloudflare-zones"
+import { ZeroTrustAccessShortLivedCertificate } from "@cdktf/provider-cloudflare/lib/zero-trust-access-short-lived-certificate"
+import { ZeroTrustAccessApplication } from "@cdktf/provider-cloudflare/lib/zero-trust-access-application"
+import { ZeroTrustAccessPolicy } from "@cdktf/provider-cloudflare/lib/zero-trust-access-policy"
+import { ZeroTrustTunnelCloudflared } from "@cdktf/provider-cloudflare/lib/zero-trust-tunnel-cloudflared"
+import { ZeroTrustTunnelCloudflaredConfigA } from "@cdktf/provider-cloudflare/lib/zero-trust-tunnel-cloudflared-config"
 
 import { Construct } from "constructs"
 
@@ -23,9 +30,9 @@ export const RecordComment = `Managed by cdktf. {tag=cdktf, repo=https://github.
 
 export class Tunnel extends Construct {
   public readonly tunnelSecret: random.id.Id
-  public readonly cloudflareZones: cloudflare.dataCloudflareZones.DataCloudflareZones
-  public readonly sshCertificate: cloudflare.zeroTrustAccessShortLivedCertificate.ZeroTrustAccessShortLivedCertificate | null
-  public readonly tunnel: cloudflare.zeroTrustTunnelCloudflared.ZeroTrustTunnelCloudflared | null
+  public readonly cloudflareZones: DataCloudflareZones
+  public readonly sshCertificate: ZeroTrustAccessShortLivedCertificate | null
+  public readonly tunnel: ZeroTrustTunnelCloudflared | null
 
   constructor(scope: Construct, name: string, props: TunnelProps) {
     super(scope, name)
@@ -37,15 +44,14 @@ export class Tunnel extends Construct {
       byteLength: 35,
     })
 
-    this.cloudflareZones =
-      new cloudflare.dataCloudflareZones.DataCloudflareZones(this, "cf_zones", {
-        filter: {
-          accountId: config.accountId,
-          lookupType: "exact",
-          name: instance.instance.domain,
-          status: "active",
-        },
-      })
+    this.cloudflareZones = new DataCloudflareZones(this, "cf_zones", {
+      account: {
+        id: config.accountId,
+      },
+      // default name filter operator is "equal"
+      name: `${instance.instance.domain}`,
+      status: "active",
+    })
 
     if (instance.instance.use_tunnel === false) {
       this.sshCertificate = null
@@ -53,67 +59,58 @@ export class Tunnel extends Construct {
       return
     }
 
+    let zoneId = this.cloudflareZones.result.get(0).id
+
     const sshDomain = `${
       instance.instance.is_subdomain
         ? `ssh-${instance.name}.${instance.instance.domain}`
         : `ssh.${instance.instance.domain}`
     }`
 
-    const sshApp =
-      new cloudflare.zeroTrustAccessApplication.ZeroTrustAccessApplication(
-        this,
-        "ssh_app",
+    const sshPolicy = new ZeroTrustAccessPolicy(this, "ssh_policy", {
+      accountId: config.accountId,
+      decision: "allow",
+      include: [
         {
-          allowedIdps: config.allowedIdpIds,
-          appLauncherVisible: false,
-          autoRedirectToIdentity: true,
-          domain: sshDomain,
-          name: sshDomain,
-          sessionDuration: "24h",
-          type: "ssh",
-          skipInterstitial: true,
-          zoneId: this.cloudflareZones.zones.get(0).id,
-        }
-      )
+          group: { id: config.adminGroupId },
+        },
+      ],
+      name: `Policy for ${sshDomain}`,
+    })
 
-    this.sshCertificate =
-      new cloudflare.zeroTrustAccessShortLivedCertificate.ZeroTrustAccessShortLivedCertificate(
-        this,
-        "ssh_certificate",
+    const sshApp = new ZeroTrustAccessApplication(this, "ssh_app", {
+      allowedIdps: config.allowedIdpIds,
+      appLauncherVisible: false,
+      autoRedirectToIdentity: true,
+      domain: sshDomain,
+      name: sshDomain,
+      sessionDuration: "24h",
+      type: "ssh",
+      skipInterstitial: true,
+      zoneId: zoneId,
+      policies: [
         {
-          applicationId: sshApp.id,
-          zoneId: this.cloudflareZones.zones.get(0).id,
-        }
-      )
+          id: sshPolicy.id,
+          precedence: 2,
+        },
+      ],
+    })
 
-    new cloudflare.zeroTrustAccessPolicy.ZeroTrustAccessPolicy(
+    this.sshCertificate = new ZeroTrustAccessShortLivedCertificate(
       this,
-      "ssh_policy",
+      "ssh_certificate",
       {
-        applicationId: sshApp.id,
-        decision: "allow",
-        include: [
-          {
-            group: [config.adminGroupId],
-          },
-        ],
-        name: `Policy for ${sshDomain}`,
-        precedence: 2,
-        zoneId: this.cloudflareZones.zones.get(0).id,
+        appId: sshApp.id,
+        zoneId: zoneId,
       }
     )
 
-    this.tunnel =
-      new cloudflare.zeroTrustTunnelCloudflared.ZeroTrustTunnelCloudflared(
-        this,
-        `tunnel_${name}`,
-        {
-          accountId: config.accountId,
-          name: instance.name,
-          secret: this.tunnelSecret.b64Std,
-          configSrc: "cloudflare",
-        }
-      )
+    this.tunnel = new ZeroTrustTunnelCloudflared(this, `tunnel_${name}`, {
+      accountId: config.accountId,
+      name: instance.name,
+      tunnelSecret: this.tunnelSecret.b64Std,
+      configSrc: "cloudflare",
+    })
 
     const tunnelDomain = `${
       instance.instance.is_subdomain
@@ -121,7 +118,7 @@ export class Tunnel extends Construct {
         : `tunnel.${instance.instance.domain}`
     }`
 
-    const sshRecord = new cloudflare.record.Record(this, `ssh_app_${name}`, {
+    const sshRecord = new DnsRecord(this, `ssh_app_${name}`, {
       comment: RecordComment,
       content: tunnelDomain,
       name: `${
@@ -129,75 +126,67 @@ export class Tunnel extends Construct {
       }`,
       proxied: true,
       type: "CNAME",
-      zoneId: this.cloudflareZones.zones.get(0).id,
+      zoneId: zoneId,
+      ttl: 300,
     })
 
-    const tunnelRecord = new cloudflare.record.Record(
-      this,
-      `tunnel_app_${name}`,
-      {
-        comment: RecordComment,
-        content: this.tunnel.cname,
-        name: `${
-          instance.instance.is_subdomain ? `tunnel-${instance.name}` : "tunnel"
-        }`,
-        proxied: true,
-        type: "CNAME",
-        zoneId: this.cloudflareZones.zones.get(0).id,
-      }
-    )
+    const tunnelRecord = new DnsRecord(this, `tunnel_app_${name}`, {
+      comment: RecordComment,
+      content: this.tunnel.name,
+      name: `${
+        instance.instance.is_subdomain ? `tunnel-${instance.name}` : "tunnel"
+      }`,
+      proxied: true,
+      type: "CNAME",
+      zoneId: zoneId,
+      ttl: 300,
+    })
 
-    new cloudflare.zeroTrustTunnelCloudflaredConfig.ZeroTrustTunnelCloudflaredConfigA(
-      this,
-      `tunnel_config_${name}`,
-      {
-        accountId: config.accountId,
-        tunnelId: this.tunnel.id,
-        config: {
-          warpRouting: {
-            enabled: true,
+    new ZeroTrustTunnelCloudflaredConfigA(this, `tunnel_config_${name}`, {
+      accountId: config.accountId,
+      tunnelId: this.tunnel.id,
+      warpRoutingEnabled: true,
+      config: {
+        ingress: [
+          {
+            hostname: `${sshRecord.content}`,
+            service: `ssh://${instance.name}:22`,
           },
-          ingressRule: [
-            {
-              hostname: `${sshRecord.hostname}`,
-              service: `ssh://${instance.name}:22`,
-            },
-            {
-              hostname: "*",
-              path: "^/_healthcheck$",
-              service: "http_status:200",
-            },
-            {
-              hostname: "*",
-              path: "^/metrics$",
-              service: "http://localhost:2000",
-            },
-            {
-              hostname: "*",
-              path: "^/ready$",
-              service: "http://localhost:2000",
-            },
-            {
-              hostname: `${tunnelRecord.hostname}`,
-              service: "hello-world",
-            },
-            // Add all custom ingress routes for the current hostname here
-            ...instance.instance.ingress.map((ingress) => ({
-              hostname: `${ingress.hostname}`,
-              path: ingress.path ? ingress.path : undefined,
-              service: ingress.service,
-              // Add all originRequest properties if they exist
-              originRequest: ingress.originRequest
-                ? ingress.originRequest
-                : undefined,
-            })),
-            {
-              service: "http_status:404",
-            },
-          ],
-        },
-      }
-    )
+          {
+            hostname: "*",
+            path: "^/_healthcheck$",
+            service: "http_status:200",
+          },
+          {
+            hostname: "*",
+            path: "^/metrics$",
+            service: "http://localhost:2000",
+          },
+          {
+            hostname: "*",
+            path: "^/ready$",
+            service: "http://localhost:2000",
+          },
+          {
+            hostname: `${tunnelRecord.content}`,
+            service: "hello-world",
+          },
+          // Add all custom ingress routes for the current hostname here
+          ...instance.instance.ingress.map((ingress) => ({
+            hostname: `${ingress.hostname}`,
+            path: ingress.path ? ingress.path : undefined,
+            service: ingress.service,
+            // Add all originRequest properties if they exist
+            originRequest: ingress.originRequest
+              ? ingress.originRequest
+              : undefined,
+          })),
+          {
+            service: "http_status:404",
+          },
+        ],
+      },
+    })
 
     // Make sure a CNAME record exists for each unique ingress hostname
     instance.instance.ingress.forEach((ingress) => {
@@ -219,32 +208,27 @@ export class Tunnel extends Construct {
         domain = ingress.hostname.split(".").slice(1).join("_")
       }
 
-      let zoneId = this.cloudflareZones.zones.get(0).id
-
       // If the domain does not match the tunnel domain, fetch the zone id for the domain
       if (domain !== tunnelDomain.split(".").slice(1).join("_")) {
-        let zone = new cloudflare.dataCloudflareZones.DataCloudflareZones(
-          this,
-          `cf_zones_${domain}`,
-          {
-            filter: {
-              accountId: config.accountId,
-              lookupType: "exact",
-              name: ingress.hostname.split(".").slice(1).join("."),
-              status: "active",
-            },
-          }
-        )
-        zoneId = zone.zones.get(0).id
+        let zone = new DataCloudflareZones(this, `cf_zones_${domain}`, {
+          account: {
+            id: config.accountId,
+          },
+          // default name filter operator is "equal"
+          name: ingress.hostname.split(".").slice(1).join("."),
+          status: "active",
+        })
+        zoneId = zone.result.get(0).id
       }
 
-      new cloudflare.record.Record(this, `ingress_record_${name}`, {
+      new DnsRecord(this, `ingress_record_${name}`, {
         comment: RecordComment,
         content: tunnelDomain,
         name: ingress.hostname,
         proxied: true,
         type: "CNAME",
         zoneId: zoneId,
+        ttl: 300,
       })
     })
   }

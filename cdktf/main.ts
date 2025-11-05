@@ -1,5 +1,4 @@
 import * as cdktf from "cdktf"
-import * as cloudflare from "@cdktf/provider-cloudflare"
 import path = require("path")
 import * as random from "@cdktf/provider-random"
 import { MultiRegionOCI } from "./oci/main"
@@ -9,6 +8,7 @@ import * as tailscale from "./.gen/providers/tailscale"
 import { Construct } from "constructs"
 import { App, TerraformStack, TerraformVariable, VariableType } from "cdktf"
 import { OCIConfig } from "./oci/main"
+import { CloudflareProvider } from "@cdktf/provider-cloudflare/lib/provider"
 
 require("json5/lib/register") // eslint-disable-line no-eval
 
@@ -130,7 +130,7 @@ class InfrastructureStack extends TerraformStack {
     ))
 
     // Providers
-    new cloudflare.provider.CloudflareProvider(this, "cloudflare", {
+    new CloudflareProvider(this, "cloudflare", {
       apiToken: cfApiToken.value,
     })
     new random.provider.RandomProvider(this, "random")
