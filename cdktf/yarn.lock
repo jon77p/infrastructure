@@ -2672,10 +2672,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"constructs@npm:10.4.2, constructs@npm:^10.3.0":
+"constructs@npm:10.4.2":
   version: 10.4.2
   resolution: "constructs@npm:10.4.2"
   checksum: 10c0/dcd5edd631c7313964f89fffb7365e1eebaede16cbc9ae69eab5337710353913684b860ccc4b2a3dfaf147656f48f0ae7853ca94cb51833e152b46047ac7a4ff
+  languageName: node
+  linkType: hard
+
+"constructs@npm:^10.3.0":
+  version: 10.4.3
+  resolution: "constructs@npm:10.4.3"
+  checksum: 10c0/8041fe594de621b917e1903fe7b1e4b96ec07e2337e9fab590b351703bd635ae4adb4d1b0fd96df1cc6ba8c189ca346120ec1700bef1200e6e1a7c42e4df2915
   languageName: node
   linkType: hard
 
