@@ -62,7 +62,7 @@ jobs:
     steps:
       - name: Checkout repository
         if: needs.check.outputs.enabled == 'true'
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
 
       # Ensure a compatible version of dotnet is installed.
       # The [Microsoft Security Code Analysis CLI](https://aka.ms/mscadocs) is built with dotnet.
