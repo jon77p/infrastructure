@@ -2,7 +2,7 @@
 version: "3"
 services:
   grafana:
-    image: grafana/grafana-oss:latest@sha256:35c41e0fd0295f5d0ee5db7e780cf33506abfaf47686196f825364889dee878b
+    image: grafana/grafana-oss:latest@sha256:686fa43e9981fc6cf30452037418c58bcb588877c281c2329553e711d3d7f4e0
     restart: always
     volumes:
       - "{{ docker_volume_dirs.grafana[0] }}/grafana.ini:/etc/grafana/grafana.ini"
