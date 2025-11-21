@@ -11,7 +11,7 @@ services:
       - "{{ compose_project_ports[0] }}:2368"
     restart: always
   promtail:
-    image: grafana/promtail:latest@sha256:2aafa34b3d5fba888c51081d3a22c234906ffd3cafc5def11c581549b297d449
+    image: grafana/promtail:latest@sha256:8dcfdf466da0865b09b7393fbf9700e13024c69c72a90cf70887bf79415917b5
     restart: always
     volumes:
       - /var/log/cloudflared.log:/var/log/cloudflared.log:ro
