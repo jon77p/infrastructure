@@ -1,24 +1,7 @@
 ---
-- name: Get 1Password secrets
-  hosts: localhost,monitoring
-  vars:
-    opconnect_items:
-      grafana:
-        - username
-        - password
-        - smtp_username
-        - smtp_password
-  roles:
-    - opconnect
-
 - name: Setup monitoring
   hosts: monitoring
   become: true
   roles:
     - common
     - iptables
-    - dns
-    - healthchecks
-    - cron
-    - grafana
-    - docker
