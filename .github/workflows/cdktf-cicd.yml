@@ -111,7 +111,7 @@ jobs:
         env:
           TERRAFORM_CLOUD_TOKEN: ${{ steps.fetch-terraform-cloud-token.outputs.TERRAFORM_CLOUD_TOKEN }}
       - name: Store generated CDKTF
-        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
         # Only store the CDKTF output if the Terraform CDK step ran
         if: steps.terraform-cdk.outcome != 'skipped' && steps.terraform-cdk.outcome != 'cancelled'
         with:
