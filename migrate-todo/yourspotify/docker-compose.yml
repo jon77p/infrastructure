@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   yourspotifyapp:
-    image: yooooomi/your_spotify_server@sha256:3679ea122e2083703a3f8c1199acf4b1bb81c81da33334bdcaf478bfbbf36e9b
+    image: yooooomi/your_spotify_server@sha256:c1bca9845663e2459a447dae611db8358eeaad006e53b2f03bc3916052b14b97
     links:
       - yourspotifymongo
     depends_on:
