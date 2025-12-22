@@ -1182,16 +1182,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jsii/check-node@npm:1.117.0":
-  version: 1.117.0
-  resolution: "@jsii/check-node@npm:1.117.0"
-  dependencies:
-    chalk: "npm:^4.1.2"
-    semver: "npm:^7.7.2"
-  checksum: 10c0/6f4f4408369660b7cde132d2f5f0ce16fa490b25e227ca9869e18b6ea3e0cd74575d1d13b5f5bc648f6ad0b61a940ea59e704e62fcfb85e85fa8edb456498e47
-  languageName: node
-  linkType: hard
-
 "@jsii/check-node@npm:1.121.0, @jsii/check-node@npm:^1.121.0":
   version: 1.121.0
   resolution: "@jsii/check-node@npm:1.121.0"
@@ -1202,7 +1192,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jsii/spec@npm:1.121.0, @jsii/spec@npm:^1.112.0, @jsii/spec@npm:^1.117.0, @jsii/spec@npm:^1.121.0":
+"@jsii/spec@npm:1.121.0, @jsii/spec@npm:^1.112.0, @jsii/spec@npm:^1.121.0":
   version: 1.121.0
   resolution: "@jsii/spec@npm:1.121.0"
   dependencies:
@@ -1523,11 +1513,11 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*":
-  version: 25.0.2
-  resolution: "@types/node@npm:25.0.2"
+  version: 25.0.3
+  resolution: "@types/node@npm:25.0.3"
   dependencies:
     undici-types: "npm:~7.16.0"
-  checksum: 10c0/12c4044bf2e46ba3d313ddf6256ee3c88e336a62d129fe788eeab8ff2631b3df51eb31ade4cdc04552fbe51e285f0663c49b60c78acd31da2b9f2c86a84347e3
+  checksum: 10c0/b7568f0d765d9469621615e2bb257c7fd1953d95e9acbdb58dffb6627a2c4150d405a4600aa1ad8a40182a94fe5f903cafd3c0a2f5132814debd0e3bfd61f835
   languageName: node
   linkType: hard
 
@@ -2116,11 +2106,11 @@ __metadata:
   linkType: hard
 
 "baseline-browser-mapping@npm:^2.9.0":
-  version: 2.9.7
-  resolution: "baseline-browser-mapping@npm:2.9.7"
+  version: 2.9.11
+  resolution: "baseline-browser-mapping@npm:2.9.11"
   bin:
     baseline-browser-mapping: dist/cli.js
-  checksum: 10c0/500af82926d71d23fab20bcf821eb27deeaad45d1a01bd33d2dea7aab6114149068fa0d42bb9c5c18657e996b6e8063b84612c8fb8ac8ba6c6c6028fa4930ed1
+  checksum: 10c0/eba49fcc1b33ab994aeeb73a4848f2670e06a0886dd5b903689ae6f60d47e7f1bea9262dbb2548c48179e858f7eda2b82ddf941ae783b862f4dcc51085a246f2
   languageName: node
   linkType: hard
 
@@ -2317,9 +2307,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.30001759":
-  version: 1.0.30001760
-  resolution: "caniuse-lite@npm:1.0.30001760"
-  checksum: 10c0/cee26dff5c5b15ba073ab230200e43c0d4e88dc3bac0afe0c9ab963df70aaa876c3e513dde42a027f317136bf6e274818d77b073708b74c5807dfad33c029d3c
+  version: 1.0.30001761
+  resolution: "caniuse-lite@npm:1.0.30001761"
+  checksum: 10c0/8ea4158ccd507b9c73c03b9b3b1b897e75d095c5753a131d0f36ef9b64c19a049174467842dd9e8bebe886ac27ed7a5b1d5adcaae5fe887716b07fc1103e100b
   languageName: node
   linkType: hard
 
@@ -2820,14 +2810,14 @@ __metadata:
   linkType: hard
 
 "dedent@npm:^1.6.0":
-  version: 1.7.0
-  resolution: "dedent@npm:1.7.0"
+  version: 1.7.1
+  resolution: "dedent@npm:1.7.1"
   peerDependencies:
     babel-plugin-macros: ^3.1.0
   peerDependenciesMeta:
     babel-plugin-macros:
       optional: true
-  checksum: 10c0/c5e8a8beb5072bd5e520cb64b27a82d7ec3c2a63ee5ce47dbc2a05d5b7700cefd77a992a752cd0a8b1d979c1db06b14fb9486e805f3ad6088eda6e07cd9bf2d5
+  checksum: 10c0/ae29ec1c5bd5216c698c9f23acaa5b720260fd4cef3c8b5af887eb5f8c9e6fdd5fed8668767437b4efea35e2991bd798987717633411a1734807c28255769b78
   languageName: node
   linkType: hard
 
@@ -4938,8 +4928,8 @@ __metadata:
   linkType: hard
 
 "jsii-rosetta@npm:^5.5.5, jsii-rosetta@npm:^5.8.8":
-  version: 5.9.22
-  resolution: "jsii-rosetta@npm:5.9.22"
+  version: 5.9.23
+  resolution: "jsii-rosetta@npm:5.9.23"
   dependencies:
     "@jsii/check-node": "npm:^1.121.0"
     "@jsii/spec": "npm:^1.121.0"
@@ -4956,7 +4946,7 @@ __metadata:
     yargs: "npm:^17.7.2"
   bin:
     jsii-rosetta: bin/jsii-rosetta
-  checksum: 10c0/4958f6fbf027c7ca09dde58b9b60afb119b8c667680f58b3e3869cd6bfc55e2eed659955eba92de7dcf8b672b1c3088fc936b9fb965f53404c0a93d45fc868c7
+  checksum: 10c0/818f705b47c7b5e28469e8a1a02cdc51b7c979475f942f6a24f255aeaa164d12a2dfd6aa35597251268fb0bc8b0121da4d363177b531659209681ea05d206013
   languageName: node
   linkType: hard
 
@@ -5005,11 +4995,11 @@ __metadata:
   linkType: hard
 
 "jsii@npm:~5.8.0":
-  version: 5.8.22
-  resolution: "jsii@npm:5.8.22"
+  version: 5.8.25
+  resolution: "jsii@npm:5.8.25"
   dependencies:
-    "@jsii/check-node": "npm:1.117.0"
-    "@jsii/spec": "npm:^1.117.0"
+    "@jsii/check-node": "npm:1.121.0"
+    "@jsii/spec": "npm:^1.121.0"
     case: "npm:^1.6.3"
     chalk: "npm:^4"
     fast-deep-equal: "npm:^3.1.3"
@@ -5022,7 +5012,7 @@ __metadata:
     yargs: "npm:^17.7.2"
   bin:
     jsii: bin/jsii
-  checksum: 10c0/b9101d17c24c93e922b944af7f65fbc2e758285309f7b98e753133319767e6d190c8d52c41d194e1e35676fa44e3e06457f7d394ed514a251b2da1cea6f0295d
+  checksum: 10c0/6197404cd4140443e2ead253e1d439a2df91b5790470dc4d9128ebefc00003ba224ca281f89a6d8349acdfbf506a25857bb936dc7e913b6402b2bdc1cc287005
   languageName: node
   linkType: hard
 
@@ -7163,8 +7153,8 @@ __metadata:
   linkType: hard
 
 "update-browserslist-db@npm:^1.2.0":
-  version: 1.2.2
-  resolution: "update-browserslist-db@npm:1.2.2"
+  version: 1.2.3
+  resolution: "update-browserslist-db@npm:1.2.3"
   dependencies:
     escalade: "npm:^3.2.0"
     picocolors: "npm:^1.1.1"
@@ -7172,7 +7162,7 @@ __metadata:
     browserslist: ">= 4.21.0"
   bin:
     update-browserslist-db: cli.js
-  checksum: 10c0/39c3ea08b397ffc8dc3a1c517f5c6ed5cc4179b5e185383dab9bf745879623c12062a2e6bf4f9427cc59389c7bfa0010e86858b923c1e349e32fdddd9b043bb2
+  checksum: 10c0/13a00355ea822388f68af57410ce3255941d5fb9b7c49342c4709a07c9f230bbef7f7499ae0ca7e0de532e79a82cc0c4edbd125f1a323a1845bf914efddf8bec
   languageName: node
   linkType: hard
 
