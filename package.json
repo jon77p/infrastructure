@@ -2,6 +2,6 @@
   "devDependencies": {
     "cdktf-cli": "^0.21.0",
     "markdownlint-cli": "0.47.0",
-    "prettier": "3.7.4"
+    "prettier": "3.8.0"
   }
 }
