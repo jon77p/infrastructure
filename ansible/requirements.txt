@@ -1,5 +1,5 @@
 oci==2.165.1
 dnspython==2.8.0
-jmespath==1.0.1
+jmespath==1.1.0
 cryptography>=42.0.8 # not directly required, pinned by Snyk to avoid a vulnerability
 certifi>=2023.7.22 # not directly required, pinned by Snyk to avoid a vulnerability
