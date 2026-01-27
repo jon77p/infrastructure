@@ -16,7 +16,7 @@
     // "ghcr.io/devcontainers/features/docker-from-docker:1": {
     //   "version": "latest"
     // },
-    "ghcr.io/devcontainers/features/node:1@sha256:3c35dff2aedeaeb86f03e10c265c29b56a1b3609324d83d6e901dbb6032543a4": {
+    "ghcr.io/devcontainers/features/node:1@sha256:cc6660d1a249c181d802e02596de6000bf68722a425ed8378afe90f8cf188952": {
       "version": "latest"
     },
     "ghcr.io/devcontainers/features/rust:1@sha256:0c55e65f2e3df736e478f26ee4d5ed41bae6b54dac1318c443e31444c8ed283c": {
