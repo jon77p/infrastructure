@@ -5,13 +5,13 @@ __metadata:
   version: 8
   cacheKey: 10c0
 
-"@alcalzone/ansi-tokenize@npm:^0.2.1":
-  version: 0.2.4
-  resolution: "@alcalzone/ansi-tokenize@npm:0.2.4"
+"@alcalzone/ansi-tokenize@npm:^0.2.4":
+  version: 0.2.5
+  resolution: "@alcalzone/ansi-tokenize@npm:0.2.5"
   dependencies:
     ansi-styles: "npm:^6.2.1"
     is-fullwidth-code-point: "npm:^5.0.0"
-  checksum: 10c0/3835f11ae52b099ad1585642f0887c31c420d16cb82c8eae0688bee533315ec7a65f6d964ff7772a48a72b582b1b7e428d91a8e598853db9f240c6d96dff0a2a
+  checksum: 10c0/dd8622288426b5b7dbf8b68d51d4b930cea591d0e3b9dbc3f523131464d78ac922c165fcb7ba5307f133d35dbcaa0e6648a1c3fb6a0dc2725546d6f867b70af4
   languageName: node
   linkType: hard
 
@@ -1842,7 +1842,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ansi-escapes@npm:^7.2.0":
+"ansi-escapes@npm:^7.3.0":
   version: 7.3.0
   resolution: "ansi-escapes@npm:7.3.0"
   dependencies:
@@ -3997,11 +3997,11 @@ __metadata:
   linkType: hard
 
 "ink@npm:^6.0.0":
-  version: 6.6.0
-  resolution: "ink@npm:6.6.0"
+  version: 6.7.0
+  resolution: "ink@npm:6.7.0"
   dependencies:
-    "@alcalzone/ansi-tokenize": "npm:^0.2.1"
-    ansi-escapes: "npm:^7.2.0"
+    "@alcalzone/ansi-tokenize": "npm:^0.2.4"
+    ansi-escapes: "npm:^7.3.0"
     ansi-styles: "npm:^6.2.1"
     auto-bind: "npm:^5.0.1"
     chalk: "npm:^5.6.0"
@@ -4014,12 +4014,14 @@ __metadata:
     is-in-ci: "npm:^2.0.0"
     patch-console: "npm:^2.0.0"
     react-reconciler: "npm:^0.33.0"
+    scheduler: "npm:^0.27.0"
     signal-exit: "npm:^3.0.7"
     slice-ansi: "npm:^7.1.0"
     stack-utils: "npm:^2.0.6"
-    string-width: "npm:^8.1.0"
-    type-fest: "npm:^4.27.0"
-    widest-line: "npm:^5.0.0"
+    string-width: "npm:^8.1.1"
+    terminal-size: "npm:^4.0.1"
+    type-fest: "npm:^5.4.1"
+    widest-line: "npm:^6.0.0"
     wrap-ansi: "npm:^9.0.0"
     ws: "npm:^8.18.0"
     yoga-layout: "npm:~3.2.1"
@@ -4032,7 +4034,7 @@ __metadata:
       optional: true
     react-devtools-core:
       optional: true
-  checksum: 10c0/60fe53f122f025c2ee849fb79aba13923fc2ca0ff9ff9af05725742ba613ccad5f1b7e7aba36f6b4a64a9e1c2eb8caa1c678d47993f1281d71408df12b4b82b6
+  checksum: 10c0/2f69ade02213d3e544c7cb0247cf6d18c7a9244be14995905dd98bb03a9f4bd86eb78b29ce1932ec72341f50fba365da7adf898321e533cc239e8d72b4bc9ee1
   languageName: node
   linkType: hard
 
@@ -6670,7 +6672,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"string-width@npm:^8.0.0, string-width@npm:^8.1.0":
+"string-width@npm:^8.0.0, string-width@npm:^8.1.0, string-width@npm:^8.1.1":
   version: 8.1.1
   resolution: "string-width@npm:8.1.1"
   dependencies:
@@ -6771,6 +6773,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tagged-tag@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "tagged-tag@npm:1.0.0"
+  checksum: 10c0/91d25c9ffb86a91f20522cefb2cbec9b64caa1febe27ad0df52f08993ff60888022d771e868e6416cf2e72dab68449d2139e8709ba009b74c6c7ecd4000048d1
+  languageName: node
+  linkType: hard
+
 "tar-fs@npm:^2.0.0":
   version: 2.1.4
   resolution: "tar-fs@npm:2.1.4"
@@ -6817,6 +6826,13 @@ __metadata:
     minizlib: "npm:^3.1.0"
     yallist: "npm:^5.0.0"
   checksum: 10c0/51f261afc437e1112c3e7919478d6176ea83f7f7727864d8c2cce10f0b03a631d1911644a567348c3063c45abdae39718ba97abb073d22aa3538b9a53ae1e31c
+  languageName: node
+  linkType: hard
+
+"terminal-size@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "terminal-size@npm:4.0.1"
+  checksum: 10c0/89afd9d816dd9dbfe4499da9aeea70491bbde4ff4592226a9c8ac71074a7580afead6a78e95ecc35f6d42e09087b55ffcb1019302cd55e0cc957b6ce5c4847e8
   languageName: node
   linkType: hard
 
@@ -6997,10 +7013,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-fest@npm:^4.27.0, type-fest@npm:^4.41.0":
+"type-fest@npm:^4.41.0":
   version: 4.41.0
   resolution: "type-fest@npm:4.41.0"
   checksum: 10c0/f5ca697797ed5e88d33ac8f1fec21921839871f808dc59345c9cf67345bfb958ce41bd821165dbf3ae591cedec2bf6fe8882098dfdd8dc54320b859711a2c1e4
+  languageName: node
+  linkType: hard
+
+"type-fest@npm:^5.4.1":
+  version: 5.4.4
+  resolution: "type-fest@npm:5.4.4"
+  dependencies:
+    tagged-tag: "npm:^1.0.0"
+  checksum: 10c0/bf9c6d7df5383fd720aac71da8ce8690ff1c554459d19cf3c72d61eac98255dba57abe20c628f91f4116f66211791462fdafa90b2be2d7405a5a4c295e4d849d
   languageName: node
   linkType: hard
 
@@ -7334,12 +7359,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"widest-line@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "widest-line@npm:5.0.0"
+"widest-line@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "widest-line@npm:6.0.0"
   dependencies:
-    string-width: "npm:^7.0.0"
-  checksum: 10c0/6bd6cca8cda502ef50e05353fd25de0df8c704ffc43ada7e0a9cf9a5d4f4e12520485d80e0b77cec8a21f6c3909042fcf732aa9281e5dbb98cc9384a138b2578
+    string-width: "npm:^8.1.0"
+  checksum: 10c0/735f1fdcd97fe765a07bb8b5e73c020bed8e53ab34e83ce0ef01693ba3c914d9e7977fe5f5facf0d0b670297a82dd5e376d3efa0896860dfcdaf7cd6924c0fb7
   languageName: node
   linkType: hard
 
