@@ -112,6 +112,7 @@ services:
       - TS_HOSTNAME=idp
       - TSIDP_ENABLE_STS=1
       - TSIDP_USE_FUNNEL=1 # Enable Tailscale Funnel
+      # - TSIDP_DEBUG_ALL_REQUESTS=1 # uncomment to enable verbose logging
       # TODO: switch to client secret
       # - TS_AUTHKEY="{{ tsidp.client_secret }}?ephemeral=false&preauthorized=true"
 
