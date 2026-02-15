@@ -16,8 +16,7 @@
   #   remove_orphans: true
   #   remove_images: all
   #   state: absent
-  ansible.builtin.shell:
-    echo '{{ compose_definition | to_json }}' | jq -r . | docker compose -f - --project-name "{{ compose_project_name }}" down
+  ansible.builtin.shell: echo '{{ compose_definition | to_json }}' | jq -r . | docker compose -f - --project-name "{{ compose_project_name }}" down
     --remove-orphans --rmi "all"
 
 - name: Restart docker systemd service
