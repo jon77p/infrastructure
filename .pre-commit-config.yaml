@@ -103,6 +103,6 @@ repos:
       - id: tfsec
   # Docker-related hooks
   - repo: https://github.com/hadolint/hadolint
-    rev: 02c491342ac7c7a4c0617c01ddd51f49010a77f6 # frozen: v2.12.1-beta
+    rev: fcbd01791c9251d83f2486e61ecaf41ee700a766 # frozen: v2.12.1-beta
     hooks:
       - id: hadolint-docker
