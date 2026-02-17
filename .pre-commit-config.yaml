@@ -59,7 +59,7 @@ repos:
     hooks:
       - id: ripsecrets
   - repo: https://github.com/zricethezav/gitleaks
-    rev: 62aef54969078f83cf8c4bffd4142bd43d726b86 # frozen: v8.16.3
+    rev: 51ca0f89b915509f07f956144ce2c64994b80947 # frozen: v8.16.3
     hooks:
       - id: gitleaks
   # Python-related hooks
