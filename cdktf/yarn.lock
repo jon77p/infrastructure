@@ -1872,7 +1872,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ansi-styles@npm:^6.1.0, ansi-styles@npm:^6.2.1":
+"ansi-styles@npm:^6.1.0, ansi-styles@npm:^6.2.1, ansi-styles@npm:^6.2.3":
   version: 6.2.3
   resolution: "ansi-styles@npm:6.2.3"
   checksum: 10c0/23b8a4ce14e18fb854693b95351e286b771d23d8844057ed2e7d083cd3e708376c3323707ec6a24365f7d7eda3ca00327fe04092e29e551499ec4c8b7bfac868
@@ -4006,8 +4006,8 @@ __metadata:
   linkType: hard
 
 "ink@npm:^6.0.0":
-  version: 6.7.0
-  resolution: "ink@npm:6.7.0"
+  version: 6.8.0
+  resolution: "ink@npm:6.8.0"
   dependencies:
     "@alcalzone/ansi-tokenize": "npm:^0.2.4"
     ansi-escapes: "npm:^7.3.0"
@@ -4025,7 +4025,7 @@ __metadata:
     react-reconciler: "npm:^0.33.0"
     scheduler: "npm:^0.27.0"
     signal-exit: "npm:^3.0.7"
-    slice-ansi: "npm:^7.1.0"
+    slice-ansi: "npm:^8.0.0"
     stack-utils: "npm:^2.0.6"
     string-width: "npm:^8.1.1"
     terminal-size: "npm:^4.0.1"
@@ -4037,13 +4037,13 @@ __metadata:
   peerDependencies:
     "@types/react": ">=19.0.0"
     react: ">=19.0.0"
-    react-devtools-core: ^6.1.2
+    react-devtools-core: ">=6.1.2"
   peerDependenciesMeta:
     "@types/react":
       optional: true
     react-devtools-core:
       optional: true
-  checksum: 10c0/2f69ade02213d3e544c7cb0247cf6d18c7a9244be14995905dd98bb03a9f4bd86eb78b29ce1932ec72341f50fba365da7adf898321e533cc239e8d72b4bc9ee1
+  checksum: 10c0/50500e547fdf6a1f1d836d6befbd4770e3ab649ef0be1884500a6da411fb68a90e22dd7dcc9c404911d30e9f87506b3b9d8e997c6c6ceac85ee054b4dadefaff
   languageName: node
   linkType: hard
 
@@ -4172,7 +4172,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-fullwidth-code-point@npm:^5.0.0":
+"is-fullwidth-code-point@npm:^5.0.0, is-fullwidth-code-point@npm:^5.1.0":
   version: 5.1.0
   resolution: "is-fullwidth-code-point@npm:5.1.0"
   dependencies:
@@ -4969,8 +4969,8 @@ __metadata:
   linkType: hard
 
 "jsii-rosetta@npm:^5.5.5, jsii-rosetta@npm:^5.8.8":
-  version: 5.9.30
-  resolution: "jsii-rosetta@npm:5.9.30"
+  version: 5.9.31
+  resolution: "jsii-rosetta@npm:5.9.31"
   dependencies:
     "@jsii/check-node": "npm:^1.126.0"
     "@jsii/spec": "npm:^1.126.0"
@@ -4987,7 +4987,7 @@ __metadata:
     yargs: "npm:^17.7.2"
   bin:
     jsii-rosetta: bin/jsii-rosetta
-  checksum: 10c0/6f38c4a009ccad14e3f1ee0ae09df1bdbfe423e23333e6eb18aa19e937ac31c4cb8380f601fd5032ed43910b59d0a0a0fea45609bc3693e9c813d044fede66e3
+  checksum: 10c0/36250b66154243ddf6fc46119cc2d42813bc8c48d7bdba6e0329658d6e81d8d7fb184928e9c4efd13c4257feea95b3a989201e60d82f2d5becd31dd5d58deaf7
   languageName: node
   linkType: hard
 
@@ -6492,6 +6492,16 @@ __metadata:
     ansi-styles: "npm:^6.2.1"
     is-fullwidth-code-point: "npm:^5.0.0"
   checksum: 10c0/36742f2eb0c03e2e81a38ed14d13a64f7b732fe38c3faf96cce0599788a345011e840db35f1430ca606ea3f8db2abeb92a8d25c2753a819e3babaa10c2e289a2
+  languageName: node
+  linkType: hard
+
+"slice-ansi@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "slice-ansi@npm:8.0.0"
+  dependencies:
+    ansi-styles: "npm:^6.2.3"
+    is-fullwidth-code-point: "npm:^5.1.0"
+  checksum: 10c0/0ce4aa91febb7cea4a00c2c27bb820fa53b6d2862ce0f80f7120134719f7914fc416b0ed966cf35250a3169e152916392f35917a2d7cad0fcc5d8b841010fa9a
   languageName: node
   linkType: hard
 
