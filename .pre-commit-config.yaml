@@ -25,7 +25,7 @@ repos:
       - id: trailing-whitespace
         exclude: .md
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: f761d025eb06bcd6a45bf152ba3593c9b8ad9a9b # frozen: 0.36.2
+    rev: 9f48a48aa91a6040d749ad68ec70907d907a5a7f # frozen: 0.37.0
     hooks:
       - id: check-dependabot
       - id: check-github-actions
