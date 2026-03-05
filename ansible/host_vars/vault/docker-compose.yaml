@@ -14,7 +14,7 @@ services:
     restart: always
     command: [vault, server, -config, /vault/config/config.hcl]
   opconnect_api:
-    image: 1password/connect-api:latest@sha256:8fe7bcd50c9e73899e0a1aa5aa43421ca75fbceacb33dd07f6418c4116e637a1
+    image: 1password/connect-api:latest@sha256:e915c0c843972f02b0e7e2de502bda8bd4a092288b3f1866098a857bd715a281
     volumes:
       - "{{ docker_volume_dirs.opconnect[0].path }}/1password-credentials.json:/home/opuser/.op/1password-credentials.json"
       - data:/home/opuser/.op/data
