@@ -3480,13 +3480,13 @@ __metadata:
   linkType: hard
 
 "fs-extra@npm:^11.2.0, fs-extra@npm:^11.3.0":
-  version: 11.3.3
-  resolution: "fs-extra@npm:11.3.3"
+  version: 11.3.4
+  resolution: "fs-extra@npm:11.3.4"
   dependencies:
     graceful-fs: "npm:^4.2.0"
     jsonfile: "npm:^6.0.1"
     universalify: "npm:^2.0.0"
-  checksum: 10c0/984924ff4104e3e9f351b658a864bf3b354b2c90429f57aec0acd12d92c4e6b762cbacacdffb4e745b280adce882e1f980c485d9f02c453f769ab4e7fc646ce3
+  checksum: 10c0/e08276f767a62496ae97d711aaa692c6a478177f24a85979b6a2881c9db9c68b8c2ad5da0bcf92c0b2a474cea6e935ec245656441527958fd8372cb647087df0
   languageName: node
   linkType: hard
 
@@ -5029,8 +5029,8 @@ __metadata:
   linkType: hard
 
 "jsii@npm:^5.5.4, jsii@npm:^5.8.9, jsii@npm:~5.9.1":
-  version: 5.9.30
-  resolution: "jsii@npm:5.9.30"
+  version: 5.9.31
+  resolution: "jsii@npm:5.9.31"
   dependencies:
     "@jsii/check-node": "npm:1.127.0"
     "@jsii/spec": "npm:1.127.0"
@@ -5046,7 +5046,7 @@ __metadata:
     yargs: "npm:^17.7.2"
   bin:
     jsii: bin/jsii
-  checksum: 10c0/d1cce287f0c6f56e91d3bd48305c98e4395edc37c2e4b035dff130c4e0e96f6be16295115a0cad92b402dcec129d0ae15aa5c52a91a959b0a1b375586e48479a
+  checksum: 10c0/b17561171d0a16da728b6828b5aa2a1ad29a7c406ed04a74e811f457056680964fe509303a3ce45332c024d755a1b9a8e4ccbacd0becd48f8af0f14677a021b4
   languageName: node
   linkType: hard
 
