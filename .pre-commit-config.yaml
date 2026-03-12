@@ -79,7 +79,7 @@ repos:
             --no-strict-optional,
           ]
   - repo: https://github.com/psf/black
-    rev: 26.3.0 # frozen: 23.3.0
+    rev: 26.3.1 # frozen: 23.3.0
     hooks:
       - id: black
   # Golang-related hooks
