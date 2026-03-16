@@ -520,9 +520,9 @@
     "@types/node" "*"
 
 "@types/node@*":
-  version "25.3.5"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-25.3.5.tgz#beccb5915561f7a9970ace547ad44d6cdbf39b46"
-  integrity sha512-oX8xrhvpiyRCQkG1MFchB09f+cXftgIXb3a7UUa4Y3wpmZPw5tyZGTLWhlESOLq1Rq6oDlc8npVU2/9xiCuXMA==
+  version "25.5.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-25.5.0.tgz#5c99f37c443d9ccc4985866913f1ed364217da31"
+  integrity sha512-jp2P3tQMSxWugkCUKLRPVUpGaL5MVFwF8RDuSRztfwgN1wmqJeMSbKlnEtQqU8UrhTmzEmZdu2I6v2dpp7XIxw==
   dependencies:
     undici-types "~7.18.0"
 
@@ -721,9 +721,9 @@ bare-fs@^4.5.5:
     fast-fifo "^1.3.2"
 
 bare-os@^3.0.1:
-  version "3.7.1"
-  resolved "https://registry.yarnpkg.com/bare-os/-/bare-os-3.7.1.tgz#ec06b7b91a6638e307859803456a49760740a58f"
-  integrity sha512-ebvMaS5BgZKmJlvuWh14dg9rbUI84QeV3WlWn6Ph6lFI8jJoh7ADtVTyD2c93euwbe+zgi0DVrl4YmqXeM9aIA==
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/bare-os/-/bare-os-3.8.0.tgz#888541d443914e861abed02657a6ef1c50bbf383"
+  integrity sha512-Dc9/SlwfxkXIGYhvMQNUtKaXCaGkZYGcd1vuNUUADVqzu4/vQfvnMkYYOUnt2VwQ2AqKr/8qAVFRtwETljgeFg==
 
 bare-path@^3.0.0:
   version "3.0.0"
@@ -733,9 +733,9 @@ bare-path@^3.0.0:
     bare-os "^3.0.1"
 
 bare-stream@^2.6.4:
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/bare-stream/-/bare-stream-2.8.0.tgz#3ac6141a65d097fd2bf6e472c848c5d800d47df9"
-  integrity sha512-reUN0M2sHRqCdG4lUK3Fw8w98eeUIZHL5c3H7Mbhk2yVBL+oofgaIp0ieLfD5QXwPCypBpmEEKU2WZKzbAk8GA==
+  version "2.8.1"
+  resolved "https://registry.yarnpkg.com/bare-stream/-/bare-stream-2.8.1.tgz#a4551375bcb01484c5a66946652ebd718b47903d"
+  integrity sha512-bSeR8RfvbRwDpD7HWZvn8M3uYNDrk7m9DQjYOFkENZlXW8Ju/MPaqUPQq5LqJ3kyjEm07siTaAQ7wBKCU59oHg==
   dependencies:
     streamx "^2.21.0"
     teex "^1.0.1"
@@ -1443,9 +1443,9 @@ find-up@^3.0.0:
     locate-path "^3.0.0"
 
 flatted@^3.2.7:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.4.0.tgz#92ab2efec9b272eb85a3a25a106c3afbbc990d8b"
-  integrity sha512-kC6Bb+ooptOIvWj5B63EQWkF0FEnNjV2ZNkLMLZRDDduIiWeFF4iKnslwhiWxjAdbg4NzTNo6h0qLuvFrcx+Sw==
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.4.1.tgz#84ccd9579e76e9cc0d246c11d8be0beb019143e6"
+  integrity sha512-IxfVbRFVlV8V/yRaGzk0UVIcsKKHMSfYw66T/u4nTwlWteQePsxe//LjudR1AMX4tZW3WFCh3Zqa/sjlqpbURQ==
 
 follow-redirects@1.15.9:
   version "1.15.9"
@@ -2084,9 +2084,9 @@ jsii-rosetta@5.8.8:
     yargs "^17.7.2"
 
 jsii-rosetta@^5.8.8:
-  version "5.9.35"
-  resolved "https://registry.yarnpkg.com/jsii-rosetta/-/jsii-rosetta-5.9.35.tgz#71038f656e8c550b839aad318563c5b3e47822f0"
-  integrity sha512-70VITVYYMBTqjKdi/W/pJsZPxYpR5AdCyeWCFK3VYYUmUinMLmOkD+8jgHdj7NaLolVxAyrCXvGiHmvXVHlkYw==
+  version "5.9.36"
+  resolved "https://registry.yarnpkg.com/jsii-rosetta/-/jsii-rosetta-5.9.36.tgz#087e96614885d368df1a00c5a643b13b7944637b"
+  integrity sha512-jcLFv5ojbbsichqPEM3bT63I9ZYwMhRmG7K/c1aqeR1wMK26ykxI/DqWmpjUfpc1LON0G1981jM5xxJExfvrDQ==
   dependencies:
     "@jsii/check-node" "^1.127.0"
     "@jsii/spec" "^1.127.0"
@@ -2121,9 +2121,9 @@ jsii@5.8.9:
     yargs "^17.7.2"
 
 jsii@^5.8.9, jsii@~5.9.1:
-  version "5.9.32"
-  resolved "https://registry.yarnpkg.com/jsii/-/jsii-5.9.32.tgz#a2370000a2e4ced6f7b21de9fc9bb949fd7070be"
-  integrity sha512-piCJjmYwP1MX4EonRfnw/IcMBSzfB2BNKaNgAPUW9TAXAsc5tBXpd6WyK6qDe3LVWth0H3M06Js2rhgG+kxshg==
+  version "5.9.33"
+  resolved "https://registry.yarnpkg.com/jsii/-/jsii-5.9.33.tgz#84f1613f79a050b4fdc0c08a3452239523769814"
+  integrity sha512-xNItshlDNWzPIuAaON2axQPNPq3x/mPstGUhLIGj50nLBQyf5jFgC4mieFOYTJ0OYmg9T4qs4jmskPCNgYwzlw==
   dependencies:
     "@jsii/check-node" "1.127.0"
     "@jsii/spec" "1.127.0"
@@ -2671,9 +2671,9 @@ napi-build-utils@^2.0.0:
   integrity sha512-GEbrYkbfF7MoNaoh2iGG84Mnf/WZfB0GdGEsM8wz7Expx/LlWf5U8t9nvJKXSp3qr5IsEbK04cBGhol/KwOsWA==
 
 node-abi@^3.3.0:
-  version "3.87.0"
-  resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-3.87.0.tgz#423e28fea5c2f195fddd98acded9938c001ae6dd"
-  integrity sha512-+CGM1L1CgmtheLcBuleyYOn7NWPVu0s0EJH2C4puxgEZb9h8QpR9G2dBfZJOAUhi7VQxuBPMd0hiISWcTyiYyQ==
+  version "3.89.0"
+  resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-3.89.0.tgz#eea98bf89d4534743bbbf2defa9f4f9bd3bdccfd"
+  integrity sha512-6u9UwL0HlAl21+agMN3YAMXcKByMqwGx+pq+P76vii5f7hTPtKDp08/H9py6DY+cfDw7kQNTGEj/rly3IgbNQA==
   dependencies:
     semver "^7.3.5"
 
