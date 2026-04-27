@@ -407,7 +407,7 @@
     chalk "^4.1.2"
     semver "^7.7.4"
 
-"@jsii/check-node@1.128.0", "@jsii/check-node@^1.127.0":
+"@jsii/check-node@1.128.0", "@jsii/check-node@^1.128.0":
   version "1.128.0"
   resolved "https://registry.yarnpkg.com/@jsii/check-node/-/check-node-1.128.0.tgz#b62184a0a7946051ba5c90baf406dbd3df717777"
   integrity sha512-1XirN1v+gbSHFIGSMmB/jPzTdsKEY8P8JOJOS2Vz5j9+T6ZaPJ2ZcJ4foYsIBblKcDWPzVNVJmGC2+ViEzUIsA==
@@ -420,7 +420,7 @@
   resolved "https://registry.yarnpkg.com/@jsii/spec/-/spec-1.127.0.tgz#5e5c1d38b0d5444b55158d03186c4a35b875af4c"
   integrity sha512-LJiQLjlyQuMx1KyoKDdU9SlxNe/3xnllPSTlb6alPL84aYAcrGQX82XX7v554AudesIZHp5p5u0bupTK+v3QWA==
 
-"@jsii/spec@1.128.0", "@jsii/spec@^1.112.0", "@jsii/spec@^1.124.0", "@jsii/spec@^1.127.0":
+"@jsii/spec@1.128.0", "@jsii/spec@^1.112.0", "@jsii/spec@^1.124.0", "@jsii/spec@^1.128.0":
   version "1.128.0"
   resolved "https://registry.yarnpkg.com/@jsii/spec/-/spec-1.128.0.tgz#c7a536a070d455c8e2639517169c9d0ea6d51b25"
   integrity sha512-sv4JP3Ap7Vagh+yoCZ7mkfoKNY3ivV43QQPLzOYaNLgrTW86S+rqfiwTG/ouLn9qSaIC300vDpnT5V9uBGserA==
@@ -575,7 +575,7 @@
   resolved "https://registry.yarnpkg.com/@types/yoga-layout/-/yoga-layout-1.9.2.tgz#efaf9e991a7390dc081a0b679185979a83a9639a"
   integrity sha512-S9q47ByT2pPvD65IvrWp7qppVMpk9WGMbVq9wbWZOHg6tnXSD4vyhao6nOSBwwfDdV2p3Kx9evA9vI+XWTfDvw==
 
-"@xmldom/xmldom@^0.9.8", "@xmldom/xmldom@^0.9.9":
+"@xmldom/xmldom@^0.9.10", "@xmldom/xmldom@^0.9.8":
   version "0.9.10"
   resolved "https://registry.yarnpkg.com/@xmldom/xmldom/-/xmldom-0.9.10.tgz#a0ad5a26fe8aa996310870726e1704977f769dee"
   integrity sha512-A9gOqLdi6cV4ibazAjcQufGj0B1y/vDqYrcuP6d/6x8P27gRS8643Dj9o1dEKtB6O7fwxb2FgBmJS2mX7gpvdw==
@@ -734,9 +734,9 @@ bare-fs@^4.5.5:
     fast-fifo "^1.3.2"
 
 bare-os@^3.0.1:
-  version "3.8.7"
-  resolved "https://registry.yarnpkg.com/bare-os/-/bare-os-3.8.7.tgz#09c7c4e8c817de750b0b69b65c929513f69ede65"
-  integrity sha512-G4Gr1UsGeEy2qtDTZwL7JFLo2wapUarz7iTMcYcMFdS89AIQuBoyjgXZz0Utv7uHs3xA9LckhVbeBi8lEQrC+w==
+  version "3.9.0"
+  resolved "https://registry.yarnpkg.com/bare-os/-/bare-os-3.9.0.tgz#59b1dd75c231067526f811c0e3d985257bd35747"
+  integrity sha512-JTjuZyNIDpw+GytMO4a6TK1VXdVKKJr6DRxEHasyuYyShV2deuiHJK/ahGZlebc+SG0/wJCB9XK8gprBGDFi/Q==
 
 bare-path@^3.0.0:
   version "3.0.0"
@@ -754,9 +754,9 @@ bare-stream@^2.6.4:
     teex "^1.0.1"
 
 bare-url@^2.2.2:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/bare-url/-/bare-url-2.4.1.tgz#4a0c69018f1850f713746bd05464944cc9b0ed66"
-  integrity sha512-fZapLWNB25gS+etK27NV9KgBNXgo2yeYHuj+OyPblQd6GYAE3JVy6aKxszMV5jhGGFwraXQKA5fldvf3lMyEqw==
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/bare-url/-/bare-url-2.4.2.tgz#1faab7d8f1780f6e51d5db03711dc390460874c0"
+  integrity sha512-/9a2j4ac6ckpmAHvod/ob7x439OAHst/drc2Clnq+reRYd/ovddwcF4LfoxHyNk5AuGBnPg+HqFjmE/Zpq6v0A==
   dependencies:
     bare-path "^3.0.0"
 
@@ -2097,13 +2097,13 @@ jsii-rosetta@5.8.8:
     yargs "^17.7.2"
 
 jsii-rosetta@^5.8.8:
-  version "5.9.39"
-  resolved "https://registry.yarnpkg.com/jsii-rosetta/-/jsii-rosetta-5.9.39.tgz#606c6034ca6f5f7d8717730ee87eff1b628c41b4"
-  integrity sha512-Wor9W/JTsH/uJLd3rJxzG6i7NKUi3ZV5tYFTkNLnkxfW6Yf5/By5S/ihP8i36P0hJHivj6oVg/5UsiWBYf2S0A==
+  version "5.9.43"
+  resolved "https://registry.yarnpkg.com/jsii-rosetta/-/jsii-rosetta-5.9.43.tgz#e8da1a02321dc0bc3693cb09b33157248ab524a1"
+  integrity sha512-9r8lvh7ily8tLVMcSKMMX3qx89WKRrjci2Z6e0ayuK+Uyzy9/x6vFrUzasYhGxRt9svkRVP7gpUqGK7qQbLREA==
   dependencies:
-    "@jsii/check-node" "^1.127.0"
-    "@jsii/spec" "^1.127.0"
-    "@xmldom/xmldom" "^0.9.9"
+    "@jsii/check-node" "^1.128.0"
+    "@jsii/spec" "^1.128.0"
+    "@xmldom/xmldom" "^0.9.10"
     chalk "^4"
     commonmark "^0.31.2"
     fast-glob "^3.3.3"
@@ -2193,9 +2193,9 @@ jsonfile@^4.0.0:
     graceful-fs "^4.1.6"
 
 jsonfile@^6.0.1:
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/jsonfile/-/jsonfile-6.2.0.tgz#7c265bd1b65de6977478300087c99f1c84383f62"
-  integrity sha512-FGuPw30AdOIUTRMC2OMRtQV+jkVj2cfPqSeWXv1NEAJ1qZ5zb1X6z1mFhbfOB/iy3ssJCD+3KuZ8r8C3uVFlAg==
+  version "6.2.1"
+  resolved "https://registry.yarnpkg.com/jsonfile/-/jsonfile-6.2.1.tgz#b6e31717f22cc37330b081ce0051ed5de53af2f6"
+  integrity sha512-zwOTdL3rFQ/lRdBnntKVOX6k5cKJwEc1HdilT71BWEu7J41gXIB2MRp+vxduPSwZJPWBxEzv4yH1wYLJGUHX4Q==
   dependencies:
     universalify "^2.0.0"
   optionalDependencies:
