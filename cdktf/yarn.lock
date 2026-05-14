@@ -1186,7 +1186,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jsii/check-node@npm:1.129.0, @jsii/check-node@npm:^1.128.0":
+"@jsii/check-node@npm:1.129.0, @jsii/check-node@npm:^1.129.0":
   version: 1.129.0
   resolution: "@jsii/check-node@npm:1.129.0"
   dependencies:
@@ -1196,7 +1196,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jsii/spec@npm:1.129.0, @jsii/spec@npm:^1.112.0, @jsii/spec@npm:^1.124.0, @jsii/spec@npm:^1.128.0":
+"@jsii/spec@npm:1.129.0, @jsii/spec@npm:^1.112.0, @jsii/spec@npm:^1.124.0, @jsii/spec@npm:^1.129.0":
   version: 1.129.0
   resolution: "@jsii/spec@npm:1.129.0"
   checksum: 10c0/9d5cfd536c99153c2af19af54171353d2c84e4f29411a043a89ae2a5eb92acb9e635251b551042d7aa8886378e22af51bfdfa34f3eda9e6a1b947186b2b1ccab
@@ -4843,11 +4843,11 @@ __metadata:
   linkType: hard
 
 "jsii-rosetta@npm:^5.5.5, jsii-rosetta@npm:^5.8.8":
-  version: 5.9.44
-  resolution: "jsii-rosetta@npm:5.9.44"
+  version: 5.9.45
+  resolution: "jsii-rosetta@npm:5.9.45"
   dependencies:
-    "@jsii/check-node": "npm:^1.128.0"
-    "@jsii/spec": "npm:^1.128.0"
+    "@jsii/check-node": "npm:^1.129.0"
+    "@jsii/spec": "npm:^1.129.0"
     "@xmldom/xmldom": "npm:^0.9.10"
     chalk: "npm:^4"
     commonmark: "npm:^0.31.2"
@@ -4861,7 +4861,7 @@ __metadata:
     yargs: "npm:^17.7.2"
   bin:
     jsii-rosetta: bin/jsii-rosetta
-  checksum: 10c0/f8ed304e18833368e7baca2f001b53f09048623df99b307156e15f7b4518b46d78efcded29bd39342fe5d608646fe07a50c5e73917f9c42c091a4a8dd4acc179
+  checksum: 10c0/56c8a91343d8ca48eb9b324d9fa274332882a18393cb7ba52b58e6d34342c37c50f6827c292ec362e3b96c2e5a5712f94ce8c398ba5242ab901d092f400941a4
   languageName: node
   linkType: hard
 
@@ -4888,8 +4888,8 @@ __metadata:
   linkType: hard
 
 "jsii@npm:^5.5.4, jsii@npm:^5.8.9, jsii@npm:~5.9.1":
-  version: 5.9.39
-  resolution: "jsii@npm:5.9.39"
+  version: 5.9.40
+  resolution: "jsii@npm:5.9.40"
   dependencies:
     "@jsii/check-node": "npm:1.129.0"
     "@jsii/spec": "npm:1.129.0"
@@ -4905,7 +4905,7 @@ __metadata:
     yargs: "npm:^17.7.2"
   bin:
     jsii: bin/jsii
-  checksum: 10c0/d3c99a68265f2a7c70f6f16c8b1f1750b0a862dd796fd244b678815b9f31ac97d4b9804ab75f08d57507b063b2e615e1bf1f6f4a9a378a3d2eaec807db9bd406
+  checksum: 10c0/03a755b87c5f88f1c07daf7f612f115149a2d2681074b5416016a0b61e2b010c230ad02e3a72b6564ac7d74b79546de6cafb112e85eec69668d0a661f7f04f74
   languageName: node
   linkType: hard
 
