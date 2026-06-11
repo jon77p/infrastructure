@@ -1196,7 +1196,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jsii/check-node@npm:1.134.0, @jsii/check-node@npm:^1.132.0":
+"@jsii/check-node@npm:1.134.0, @jsii/check-node@npm:^1.132.0, @jsii/check-node@npm:^1.133.0":
   version: 1.134.0
   resolution: "@jsii/check-node@npm:1.134.0"
   dependencies:
@@ -1213,7 +1213,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jsii/spec@npm:1.134.0, @jsii/spec@npm:^1.112.0, @jsii/spec@npm:^1.124.0, @jsii/spec@npm:^1.132.0":
+"@jsii/spec@npm:1.134.0, @jsii/spec@npm:^1.112.0, @jsii/spec@npm:^1.124.0, @jsii/spec@npm:^1.132.0, @jsii/spec@npm:^1.133.0":
   version: 1.134.0
   resolution: "@jsii/spec@npm:1.134.0"
   checksum: 10c0/925f6d956d34ce15929ac3d42e5ae229179abb1939898afc14b33218956e76f848f218dc17c55fde7f25c666da085af7a525f2edf82466440a2b7ea9ddb9ec91
@@ -2435,7 +2435,7 @@ __metadata:
     jest: "npm:^30.0.0"
     jsii: "npm:^6.0.0"
     jsii-pacmak: "npm:^1.103.1"
-    jsii-rosetta: "npm:^5.5.5"
+    jsii-rosetta: "npm:^6.0.0"
     json5: "npm:^2.2.3"
     ts-jest: "npm:^29.0.3"
     ts-node: "npm:^10.9.1"
@@ -4885,7 +4885,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsii-rosetta@npm:^5.5.5, jsii-rosetta@npm:^5.8.8":
+"jsii-rosetta@npm:^5.8.8":
   version: 5.9.49
   resolution: "jsii-rosetta@npm:5.9.49"
   dependencies:
@@ -4905,6 +4905,29 @@ __metadata:
   bin:
     jsii-rosetta: bin/jsii-rosetta
   checksum: 10c0/28d57b0358bc580f58d61d56425191e9d307e90cbcfd57b40b9d00eeb5bedc3bf1ae46cad81b3c3925964f85bc2e2493d2d83483ba219c13aa857db31d5a89e0
+  languageName: node
+  linkType: hard
+
+"jsii-rosetta@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "jsii-rosetta@npm:6.0.0"
+  dependencies:
+    "@jsii/check-node": "npm:^1.133.0"
+    "@jsii/spec": "npm:^1.133.0"
+    "@xmldom/xmldom": "npm:^0.9.10"
+    chalk: "npm:^4"
+    commonmark: "npm:^0.31.2"
+    fast-glob: "npm:^3.3.3"
+    jsii: "npm:~6.0.0"
+    semver: "npm:^7.8.1"
+    semver-intersect: "npm:^1.5.0"
+    stream-json: "npm:^1.9.1"
+    typescript: "npm:~6.0"
+    workerpool: "npm:^6.5.1"
+    yargs: "npm:^17.7.2"
+  bin:
+    jsii-rosetta: bin/jsii-rosetta
+  checksum: 10c0/11708a5347a87d95d81cb0dcef9bf68ac7d41f71364bea196270a726a20c0d824acdfb8723283bc057bae107282a923a844e9e769dfc2a392c646e548d0b7ecb
   languageName: node
   linkType: hard
 
@@ -4952,7 +4975,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsii@npm:^6.0.0":
+"jsii@npm:^6.0.0, jsii@npm:~6.0.0":
   version: 6.0.1
   resolution: "jsii@npm:6.0.1"
   dependencies:
