@@ -50,7 +50,7 @@ repos:
         args: [--config-file, .github/lint/.yamllint.yaml]
   # Secrets-related hooks
   - repo: https://github.com/gitguardian/gg-shield
-    rev: 0314bfd58b75042fd42bc3418edb3e37f6179853 # frozen: v1.51.0
+    rev: 1d41e1d7f872370cfbc6d03aa34d0de33f92dd3f # frozen: v1.52.0
     hooks:
       - id: ggshield
         args: [secret, scan, pre-commit]
