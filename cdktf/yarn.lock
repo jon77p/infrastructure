@@ -1206,13 +1206,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jsii/check-node@npm:1.136.0, @jsii/check-node@npm:^1.132.0, @jsii/check-node@npm:^1.134.0":
+"@jsii/check-node@npm:1.136.0, @jsii/check-node@npm:^1.132.0":
   version: 1.136.0
   resolution: "@jsii/check-node@npm:1.136.0"
   dependencies:
     chalk: "npm:^4.1.2"
     semver: "npm:^7.8.4"
   checksum: 10c0/c506ea22d7ffe86db94fe4a7ea7092a70d968a1adc339d9daf65cfc350bcd124ee1bd280d17ceca1a6541fa00b3fa8505051735afdff08dd7614303cd034906d
+  languageName: node
+  linkType: hard
+
+"@jsii/check-node@npm:^1.135.0":
+  version: 1.137.0
+  resolution: "@jsii/check-node@npm:1.137.0"
+  dependencies:
+    chalk: "npm:^4.1.2"
+    semver: "npm:^7.8.4"
+  checksum: 10c0/672f1517864c61104ec94c000058e4103027397dd81d1001bb0e4c792133fd8230a038817c9b9042f986d68e6f1cc3765f2fc7a3b9a4b318b82139f41daa4e24
   languageName: node
   linkType: hard
 
@@ -1230,10 +1240,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jsii/spec@npm:1.136.0, @jsii/spec@npm:^1.112.0, @jsii/spec@npm:^1.124.0, @jsii/spec@npm:^1.132.0, @jsii/spec@npm:^1.134.0":
+"@jsii/spec@npm:1.136.0, @jsii/spec@npm:^1.112.0, @jsii/spec@npm:^1.124.0, @jsii/spec@npm:^1.132.0":
   version: 1.136.0
   resolution: "@jsii/spec@npm:1.136.0"
   checksum: 10c0/d1fcdb5fa138d8ad24452d00994687cdb7235a29c7bd1243f63366011a4e8cf419c718c702c9c8ef6479d3be13a8c06c8ba20054ed2eada051602cec0d2ef7fd
+  languageName: node
+  linkType: hard
+
+"@jsii/spec@npm:^1.135.0":
+  version: 1.137.0
+  resolution: "@jsii/spec@npm:1.137.0"
+  checksum: 10c0/69298bdafb06de6b2e7a1af77715c45a7e0d4ea97508df8259f84e5b59ce7dd7d90161773d52c81e11ce532a28c91756e73cb843c645976c5627da96c7f7c710
   languageName: node
   linkType: hard
 
@@ -4927,11 +4944,11 @@ __metadata:
   linkType: hard
 
 "jsii-rosetta@npm:^6.0.0":
-  version: 6.0.1
-  resolution: "jsii-rosetta@npm:6.0.1"
+  version: 6.0.2
+  resolution: "jsii-rosetta@npm:6.0.2"
   dependencies:
-    "@jsii/check-node": "npm:^1.134.0"
-    "@jsii/spec": "npm:^1.134.0"
+    "@jsii/check-node": "npm:^1.135.0"
+    "@jsii/spec": "npm:^1.135.0"
     "@xmldom/xmldom": "npm:^0.9.10"
     chalk: "npm:^4"
     commonmark: "npm:^0.31.2"
@@ -4945,7 +4962,7 @@ __metadata:
     yargs: "npm:^17.7.2"
   bin:
     jsii-rosetta: bin/jsii-rosetta
-  checksum: 10c0/f9f612f01c40c9ca8ee2d8b4a0d7a82b0026e4476593b62f43bcf2c6504fa3ae2f9c2af954d1dc7296767497ece3d76f0d3be637c08bb6bd6e08fc6c073f98f8
+  checksum: 10c0/a6f131e56add3d9763d7e38b8739ea80219cf7e88399e93ce01025f85a87da178eaf28788db595fd7142c0adfc28fdca97e3eb35bf32eeecf10bf3cbd69d98f3
   languageName: node
   linkType: hard
 
