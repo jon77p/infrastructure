@@ -1206,7 +1206,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jsii/check-node@npm:1.138.0, @jsii/check-node@npm:^1.137.0":
+"@jsii/check-node@npm:1.138.0, @jsii/check-node@npm:^1.137.0, @jsii/check-node@npm:^1.138.0":
   version: 1.138.0
   resolution: "@jsii/check-node@npm:1.138.0"
   dependencies:
@@ -1230,7 +1230,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jsii/spec@npm:1.138.0, @jsii/spec@npm:^1.112.0, @jsii/spec@npm:^1.124.0, @jsii/spec@npm:^1.137.0":
+"@jsii/spec@npm:1.138.0, @jsii/spec@npm:^1.112.0, @jsii/spec@npm:^1.124.0, @jsii/spec@npm:^1.137.0, @jsii/spec@npm:^1.138.0":
   version: 1.138.0
   resolution: "@jsii/spec@npm:1.138.0"
   checksum: 10c0/f02c89c6597aa237a35f184667aeaf4916af136fd854f148918569a43b91ac8378ffb20396ed0961079ec492037ab607177100d593c14965860173b7c0a7b37f
@@ -4904,11 +4904,11 @@ __metadata:
   linkType: hard
 
 "jsii-rosetta@npm:^5.8.8":
-  version: 5.9.54
-  resolution: "jsii-rosetta@npm:5.9.54"
+  version: 5.9.55
+  resolution: "jsii-rosetta@npm:5.9.55"
   dependencies:
-    "@jsii/check-node": "npm:^1.137.0"
-    "@jsii/spec": "npm:^1.137.0"
+    "@jsii/check-node": "npm:^1.138.0"
+    "@jsii/spec": "npm:^1.138.0"
     "@xmldom/xmldom": "npm:^0.9.10"
     chalk: "npm:^4"
     commonmark: "npm:^0.31.2"
@@ -4922,13 +4922,13 @@ __metadata:
     yargs: "npm:^17.7.3"
   bin:
     jsii-rosetta: bin/jsii-rosetta
-  checksum: 10c0/c6a3f382a2051d6ad31c370dd94472ed657fa5f57dbf8245e3588b058493845440e622366093c3ac6bce83ba3fec34f3834861268a356f4dd3dd85e622fcd585
+  checksum: 10c0/728b151570c0ad934bc41763e1365189ac6aa89c0399aa791ac4d13344ba6e2e0625bd5141cf3ca6f0664b766f2c1fbc2f77f9720568c68274247a9475165353
   languageName: node
   linkType: hard
 
 "jsii-rosetta@npm:^6.0.0":
-  version: 6.0.3
-  resolution: "jsii-rosetta@npm:6.0.3"
+  version: 6.0.4
+  resolution: "jsii-rosetta@npm:6.0.4"
   dependencies:
     "@jsii/check-node": "npm:^1.137.0"
     "@jsii/spec": "npm:^1.137.0"
@@ -4945,7 +4945,7 @@ __metadata:
     yargs: "npm:^17.7.3"
   bin:
     jsii-rosetta: bin/jsii-rosetta
-  checksum: 10c0/c5998cab0e5deca56428ef4265be568f7958c48b89ebf51ef9907f092b76576a166cf773ff5da6cbe3144e2eedf9053d89452c4a53c40794a6be24625f37ae09
+  checksum: 10c0/ecb697154fcfde4307e0dc2207567bd441d5a33d12464751bec2fb19725588e6f49e1d0ef529b8b9b26fb9beb5d38ffd0666be013aff2f6d5f5d9e588cbc90a3
   languageName: node
   linkType: hard
 
