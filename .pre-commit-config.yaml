@@ -69,7 +69,7 @@ repos:
       - id: pylint
         args: ["-rn", "-sn", "--rcfile=.github/lint/.pylintrc"]
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: 0cbe8f6e54466b1b48f9d41f44abb4d06c061b5e # frozen: v2.2.0
+    rev: 41e691678310dfd3833f7ab4e180ddb014310356 # frozen: v2.3.0
     hooks:
       - id: mypy
         args:
