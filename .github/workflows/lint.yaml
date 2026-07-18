@@ -24,6 +24,6 @@ jobs:
               - added|modified: "**.yml"
       - name: Lint files
         if: ${{ steps.filter.outputs.yaml == 'true' }}
-        uses: reviewdog/action-yamllint@b5f7217d8c815ae374d1d55840d5e569d82f01f0 # v1
+        uses: reviewdog/action-yamllint@e02a49fdf53f51ddd8dfa89b09aa975043aeba38 # v1
         with:
           yamllint_flags: "-c .github/lint/.yamllint.yaml ${{ steps.filter.outputs.yaml_files }}"
