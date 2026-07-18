@@ -3,3 +3,5 @@ dnspython==2.8.0
 jmespath==1.1.0
 cryptography>=42.0.8 # not directly required, pinned by Snyk to avoid a vulnerability
 certifi>=2023.7.22 # not directly required, pinned by Snyk to avoid a vulnerability
+pyopenssl>=26.0.0 # not directly required, pinned by Snyk to avoid a vulnerability
+urllib3>=2.6.3 # not directly required, pinned by Snyk to avoid a vulnerability
