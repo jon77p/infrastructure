@@ -14,13 +14,13 @@ jobs:
           fetch-depth: 0 # fetch all history so multiple commits can be scanned
       # Configure 1Password Service Account
       - name: Configure 1Password Service Account
-        uses: 1Password/load-secrets-action/configure@3a12b0ab99d9cd590a3e9b5a90ea017210ed9556 # v4
+        uses: 1Password/load-secrets-action/configure@eb2efd0703da22a93c467f2d1ffbb6826c11e19c # v4
         id: configure-1password
         with:
           service-account-token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
       # Fetch GITGUARDIAN_API_KEY from 1Password using load-secrets-action
       - name: Fetch Secrets from 1Password
-        uses: 1Password/load-secrets-action@3a12b0ab99d9cd590a3e9b5a90ea017210ed9556 # v4
+        uses: 1Password/load-secrets-action@eb2efd0703da22a93c467f2d1ffbb6826c11e19c # v4
         id: fetch-secrets
         with:
           export-env: false
