@@ -5069,8 +5069,8 @@ __metadata:
   linkType: hard
 
 "jsii@npm:^5.8.9, jsii@npm:~5.9.1":
-  version: 5.9.49
-  resolution: "jsii@npm:5.9.49"
+  version: 5.9.51
+  resolution: "jsii@npm:5.9.51"
   dependencies:
     "@jsii/check-node": "npm:1.139.0"
     "@jsii/spec": "npm:1.139.0"
@@ -5086,13 +5086,13 @@ __metadata:
     yargs: "npm:^17.7.3"
   bin:
     jsii: bin/jsii
-  checksum: 10c0/b04b7afe4fe745a7f96e97474489cf5612a3a390120fb34778e9024978fc93fb86ffb316bdca16449cac11c95a69f239df542c7a79bc5d77e0d78b795af03df3
+  checksum: 10c0/441fdcfbfc7703f6405de18244e2ca0f1bfd17842d903cef8fe03d0d761bd1b948ab6b79b9f170cf67f91877a6765fbbee4a92c0bed9159fd9fa839500336350
   languageName: node
   linkType: hard
 
 "jsii@npm:^6.0.0, jsii@npm:~6.0.0":
-  version: 6.0.7
-  resolution: "jsii@npm:6.0.7"
+  version: 6.0.9
+  resolution: "jsii@npm:6.0.9"
   dependencies:
     "@jsii/check-node": "npm:1.139.0"
     "@jsii/spec": "npm:1.139.0"
@@ -5108,7 +5108,7 @@ __metadata:
     yargs: "npm:^17.7.3"
   bin:
     jsii: bin/jsii
-  checksum: 10c0/7f4e7d1711cd3ddf369bab8560e1a845198be75ae67552bde5b67374bbae08e28dedaa84239fbb9122b406e1f296b80251b173ef25279e155630330c261e8075
+  checksum: 10c0/e8c4ed09dec8b3a79ace3592700a53a07721d8dda87efcf5d4ff37e4115653f6a4c8d4a16f011d7d6554b722710f4bedfef6331a35b54b0d93ebc04d9585fa85
   languageName: node
   linkType: hard
 
