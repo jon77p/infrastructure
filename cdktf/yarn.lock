@@ -5001,8 +5001,8 @@ __metadata:
   linkType: hard
 
 "jsii-rosetta@npm:^5.8.8":
-  version: 5.9.58
-  resolution: "jsii-rosetta@npm:5.9.58"
+  version: 5.9.60
+  resolution: "jsii-rosetta@npm:5.9.60"
   dependencies:
     "@jsii/check-node": "npm:^1.139.0"
     "@jsii/spec": "npm:^1.139.0"
@@ -5019,13 +5019,13 @@ __metadata:
     yargs: "npm:^17.7.3"
   bin:
     jsii-rosetta: bin/jsii-rosetta
-  checksum: 10c0/1e87bface773c622bd616bacebb206fc744e822cd3dccd46f261202f0e2ee059ab6dbd7f3f63c3b6353e0b84c78be6b3c93e77120fe090c507509ace20bc7267
+  checksum: 10c0/acd9d77afca2168052d9a474ee4c3e90404e62e11e0af6fd4d2b336d7f312119536ad52e296ae7c339c95c6c841b1bcbd2510ec1699c8fc80351b4c63e9d4755
   languageName: node
   linkType: hard
 
 "jsii-rosetta@npm:^6.0.0":
-  version: 6.0.7
-  resolution: "jsii-rosetta@npm:6.0.7"
+  version: 6.0.9
+  resolution: "jsii-rosetta@npm:6.0.9"
   dependencies:
     "@jsii/check-node": "npm:^1.139.0"
     "@jsii/spec": "npm:^1.139.0"
@@ -5042,7 +5042,7 @@ __metadata:
     yargs: "npm:^17.7.3"
   bin:
     jsii-rosetta: bin/jsii-rosetta
-  checksum: 10c0/371a07efeb9c9783f69d4ba9b374583903fef8fd345f505fc67e876ccf13914754492edcf7cc0db1c53eec3bfbbab92c88ebb2a9858604af6a314d5f9a2e9fcb
+  checksum: 10c0/dcb253f7abab4872f34f8356035a9af47f5cd1c3d138399d46a3ac5c203287696c7e4f630758d0fba5919a6bdc54cfc338f40140b1564d39221a90b6486784f8
   languageName: node
   linkType: hard
 
