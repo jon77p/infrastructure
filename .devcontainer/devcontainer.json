@@ -22,7 +22,7 @@
     "ghcr.io/devcontainers/features/rust:1@sha256:f7afd923fd283db88ca961342ae65ea63a8c95bcf86e42c4c363f43bc4ba26a5": {
       "version": "latest"
     },
-    "ghcr.io/devcontainers/features/terraform:1@sha256:a286b8c7586de5de9bc8057a54fca53f8732896aef456326efe6e9dc8c36977d": {
+    "ghcr.io/devcontainers/features/terraform:1@sha256:bc9eaf21aaba050bace59f411c282cb58058535a48232c059e60c19f86caa8f5": {
       "version": "latest"
     }
   },
