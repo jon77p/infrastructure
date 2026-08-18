@@ -40,12 +40,12 @@ jobs:
           persist-credentials: false
       # Configure 1Password Service Account
       - name: Configure 1Password Service Account
-        uses: 1Password/load-secrets-action/configure@e544b780808654ba8ceba5fb2fe2897103d92ff4 # v5
+        uses: 1Password/load-secrets-action/configure@70062d7a876d3eb6334754fa26efd2fbd90c32f2 # v5
         with:
           service-account-token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
       # Fetch TERRAFORM_CLOUD_TOKEN from 1Password using load-secrets-action
       - name: Fetch TERRAFORM_CLOUD_TOKEN from 1Password
-        uses: 1Password/load-secrets-action@e544b780808654ba8ceba5fb2fe2897103d92ff4 # v5
+        uses: 1Password/load-secrets-action@70062d7a876d3eb6334754fa26efd2fbd90c32f2 # v5
         id: fetch-terraform-cloud-token
         with:
           export-env: false
