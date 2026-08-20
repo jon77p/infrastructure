@@ -1880,7 +1880,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xmldom/xmldom@npm:^0.9.10, @xmldom/xmldom@npm:^0.9.8":
+"@xmldom/xmldom@npm:^0.9.11, @xmldom/xmldom@npm:^0.9.8":
   version: 0.9.11
   resolution: "@xmldom/xmldom@npm:0.9.11"
   checksum: 10c0/f29dd4a35b525224cb1bdc8728041fdab218c3a2f5572452c764781490d64a6755f34a1792212abe7ca319a18b157de5dcf9734f067560b968e6ba2b66d58f0f
@@ -5001,12 +5001,12 @@ __metadata:
   linkType: hard
 
 "jsii-rosetta@npm:^5.8.8":
-  version: 5.9.61
-  resolution: "jsii-rosetta@npm:5.9.61"
+  version: 5.9.62
+  resolution: "jsii-rosetta@npm:5.9.62"
   dependencies:
     "@jsii/check-node": "npm:^1.139.0"
     "@jsii/spec": "npm:^1.139.0"
-    "@xmldom/xmldom": "npm:^0.9.10"
+    "@xmldom/xmldom": "npm:^0.9.11"
     chalk: "npm:^4"
     commonmark: "npm:^0.31.2"
     fast-glob: "npm:^3.3.3"
@@ -5019,17 +5019,17 @@ __metadata:
     yargs: "npm:^17.7.3"
   bin:
     jsii-rosetta: bin/jsii-rosetta
-  checksum: 10c0/61301e5bf8aa8b195fe250ac182bb7fb47cdbe7f89a02a9e9e355df492a41ec9f02ecf8f28442d78158c3b1b99cbe66ed2b6d85cb5308ff151fdd6f6ed38727e
+  checksum: 10c0/6a38f14058e15990ed902701a6536bc9778daa61d268bd60231394586f0c210b8188b14c177c95b9539b34aa1c9e09d1288836ba7440644414dd78cb0c5772b3
   languageName: node
   linkType: hard
 
 "jsii-rosetta@npm:^6.0.0":
-  version: 6.0.10
-  resolution: "jsii-rosetta@npm:6.0.10"
+  version: 6.0.11
+  resolution: "jsii-rosetta@npm:6.0.11"
   dependencies:
     "@jsii/check-node": "npm:^1.139.0"
     "@jsii/spec": "npm:^1.139.0"
-    "@xmldom/xmldom": "npm:^0.9.10"
+    "@xmldom/xmldom": "npm:^0.9.11"
     chalk: "npm:^4"
     commonmark: "npm:^0.31.2"
     fast-glob: "npm:^3.3.3"
@@ -5042,7 +5042,7 @@ __metadata:
     yargs: "npm:^17.7.3"
   bin:
     jsii-rosetta: bin/jsii-rosetta
-  checksum: 10c0/39db36d0b45f24cacea14b83af6e04311929367bdc96c8ef17b25d5e7eda60e2abff945d3531cc5f7bb9eef28d52ffbf3ab222b73cfde861a5007e2baf27119b
+  checksum: 10c0/ba5ef5346cf91761329942c01e14664b475cea81196165e1e4f1ad072a1da1bbb2b7afc5ab179c7f22c22fe446eacdd09e1e571e16585995322b6bd431190dc5
   languageName: node
   linkType: hard
 
