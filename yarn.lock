@@ -562,10 +562,10 @@
   resolved "https://registry.yarnpkg.com/@types/yoga-layout/-/yoga-layout-1.9.2.tgz#efaf9e991a7390dc081a0b679185979a83a9639a"
   integrity sha512-S9q47ByT2pPvD65IvrWp7qppVMpk9WGMbVq9wbWZOHg6tnXSD4vyhao6nOSBwwfDdV2p3Kx9evA9vI+XWTfDvw==
 
-"@xmldom/xmldom@^0.9.10", "@xmldom/xmldom@^0.9.8":
-  version "0.9.11"
-  resolved "https://registry.yarnpkg.com/@xmldom/xmldom/-/xmldom-0.9.11.tgz#2ed75a186886383624cf16400930ed6b9adaa656"
-  integrity sha512-tW8bcK3hsG0/uqSnNz6TK4BkcuZSezoU7DlnYssILmZDktPnSHHuDJJFM0AJv+13gz2r0iGdrj6qqKeUnxXEDg==
+"@xmldom/xmldom@^0.9.11", "@xmldom/xmldom@^0.9.8":
+  version "0.9.12"
+  resolved "https://registry.yarnpkg.com/@xmldom/xmldom/-/xmldom-0.9.12.tgz#1f84c07cb95ccf28202299f77b5fd7fc257151e8"
+  integrity sha512-5AXjrcMClTryPe9LgZrygpB1lj7s0S9E0+W+AHaVKAVyHanafK86iPSvG5xHVSp/jC+VH1UXu0TAEmY279xH7A==
 
 abort-controller@^3.0.0:
   version "3.0.0"
@@ -2078,13 +2078,13 @@ jsii-rosetta@5.8.8:
     yargs "^17.7.2"
 
 jsii-rosetta@^5.8.8:
-  version "5.9.61"
-  resolved "https://registry.yarnpkg.com/jsii-rosetta/-/jsii-rosetta-5.9.61.tgz#93c34497617910055116d673eee1a16dd104027d"
-  integrity sha512-B9VS+zTEhYH3cS3kRrWajGaqfiT9wGIGlNM2ivSZoss2ggJGnI03S924jsalvtHeTf8t9n5+daHgr1PYkdUH4w==
+  version "5.9.62"
+  resolved "https://registry.yarnpkg.com/jsii-rosetta/-/jsii-rosetta-5.9.62.tgz#e985a69dc386e5b6a7c467e9cf23f7455f2f2293"
+  integrity sha512-Zvg/aZnPna8vfn00WX/V1PhmSvehonNxwb6WxwSNK2cyzehw8XmiIRiAszyKRc5NhBTk5XWvnZroBZ0EXDeEZw==
   dependencies:
     "@jsii/check-node" "^1.139.0"
     "@jsii/spec" "^1.139.0"
-    "@xmldom/xmldom" "^0.9.10"
+    "@xmldom/xmldom" "^0.9.11"
     chalk "^4"
     commonmark "^0.31.2"
     fast-glob "^3.3.3"
