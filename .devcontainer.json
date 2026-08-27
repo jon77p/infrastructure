@@ -2,7 +2,7 @@
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.236.0/containers/ubuntu
 {
   "name": "Template",
-  "image": "ghcr.io/jon77p/codespaces/images/default:latest@sha256:34be50ccfbcb6e0a41d210f352d8d98e0d0e81ce7188189861cd4460fcebbf7c",
+  "image": "ghcr.io/jon77p/codespaces/images/default:latest@sha256:162a012a77b7ee99f1c55a8deb3544f0d44f8a76156133fe3c1ce500c26de342",
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   // "forwardPorts": [],
