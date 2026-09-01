@@ -27,7 +27,7 @@ jobs:
         env:
           GITGUARDIAN_API_KEY: op://Infrastructure/gitguardian/credentials/token
       - name: GitGuardian scan
-        uses: GitGuardian/gg-shield-action@7059aef1ffb7d2374ce27201144f5613beecefe0 # master
+        uses: GitGuardian/gg-shield-action@4a703dc496925eb3a123c01aab13aa01deaf9ce5 # master
         env:
           GITHUB_PUSH_BEFORE_SHA: ${{ github.event.before }}
           GITHUB_PUSH_BASE_SHA: ${{ github.event.after }}
