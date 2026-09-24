@@ -25,7 +25,7 @@ repos:
       - id: trailing-whitespace
         exclude: .md
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 99f2dd369364da7ed3ac536504132b3db2e7a3b1 # frozen: 0.38.1
+    rev: 0494aa7fa1314e98913a41227d8f0a515b2c1049 # frozen: 0.38.2
     hooks:
       - id: check-dependabot
       - id: check-github-actions
@@ -64,7 +64,7 @@ repos:
       - id: gitleaks
   # Python-related hooks
   - repo: https://github.com/pycqa/pylint
-    rev: v4.0.8 # frozen: v3.0.0a6
+    rev: v4.0.9 # frozen: v3.0.0a6
     hooks:
       - id: pylint
         args: ["-rn", "-sn", "--rcfile=.github/lint/.pylintrc"]
