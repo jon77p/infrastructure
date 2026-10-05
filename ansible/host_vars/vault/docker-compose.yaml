@@ -22,7 +22,7 @@ services:
       - "{{ opconnect.api.port }}:{{ opconnect.api.internal_port }}"
     restart: always
   opconnect_sync:
-    image: 1password/connect-sync:latest@sha256:6297ca6136c0f0fb096bc64c49e1bc8df2aab35282ebff8c7bb60745ef176d0d
+    image: 1password/connect-sync:latest@sha256:a760350c941a3e7c98dd66394e9fc3c7e68b6a0a2246a837c74084e534f75f6b
     volumes:
       - "{{ docker_volume_dirs.opconnect[0].path }}/1password-credentials.json:/home/opuser/.op/1password-credentials.json"
       - data:/home/opuser/.op/data
