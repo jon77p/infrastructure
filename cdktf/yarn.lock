@@ -5056,8 +5056,8 @@ __metadata:
   linkType: hard
 
 "jsii-rosetta@npm:^5.8.8":
-  version: 5.9.72
-  resolution: "jsii-rosetta@npm:5.9.72"
+  version: 5.9.74
+  resolution: "jsii-rosetta@npm:5.9.74"
   dependencies:
     "@jsii/check-node": "npm:^1.142.0"
     "@jsii/spec": "npm:^1.142.0"
@@ -5066,21 +5066,21 @@ __metadata:
     commonmark: "npm:^0.31.2"
     fast-glob: "npm:^3.3.3"
     jsii: "npm:~5.9.1"
-    semver: "npm:^7.8.5"
+    semver: "npm:^7.8.6"
     semver-intersect: "npm:^1.5.0"
-    stream-json: "npm:^3.7.0"
+    stream-json: "npm:^3.9.0"
     typescript: "npm:~5.9"
     workerpool: "npm:^6.5.1"
     yargs: "npm:^17.7.3"
   bin:
     jsii-rosetta: bin/jsii-rosetta
-  checksum: 10c0/444f10c60db0e596962a1acd63e9f3763e6e51dd7e3399a62bab8a58e2935ae02088f6425cc54037d9d5d0f5049c2e983d635c1bf7de64f8997e9952d00503b3
+  checksum: 10c0/e006d905835ff467d34e29aa3a5d95d6974bb856a5c7c976f760f58bbef874590ebe9e5a6af5847dad9bc1d79bb1020eb0e2602dcf8645013b98c28e7894a428
   languageName: node
   linkType: hard
 
 "jsii-rosetta@npm:^6.0.0":
-  version: 6.0.22
-  resolution: "jsii-rosetta@npm:6.0.22"
+  version: 6.0.24
+  resolution: "jsii-rosetta@npm:6.0.24"
   dependencies:
     "@jsii/check-node": "npm:^1.142.0"
     "@jsii/spec": "npm:^1.142.0"
@@ -5089,15 +5089,15 @@ __metadata:
     commonmark: "npm:^0.31.2"
     fast-glob: "npm:^3.3.3"
     jsii: "npm:~6.0.0"
-    semver: "npm:^7.8.5"
+    semver: "npm:^7.8.6"
     semver-intersect: "npm:^1.5.0"
-    stream-json: "npm:^3.7.0"
+    stream-json: "npm:^3.9.0"
     typescript: "npm:~6.0"
     workerpool: "npm:^6.5.1"
     yargs: "npm:^17.7.3"
   bin:
     jsii-rosetta: bin/jsii-rosetta
-  checksum: 10c0/16be624228564752ebbfe51647f116d2b0823648b3e0f838a4a970f166985905da8cafd58c504564e46b3f5005ecd526029c3e242e03b678c308c204e15f20b5
+  checksum: 10c0/875a9bfff9348d6d6b314afe813a092a724403f2185987ae2c5c4fa4903da1da96e8566195063490923ef6d600a521f0d73cce5a8eecfb5ad73b2d4644b21fd8
   languageName: node
   linkType: hard
 
@@ -6572,10 +6572,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stream-chain@npm:^4.4.1":
-  version: 4.4.1
-  resolution: "stream-chain@npm:4.4.1"
-  checksum: 10c0/130fc6d677f378a223c8fe3e5ee47e10ad898f2551f1e2b2134c2f77d0f8ac98d62d6ba185f99603332ac02f56b4c7b4abc86f23cecfed81b217885a306d410c
+"stream-chain@npm:^4.4.2":
+  version: 4.4.2
+  resolution: "stream-chain@npm:4.4.2"
+  checksum: 10c0/171d4f0ee4f4b697a22fed9734ad5e39a1190cb3dc9ffbae5682fd6036dddf3aefd3685a00a935c72b8478c34c800c031c078c2ec382356127df537fad6c30c9
   languageName: node
   linkType: hard
 
@@ -6588,12 +6588,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stream-json@npm:^3.7.0":
-  version: 3.8.0
-  resolution: "stream-json@npm:3.8.0"
+"stream-json@npm:^3.9.0":
+  version: 3.9.0
+  resolution: "stream-json@npm:3.9.0"
   dependencies:
-    stream-chain: "npm:^4.4.1"
-  checksum: 10c0/4c652f988b391477d37ad32a58751e3898b50b132696907d6f407591a42408b4a4bbe7e2f6ef9d27a02a2030637c0c892e7f348cc5ff8f9cfc4d797671873a76
+    stream-chain: "npm:^4.4.2"
+  checksum: 10c0/07c2691057d874f78bb9dd1453666dbdd4e66819125def54140665677fd344f1156b756c9529aec212e6145bcb9a0c4ff3f5fc794fc607c58aa3881d596febb4
   languageName: node
   linkType: hard
 
