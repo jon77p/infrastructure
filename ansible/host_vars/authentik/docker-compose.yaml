@@ -102,7 +102,7 @@ services:
   # TSIDP
   tsidp:
     container_name: tsidp
-    image: ghcr.io/tailscale/tsidp:latest@sha256:59d7b88560d303755b03458af0d6994e71743f4b5f7093825aaff1f518849794
+    image: ghcr.io/tailscale/tsidp:latest@sha256:cf03611ba9e642a0e6cd7cd92954ecd314731a06756a763be5f0148a92d9f306
     restart: always
     volumes:
       - "{{ docker_volume_dirs.tsidp[0].path }}:/data"
